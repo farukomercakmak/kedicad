@@ -1,0 +1,249 @@
+' Gambas class file
+
+Public rese As Integer
+
+Static Public Sub Main()
+
+    Dim hForm As Form
+
+    hForm = New Secenekler
+    hForm.Show
+
+End
+
+Public Sub Button1_Click()
+
+    Dim myFile As File
+    Dim sgm As String
+
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/.pcad.ulu" For Create
+    Print #myFile, boyutlu.Text
+    Print #myFile, arkaplan.Value
+    Print #myFile, kayitara.Value
+    Print #myFile, kayitdak.Text
+    Print #myFile, birimli.Text
+    Print #myFile, ucyakdeger.Text
+    Print #myFile, ucyakrenk.Value
+    Print #myFile, sagmenu.Text
+    Print #myFile, yazibuyuk.Text
+    Print #myFile, yazirenk.Value
+    Print #myFile, cizgirenk.Value
+    Print #myFile, cizgiuzama.Text
+    Print #myFile, cizgiyazi.Text
+    Print #myFile, ondalik.Index
+    Print #myFile, hiz.Index
+    Print #myFile, secciz.Text
+    Print #myFile, yakin.Text
+    If ilk.imlec = 1 Then
+        Print #myFile, 1
+    Else
+        Print #myFile, 0
+    End If
+    Print #myFile, secis.Text
+    If okbuyuk.Text <> Null
+        Print #myFile, okbuyuk.Text
+    Else
+        okbuyuk.Text = 5
+        Print #myFile, 5
+    End If
+    Print #myFile, ucyakrenk2.Value
+    Close myFile
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/sagmen" For Create
+    Print #myFile, sagmenu.Text
+    Close myFile
+
+    ilk.hiz = hiz.Text
+    ilk.ucrenk = ucyakrenk.Value
+    If secis.Text <> ""
+        ilk.secis = CFloat(secis.Text)
+    Else
+        ilk.secis = 5
+    Endif
+    ilk.calanilk.Background = arkaplan.Value
+    ilk.apla = arkaplan.Value
+
+    If ilk.calanilk.Background = color.Black
+        ilk.apla = color.White
+    Else
+        ilk.apla = color.Black
+    End If
+    If sagmenu.Text = "İsim Listesi"
+        ilk.sagmenu = 1
+    Else
+        ilk.sagmenu = 2
+    End If
+    If Val(ucyakdeger.Text) <> "" Then ilk.ucum = Val(ucyakdeger.Text)
+    ilk.hiv = CInt(hiz.Text)
+    ilk.tasec = CInt(yakin.Text)
+    sgm = sagmenu.Text
+    If sagmenu.Text = "İsim Listesi"
+        ilk.sagmenu = 1
+    Else
+        ilk.sagmenu = 2
+    End If
+
+    ilk.calanilk.Refresh
+    ' Catch
+
+End
+
+Public Sub Form_Open()
+
+    Dim myFile As File
+    Dim myLine As String
+    Dim doza As Integer
+
+    doza = 0
+    hiz.Clear
+    birim.Clear
+    boyut.Clear
+    sagtik.Clear
+    hiz2.Add("aktif", 0)
+    hiz2.Add("pasif", 1)
+    boyut.add("A4", 0)
+    boyut.Add("A3", 1)
+    boyut.Add("A2", 2)
+    boyut.Add("A1", 3)
+    boyut.Add("A0", 4)
+    boyut.Add("A5", 5)
+    birim.add("mm.", 0)
+    birim.Add("cm.", 1)
+    birim.Add("dm.", 2)
+    birim.Add("m.", 3)
+    birim.Add("dem.", 4)
+    birim.Add("hm.", 5)
+    birim.Add("km.", 6)
+    hiz.Add("50", 0)
+    hiz.Add("60", 1)
+    hiz.Add("70", 2)
+    hiz.Add("80", 3)
+    hiz.Add("90", 4)
+    sagtik.Add("Show Menu.", 0)
+    sagtik.Add("Last Command.", 1)
+    arkaplan.Value = ilk.calanilk.Background
+    sagsecim.Add("Menu List", 0)
+    sagsecim.Add("Picture Menu", 1)
+    sagmenu.Text = ilk.sagmenu
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/.pcad.ulu")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/.pcad.ulu" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                If doza = 0 Then boyutlu.Text = myLine
+                If doza = 1 Then arkaplan.Value = Val(myLine)
+                If doza = 2 Then kayitara.Value = Val(myLine)
+                If doza = 3 Then kayitdak.Text = Val(myLine)
+                If doza = 4 Then birimli.text = myLine
+                If doza = 5 Then ucyakdeger.Text = myLine
+                If doza = 6 Then ucyakrenk.Value = Val(myLine)
+                If doza = 7 Then sagmenu.Text = myLine
+                If doza = 8 Then yazibuyuk.Text = myLine
+                If doza = 9 Then yazirenk.Value = Val(myLine)
+                If doza = 10 Then cizgirenk.Value = Val(myLine)
+                If doza = 11 Then cizgiuzama.Text = myLine
+                If doza = 12 Then cizgiyazi.Text = myLine
+                If doza = 13 Then
+                    If Val(myLine) Then ondalik.Index = Val(myLine)
+                End If
+                If doza = 14 Then hiz.Index = Val(myLine)
+                If doza = 15 Then secciz.Text = myLine
+                If doza = 16 Then yakin.Text = myLine
+                If doza = 18 Then secis.Text = myLine
+                doza = doza + 1
+            Wend
+        End If
+        Close myFile
+    End If
+    Me.text = "KediCAD 2B OPTIONS"
+
+End
+
+Public Sub Button2_Click()
+
+    ilk.hiv = CInt(hiz.Text)
+    ilk.Show
+    Me.hide
+
+End
+
+Public Sub boyut_Click()
+
+    boyutlu.Text = boyut.Text
+
+End
+
+Public Sub birim_Click()
+
+    birimli.Text = birim.Text
+
+End
+
+Public Sub sagtik_Change()
+
+    sagtikli.Text = sagtik.Text
+
+End
+
+Public Sub Button3_Click()
+
+    rese = 1
+    arkaplan.Value = Color.Black
+
+End
+
+Public Sub sagsecim_Click()
+
+    sagmenu.Text = sagsecim.Text
+
+End
+
+Public Sub Button4_Click()
+
+    ilk.imlec = 0
+
+End
+
+Public Sub Button5_Click()
+
+    ilk.imlec = 1
+
+End
+
+Public Sub hiz2_Click()
+
+    Dim myFile As File
+
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/onsec" For Create
+    Print #myFile, hiz2.Text
+    Close #myFile
+
+    If hiz2.Text = "aktif"
+        ilk.onsec = 1
+    Else
+        ilk.onsec = 0
+    End If
+
+End
+
+Public Sub Button6_Click()
+
+    Dim myFile As File
+
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/yer" For Create
+    Print #myFile, 1
+    Close #myFile
+    ilk.form_Resize()
+
+End
+
+Public Sub Button7_Click()
+
+    Dim myFile As File
+
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/yer" For Create
+    Print #myFile, 2
+    Close #myFile
+    ilk.form_Resize()
+
+End
+

@@ -1,0 +1,1022 @@
+' Gambas module file
+
+Public bazgi As Cvb
+Public cazgi As Czm
+Public nazgi As Czm
+Public lusx As Float
+Public lusy As Float
+Public musx As Float
+Public musy As Float
+Public tusx As Float
+Public tusy As Float
+Public b11 As Integer
+Public c1 As Integer
+Public c2 As Integer
+Public c3 As Integer
+Public c4 As Integer
+Public c5 As Integer
+Public c6 As Integer
+Public c7 As Integer
+Public c8 As Integer
+Public c9 As Integer
+Public tut As Integer
+Public enyakin As Integer
+Public x1 As Float
+Public y1 As Float
+Public x2 As Float
+Public y2 As Float
+Public x3 As Float
+Public y3 As Float
+Public x4 As Float
+Public y4 As Float
+Public x5 As Float
+Public y5 As Float
+Public re As Float
+Public rex As Float
+Public rey As Float
+Public temx As Float
+Public temy As Float
+Public tet As Float
+Public tet2 As Float
+Public tex As Float
+Public tey As Float
+Public bcc As Integer
+Public bdi As Integer
+Public bde As Float
+
+Public Sub sucyakalama()
+
+    Dim hat, ir As Integer
+    Dim r1, r2, r3, r4, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, alfa, l As Float
+    Dim fa, musaratx, musaraty, sts, tsx, tsy, tcx, tcy As Float
+    Dim derf As New Collection
+c9 = 0
+    tsx = tusx
+    tsy = tusy
+    ' If ilk.ikix <> 0 Then Message(tusx & " / " & tsx)
+    ilk.mesgul = 1
+    bcc = 0
+    bdi = 0
+    r1 = 10000
+    r2 = 10000
+    r3 = 10000
+    r4 = 10000
+    r6 = 10000
+    r7 = 10000
+    r8 = 10000
+    r9 = 10000
+    r10 = 10000
+    r11 = 10000
+    r12 = 10000
+    r13 = 10000
+    r14 = 10000
+    r15 = 10000
+    r16 = 10000
+    r17 = 10000
+    r18 = 10000
+    tut = 0
+    musaratx = 0
+    musaraty = 0
+    With ilk
+        sts = 10
+        .x1ucu = 0
+        .y1ucu = 0
+        If ilk.olcum < 0 Then
+            re = (ilk.tasec / ilk.olcum)
+        Else
+            re = 3 * (ilk.tasec / ilk.olcum)
+        Endif
+        rex = .mousex / .olcum
+        rey = .mousey / .olcum
+        For Each cazgi In .cezmi
+            If cazgi.id < 0 Then Goto gecgit
+            If cazgi.gor <> 0 Then Goto gecgit
+            If cazgi.kilit <> 0 Then Goto gecgit
+            If cazgi.komut = 1
+                If c1 <> 2 Then  '  Başlangıç/Bitiş  noktası seçili ise
+                    r1 = Hyp(rex - cazgi.x1, rey - cazgi.y1) / 1.25
+                    r2 = Hyp(rex - cazgi.x2, rey - cazgi.y2) / 1.25
+                End If
+                If c2 <> 2 Then
+                    r3 = Hyp(rex - cazgi.x3, rey - cazgi.y3) / 1.25  ' Orta noktası
+                Endif
+'                 If c9 <> 2 Then
+                        ' If ilk.x1gec <> 0 Then
+                        '     If (rex - ilk.x1gec) < (re) Then r17 = (rex - ilk.x1gec) 
+                        ' Endif
+                        ' If ilk.y1gec <> 0 Then
+                        '     If (rey - ilk.y1gec) < (re) Then r18 = (rey - ilk.y1gec)
+                        ' Endif
+                        
+'                 Endif
+                If c5 <> 2 Then  ' dik açı
+                    If ilk.x1gec <> 0
+                        If .rgec = 0
+                            l = Rad(.tetagec) - (Pi / 2)
+                            tsx = ilk.birx + acimi.boy * Cos(l)
+                            tsy = ilk.biry - acimi.boy * Sin(l)
+                            acimi.aci(ilk.birx, ilk.biry, tsx, tsy)
+                            If .eggec > -1000 And .eggec < 1000
+                                temx = (.bgec - acimi.bb) / (acimi.ege - .eggec + 0.00001)
+                            Else
+                                temx = .x1gec
+                            End If
+                            temy = - 1 * ((.eggec * acimi.bb) - (acimi.ege * .bgec)) / (acimi.ege - .eggec + 0.00001)
+                            r7 = Hyp(rex - temx, rey - temy)
+                            If Abs(r7) < (re) Then Goto yut
+                            l = Rad(.tetagec) + (Pi / 2)
+                            rex = ilk.birx + acimi.boy * Cos(l)
+                            rey = ilk.biry - acimi.boy * Sin(l)
+                            acimi.aci(ilk.birx, ilk.biry, rex, rey)
+                            If .eggec > -1000 And .eggec < 1000
+                                temx = (.bgec - acimi.bb) / (acimi.ege - .eggec + 0.00001)
+                            Else
+                                temx = .x1gec
+                            End If
+                            temy = - 1 * ((.eggec * acimi.bb) - (acimi.ege * .bgec)) / (acimi.ege - .eggec + 0.00001)
+                            r7 = Hyp(rex - temx, rey - temy)    ' dik uzaklık
+                        yut:
+                            If Abs(r7) > (re) Then r7 = 10000
+                        End If
+                    End If
+                End If
+            Endif
+            If cazgi.komut = 25
+                If c3 <> 2 Then r4 = Hyp(rex - cazgi.x1, rey - cazgi.y1) / 1.25   ' Merkez noktası
+                If c7 <> 2 Then      '! quadrantlar
+                    r10 = Hyp(rex - cazgi.x2, rey - cazgi.y2)
+                    r11 = Hyp(rex - cazgi.x3, rey - cazgi.y3)
+                    r12 = Hyp(rex - cazgi.x4, rey - cazgi.y4)
+                    r13 = Hyp(rex - cazgi.x5, rey - cazgi.y5)
+                Endif
+                If c4 <> 2   ' Teğet
+                    If .komutsayi = 1
+                        If .rgec <> 0
+                            tegt
+                            If tet < 9999990 Or tet2 < 9999990 Then
+                                acimi.aci(rex, rey, tet / .olcum, tet2 / .olcum)
+                                alfa = acimi.boy
+                                acimi.aci(rex, rey, tex / .olcum, tey / .olcum)
+                                fa = acimi.boy
+                                tex = tex / .olcum
+                                tey = tey / .olcum
+                                If alfa < fa
+                                    tex = tet / .olcum
+                                    tey = tet2 / .olcum
+                                End If
+                                acimi.aci(rex, rey, tex, tey)
+                                r8 = acimi.boy
+                            Else
+                                r8 = 10000
+                            End If
+                        End If
+                    End If
+                End If
+            Endif
+            If cazgi.komut = 20
+                If c3 <> 2 Then r4 = Hyp(rex - cazgi.x1, rey - cazgi.y1) / 1.25   ' Merkez noktası
+                If c1 <> 2 Then  '  Başlangıç/Bitiş  noktası seçili ise
+                    r14 = Hyp(rex - cazgi.x2, rey - cazgi.y2)
+                    r15 = Hyp(rex - cazgi.x3, rey - cazgi.y3)
+                End If
+                If c2 <> 2 Then r9 = Hyp(rex - cazgi.x4, rey - cazgi.y4)   ' Orta noktası
+                If c4 <> 2   ' Teğet
+                    If .komutsayi = 1
+                        If .rgec <> 0
+                            tegt
+                            If tet < 9999990 Or tet2 < 9999990 Then
+                                acimi.aci(rex, rey, tet / .olcum, tet2 / .olcum)
+                                alfa = acimi.boy
+                                acimi.aci(rex, rey, tex / .olcum, tey / .olcum)
+                                fa = acimi.boy
+                                tex = tex / .olcum
+                                tey = tey / .olcum
+                                If alfa < fa
+                                    tex = tet / .olcum
+                                    tey = tet2 / .olcum
+                                End If
+                                acimi.aci(rex, rey, tex, tey)
+                                r8 = acimi.boy
+                            Else
+                                r8 = 10000
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+          If c8 <> 2 Then  ' kesişim
+                    If .komgec = 1
+                        acimi.tem(.bgec / .olcum, cazgi.b, .eggec, cazgi.egim)
+                        tcx = acimi.tmx
+                        tcy = acimi.tmy 
+                        If tcx >= Min(cazgi.x1, .cazgi.x2)
+                        If tcx <= Max(cazgi.x1, cazgi.x2)
+                        If tcy >= Min(cazgi.y1, cazgi.y2)
+                        If tcy <= Max(cazgi.y1, cazgi.y2)
+                        r16 = Hyp(rex - tcx, rey - tcy)
+                        
+                        Endif
+                        Endif
+                        Endif
+                        Endif
+                        
+                        If Abs(r16) > (re) Then r16 = 10000
+                    Endif
+            Endif
+
+            If c6 <> 2       ' En yakın nokta seçili ise
+                If .komutsayi = 1 And .rgec = 0
+                    acimi.tem(yuru.yub, .bgec, yuru.yueg, .eggec)
+                    temx = acimi.tmx
+                    temy = acimi.tmy
+                    r6 = Hyp(rex - temx, rey - temy)     '  Çizgi uzunluğu.
+                Else
+                    tegt
+                    temx = tex
+                    temy = tey
+                    r6 = Hyp(rex - temx, rey - temy)
+                End If
+            End If
+        atla:
+            derf.Add(Abs(r1), 0)
+            derf.Add(Abs(r2), 1)
+            derf.Add(Abs(r3), 2)
+            derf.Add(Abs(r4), 3)
+            derf.Add(1000 * .olcum, 4)
+            derf.Add(Abs(r6), 5)
+            derf.Add(Abs(r7), 6)
+            derf.Add(Abs(r8), 7)
+            derf.Add(Abs(r9), 8)
+            derf.Add(Abs(r10), 9)
+            derf.Add(Abs(r11), 10)
+            derf.Add(Abs(r12), 11)
+            derf.Add(Abs(r13), 12)
+            derf.Add(Abs(r14), 13)
+            derf.Add(Abs(r15), 14)
+            derf.Add(Abs(r16), 15)
+            derf.Add(Abs(r17), 16)
+            derf.Add(Abs(r18), 17)
+            For ir = 0 To derf.count - 1
+                If CFloat(derf[ir]) < re
+                    re = derf[ir]
+                    tut = ir + 1
+                    hat = cazgi.id
+                    x1 = cazgi.x1 * .olcum
+                    y1 = cazgi.y1 * .olcum
+                    x2 = cazgi.x2 * .olcum
+                    y2 = cazgi.y2 * .olcum
+                    x3 = cazgi.x3 * .olcum
+                    y3 = cazgi.y3 * .olcum
+                    x4 = cazgi.x4 * .olcum
+                    y4 = cazgi.y4 * .olcum
+                    x5 = cazgi.x5 * .olcum
+                    y5 = cazgi.y5 * .olcum
+'                     Goto cikis
+                End If
+            Next
+            derf.Clear
+        gecgit:
+        Next
+    cikis:
+        If tut = 1
+            musaratx = x1
+            musaraty = y1
+            Goto cik
+        Else If tut = 2
+            musaratx = x2
+            musaraty = y2
+            Goto cik
+        Else If tut = 3
+            musaratx = x3
+            musaraty = y3
+            Goto cik
+        Else If tut = 4
+            musaratx = x1
+            musaraty = y1
+            Goto cik
+        Else If tut = 6
+            musaratx = temx * .olcum
+            musaraty = temy * .olcum
+            Goto cik
+        Else If tut = 7
+            musaratx = temx
+            musaraty = temy
+            Goto cik
+        Else If tut = 8
+            musaratx = tex
+            musaraty = tey
+            Goto cik
+        Else If tut = 9
+            musaratx = x4
+            musaraty = y4
+            Goto cik
+        Else If tut = 10
+            musaratx = x2
+            musaraty = y2
+            Goto cik
+        Else If tut = 11
+            musaratx = x3
+            musaraty = y3
+            Goto cik
+        Else If tut = 12
+            musaratx = x4
+            musaraty = y4
+            Goto cik
+        Else If tut = 13
+            musaratx = x5
+            musaraty = y5
+            Goto cik
+        Else If tut = 14
+            musaratx = x2
+            musaraty = y2
+            Goto cik
+        Else If tut = 15
+            musaratx = x5
+            musaraty = y5
+            Goto cik
+        Else If tut = 16
+            musaratx = tcx * .olcum
+            musaraty = tcy * .olcum
+            Goto cik
+        Else If tut = 17
+            musaratx = x1
+            musaraty = rey
+            Goto cik
+        Else If tut = 18
+            musaratx = rex
+            musaraty = y1
+            Goto cik
+        End If
+    cik:
+        If .komutsayi = 190 Then
+            musaratx = 0
+            musaraty = 0
+        End If
+        If .komutsayi = 200 Then
+            musaratx = 0
+            musaraty = 0
+        End If
+        If musaratx <> 0 Then tusx = musaratx
+        If musaraty <> 0 Then tusy = musaraty
+        rex = .mousex
+        rey = .mousey
+        ' If Abs(rex - x1) < 10
+        '     If Abs(tusx - rex) < 10 Then musaratx = x1
+        ' Endif
+        ' If Abs(rey - y1) < 10
+        '     If Abs(tusy - rey) < 10 Then musaraty = y1
+        ' Endif
+        ' If Abs(rex - x2) < 10
+        '     If Abs(tusx - rex) < 10 Then musaratx = x2
+        ' Endif
+        ' If Abs(rey - y2) < 10
+        '     If Abs(tusy - rey) < 10 Then musaraty = y2
+        ' Endif
+        ' If Abs(rex - x3) < 10
+        '     If Abs(tusx - rex) < 10 Then musaratx = x3
+        ' Endif
+        ' If Abs(rey - y3) < 10
+        '     If Abs(tusy - rey) < 10 Then musaraty = y3
+        ' Endif
+        ' If Abs(rex - x4) < 10
+        '     If Abs(tusx - rex) < 10 Then musaratx = x4
+        ' Endif
+        ' If Abs(rey - y4) < 10
+        '     If Abs(tusy - rey) < 10 Then musaraty = y4
+        ' Endif
+        ' If Abs(rex - x5) < 10
+        '     If Abs(tusx - rex) < 10 Then musaratx = x5
+        ' Endif
+        ' If Abs(rey - y5) < 10
+        '     If Abs(tusy - rey) < 10 Then musaraty = y5
+        ' Endif
+        ' If Abs((rex / .olcum) - tex) < 10
+        '     If Abs(tusx - rex) < 10 Then musaratx = tex * .olcum
+        ' Endif
+        ' If Abs((rey / .olcum) - tey) < 10
+        '     If Abs(tusy - rey) < 10 Then musaraty = tey * .olcum
+        ' Endif
+        ' If Abs((rex / .olcum) - temx) < 10
+        '     If Abs(tusx - rex) < 10 Then musaratx = temx * .olcum
+        ' Endif
+        ' If Abs((rey / .olcum) - temy) < 10
+        '     If Abs(tusy - rey) < 10 Then musaraty = temy * .olcum
+        ' Endif
+        ' If Abs((rex / .olcum) - tcx) < 10
+        '     If Abs(tusx - rex) < 10 Then musaratx = tcx * .olcum
+        ' Endif
+        ' If Abs((rey / .olcum) - tcy) < 10
+        '     If Abs(tusy - rey) < 10 Then musaraty = tcy * .olcum
+        ' Endif
+         If .isaretx <> 0 Then .isrx = .isaretx
+        If .isarety <> 0 Then .isry = .isarety 
+        .isaretx = 0
+        .isarety = 0
+        If tut = 1
+            .isaretx = x1
+            .isarety = y1
+            b11 = 1     'kare
+        Else If tut = 2
+            .isaretx = x2
+            .isarety = y2
+            b11 = 1     'kare
+        Else If tut = 3
+            .isaretx = x3
+            .isarety = y3
+            b11 = 2     'ucgen
+        Else If tut = 4
+            .isaretx = x1
+            .isarety = y1
+            b11 = 3     ' çember
+        Else If tut = 6
+            .isaretx = temx
+            .isarety = temy
+            b11 = 4     ' çarpı
+        Else If tut = 7
+            .isaretx = temx
+            .isarety = temy
+            b11 = 5     ' diküçgen
+        Else If tut = 8
+            .isaretx = tex * .olcum
+            .isarety = tey * .olcum
+            b11 = 6     ' eşkenar dortgen
+        Else If tut = 9
+            .isaretx = x4
+            .isarety = y4
+            b11 = 2     'ucgen
+        Else If tut = 10
+            .isaretx = x2
+            .isarety = y2
+            b11 = 7
+        Else If tut = 11
+            .isaretx = x3
+            .isarety = y3
+            b11 = 7
+        Else If tut = 12
+            .isaretx = x4
+            .isarety = y4
+            b11 = 7
+        Else If tut = 13
+            .isaretx = x5
+            .isarety = y5
+            b11 = 7
+        Else If tut = 14
+            .isaretx = x2
+            .isarety = y2
+            b11 = 1
+        Else If tut = 15
+            .isaretx = x3
+            .isarety = y3
+            b11 = 1
+        Else If tut = 16
+            .isaretx = tcx * .olcum
+            .isarety = tcy * .olcum
+            b11 = 8
+        Else If tut = 17
+            .isaretx = x1
+            .isarety = y1
+            b11 = 1
+        Else If tut = 18
+            .isaretx = x1
+            .isarety = y1
+            b11 = 1
+        End If
+        If .komutsayi = 200 Then
+            .isaretx = 0
+            .isarety = 0
+        End If
+        If .komutsayi = 190 Then
+            .isaretx = 0
+            .isarety = 0
+        End If
+        .x1ucu = .isaretx
+        .y1ucu = .isarety
+    End With
+
+    musx = musaratx
+    musy = musaraty
+    If Abs(musx - tsx) > 50
+        lusx = tsx
+        lusy = tsy
+    End If
+
+    ilk.mesgul = 0
+    Return
+       Catch
+	ilk.hatayaz("sucyakalama " & Error.Text, Error.Where & "--" & Error.code)
+    ilk.mesgul = 0
+    Return
+
+End
+
+Public Sub tegt()
+
+    Dim ba, ca, l, te, te2 As Float
+
+        If ilk.komgec = 20 Or ilk.komgec = 25 Then
+            acimi.aci(ilk.birx, ilk.biry, ilk.x1gec, ilk.y1gec)
+            ba = acimi.raci
+            ca = acimi.boy
+            If (ca - ilk.yargec) < 0.1 Then Return
+            l = Sqr((ca * ca) - (ilk.yargec * ilk.yargec))
+            te = ATan(ilk.yargec / l)
+            te2 = ba - te
+            te = ba + te
+            tex = ilk.birx + l * Cos(te)
+            tey = ilk.biry - l * Sin(te)
+            tet = ilk.birx + l * Cos(te2)
+            tet2 = ilk.biry - l * Sin(te2)
+
+        End If
+atl:
+    Return
+Catch
+	ilk.hatayaz("tegt " & Error.Text, Error.Where & "--" & ca & "--" & ilk.yargec)
+    Return
+
+End
+Public Sub uzat4(tb As Integer)
+    With ilk
+        For Each cazgi In .cezmi
+            If cazgi.id = tb
+                .gkomutu = cazgi.komut
+                .gidoku = cazgi.id
+                .gx1oku = cazgi.x1
+                .gy1oku = cazgi.y1
+                .gx2oku = cazgi.x2
+                .gy2oku = cazgi.y2
+                .gx3oku = cazgi.x3
+                .gy3oku = cazgi.y3
+                .gegimoku = cazgi.egim
+                .gboku = cazgi.b
+                .gtetaoku = cazgi.teta
+                .gyarioku = cazgi.yaricap
+            Endif
+        Next
+    End With
+    Return
+       Catch
+	ilk.hatayaz("uzat4 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub yuvarla2(tb As Integer)
+ With ilk
+        For Each cazgi In .cezmi
+            If cazgi.id = tb
+        .yuvkom = cazgi.komut
+        .yuvx1 = cazgi.x1
+        .yuvy1 = cazgi.y1
+        .yuvx2 = cazgi.x2
+        .yuvy2 = cazgi.y2
+        .yuveg = cazgi.egim
+        .yuvb = cazgi.b
+        .yuvid = cazgi.id
+        .yuvteta = cazgi.teta
+        .yuvx3 = cazgi.x3
+        .yuvy3 = cazgi.y3
+        .yuvr = cazgi.r
+        .yuvyar = cazgi.yaricap
+    Endif
+        Next
+    End With
+    Return
+       Catch
+	ilk.hatayaz("yuvarla2 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub yuvarla5(tb As Integer)
+ With ilk
+        For Each cazgi In .cezmi
+            If cazgi.id = tb
+        .yuvkom = cazgi.komut
+        .yuvx1 = cazgi.x1 * .olcum
+        .yuvy1 = cazgi.y1 * .olcum
+        .yuvx2 = cazgi.x2 * .olcum
+        .yuvy2 = cazgi.y2 * .olcum
+        .yuveg = cazgi.egim
+        .yuvb = cazgi.b * .olcum
+        .yuvid = cazgi.id
+        .yuvteta = cazgi.teta
+        .yuvx3 = cazgi.x3 * .olcum
+        .yuvy3 = cazgi.y3 * .olcum
+        .yuvr = cazgi.r
+        .yuvyar = cazgi.yaricap * .olcum
+    Endif
+        Next
+    End With
+    Return
+       Catch
+	ilk.hatayaz("yuvarla5 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub uzat3()
+
+    With ilk
+        .gkomutu = .komgec
+        .gidoku = .idgec
+        .gx1oku = .x1gec
+        .gy1oku = .y1gec
+        .gx2oku = .x2gec
+        .gy2oku = .y2gec
+        .gx3oku = .x3gec
+        .gy3oku = .y3gec
+        .gegimoku = .eggec
+        .gboku = .bgec
+        .gtetaoku = .tetagec
+        .gyarioku = .yargec
+    End With
+    Return
+       Catch
+	ilk.hatayaz("uzat3 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub yuvarla1()
+
+    With ilk
+        .yuvkom = .komgec
+        .yuvx1 = .x1gec
+        .yuvy1 = .y1gec
+        .yuvx2 = .x2gec
+        .yuvy2 = .y2gec
+        .yuveg = .eggec
+        .yuvb = .bgec
+        .yuvid = .idgec
+        .yuvteta = .tetagec
+        .yuvx3 = .x3gec
+        .yuvy3 = .y3gec
+        .yuvr = .rgec
+        .yuvboy = .boygec
+        .yuvyar = .yargec
+    End With
+    Return
+       Catch
+	ilk.hatayaz("yuvarla1 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub taba()
+
+    Dim tmx, tmy, a, b As Float
+
+    With ilk
+        If .yuvid = .idgec Then Goto cik2
+        If .komgec = 1
+            If .yuvkom = 1
+                acimi.aci(.x1gec, .y1gec, .yuvx1, .yuvy1)
+                a = acimi.boy
+                acimi.aci(.x2gec, .y2gec, .yuvx1, .yuvy1)
+                b = acimi.boy
+                cizem.renk = .renkgec
+                cizem.kalin = .kalingec
+                cizem.sekil = .sekilgec
+                cizem.katman = .katgec
+                If a < b
+                    tmx = .x1gec + .boygec * .olcum * Cos(Rad(.yuvteta))
+                    tmy = .y1gec - .boygec * .olcum * Sin(Rad(.yuvteta))
+                    cizem.cizgi(.x1gec, .y1gec, tmx, tmy)
+                Else
+                    tmx = .x2gec + .boygec * .olcum * Cos(Rad(.yuvteta))
+                    tmy = .y2gec - .boygec * .olcum * Sin(Rad(.yuvteta))
+                    cizem.cizgi(tmx, tmy, .x2gec, .y2gec)
+                Endif
+                .sil(.idgec)
+            Endif
+        Endif
+    cik2:
+    End With
+    Return
+       Catch
+	ilk.hatayaz("taba " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub fillet()
+
+    Dim tmx, tmy, fz, ft As Float
+
+    With ilk
+        If .yuvid = .idgec Then Goto cik2
+        If .yuvx1 = 0 Then Goto cik2
+        If .x1gec = 0 Then Goto cik2
+        cizem.renk = .renkgec
+        cizem.kalin = .kalingec
+        cizem.sekil = .sekilgec
+        cizem.katman = .katgec
+        If .komgec = 1  ' ikinci seçilen çizgi
+            tasima.drl.Add(.yuvid)
+            tasima.drl.Add(.idgec)
+            If .yuvkom = 1  ' ilk seçilen çizgi
+                acimi.aci(.yuvx1, .yuvy1, .yuvx2, .yuvy2)
+                .yuvb = acimi.bb
+                 .yuveg = acimi.ege
+                acimi.tem(.yuvb, .bgec, .yuveg, .eggec)
+                tmx = acimi.tmx
+                tmy = acimi.tmy
+                fz = Hyp(.x1gec - .mousex, .y1gec - .mousey)
+                ft = Hyp(.x2gec - .mousex, .y2gec - .mousey)
+                If fz > ft
+                    cizem.cizgi(tmx, tmy, .x1gec, .y1gec)
+                    If torna.altx <> 0 Then torna.idepo.Add(dacy.kyno - 1, dacy.kyno - 1)
+                Else
+                    cizem.cizgi(tmx, tmy, .x2gec, .y2gec)
+                    If torna.altx <> 0 Then torna.idepo.Add(dacy.kyno - 1, dacy.kyno - 1)
+                End If
+                .sil(.idgec)
+            Else If .yuvkom = 20  ' ilk seçilen yay-çember
+                    yuvarla4(.x1gec, .y1gec, .x2gec, .y2gec, .idgec)
+            Else If .yuvkom = 25 ' ilk seçilen yay-çember
+                    yuvarla4(.x1gec, .y1gec, .x2gec, .y2gec, .idgec)
+            End If
+        Else If .komgec = 20 Then ' ikinci  seçilen yay-çember
+            If .yuvkom = 1 Then   ' ilk seçilen çizgi
+                If .gx2oku > 0 Then
+                    cizem.yay(.gx1oku, .gy1oku, .gx2oku, .gx3oku, .gy3oku)
+                    .sil(.idgec)
+                End If
+            End If
+        Else If .komgec = 25 Then ' ikinci  seçilen yay-çember
+            If .yuvkom = 1 Then   ' ilk seçilen çizgi
+                If .gx2oku > 0 Then
+                    cizem.yay(.gx1oku, .gy1oku, .gx2oku, .gx3oku, .gy3oku)
+                    .sil(.idgec)
+                End If
+            End If
+        End If
+    cik:
+        .calanilk.Refresh
+        .x1gec = 0
+    End With
+    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+    ilk.gkay = ilk.gkay + 1
+    gerde.zkayit("buda")
+cik2:
+    Return
+       Catch
+	ilk.hatayaz("fillet " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub kesisme()
+
+    Dim r1, r2, r3, r4, tmx, tmy, fz, ft As Float
+
+    With ilk
+        cizem.renk = .renkgec
+        cizem.kalin = .kalingec
+        cizem.sekil = .sekilgec
+        cizem.katman = .katgec
+        If Abs(.yuvy1 - .yuvy2) < 1
+            If Abs(.y1gec - .y2gec) < 1 Then Goto cik2
+        Endif
+        If Abs(.x1gec - .x2gec) < 1
+            If Abs(.yuvx1 - .yuvx2) < 1 Then Goto cik2
+        Endif
+        If .yuvid = .idgec Then Goto cik2
+        If .yuvx1 = 0 Then Goto cik2
+        If .x1gec = 0 Then Goto cik2
+        If .komgec = 1
+            If .eggec > -1000 Or .eggec < 1000
+                tmx = (.bgec - .yuvb) / (.yuveg - .eggec)
+            Else
+                tmx = .x1gec
+            End If
+            tmy = -1 * ((.eggec * .yuvb) - (.yuveg * .bgec)) / (.yuveg - .eggec)
+            If Abs(.yuvx1 - .yuvx2) < 1 Then tmx = .yuvx1
+            If Abs(.yuvy1 - .yuvy2) < 1 Then tmy = .yuvy1
+            If Abs(.y1gec - .y2gec) < 1 Then tmy = .y1gec
+            If Abs(.x1gec - .x2gec) < 1 Then tmx = .x1gec
+            r1 = Hyp(.yuvx2 - tmx, .yuvy2 - tmy)
+            r2 = Hyp(.yuvx1 - tmx, .yuvy1 - tmy)
+            If r1 > r2
+                r3 = .yuvx2
+                r4 = .yuvy2
+            Else
+                r3 = .yuvx1
+                r4 = .yuvy1
+            End If
+            fz = Hyp(ilk.mousex - .x1gec, ilk.mousey - .y1gec)
+            ft = Hyp(ilk.mousex - .x2gec, ilk.mousey - .y2gec)
+            If fz > ft
+                cizem.cizgi(tmx, tmy, .x1gec, .y1gec)
+                cizem.cizgi(tmx, tmy, r3, r4)
+            Else
+                cizem.cizgi(tmx, tmy, .x2gec, .y2gec)
+                cizem.cizgi(tmx, tmy, r3, r4)
+            End If
+        End If
+    cik:
+    End With
+    If ilk.komutsayi <> 160 Or ilk.komutsayi <> 162
+        ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+        ilk.gkay = ilk.gkay + 1
+        gerde.zkayit("kesiştir")
+    End If
+    ilk.sil(ilk.yuvid)
+    ilk.sil(ilk.gidoku)
+    ilk.dolas
+    ilk.calanilk.Refresh
+cik2:
+    Return
+       Catch
+	ilk.hatayaz("kesisme " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Public Sub tuvarla1()
+
+    With ilk
+        For Each cazgi In ilk.cezmi
+            If cazgi.id = .idgec
+                .tuvx1 = cazgi.x1 * .olcum
+                .tuvy1 = cazgi.y1 * .olcum
+                .tuvx2 = cazgi.x2 * .olcum
+                .tuvy2 = cazgi.y2 * .olcum
+                .tuveg = cazgi.egim
+                .tuvb = cazgi.b * .olcum
+                .tuvid = cazgi.id
+                .tuvteta = cazgi.teta
+            End If
+        Next
+    End With
+    Return
+       Catch
+	ilk.hatayaz("tuvarla1 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub uzat1()
+
+    With ilk
+        For Each cazgi In ilk.cezmi
+            If cazgi.id = .idgec
+                .yuvkom = cazgi.komut
+                .yuvx1 = cazgi.x1 * .olcum
+                .yuvy1 = cazgi.y1 * .olcum
+                .yuvx2 = cazgi.x2 * .olcum
+                .yuvy2 = cazgi.y2 * .olcum
+                .yuvx3 = cazgi.x3 * .olcum
+                .yuvy3 = cazgi.y3 * .olcum
+                .yuveg = cazgi.egim
+                .yuvb = cazgi.b * .olcum
+                .yuteta = cazgi.teta
+                .yuvr = cazgi.yaricap * .olcum
+            End If
+        Next
+    End With
+    Return
+       Catch
+	ilk.hatayaz("uzat1 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub nokta2()
+
+    ilk.komyaz.text = " x = " & Format$(Abs(ilk.birx / ilk.olcum - ilk.orix), "#.###") & " y = " & Format$(Abs(ilk.biry / ilk.olcum - ilk.oriy), "#.###")
+Return
+End
+
+Public Sub nokta()
+
+    With ilk
+        If .eski = 1 Then
+            .uca = 1
+        Else
+            .uca = 0
+        End If
+    End With
+    Return
+
+End
+
+Public Sub ara()
+
+    Dim bazi As Float
+
+    bazi = Hyp((ilk.ikix - ilk.birx), (ilk.ikiy - ilk.biry)) / ilk.olcum '  Çizgi uzunluğu.
+    ilk.komyaz.text = "r = " & Format$(bazi, "0.###") & " x = " & Format$(Abs((ilk.ikix - ilk.birx) / ilk.olcum), "0.###") & " y = " & Format$(Abs((ilk.ikiy - ilk.biry) / ilk.olcum), "0.###")
+    Return
+
+End
+
+Public Sub yuvarla3(x11a As Float, y11 As Float, x22 As Float, y22 As Float, msx As Float, msy As Float, idi As Integer)
+
+    Dim tmx, tmy, fz, ft, AA, BB, CC, tmx1, tmx2, z, t As Float
+    Dim delta As Float
+
+    With ilk
+        cizem.renk = .renkgec
+        cizem.kalin = .kalingec
+        cizem.sekil = .sekilgec
+        cizem.katman = .katgec
+        .x1gec = x11a
+        .y1gec = y11
+        .x2gec = x22
+        .y2gec = y22
+        If (.x2gec - .x1gec) <> 0 And (.y2gec - .y1gec) <> 0
+            .eggec = (.y2gec - .y1gec) / (.x2gec - .x1gec)
+        Else If (.x2gec - .x1gec) <> 0
+            .eggec = ((.y2gec - (.y1gec)) / (.x2gec - .x1gec + 0.0000001))
+        Else
+            .eggec = ((.y2gec + 0.0000001) - .y1gec) / (.x2gec - .x1gec + 0.0000001)
+        End If
+        acimi.aci(.x1gec, .y1gec, .x2gec, .y2gec)
+        .eggec = acimi.ege
+        AA = 1 + (.eggec) ^ 2
+        BB = (-2 * .yuvx1 + 2 * .eggec * (- .eggec * .x1gec + .y1gec - .yuvy1))
+        CC = (.yuvx1 ^ 2 + (- .eggec * .x1gec + .y1gec - .yuvy1) ^ 2 - (.yuvyar) ^ 2)
+        delta = BB ^ 2 - (4 * AA * CC)
+        If delta > 0
+            tmx1 = (- 1 * BB - Sqr(BB ^ 2 - (4 * AA * CC))) / (2 * AA)
+            tmx2 = (- 1 * BB + Sqr(BB ^ 2 - (4 * AA * CC))) / (2 * AA)
+        Else If delta = 0
+            tmx1 = (-1 * BB + Sqr(BB ^ 2 - (4 * AA * CC))) / (2 * AA)
+            tmx2 = tmx1
+        Else If delta < 0
+            Return
+        Endif
+        tmy = .eggec * (tmx2 - .x1gec) + .y1gec
+        z = Hyp(.x1gec - tmx1, .y1gec - tmy)
+        t = Hyp(.x1gec - tmx2, .y1gec - tmy)
+        If z < t Then
+            tmx = tmx1
+        Else
+            tmx = tmx2
+        End If
+        tmy = .eggec * (tmx - .x1gec) + .y1gec
+        fz = Hyp(msx - .x1gec, msy - .y1gec)
+        ft = Hyp(msx - .x2gec, msy - .y2gec)
+        If fz > ft
+            cizem.cizgi(tmx, tmy, .x1gec, .y1gec)
+        Else
+            cizem.cizgi(tmx, tmy, .x2gec, .y2gec)
+        End If
+        .sil(idi)
+    cik:
+    End With
+    Return
+       Catch
+	ilk.hatayaz("yuvarla3 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+
+Public Sub yuvarla4(x11a As Float, y11 As Float, x22 As Float, y22 As Float, idi As Integer)
+
+    Dim tmx, tmy, fz, ft, AA, BB, CC, tmx1, tmx2, z, t As Float
+    Dim delta As Float
+
+    With ilk
+        cizem.renk = .renkgec
+        cizem.kalin = .kalingec
+        cizem.sekil = .sekilgec
+        cizem.katman = .katgec
+        .x1gec = x11a
+        .y1gec = y11
+        .x2gec = x22
+        .y2gec = y22
+        acimi.aci(.x1gec, .y1gec, .x2gec, .y2gec)
+        .eggec = acimi.ege
+        AA = 1 + (.eggec) ^ 2
+        BB = (-2 * .yuvx1 + 2 * .eggec * (- .eggec * .x1gec + .y1gec - .yuvy1))
+        CC = (.yuvx1 ^ 2 + (- .eggec * .x1gec + .y1gec - .yuvy1) ^ 2 - (.yuvyar) ^ 2)
+        delta = BB ^ 2 - (4 * AA * CC)
+        If delta > 0
+            tmx1 = (-1 * BB - Sqr(BB ^ 2 - (4 * AA * CC))) / (2 * AA)
+            tmx2 = (- 1 * BB + Sqr(BB ^ 2 - (4 * AA * CC))) / (2 * AA)
+        Else If delta = 0
+            tmx1 = (-1 * BB + Sqr(BB ^ 2 - (4 * AA * CC))) / (2 * AA)
+            tmx2 = (- 1 * BB - Sqr(BB ^ 2 - (4 * AA * CC))) / (2 * AA)
+        Else If delta < 0
+            Return
+        Endif
+        z = .eggec * (tmx2 - .x1gec) + .y1gec
+        t = .eggec * (tmx1 - .x1gec) + .y1gec
+        tmy = Max(z, t)
+        acimi.aci(.x1gec, .y1gec, tmx1, tmy)
+        z = acimi.boy
+        acimi.aci(.x1gec, .y1gec, tmx2, tmy)
+        t = acimi.boy
+        If z < t Then
+            tmx = tmx1
+        Else
+            tmx = tmx2
+        End If
+        tmy = .eggec * (tmx - .x1gec) + .y1gec
+        fz = Hyp(tmx - .x1gec, tmy - .y1gec)
+        ft = Hyp(tmx - .x2gec, tmy - .y2gec)
+        If fz > ft
+            cizem.cizgi(tmx, tmy, .x1gec, .y1gec)
+        Else
+            cizem.cizgi(tmx, tmy, .x2gec, .y2gec)
+        End If
+        .sil(idi)
+    cik:
+    End With
+    Return
+       Catch
+	ilk.hatayaz("yuvarla4 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

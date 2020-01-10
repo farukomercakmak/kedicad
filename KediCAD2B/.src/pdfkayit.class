@@ -1,0 +1,441 @@
+' Gambas class file
+
+Public cazgi As Czm
+
+Public Sub Form_Open()
+
+    umt
+
+End
+
+Public Sub DrawingArea1_MouseWheel()
+
+    If mouse.Delta > 0
+        mnm = mnm + 0.5
+    Else
+        mnm = mnm - 0.5
+    Endif
+    mousex = Mouse.X / mnm
+    mousey = (DrawingArea1.h - Mouse.Y) / mnm
+    DrawingArea1.Refresh
+
+End
+
+Public mousex As Float
+Public mousey As Float
+
+Public Sub DrawingArea1_MouseMove()
+    ' mousex = Mouse.X / mnm
+    ' mousey = Mouse.Y / mnm
+    ' DrawingArea1.Refresh
+
+End
+
+Public msx1 As Float
+Public msy1 As Float
+Public msx2 As Float
+Public msy2 As Float
+Public ms As Integer
+
+Public Sub DrawingArea1_MouseDown()
+
+    If ms = 1 Then
+        msx2 = Mouse.X / mnm
+        msy2 = Mouse.Y / mnm
+        ms = 0
+    Else
+        msx1 = Mouse.X / mnm
+        msy1 = Mouse.Y / mnm
+        msx2 = 0
+        msy2 = 0
+        ms = 1
+    Endif
+    DrawingArea1.Refresh
+
+End
+
+Public Sub umt()
+
+    Dim penge, penye As Float
+
+    torba6.te
+    penge = (torba6.sonx - torba6.basx)
+    penye = (torba6.sony - torba6.basy)
+    If penye = 0 Then Return
+    mnm = Min(DrawingArea1.Width / penge, DrawingArea1.height / penye)
+    DrawingArea1.Refresh
+
+End
+
+Public mnm As Float
+
+Public Sub DrawingArea1_Draw()
+
+    Dim ml As Integer
+    Dim hess As String
+    Dim ix, iy, it, onx, ony, px1, py1, px2, py2, px3, py3, px4, py4, px5, py5, hgc, pyzx, pyzy, olcum As Float
+
+    ' draw.scale(1, 1)
+    draw.translate(-1 * (torba6.basx * mnm) - (mousex * mnm), - 1 * (torba6.basy * mnm) - (mousey * mnm) / 2)
+    olcum = mnm
+    hess = ilk.hess
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.id < 0 Then Goto gec
+        If cazgi.gor <> 0 Then Goto gec
+        Draw.LineStyle = cazgi.sekil
+        Draw.LineWidth = cazgi.kalinlik
+        draw.Foreground = cazgi.renk
+        If cazgi.renk = Color.White Then draw.Foreground = Color.Black
+        px1 = cazgi.x1 * olcum
+        py1 = cazgi.y1 * olcum
+        px2 = cazgi.x2 * olcum
+        py2 = cazgi.y2 * olcum
+        px3 = cazgi.x3 * olcum
+        py3 = cazgi.y3 * olcum
+        px4 = cazgi.x4 * olcum
+        py4 = cazgi.y4 * olcum
+        px5 = cazgi.x5 * olcum
+        py5 = cazgi.y5 * olcum
+        hgc = cazgi.yaricap * olcum
+        pyzx = cazgi.yazix * olcum
+        pyzy = cazgi.yaziy * olcum
+        If cazgi.komut = 1 Then
+            Draw.Line(px1, py1, px2, py2)
+            Goto gec
+        Else If cazgi.komut = 25 Then
+            Draw.Circle(px1, py1, hgc)
+            Goto gec
+        Else If cazgi.komut = 20 Then
+            If hgc = 0 Then Goto gec
+            onx = 0
+            ony = 0
+            If (cazgi.teta < cazgi.r)
+                For it = cazgi.teta To cazgi.r Step (1 / hgc)
+                    ix = px1 + hgc * Cos(it)
+                    iy = py1 - hgc * Sin(it)
+                    If onx Then Draw.Line(onx, ony, ix, iy)
+                    onx = ix
+                    ony = iy
+                Next
+            Else
+                For it = cazgi.teta To (2 * Pi) Step (1 / hgc)
+                    ix = px1 + hgc * Cos(it)
+                    iy = py1 - hgc * Sin(it)
+                    If onx Then Draw.Line(onx, ony, ix, iy)
+                    onx = ix
+                    ony = iy
+                Next
+                For it = 0 To cazgi.r Step (1 / hgc)
+                    ix = px1 + hgc * Cos(it)
+                    iy = py1 - hgc * Sin(it)
+                    If onx Then Draw.Line(onx, ony, ix, iy)
+                    '                     Draw.Point(ix, iy)
+                    onx = ix
+                    ony = iy
+                Next
+            Endif
+            Goto gec
+        Else If cazgi.komut = 60 Then
+            draw.Font.Name = cazgi.fnt
+            draw.Font.Underline = 0
+            draw.Font.Italic = cazgi.egim
+            draw.Font.Bold = cazgi.y6
+            If cazgi.x6 Then draw.Font.Size = Abs(cazgi.x6) * olcum
+            draw.Text(cazgi.yazi, px1, py1)
+            draw.Font.Size = 10
+            Goto gec
+        End If
+        draw.Font.Size = ilk.oyabu
+        Draw.Foreground = ilk.olre
+        If cazgi.komut = 105
+            ml = ilk.okbuyuk / 1.5
+            If ml = 0 Then ml = Abs(py4 - py5) / 50
+            Draw.Circle(px4, py4, ml)
+            Draw.Circle(px5, py5, ml)
+            Draw.Line(px4, py4, px5, py5)
+            Draw.Line(px4, py4, px1, py1)
+            Draw.Line(px5, py5, px2, py2)
+            draw.Text(Format$(Abs(CFloat(cazgi.yazi)), hess), pyzx, pyzy)
+            Goto gec
+        End If
+        If cazgi.komut = 100
+            ml = ilk.okbuyuk / 1.5
+            If ml = 0 Then ml = Abs(py4 - py5) / 50
+            Draw.Circle(px4, py4, ml)
+            Draw.Circle(px5, py5, ml)
+            Draw.Line(px4, py4, px5, py5)
+            Draw.Line(px4, py4, px1, py1)
+            Draw.Line(px5, py5, px2, py2)
+            draw.Text(Format$(Abs(CFloat(cazgi.yazi)), hess), pyzx, pyzy)
+            Goto gec
+        End If
+        If cazgi.komut = 120 Then
+            ml = ilk.okbuyuk / 1.5
+            If ml = 0 Then ml = Abs(py4 - py5) / 50
+            Draw.Circle(px4, py4, ml)
+            Draw.Circle(px5, py5, ml)
+            Draw.Line(px4, py4, px5, py5)
+            Draw.Line(px4, py4, px1, py1)
+            Draw.Line(px5, py5, px2, py2)
+            draw.Text(Format$(Abs(CFloat(cazgi.yazi)), hess), pyzx, pyzy)
+            Goto gec
+        End If
+        If cazgi.komut = 110 Then
+            Draw.LineWidth = cazgi.kalinlik
+            If secenekler.yazibuyuk.text <> "" Then ilk.calanilk.Font.Size = Val(secenekler.yazibuyuk.text)
+            Draw.Arc(px1 - hgc, py1 - hgc, 2 * hgc, 2 * hgc, - cazgi.teta, - cazgi.r)
+            Draw.text(Format$(cazgi.yazi, hess), pyzx, pyzy)
+            Goto gec
+        End If
+        If cazgi.komut = 190 Then
+            Draw.Line(px1, py1, cazgi.yazix * olcum, cazgi.yaziy * olcum)
+            Draw.LineWidth = 3
+            Draw.Circle(px5, py5, 3)
+            Draw.Circle(px1, py1, 3)
+            Draw.LineWidth = 1
+            Draw.text("R= " & Format$(cazgi.yazi, hess), pyzx, pyzy)
+            Draw.LineWidth = 1
+            Goto gec
+        End If
+        If cazgi.komut = 200 Then
+            Draw.Line(px4, py4, px5, py5)
+            If cazgi.y6 = 3
+                If cazgi.x6 = 1
+                    Draw.Line(px4, py4, pyzx, pyzy)
+                Else
+                    Draw.Line(px5, py5, pyzx, pyzy)
+                End If
+            End If
+            Draw.LineWidth = 3
+            Draw.Circle(px1, py1, 3)
+            Draw.Circle(px4, py4, 3)
+            Draw.Circle(px5, py5, 3)
+            Draw.LineWidth = cazgi.kalinlik
+            Draw.text("D= " & Format$(cazgi.yazi, hess), pyzx, pyzy)
+            Goto gec
+        End If
+        If cazgi.komut = 238 Then   ' FEA için yüzey çizimi
+            Draw.FillColor = color.Cyan
+            Draw.FillStyle = Fill.Dense50
+            Draw.Foreground = color.White
+            ilk.gtr.Clear
+            ilk.gtr.Add(px1) 'x1
+            ilk.gtr.Add(py1) 'y1
+            ilk.gtr.Add(px3) 'x2
+            ilk.gtr.Add(py3) 'y2
+            ilk.gtr.Add(cazgi.x8 * olcum)
+            ilk.gtr.Add(cazgi.y8 * olcum)
+            Draw.Polygon(ilk.gtr)
+            ilk.gtr.Clear
+            Goto gec
+        End If
+        If cazgi.komut = 242 Then  ' nokta çizimi
+            draw.point(px1, py1)
+        End If
+    gec:
+    Next
+    If msx2 <> 0 Then
+        Draw.Line(msx1 * olcum, msy1 * olcum, msx1 * olcum + (msx2 - msx1) * olcum, msy1 * olcum)
+        Draw.Rect(msx1 * olcum, msy1 * olcum, msx1 * olcum + (msx2 - msx1) * olcum, msy1 * olcum - (msy2 - msy1) * olcum)
+    Else
+        Draw.Rect(msx1 * olcum, msy1 * olcum, (mousex - msx1) * olcum, (mousey - msy1) * olcum)
+    Endif
+    Draw.Line(msx1, - msy1, 0, 0)
+    TextLabel1.Text = msx1 & "/" & msy1 & "olc=" & msx2
+
+End
+
+Public Sub prtImage_Draw()
+
+    Dim ml As Integer
+    Dim hess As String
+    Dim ix, iy, it, onx, ony, px1, py1, px2, py2, px3, py3, px4, py4, px5, py5, hgc, pyzx, pyzy, olcum, penge, penye, mnm2 As Float
+
+    torba6.te
+    hess = ilk.hess
+    penge = (torba6.sonx - torba6.basx) * 1.2
+    penye = (torba6.sony - torba6.basy) * 1.2
+    If penye = 0 Then Return
+    mnm2 = Min(DrawingArea1.Width / penge, DrawingArea1.height / penye)
+    draw.scale(12, 12)
+    draw.translate(- (torba6.basx * mnm2) + 50 + (mousex * mnm2), - (torba6.basy * mnm2) - 50 + (mousey * mnm2))
+    olcum = mnm2
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.id < 0 Then Goto gec
+        If cazgi.gor <> 0 Then Goto gec
+        Draw.LineStyle = cazgi.sekil
+        Draw.LineWidth = cazgi.kalinlik
+        draw.Foreground = cazgi.renk
+        If cazgi.renk = Color.White Then draw.Foreground = Color.Black
+        px1 = cazgi.x1 * olcum
+        py1 = cazgi.y1 * olcum
+        px2 = cazgi.x2 * olcum
+        py2 = cazgi.y2 * olcum
+        px3 = cazgi.x3 * olcum
+        py3 = cazgi.y3 * olcum
+        px4 = cazgi.x4 * olcum
+        py4 = cazgi.y4 * olcum
+        px5 = cazgi.x5 * olcum
+        py5 = cazgi.y5 * olcum
+        hgc = cazgi.yaricap * olcum
+        pyzx = cazgi.yazix * olcum
+        pyzy = cazgi.yaziy * olcum
+        If cazgi.komut = 1 Then
+            Draw.Line(px1, py1, px2, py2)
+            Goto gec
+        Else If cazgi.komut = 25 Then
+            Draw.Circle(px1, py1, hgc)
+            Goto gec
+        Else If cazgi.komut = 20 Then
+            If hgc = 0 Then Goto gec
+            onx = 0
+            ony = 0
+            If (cazgi.teta < cazgi.r)
+                For it = cazgi.teta To cazgi.r Step (1 / hgc)
+                    ix = px1 + hgc * Cos(it)
+                    iy = py1 - hgc * Sin(it)
+                    If onx Then Draw.Line(onx, ony, ix, iy)
+                    onx = ix
+                    ony = iy
+                Next
+            Else
+                For it = cazgi.teta To (2 * Pi) Step (1 / hgc)
+                    ix = px1 + hgc * Cos(it)
+                    iy = py1 - hgc * Sin(it)
+                    If onx Then Draw.Line(onx, ony, ix, iy)
+                    onx = ix
+                    ony = iy
+                Next
+                For it = 0 To cazgi.r Step (1 / hgc)
+                    ix = px1 + hgc * Cos(it)
+                    iy = py1 - hgc * Sin(it)
+                    If onx Then Draw.Line(onx, ony, ix, iy)
+                    '                     Draw.Point(ix, iy)
+                    onx = ix
+                    ony = iy
+                Next
+            Endif
+            Goto gec
+        Else If cazgi.komut = 60 Then
+            draw.Font.Name = cazgi.fnt
+            draw.Font.Underline = 0
+            draw.Font.Italic = cazgi.egim
+            draw.Font.Bold = cazgi.y6
+            If cazgi.x6 Then draw.Font.Size = Abs(cazgi.x6) * olcum / 12
+            draw.Text(cazgi.yazi, px1, py1)
+            draw.Font.Size = 1
+            Goto gec
+        End If
+        draw.Font.Size = ilk.oyabu / 12
+        Draw.Foreground = ilk.olre
+        If cazgi.komut = 105
+            ml = ilk.okbuyuk / 1.5
+            If ml = 0 Then ml = Abs(py4 - py5) / 50
+            Draw.Circle(px4, py4, ml)
+            Draw.Circle(px5, py5, ml)
+            Draw.Line(px4, py4, px5, py5)
+            Draw.Line(px4, py4, px1, py1)
+            Draw.Line(px5, py5, px2, py2)
+            draw.Text(Format$(Abs(CFloat(cazgi.yazi)), hess), pyzx, pyzy)
+            Goto gec
+        End If
+        If cazgi.komut = 100
+            ml = ilk.okbuyuk / 1.5
+            If ml = 0 Then ml = Abs(py4 - py5) / 50
+            Draw.Circle(px4, py4, ml)
+            Draw.Circle(px5, py5, ml)
+            Draw.Line(px4, py4, px5, py5)
+            Draw.Line(px4, py4, px1, py1)
+            Draw.Line(px5, py5, px2, py2)
+            draw.Text(Format$(Abs(CFloat(cazgi.yazi)), hess), pyzx, pyzy)
+            Goto gec
+        End If
+        If cazgi.komut = 120 Then
+            ml = ilk.okbuyuk / 1.5
+            If ml = 0 Then ml = Abs(py4 - py5) / 50
+            Draw.Circle(px4, py4, ml)
+            Draw.Circle(px5, py5, ml)
+            Draw.Line(px4, py4, px5, py5)
+            Draw.Line(px4, py4, px1, py1)
+            Draw.Line(px5, py5, px2, py2)
+            draw.Text(Format$(Abs(CFloat(cazgi.yazi)), hess), pyzx, pyzy)
+            Goto gec
+        End If
+        If cazgi.komut = 110 Then
+            Draw.LineWidth = cazgi.kalinlik
+            If secenekler.yazibuyuk.text <> "" Then ilk.calanilk.Font.Size = Val(secenekler.yazibuyuk.text)
+            Draw.Arc(px1 - hgc, py1 - hgc, 2 * hgc, 2 * hgc, - cazgi.teta, - cazgi.r)
+            Draw.text(Format$(cazgi.yazi, hess), pyzx, pyzy)
+            Goto gec
+        End If
+        If cazgi.komut = 190 Then
+            Draw.Line(px1, py1, cazgi.yazix * olcum, cazgi.yaziy * olcum)
+            Draw.LineWidth = 3
+            Draw.Circle(px5, py5, 3)
+            Draw.Circle(px1, py1, 3)
+            Draw.LineWidth = 1
+            Draw.text("R= " & Format$(cazgi.yazi, hess), pyzx, pyzy)
+            Draw.LineWidth = 1
+            Goto gec
+        End If
+        If cazgi.komut = 200 Then
+            Draw.Line(px4, py4, px5, py5)
+            If cazgi.y6 = 3
+                If cazgi.x6 = 1
+                    Draw.Line(px4, py4, pyzx, pyzy)
+                Else
+                    Draw.Line(px5, py5, pyzx, pyzy)
+                End If
+            End If
+            Draw.LineWidth = 3
+            Draw.Circle(px1, py1, 3)
+            Draw.Circle(px4, py4, 3)
+            Draw.Circle(px5, py5, 3)
+            Draw.LineWidth = cazgi.kalinlik
+            Draw.text("D= " & Format$(cazgi.yazi, hess), pyzx, pyzy)
+            Goto gec
+        End If
+        If cazgi.komut = 238 Then   ' FEA için yüzey çizimi
+            Draw.FillColor = color.Cyan
+            Draw.FillStyle = Fill.Dense50
+            Draw.Foreground = color.White
+            ilk.gtr.Clear
+            ilk.gtr.Add(px1) 'x1
+            ilk.gtr.Add(py1) 'y1
+            ilk.gtr.Add(px3) 'x2
+            ilk.gtr.Add(py3) 'y2
+            ilk.gtr.Add(cazgi.x8 * olcum)
+            ilk.gtr.Add(cazgi.y8 * olcum)
+            Draw.Polygon(ilk.gtr)
+            ilk.gtr.Clear
+            Goto gec
+        End If
+        If cazgi.komut = 242 Then  ' nokta çizimi
+            draw.point(px1, py1)
+        End If
+    gec:
+    Next
+
+End
+
+Public Sub dwgPreview_Draw()
+
+    Paint.Scale(10, 10)
+
+End
+
+Public Sub prtImage_Begin()
+
+    prtImage.Count = 1
+
+End
+
+Public Sub btnPrintImage_Click()
+
+    If prtImage.Configure() Then Return
+    prtImage.Print
+    Me.Close
+
+End

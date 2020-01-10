@@ -1,0 +1,272 @@
+' Gambas module file
+
+Private $sPath As String
+Public cazgi As Czm
+Public kft As Float
+Public ax1 As New Float[]
+Public ay1 As New Float[]
+Public ax2 As New Float[]
+Public ay2 As New Float[]
+Public axid As New Float[]
+Public xid As New Float[]
+Public xpoints As New Float[]
+Public ypoints As New Float[]
+Public ykx As Float
+Public yky As Float
+Public ekx As Float
+Public eky As Float
+Public areasum As Float
+Public birx As Float
+Public biry As Float
+Public ikix As Float
+Public ikiy As Float
+Public dxpoints As New Float[]
+Public dypoints As New Float[]
+Public dx2points As New Float[]
+Public dy2points As New Float[]
+Public npoints As Integer
+Public ccw As Boolean
+Public olr As Integer
+Public hdi As String
+Private csp As New Csplit
+
+Public Sub kmact(yazi As String, kmsan As Integer)
+
+    Dim myFile As File
+    Dim tx As Integer
+    Dim jjy, jjx, beri, sb As String
+    Dim mya As String[]
+
+    With ilk
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/komu" For Write
+        Seek #myFile, Lof(myFile)
+        Print #myFile, Trim$(yazi)
+        .sati = .sati + 1
+        Close myFile
+        yazi = Trim$(yazi)
+        If kmsan = 0 Then
+            If yazi = "d" Then .Button6_Click
+            If yazi = "D" Then .Button6_Click
+            If yazi = "döndür" Then .Button6_Click
+            If yazi = "DÖNDÜR" Then .Button6_Click
+
+            If yazi = "ç" Then .cizgi_Click
+            If yazi = "Ç" Then .cizgi_Click
+            If yazi = "ÇİZGİ" Then .cizgi_Click
+            If yazi = "çizgi" Then .cizgi_Click
+
+            If yazi = "çe" Then .cember_Click
+            If yazi = "ÇE" Then .cember_Click
+            If yazi = "ÇEMBER" Then .cember_Click
+            If yazi = "çember" Then .cember_Click
+
+            If yazi = "y" Then .yay_Click
+            If yazi = "Y" Then .yay_Click
+            If yazi = "yay" Then .yay_Click
+            If yazi = "YAY" Then .yay_Click
+
+            If yazi = "kopya" Then .kopya_Click
+            If yazi = "KOPYA" Then .kopya_Click
+            If yazi = "K" Then .kopya_Click
+            If yazi = "k" Then .kopya_Click
+
+            If yazi = "TAŞI" Then .tasi_Click
+            If yazi = "taşı" Then .tasi_Click
+            If yazi = "t" Then .tasi_Click
+            If yazi = "T" Then .tasi_Click
+
+            If yazi = "SİL" Then .silme_Click
+            If yazi = "sil" Then .silme_Click
+            If yazi = "s" Then .silme_Click
+            If yazi = "S" Then .silme_Click
+
+            If yazi = "AYNA" Then .ayna_Click
+            If yazi = "ayna" Then .ayna_Click
+            If yazi = "a" Then .ayna_Click
+            If yazi = "A" Then .ayna_Click
+
+        End If
+        If yazi = "h" Then .tamekran_Click
+        If yazi = "H" Then .tamekran_Click
+        If yazi = "p" Then .uzaklas_Click
+        If yazi = "P" Then .uzaklas_Click
+        If kmsan = 331 Then done.dondure
+        If kmsan = 330 Then done.dondure
+        csp.yazi = ilk.komutcuk.Text
+        csp.virg
+
+        If kmsan = 333 Then
+            If yazi Then .hadi = Val(yazi) * .olcum
+            .gidis = 1
+            tasima.tasir
+        End If
+        If kmsan = 332 Then
+            If yazi Then .hadi = Val(yazi) * .olcum
+            .gidis = 1
+            tasima.tasir
+        End If
+        If kmsan = 251 Then
+            If yazi Then .hadi = Val(yazi) * .olcum
+            .gidis = 1
+            ger.germe
+        End If
+        If kmsan = 252 Then
+            If yazi Then .hadi = Val(yazi) * .olcum
+            .gidis = 1
+            ger.germe
+        End If
+        If kmsan = 237 Then cizge.olecek(yazi)
+        If kmsan = 235 Then cizge.olecek(yazi)
+        If .birx <> 0
+            If kmsan = 170 Then cmbr.cemberiki
+        Endif
+        If kmsan = 162 Then
+            If .depo1.Count > 2
+                olr = 1
+                icle.bas
+                Wait 1.0
+            Else
+                icle.icerler
+            End If
+        End If
+        If kmsan = 160 Then
+            If .depo1.Count > 2
+                olr = 1
+                icle.bas
+                Wait 1.0
+            Else
+                icle.icerler
+            End If
+        End If
+        If kmsan = 131 Then done.dondur
+        If kmsan = 128 Then done.dondur(Rad(CFloat(ilk.komutcuk.text)))
+        If kmsan = 130 Then done.dondur(Rad(CFloat(ilk.komutcuk.text)))
+        If kmsan = 50 Then
+            If csp.sonuc2
+                .hadi = 0.001
+            Else
+                .hadi = CFloat(yazi) * .olcum
+            End If
+            .gidis = 1
+            tasima.tasir
+        End If
+        If kmsan = 52 Then
+            If csp.sonuc2
+                .hadi = 0.001
+            Else
+                .hadi = CFloat(yazi) * .olcum
+            End If
+            .gidis = 1
+            tasima.tasir
+        End If
+        If kmsan = 51 Then
+            If csp.sonuc2
+                .hadi = 0.001
+            Else
+                .hadi = CFloat(yazi) * .olcum
+            End If
+            .gidis = 1
+            tasima.tasir
+        End If
+        If kmsan = 55 Then
+            If csp.sonuc2
+                .hadi = 0.001
+            Else
+                .hadi = CFloat(yazi) * .olcum
+            End If
+            .gidis = 1
+            tasima.tasir
+        End If
+        If kmsan = 56 Then
+            If csp.sonuc2
+                .hadi = 0.001
+            Else
+                .hadi = CFloat(yazi) * .olcum
+            End If
+            .gidis = 1
+            tasima.tasir
+        End If
+
+        If kmsan = 40 Then faya.uygu
+        If kmsan = 41 Then 
+            faya2.asa = yazi
+            faya2.pol
+        Endif
+        If kmsan = 37 Then faya.pahuygu
+        If kmsan = 25 Then cmbr.cemberci
+        If konum.sira > 0
+            If kmsan = 20 Then .hadi = CFloat(yazi) * .olcum
+        Endif
+        If kmsan = 5 Then
+            beri = ilk.komutcuk.Text
+            mya = Split(beri, ",")
+            tx = 0
+            For Each sb In mya
+                tx = tx + 1
+                If tx = 2 Then jjy = sb
+                If tx = 1 Then jjx = sb
+            Next
+            If jjy Then cizge.dortgen(jjx * ilk.olcum, jjy * ilk.olcum)
+        End If
+
+        If kmsan = 6 Then cizge.cizgicizim
+        If kmsan = 3 Then cizge.cizgicizim
+        If kmsan = 1 Then cizge.cizgicizim
+        beri = ilk.komutcuk.Text
+        $sPath = System.User.Home &/ ".KediCAD/macroy/"
+        For Each sb In Dir($sPath)
+            If sb = beri & ".gbs" Then
+                Shell System.User.Home &/ ".KediCAD/macroy" &/ sb
+                ilk.komutcuk.Clear
+            Else If sb = beri
+                Shell System.User.Home &/ ".KediCAD/macroy" &/ sb
+                ilk.komutcuk.Clear
+            Endif
+        Next
+        If konum.sira = 0 Then
+            beri = ilk.komutcuk.Text
+            mya = Split(beri, "-")
+            tx = 0
+            For Each sb In mya
+                tx = tx + 1
+                If CFloat(sb) <> ""
+                    If tx = 1 Then .birx = CFloat(sb) + ilk.orix
+                    If tx = 2 Then .biry = - CFloat(sb) + ilk.oriy
+                    konum.sira = 1
+                Endif
+            Next
+        Endif
+    End With
+    ilk.komutcuk.Clear
+    Return
+       Catch
+	ilk.hatayaz("kmact " & Error.Text, Error.Where & "--" & Error.code)
+    ilk.komutcuk.Clear
+    Return
+
+End
+Public Sub cokgen(kse As Float, ksegen As Float)
+
+    Dim alev, nbx1, nby1, nbx2, nby2 As Float
+    Dim bgf As Integer
+    ilk.bolok = ilk.bolok + 2
+    alev = 360 / kse
+    alev = Rad(360 - (360 - alev))
+    For bgf = 1 To kse
+        nbx1 = ilk.birx + ksegen * Sin(bgf * alev)
+        nby1 = ilk.biry + ksegen * Cos(bgf * alev)
+        nbx2 = ilk.birx + ksegen * Sin((bgf + 1) * alev)
+        nby2 = ilk.biry + ksegen * Cos((bgf + 1) * alev)
+        ilk.komutsayi = 1
+        cizem.bloku = ilk.bolok
+        cizem.cizgi(nbx1, nby1, nbx2, nby2)
+        ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+        ilk.gkay = ilk.gkay + 1
+    Next
+    gerde.zkayit("dortgen")
+    ilk.dolas
+    Return
+       Catch
+	ilk.hatayaz("cokgen " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

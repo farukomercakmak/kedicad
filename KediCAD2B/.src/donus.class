@@ -1,0 +1,1667 @@
+' Gambas class file
+
+Static Public Sub Main()
+
+    Dim hForm As Form
+
+    hForm = New Donus
+    hForm.Show
+
+End
+
+Public Sub Form_Open()
+
+    giris.SetFocus
+    Me.center
+    Me.text = "KediCAD 2B UNIT CONVERT "
+    bolum.Add("Length", 0)
+    bolum.Add("Area", 1)
+    bolum.Add("Volume", 2)
+    bolum.Add("Mass", 3)
+    bolum.Add("Energy-Work", 4)
+    bolum.Add("Power", 5)
+    bolum.Add("Pressure", 6)
+    bolum.Add("Force", 7)
+    bolum.Add("Velocity", 8)
+    bolum.Add("Acceleration", 9)
+    bolum.Add("Moment", 10)
+    bolum.Add("Angle", 11)
+    bolum.Add("Angle Velocity", 12)
+    secim
+
+End
+
+Public Sub Button1_Click()
+
+    Me.hide
+
+End
+
+Public Sub bolum_Click()
+
+    giris.Text = ""
+    sonuc.Text = ""
+    secim
+
+End
+
+Sub secim()
+
+    r19.Visible = True
+    r29.Visible = True
+    r17.Visible = True
+    r18.Visible = True
+    r27.Visible = True
+    r28.Visible = True
+    If bolum.Text = "Length"
+        r11.Text = "inch"
+        r12.Text = "foot"
+        r13.Text = "yarda"
+        r14.Text = "mil"
+        r15.Text = "sea mil"
+        r16.Text = "meter"
+        r17.Text = "kilometer"
+        r18.Text = "milimeter"
+        r21.Text = "inch"
+        r22.Text = "food"
+        r23.Text = "yarda"
+        r24.Text = "mil"
+        r25.Text = "sea mil"
+        r26.Text = "meter"
+        r27.Text = "kilometer"
+        r28.Text = "milimeter"
+        r19.Visible = False
+        r29.Visible = False
+    End If
+    If bolum.Text = "Area"
+        r11.Text = "inch squae"
+        r12.Text = "foot square"
+        r13.Text = "yard square"
+        r14.Text = "mil square"
+        r15.Text = "meter square"
+        r16.Text = "ar"
+        r17.Text = "hektar"
+        r18.Text = "km. square"
+        r19.Text = "mm. square"
+        r21.Text = "inch square"
+        r22.Text = "food square"
+        r23.Text = "yard square"
+        r24.Text = "mil square"
+        r25.Text = "meter square"
+        r26.Text = "ar"
+        r27.Text = "hektar"
+        r28.Text = "km. square"
+        r29.Text = "mm. square"
+    End If
+    If bolum.Text = "Volume"
+        r11.Text = "inch^3"
+        r12.Text = "foot^3"
+        r13.Text = "yard^3"
+        r14.Text = "Onz(Amerikan)"
+        r15.Text = "Galon(Amerikan)"
+        r16.Text = "Galon(İngiliz)"
+        r17.Text = "pint(İngiliz)"
+        r18.Text = "cm. ^3"
+        r19.Text = "dm. ^3(Litre)"
+        r21.Text = "inch^3"
+        r22.Text = "foot^3"
+        r23.Text = "yard^3"
+        r24.Text = "Onz(Amerikan)"
+        r25.Text = "Galon(Amerikan)"
+        r26.Text = "Galon(İngiliz)"
+        r27.Text = "pint(İngiliz)"
+        r28.Text = "cm. ^3"
+        r29.Text = "dm. ^3(Litre)"
+    End If
+    If bolum.Text = "Mass"
+        r11.Text = "Kilogram"
+        r12.Text = "Gram"
+        r13.Text = "Karat"
+        r14.Text = "once"
+        r15.Text = "pound"
+        r16.Text = "slug"
+        r17.Text = "libre"
+        r18.Text = "ton(long)"
+        r19.Text = "ton(short)"
+        r21.Text = "Kilogram"
+        r22.Text = "Gram"
+        r23.Text = "Karat"
+        r24.Text = "once"
+        r25.Text = "pound"
+        r26.Text = "slug"
+        r27.Text = "libre"
+        r28.Text = "ton(long)"
+        r29.Text = "ton(short)"
+    End If
+    If bolum.Text = "Energy-Work"
+        r11.Text = "Kilojoule"
+        r12.Text = "Btu"
+        r13.Text = "Kcal"
+        r14.Text = "erg"
+        r15.Text = "ft.lbf"
+        r16.Text = "therm"
+        r17.Text = "kgf.m."
+        r18.Text = "kW.h."
+        r19.Text = "N.m."
+        r21.Text = "Kilojoule"
+        r22.Text = "Btu"
+        r23.Text = "Kcal"
+        r24.Text = "erg"
+        r25.Text = "ft.lbf"
+        r26.Text = "therm"
+        r27.Text = "kgf.m."
+        r28.Text = "kW.h."
+        r29.Text = "N.m."
+    End If
+    If bolum.Text = "Power"
+        r11.Text = "KiloWatt"
+        r12.Text = "Btu/h"
+        r13.Text = "Kcal/h"
+        r14.Text = "erg/s"
+        r15.Text = "ft.lbf/s"
+        r16.Text = "HP(metric)"
+        r17.Text = "HP(english)"
+        r18.Text = "kgf.m./s"
+        r19.Text = "joule/sn(Watt)."
+        r21.Text = "KiloWatt"
+        r22.Text = "Btu/h"
+        r23.Text = "Kcal/h"
+        r24.Text = "erg/s"
+        r25.Text = "ft.lbf/s"
+        r26.Text = "HP(metric)"
+        r27.Text = "HP(english)"
+        r28.Text = "kgf.m./s"
+        r29.Text = "joule/sn(Watt)."
+    End If
+    If bolum.Text = "Pressure"
+        r11.Text = "KPa.(1000N/m^2)"
+        r12.Text = "atmosfer"
+        r13.Text = "bar"
+        r14.Text = "inch.civa"
+        r15.Text = "lbf/ayak^2"
+        r16.Text = "Kgf/cm^2"
+        r17.Text = "mm.civa"
+        r18.Text = "PSI(lb./inch^2)"
+        r19.Text = "mmH2O"
+        r21.Text = "KiloPascal"
+        r22.Text = "atmosfer"
+        r23.Text = "bar"
+        r24.Text = "inch.civa"
+        r25.Text = "lbf/ayak^2"
+        r26.Text = "Kgf/cm^2"
+        r27.Text = "mm.civa"
+        r28.Text = "PSI(lb./inch^2)"
+        r29.Text = "mmH2O"
+    End If
+    If bolum.Text = "Force"
+        r11.Text = "Newton"
+        r12.Text = "dyne"
+        r13.Text = "Kgf."
+        r14.Text = "ounce f."
+        r15.Text = "pound f."
+        r16.Text = "kilopond"
+        r17.Text = "Ton short"
+        r18.Text = "Ton long"
+        r19.Text = "poundal"
+        r21.Text = "Newton"
+        r22.Text = "dyne"
+        r23.Text = "Kgf."
+        r24.Text = "ounce f."
+        r25.Text = "pound f."
+        r26.Text = "kilopond"
+        r27.Text = "Ton (short)"
+        r28.Text = "Ton long"
+        r29.Text = "poundal"
+    End If
+    If bolum.Text = "Velocity"
+        r11.Text = "meter/second"
+        r12.Text = "Foot/hour"
+        r13.Text = "Foot/Minute"
+        r14.Text = "Foot/second"
+        r15.Text = "inc/second"
+        r16.Text = "km/hour"
+        r17.Text = "knots"
+        r18.Text = "mil/hour"
+        r19.Text = "yard/second"
+        r21.Text = "metre/second"
+        r22.Text = "Foot/hour"
+        r23.Text = "Foot/Minute"
+        r24.Text = "Foot/second"
+        r25.Text = "Parmak/second"
+        r26.Text = "km/hour"
+        r27.Text = "knots"
+        r28.Text = "mil/hour"
+        r29.Text = "yard/second"
+    End If
+    If bolum.Text = "Acceleration"
+        r11.Text = "meter/second^2"
+        r12.Text = "cm./second^2"
+        r13.Text = "foot/second^2"
+        r14.Text = "inch/second^2"
+        r15.Text = "km/second^2"
+        r16.Text = "km/second*saat"
+        r17.Text = "mil/second^2"
+        r18.Text = "mil/second*saat"
+        r19.Text = "mm./second^2"
+        r21.Text = "metre/second^2"
+        r22.Text = "cm./second^2"
+        r23.Text = "foot/second^2"
+        r24.Text = "inch/second^2"
+        r25.Text = "km/second^2"
+        r26.Text = "km/second*saat"
+        r27.Text = "mil/second^2"
+        r28.Text = "mil/second*saat"
+        r29.Text = "mm./second^2"
+    End If
+    If bolum.Text = "Moment"
+        r11.Text = "Newton.meter"
+        r12.Text = "dyne.cm."
+        r13.Text = "kgf.cm"
+        r14.Text = "Kgf.m."
+        r15.Text = "KN.m."
+        r16.Text = "libre f. foot"
+        r17.Text = "libre.f. inch"
+        r18.Text = "N.cm."
+        r19.Text = "ozf.in."
+        r21.Text = "Newton.meter"
+        r22.Text = "dyne.cm."
+        r23.Text = "kgf.cm"
+        r24.Text = "Kgf.m."
+        r25.Text = "KN.m."
+        r26.Text = "libre f. foot"
+        r27.Text = "libre.f. inch"
+        r28.Text = "N.cm."
+        r29.Text = "ozf.in."
+    End If
+    If bolum.Text = "Angle"
+        r17.Visible = False
+        r18.Visible = False
+        r19.Visible = False
+        r27.Visible = False
+        r28.Visible = False
+        r29.Visible = False
+        r11.Text = "Degree"
+        r12.Text = "Grad"
+        r13.Text = "Minute"
+        r14.Text = "Radian"
+        r15.Text = "Cycle"
+        r16.Text = "second"
+        r21.Text = "Degree"
+        r22.Text = "Grad"
+        r23.Text = "Minute"
+        r24.Text = "Radian"
+        r25.Text = "Cycle"
+        r26.Text = "second"
+    End If
+    If bolum.Text = "angle Velocity"
+        r17.Visible = False
+        r18.Visible = False
+        r19.Visible = False
+        r27.Visible = False
+        r28.Visible = False
+        r29.Visible = False
+        r11.Text = "Degree/second"
+        r12.Text = "Grad/second"
+        r13.Text = "Radian/second"
+        r14.Text = "Cycle/second"
+        r15.Text = "Cycle/dakika"
+        r16.Text = "Cycle/Saat"
+        r21.Text = "Degree/second"
+        r22.Text = "Grad/second"
+        r23.Text = "Radian/second"
+        r24.Text = "Cycle/second"
+        r25.Text = "Cycle/Minute"
+        r26.Text = "Cycle/hour"
+    End If
+    Return
+
+End
+
+Public Sub r21_Click()  ' parmak
+
+    If giris.Text = ""
+        Goto cik
+    End If
+    If bolum.Text = "Length"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) / 1
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) / 0.06944
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) / 7.716 * 10 ^ (-4)
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) / 2.49 * 10 ^ (-10)
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) / 1.37013 * 10 ^ (-5)
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) / 0.0254
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) / 2.54 * 10 ^ (-5)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) / 25.4
+    End If
+    If bolum.Text = "Area"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) / 1
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) / 0.0069444
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) / 0.0007716
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) / 2.49098 * 10 ^ (10)
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) / 0.00064516
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) / 6.4516 * 10 ^ (6)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) / 6.4516 * 10 ^ (8)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) / 6.4516 * 10 ^ (10)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) / 645.16
+    End If
+    If bolum.Text = "Volume"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1728
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 46656
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1.8047
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 231
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 277.42
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 34.677
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.061024
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 61.024
+    End If
+    If bolum.Text = "Mass"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1      'kg.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.001     'gr.
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.0002      'karat
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.031103      'once
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.37324      'pound
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 14.594      'slug
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.45359     'libre
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1016       'ton long
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 907.18      ' ton metrik
+    End If
+    If bolum.Text = "Energy-Work"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1     'kj.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1.0551      'btu
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 4.1868      'kalori
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (-10)      'erg
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.0013558       'ftlbf.
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1.0551 * 10 ^ (5)       'therm
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.0098066      'kgf.m
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 3600        'kw.h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.001      ' n.m.
+    End If
+    If bolum.Text = "Power"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1     'kW.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.00029307       'btu/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.001163      'Kcal/h
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (-10)       'erg/s
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.0013558       'ftlbf/sn
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.7355      'HP(metrik)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.7457      'HP(İngiliz)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.0098066         'kgf.m./s
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.001      'joule/sn(Watt)
+    End If
+    If bolum.Text = "Pressure"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1     'KiloPascal
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 101.33        'atmosfer
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 100       'bar
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 3.3864        'inch.civa
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.04788        'lbf/ayak^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 98.066      'Kgf/cm^2
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.13332     'mm.civa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 6.89948          'PSI(lb./inch^2)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.0098066       'kgf.m./s
+    End If
+    If bolum.Text = "Force"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1      'newton
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (-5)        'dyne
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 9.8066        'kgf.
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.27801         'ouncef
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 4.4482         'pounf
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 9.8066       'kilopound
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 8896.4      'ton kısa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 9964           'ton uzun
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.13825        'poundal
+    End If
+    If bolum.Text = "Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1       'm/s
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 8.4667 * 10 ^ (-5)         'ft/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.00508        'ft/min
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.3048         'ft/sn
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.0254          'inch/s
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.27778       'km/h
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.51444     'knots
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.44704            'mil/h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.9144        'yard/s
+    End If
+    If bolum.Text = "Acceleration"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1        'metre/saniye^2"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.01        'cm./saniye^2"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.3048       'Ayak/saniye^2"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.0254         'Parmak/saniye^2"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1000           'km/saniye^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.27778        'km/saniye*saat"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1069.3      'mil/saniye^2"
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.44704             'mil/saniye*saat"
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.0001        'mm./saniye^2"
+    End If
+    If bolum.Text = "Moment"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1         'Nm.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (-7)          'dynecm
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.098066        'kgf.cm
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 9.8066         'kgf.m"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1000            'KN.m."
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1.3558         'libre f. ayak"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.11298      'libre.f. par
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.01              'N.cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.0070616       'ozf.in."
+    End If
+    If bolum.Text = "Angle Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1          '"Derece/Saniye"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.9           ' Grad/Saniye"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 57.296        'Radyan/Saniye"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 360          'Devir/Saniye"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 6             'Devir/dakika"
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.1        'Devir/Saat"
+    End If
+    If bolum.Text = "Angle"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1           'Derece"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.9           'Grad"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.016667         'Dakika"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 57.296           'Radyan"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 360              'Devir"
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.00027778         'Saniye"
+    End If
+cik:
+
+End
+
+Public Sub r22_Click() ' ayak
+
+    If giris.Text = ""
+        Goto cik
+    End If
+    If bolum.Text = "Length"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) / 12
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) / 1
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) / 0.3333
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) / 0.00019
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) / 1.64416 * 10 ^ (-4)
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) / 0.3048
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) / 0.3048 * 10 ^ (-4)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) / 304.8
+    End If
+    If bolum.Text = "Area"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) / 144
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) / 1
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) / 0.1111
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) / 3.587 * 10 ^ (-3)
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) / 0.092903
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) / 9.2903 * 10 ^ (4)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) / 9.2903 * 10 ^ (6)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) / 9.2903 * 10 ^ (8)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) / 92903
+    End If
+    If bolum.Text = "Volume"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.0005787
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 27
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.0010444
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.13368
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.16054
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.020068
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 3.5315 * 10 ^ (-5)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.035315
+    End If
+    If bolum.Text = "Mass"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1000     'kg.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1     'gr.
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.2     'karat
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 31.103     'once
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 373.24     'pound
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 14594      'slug
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 453.59      'libre
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1.016 * 10 ^ (6)      'ton long
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 9.0718 * 10 ^ (5)      ' ton metrik
+    End If
+    If bolum.Text = "Energy-Work"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.94782      'kj.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1      'btu
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 3.9683       'kalori
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 9.4782 * 10 ^ (-11)        'erg
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.0012851       'ftlbf.
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (5)        'therm
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.0092949      'kgf.m
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 3412.1        'kw.h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.00094782       ' n.m.
+    End If
+    If bolum.Text = "Power"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 3412.1      'kW.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1       'btu/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 3.9683      'Kcal/h
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 3.4121 * 10 ^ (-7)       'erg/s
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 4.6262        'ftlbf/sn
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 2509.6       'HP(metrik)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 2544.4       'HP(İngiliz)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 33.462         'kgf.m./s
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 3.4121      'joule/sn(Watt)
+    End If
+    If bolum.Text = "Pressure"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.0098692      'KiloPascal
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1        'atmosfer
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.98692       'bar
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.033421        'inch.civa
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.00047254        'lbf/ayak^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.96784      'Kgf/cm^2
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.0013158      'mm.civa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.068046          'PSI(lb./inch^2)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 9.6784 * 10 ^ (-5)       'kgf.m./s
+    End If
+    If bolum.Text = "Force"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (5)       'newton
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1         'dyne
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 9.8066 * 10 ^ (5)         'kgf.
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 27801         'ouncef
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 4.4482 * 10 ^ (5)          'pounf
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 9.8066 * 10 ^ (5)        'kilopound
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 8.8964 * 10 ^ (8)       'ton kısa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 9.964 * 10 ^ (8)            'ton uzun
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 13825        'poundal
+    End If
+    If bolum.Text = "Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 11811       'm/s
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1         'ft/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 60         'ft/min
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 3600          'ft/sn
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 300          'inch/s
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 3280.8        'km/h
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 6076.1      'knots
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 5280            'mil/h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 10800        'yard/s
+    End If
+    If bolum.Text = "Acceleration"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 100        'metre/saniye^2"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1       'cm./saniye^2"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 30.48       'Ayak/saniye^2"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 2.54         'Parmak/saniye^2"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (5)           'km/saniye^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 27.778        'km/saniye*saat"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1.6093 * 10 ^ (5)      'mil/saniye^2"
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 44.704             'mil/saniye*saat"
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.1        'mm./saniye^2"
+    End If
+    If bolum.Text = "Moment"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (7)         'Nm.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1         'dynecm
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 9.8066 * 10 ^ (5)       'kgf.cm
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 9.8066 * 10 ^ (7)         'kgf.m"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (10)            'KN.m."
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1.3558 * 10 ^ (7)         'libre f. ayak"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1.1298 * 10 ^ (6)      'libre.f. par
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (5)             'N.cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 70616      'ozf.in."
+    End If
+    If bolum.Text = "Angle Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1.1111          '"Derece/Saniye"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1           ' Grad/Saniye"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 63.662        'Radyan/Saniye"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 400          'Devir/Saniye"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 6.6667             'Devir/dakika"
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.1111        'Devir/Saat"
+    End If
+    If bolum.Text = "Angle"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1.1111           'Derece"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1           'Grad"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.018519         'Dakika"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 63.662           'Radyan"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 400              'Devir"
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.00030864         'Saniye"
+    End If
+cik:
+
+End
+
+Public Sub r23_Click() ' yarda
+
+    If giris.Text = ""
+        Goto cik
+    End If
+    If bolum.Text = "Length"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) / 36
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) / 3
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) / 1
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) / 0.00057
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) / 4.93248 * 10 ^ (-4)
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) / 0.9144
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) / 9.144 * 10 ^ (-4)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) / 914.4
+    End If
+    If bolum.Text = "Area"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) / 1296
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) / 9
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) / 1
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) / 3.2283 * 10 ^ (7)
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) / 0.836127
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) / 8.3613 * 10 ^ (3)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) / 8.3613 * 10 ^ (5)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) / 8.3613 * 10 ^ (7)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) / 8.3613 * 10 ^ (-5)
+    End If
+    If bolum.Text = "Volume"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 2.1433 * 10 ^ (-5)
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.037037
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 3.8681 * 10 ^ (-5)
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.0049511
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.0059461
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.00074326
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1.308 * 10 ^ (-6)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.001308
+    End If
+    If bolum.Text = "Mass"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 5000      'kg.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 5      'gr.
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1      'karat
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 155.52      'once
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1866.2      'pound
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 72969      'slug
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 2268      'libre
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 5.0802 * 10 ^ (6)     'ton long
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 4.5359 * 10 ^ (6)     ' ton metrik
+    End If
+    If bolum.Text = "Energy-Work"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.23885      'kj.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.252     'btu
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1      'kalori
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 2.3885 * 10 ^ (-11)       'erg
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.00032383       'ftlbf.
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 25200       'therm
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.0023423      'kgf.m
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 859.85        'kw.h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.00023885       ' n.m.
+    End If
+    If bolum.Text = "Power"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 859.85      'kW.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.252       'btu/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1      'Kcal/h
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 8.5985 * 10 ^ (-8)       'erg/s
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1.1658        'ftlbf/sn
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 632.42       'HP(metrik)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 641.19       'HP(İngiliz)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 8.4322         'kgf.m./s
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.85985      'joule/sn(Watt)
+    End If
+    If bolum.Text = "Pressure"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.01      'KiloPascal
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1.0133        'atmosfer
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1       'bar
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.033864        'inch.civa
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.0004788        'lbf/ayak^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.98066      'Kgf/cm^2
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.0013332      'mm.civa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.068948          'PSI(lb./inch^2)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 9.8066 * 10 ^ (-5)       'kgf.m./s
+    End If
+    If bolum.Text = "Force"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.10197      'newton
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1.0197 * 10 ^ (-6)          'dyne
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1        'kgf.
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.02835         'ouncef
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.45359         'pounf
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1      'kilopound
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 907.18     'ton kısa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1016          'ton uzun
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.014098       'poundal
+    End If
+    If bolum.Text = "Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 196.85       'm/s
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.016667         'ft/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1        'ft/min
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 60          'ft/sn
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 5          'inch/s
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 54.681        'km/h
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 101.27      'knots
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 88            'mil/h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 180         'yard/s
+    End If
+    If bolum.Text = "Acceleration"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 3.2808        'metre/saniye^2"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.032808        'cm./saniye^2"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1       'Ayak/saniye^2"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.0833         'Parmak/saniye^2"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 3280.8           'km/saniye^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.91134        'km/saniye*saat"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 5280      'mil/saniye^2"
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1.4667             'mil/saniye*saat"
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.0032808        'mm./saniye^2"
+    End If
+    If bolum.Text = "Moment"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 10.197         'Nm.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1.0197 * 10 ^ (-6)         'dynecm
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1        'kgf.cm
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 100         'kgf.m"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 10197           'KN.m."
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 13.825         'libre f. ayak"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1.1521      'libre.f. par
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.10197              'N.cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.072008      'ozf.in."
+    End If
+    If bolum.Text = "Angle Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.017453          '"Derece/Saniye"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.015708           ' Grad/Saniye"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1         'Radyan/Saniye"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 6.2832          'Devir/Saniye"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.10472             'Devir/dakika"
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.0017453        'Devir/Saat"
+    End If
+    If bolum.Text = "Angle"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 60           'Derece"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 54           'Grad"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1         'Dakika"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 3437.7           'Radyan"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 21600              'Devir"
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.016667         'Saniye"
+    End If
+cik:
+
+End
+
+Public Sub r24_Click() 'kara mili/mil / ONZ
+
+    If giris.Text = ""
+        Goto cik
+    End If
+    If bolum.Text = "Length"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) / 63360
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) / 5280
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) / 1760
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) / 1
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) / 0.868976
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) / 1609.344
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) / 1.609344
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) / 1609344
+    End If
+    If bolum.Text = "Area"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) / 4.015 * 10 ^ (-9)
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) / 2.788 * 10 ^ (-7)
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) / 3.098 * 10 ^ (-6)
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) / 1
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) / 2.59 * 10 ^ (-6)
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) / 2.59 * 10 ^ (-4)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) / 2.59 * 10 ^ (-2)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) / 2.59
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) / 2.59 * 10 ^ (-12)
+    End If
+    If bolum.Text = "Volume"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.55411       ' parmak
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 957.51       'ayak
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 25853        'yarda
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1         'a.onz
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 128         'a.galon
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 153.72         'i.galon
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 19.215           ' i.pint
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.033814         'cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 33.814          'dm
+    End If
+    If bolum.Text = "Mass"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 32.151     'kg.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.0020833      'gr.
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.0064301      'karat
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1    'once
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 12     'pound
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 469.2      'slug
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 14.583     'libre
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 32667       'ton long
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 29167       ' ton metrik
+    End If
+    If bolum.Text = "Energy-Work"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ 10      'kj.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1.0551 * 10 ^ 10      'btu
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 4.1868 * 10 ^ 10       'kalori
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1       'erg
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1.3558 * 10 ^ 7       'ftlbf.
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1.0551 * 10 ^ 15       'therm
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 9.8066 * 10 ^ 7      'kgf.m
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 3.6 * 10 ^ 13       'kw.h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ 7      ' n.m.
+    End If
+    If bolum.Text = "Power"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ 10      'kW.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 2.9307 * 10 ^ 6      'btu/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1.163 * 10 ^ 7      'Kcal/h
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1       'erg/s
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1.3558 * 10 ^ 7        'ftlbf/sn
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 7.355 * 10 ^ 9       'HP(metrik)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 7.457 * 10 ^ 9       'HP(İngiliz)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 9.8066 * 10 ^ 7         'kgf.m./s
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ 7      'joule/sn(Watt)
+    End If
+    If bolum.Text = "Pressure"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.2953      'KiloPascal
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 29.921        'atmosfer
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 29.53       'bar
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1        'inch.civa
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.014139        'lbf/ayak^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 28.959      'Kgf/cm^2
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.03937      'mm.civa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 2.036          'PSI(lb./inch^2)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.0028959       'kgf.m./s
+    End If
+    If bolum.Text = "Force"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 3.5969      'newton
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 3.5969 * 10 ^ (-5)          'dyne
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 35.274        'kgf.
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1         'ouncef
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 16         'pounf
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 35.274       'kilopound
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 32000     'ton kısa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 35840          'ton uzun
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.4973       'poundal
+    End If
+    If bolum.Text = "Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 3.2808       'm/s
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.0002778         'ft/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.016667         'ft/min
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1         'ft/sn
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.083333          'inch/s
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.91134        'km/h
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1.6878      'knots
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1.4667            'mil/h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 3         'yard/s
+    End If
+    If bolum.Text = "Acceleration"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 39.37        'metre/saniye^2"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.3937        'cm./saniye^2"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 12       'Ayak/saniye^2"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1         'Parmak/saniye^2"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 39370           'km/saniye^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 10.936        'km/saniye*saat"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 63360      'mil/saniye^2"
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 17.6             'mil/saniye*saat"
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.03937        'mm./saniye^2"
+    End If
+    If bolum.Text = "Moment"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.10197         'Nm.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1.0197 * 10 ^ (-8)         'dynecm
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.01        'kgf.cm
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1         'kgf.m"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 101.97            'KN.m."
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.13825         'libre f. ayak"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.011521      'libre.f. par
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.0010197              'N.cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.00072008       'ozf.in."
+    End If
+    If bolum.Text = "angle Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.0027778          '"Derece/Saniye"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.0025           ' Grad/Saniye"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.15915         'Radyan/Saniye"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1          'Devir/Saniye"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.016667            'Devir/dakika"
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.00027778        'Devir/Saat"
+    End If
+    If bolum.Text = "Angle"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.017453           'Derece"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.015708           'Grad"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.00029089         'Dakika"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1           'Radyan"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 6.2832              'Devir"
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 4.8481 * 10 ^ (-6)         'Saniye"
+    End If
+cik:
+
+End
+
+Public Sub r25_Click() 'deniz mili /m.kare /Galon
+
+    If giris.Text = ""
+        Goto cik
+    End If
+    If bolum.Text = "Length"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) / 72913
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) / 6076.12
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) / 2025.37
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) / 1.15071
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) / 1
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) / 1852
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) / 1.852
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) / 1852000
+    End If
+    If bolum.Text = "Area"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) / 1550
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) / 10.7639
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) / 1.196
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) / 3.861 * 10 ^ (7)
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) / 1
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 100
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 10000
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1000000
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) / 1000000
+    End If
+    If bolum.Text = "Volume"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.004329       ' parmak
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 7.4805       'ayak
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 201.97        'yarda
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.0078125        'a.onz
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1       'a.galon
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1.2009          'i.galon
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.15012         ' i.pint
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.00026417          'cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.26417         'dm
+    End If
+    If bolum.Text = "Mass"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 2.6792      'kg.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.0026792      'gr.
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.00053585      'karat
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.08333      'once
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1     'pound
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 39.1     'slug
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1.2153     'libre
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 2722.2       'ton long
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 2430.6       ' ton metrik
+    End If
+    If bolum.Text = "Energy-Work"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 737.56      'kj.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 778.17      'btu
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 3088       'kalori
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 7.3756 * 10 ^ (-8)       'erg
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1       'ftlbf.
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 7.7817 * 10 ^ 7       'therm
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 7.233      'kgf.m
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 2.6552 * 10 ^ 6        'kw.h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.73756       ' n.m.
+    End If
+    If bolum.Text = "Power"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 737.56      'kW.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.21616       'btu/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.85778      'Kcal/h
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 7.3756 * 10 ^ (-8)       'erg/s
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1        'ftlbf/sn
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 542.48       'HP(metrik)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 550       'HP(İngiliz)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 7.233         'kgf.m./s
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.73756      'joule/sn(Watt)
+    End If
+    If bolum.Text = "Pressure"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 20.885      'KiloPascal
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 2116.2        'atmosfer
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 2088.5       'bar
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 70.726        'inch.civa
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1        'lbf/ayak^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 2048.2      'Kgf/cm^2
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 2.7845      'mm.civa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 144          'PSI(lb./inch^2)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.20482       'kgf.m./s
+    End If
+    If bolum.Text = "Force"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.22481      'newton
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 2.2481 * 10 ^ (-6)         'dyne
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 2.2046        'kgf.
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.0625         'ouncef
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1         'pounf
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 2.2046       'kilopound
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 2000      'ton kısa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 2240           'ton uzun
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.031081        'poundal
+    End If
+    If bolum.Text = "Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 39.37       'm/s
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.003333         'ft/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.2         'ft/min
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 12          'ft/sn
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1          'inch/s
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 10.936        'km/h
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 20.254      'knots
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 17.6            'mil/h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 36         'yard/s
+    End If
+    If bolum.Text = "Acceleration"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.001        'metre/saniye^2"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (-5)        'cm./saniye^2"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.0003048       'Ayak/saniye^2"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 2.54 * 10 ^ (-5)         'Parmak/saniye^2"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1           'km/saniye^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.00027778        'km/saniye*saat"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1.6093      'mil/saniye^2"
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.00044704             'mil/saniye*saat"
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (-6)        'mm./saniye^2"
+    End If
+    If bolum.Text = "Moment"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.001         'Nm.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (-10)         'dynecm
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 9.80661 * 10 ^ (-5)        'kgf.cm
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.0098066         'kgf.m"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1            'KN.m."
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.0013558         'libre f. ayak"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.00011298      'libre.f. par
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 11 * 10 ^ (-5)              'N.cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 7.06161 * 10 ^ (-6)       'ozf.in."
+    End If
+    If bolum.Text = "Angle Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.16667          '"Derece/Saniye"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.15           ' Grad/Saniye"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 9.5493         'Radyan/Saniye"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 60          'Devir/Saniye"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1            'Devir/dakika"
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.016667        'Devir/Saat"
+    End If
+    If bolum.Text = "Angle"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.00277778           'Derece"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.0025          'Grad"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 4.6296 * 10 ^ (-5)         'Dakika"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.15915          'Radyan"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1              'Devir"
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 7.716 * 10 ^ (-7)         'Saniye"
+    End If
+cik:
+
+End
+
+Public Sub r26_Click() 'metre / ar/Galon İng.
+
+    If giris.Text = ""
+        Goto cik
+    End If
+    If bolum.Text = "Length"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) / 39.3701
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) / 3.28084
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) / 1.09361
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) / 6.21371 * 10 ^ (-4)
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) / 5.39422 * 10 ^ (-4)
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) / 1
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) / 0.001
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) / 1000
+    End If
+    If bolum.Text = "Area"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 6.4516 * 10 ^ (-6)
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.00092903
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.0083613
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 25900
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.01
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 100
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 10000
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) / 100000000
+    End If
+    If bolum.Text = "Volume"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.0036047      ' parmak
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 6.2288      'ayak
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 168.18      'yarda
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.0065053         'a.onz
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.83267        'a.galon
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1         'i.galon
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.125          ' i.pint
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.00021997          'cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.21997          'dm
+    End If
+    If bolum.Text = "Mass"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.068522      'kg.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 6.8522 * 10 ^ (-5)      'gr.
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1.3704 * 10 ^ (-5)     'karat
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.0021313      'once
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.025575      'pound
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1      'slug
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.031081      'libre
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 69.621       'ton long
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 62.162       ' ton metrik
+    End If
+    If bolum.Text = "Energy-Work"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 9.4782 * 10 ^ (-6)      'kj.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (-5)      'btu
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 3.9683 * 10 ^ (-5)       'kalori
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 9.4782 * 10 ^ (-16)       'erg
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1.2851 * 10 ^ (-8)       'ftlbf.
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1       'therm
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 9.2949 * 10 ^ (-8)      'kgf.m
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.034121        'kw.h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 9.4782 * 10 ^ (-9)       ' n.m.
+    End If
+    If bolum.Text = "Power"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1.3596      'kW.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.00039847       'btu/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.0015812      'Kcal/h
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1.3596 * 10 ^ (-10)       'erg/s
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.0018434        'ftlbf/sn
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1       'HP(metrik)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1.0139       'HP(İngiliz)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.0133         'kgf.m./s
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.0013596      'joule/sn(Watt)
+    End If
+    If bolum.Text = "Pressure"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.010197      'KiloPascal
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1.0332        'atmosfer
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1.0197       'bar
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.034531        'inch.civa
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.00048824        'lbf/ayak^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1      'Kgf/cm^2
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.0013595      'mm.civa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.070307          'PSI(lb./inch^2)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.0001       'kgf.m./s
+    End If
+    If bolum.Text = "Force"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.10197      'newton
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1.0197 * 10 ^ (-6)          'dyne
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1        'kgf.
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.02835         'ouncef
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.45359         'pounf
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1      'kilopound
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 907.18     'ton kısa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1016          'ton uzun
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.014098       'poundal
+    End If
+    If bolum.Text = "Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 3.2918       'm/s
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.0003048         'ft/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.018288        'ft/min
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1.0973          'ft/sn
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.09144          'inch/s
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1        'km/h
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1.852      'knots
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1.6093            'mil/h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 3.2918         'yard/s
+    End If
+    If bolum.Text = "Acceleration"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 3.6        'metre/saniye^2"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.036        'cm./saniye^2"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1.0973       'Ayak/saniye^2"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.09144         'Parmak/saniye^2"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 3600           'km/saniye^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1        'km/saniye*saat"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 5793.6      'mil/saniye^2"
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1.6093             'mil/saniye*saat"
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.0036        'mm./saniye^2"
+    End If
+    If bolum.Text = "Moment"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.73756         'Nm.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 7.37561 * 10 ^ (-8)          'dynecm
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.07233        'kgf.cm
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 7.233         'kgf.m"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 737.56           'KN.m."
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1         'libre f. ayak"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.0833      'libre.f. par
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.0073756             'N.cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.0052083      'ozf.in."
+    End If
+    If bolum.Text = "Angle Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 10          '"Derece/Saniye"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 9          ' Grad/Saniye"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 572.96        'Radyan/Saniye"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 3600          'Devir/Saniye"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 60            'Devir/dakika"
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1       'Devir/Saat"
+    End If
+    If bolum.Text = "Angle"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 3600           'Derece"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 3240           'Grad"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 60         'Dakika"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 2.0626 * 10 ^ (5)           'Radyan"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1.296 * 10 ^ (6)              'Devir"
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1         'Saniye"
+    End If
+cik:
+
+End
+
+Public Sub r27_Click() 'km. /hektar / pint
+
+    If giris.Text = ""
+        Goto cik
+    End If
+    If bolum.Text = "Length"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) / 39370.1
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) / 3280.84
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) / 1093.61
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) / 0.621371
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) / 0.539957
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) / 1000
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) / 1
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) / 1000000
+    End If
+    If bolum.Text = "Area"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 6.4516 * 10 ^ (-8)
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 9.2903 * 10 ^ (-6)
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 8.3613 * 10 ^ (-5)
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 259
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.0001
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.01
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 100
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) / 10000000000
+    End If
+    If bolum.Text = "Volume"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.028837        ' parmak
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 49.831      'ayak
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1345.4        'yarda
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.052042         'a.onz
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 6.6614         'a.galon
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 8          'i.galon
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1          ' i.pint
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.0017598          'cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1.7598         'dm
+    End If
+    If bolum.Text = "Mass"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 2.2046      'kg.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.0022046      'gr.
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.00044092      'karat
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.068571      'once
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.82286      'pound
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 32.174      'slug
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1      'libre
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 2240       'ton long
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 2000       ' ton metrik
+    End If
+    If bolum.Text = "Energy-Work"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 101.97      'kj.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 107.59      'btu
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 426.93       'kalori
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1.0197 * 10 ^ (-8)       'erg
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.13825      'ftlbf.
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1.0759 * 10 ^ (7)      'therm
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1     'kgf.m
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 3.671 * 10 ^ (5)        'kw.h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.10197       ' n.m.
+    End If
+    If bolum.Text = "Power"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1.341      'kW.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.00039301       'btu/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.0015596      'Kcal/h
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1.341 * 10 ^ (-10)       'erg/s
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.0018182        'ftlbf/sn
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.98632       'HP(metrik)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1       'HP(İngiliz)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.013151         'kgf.m./s
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.001341      'joule/sn(Watt)
+    End If
+    If bolum.Text = "Pressure"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 7.5006      'KiloPascal
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 760        'atmosfer
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 750.06       'bar
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 25.4        'inch.civa
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.35913        'lbf/ayak^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 735.56      'Kgf/cm^2
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1      'mm.civa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 51.715          'PSI(lb./inch^2)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.073556       'kgf.m./s
+    End If
+    If bolum.Text = "Force"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.0001124      'newton
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1.124 * 10 ^ (-9)         'dyne
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.0011023        'kgf.
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 3.125 * 10 ^ (-5)         'ouncef
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.0005         'pounf
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.0011023       'kilopound
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1     'ton kısa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1.12           'ton uzun
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1.554 * 10 ^ (-5)       'poundal
+    End If
+    If bolum.Text = "Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1.9438       'm/s
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.00016458         'ft/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.0098747         'ft/min
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.59248          'ft/sn
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.049374          'inch/s
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.53996        'km/h
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1      'knots
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.86898            'mil/h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1.7775         'yard/s
+    End If
+
+    If bolum.Text = "Acceleration"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.00062137        'metre/saniye^2"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 6.2137 * 10 ^ (-6)        'cm./saniye^2"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.00018939       'Ayak/saniye^2"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1.5783 * 10 ^ (-5)         'Parmak/saniye^2"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.62137           'km/saniye^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.0001726        'km/saniye*saat"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1      'mil/saniye^2"
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.00027778             'mil/saniye*saat"
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 6.2137 * 10 ^ (-7)        'mm./saniye^2"
+    End If
+    If bolum.Text = "Moment"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 8.8507         'Nm.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 8.85071 * 10 ^ (-7)          'dynecm
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.86796        'kgf.cm
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 86.796         'kgf.m"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 8850.7            'KN.m."
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 12         'libre f. ayak"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1      'libre.f. par
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.088507              'N.cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.0625       'ozf.in."
+    End If
+cik:
+
+End
+
+Public Sub r28_Click() 'mmkare  / cmküp /
+
+    If giris.Text = ""
+        Goto cik
+    End If
+    If bolum.Text = "Length"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 25.4
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 304.8
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 91.44
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 160934.4
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1852000
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1000
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1000000
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1
+    End If
+    If bolum.Text = "Area"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 6.4516 * 10 ^ (-10)
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 9.2903 * 10 ^ (-8)
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 8.3613 * 10 ^ (-7)
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 2.59
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1.0 * 10 ^ (-6)
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.0001
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.01
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) / 1.0 * 10 ^ (12)
+    End If
+    If bolum.Text = "Volume"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 16.387        ' parmak
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 28317       'ayak
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 764550        'yarda
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 29.574         'a.onz
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 3785.4          'a.galon
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 4546.1          'i.galon
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 568.26          ' i.pint
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1         'cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1000          'dm
+    End If
+    If bolum.Text = "Mass"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.00098421      'kg.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 9.8421 * 10 ^ (-7)      'gr.
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1.9684 * 10 ^ (-7)      'karat
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 3.0612 * 10 ^ (-5)    'once
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.00036735      'pound
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.014363      'slug
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.00044643      'libre
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1      'ton long
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.89286      ' ton metrik
+    End If
+    If bolum.Text = "Energy-Work"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.00027778      'kj.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.00029307      'btu
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.001163       'kalori
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 2.7778 * 10 ^ (-14)       'erg
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 3.7662 * 10 ^ (-7)        'ftlbf.
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 29.307       'therm
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 2.7241 * 10 ^ (-6)      'kgf.m
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1        'kw.h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 2.7778 * 10 ^ (-7)      ' n.m.
+    End If
+    If bolum.Text = "Power"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 101.97      'kW.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.029885       'btu/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.11859      'Kcal/h
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1.0197 * 10 ^ (-8)       'erg/s
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.13825        'ftlbf/sn
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 75       'HP(metrik)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 76.04       'HP(İngiliz)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1         'kgf.m./s
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.10197      'joule/sn(Watt)
+    End If
+    If bolum.Text = "Pressure"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.14504      'KiloPascal
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 14.696        'atmosfer
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 14.504       'bar
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.49115        'inch.civa
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.0069444         'lbf/ayak^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 14.223       'Kgf/cm^2
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.019337       'mm.civa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1          'PSI(lb./inch^2)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.0014223       'kgf.m./s
+    End If
+    If bolum.Text = "Force"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.00010036     'newton
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1.0036 * 10 ^ (-9)        'dyne
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.00098421        'kgf.
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 2.7902 * 10 ^ (-5)         'ouncef
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.00044643         'pounf
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.00098421     'kilopound
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.89286    'ton kısa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1         'ton uzun
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1.3875 * 10 ^ (-5)        'poundal
+    End If
+    If bolum.Text = "Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 2.2369       'm/s
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.000018939         'ft/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.011364         'ft/min
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.68182          'ft/sn
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.056818          'inch/s
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.62137        'km/h
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1.1508      'knots
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1           'mil/h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 2.0455         'yard/s
+    End If
+    If bolum.Text = "Acceleration"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 2.2369        'metre/saniye^2"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.022369        'cm./saniye^2"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.68182       'Ayak/saniye^2"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.056818         'Parmak/saniye^2"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 2236.9           'km/saniye^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.62137        'km/saniye*saat"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 3600      'mil/saniye^2"
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1             'mil/saniye*saat"
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.0022369        'mm./saniye^2"
+    End If
+    If bolum.Text = "Moment"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 100         'Nm.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 11 * 10 ^ (-5)          'dynecm
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 9.8066        'kgf.cm
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 980.66         'kgf.m"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (5)             'KN.m."
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 153.58         'libre f. ayak"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 11.298      'libre.f. par
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1              'N.cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 0.70616       'ozf.in."
+    End If
+cik:
+
+End
+
+Public Sub r29_Click()  '  dm.küp.
+
+    If giris.Text = ""
+        Goto cik
+    End If
+    If bolum.Text = "Area"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 6.4516 * 10 ^ (2)
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 9.2903 * 10 ^ (4)
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 8.3613 * 10 ^ (5)
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 2.59 * 10 ^ (12)
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1.0 * 10 ^ (6)
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1.0 * 10 ^ (8)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1.0 * 10 ^ (10)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1.0 * 10 ^ (12)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) / 1
+    End If
+    If bolum.Text = "Volume"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.016387        ' parmak
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 28.317        'ayak
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 764.55        'yarda
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.029574          'a.onz
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 3.7854          'a.galon
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 4.5461           'i.galon
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.56826           ' i.pint
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.001          'cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1           'dm
+    End If
+    If bolum.Text = "Mass"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 0.0011023      'kg.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1.1023 * 10 ^ (-6)      'gr.
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 2.2046 * 10 ^ (-7)      'karat
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 3.4286 * 10 ^ (-5)      'once
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.00041143      'pound
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.016087      'slug
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.0005      'libre
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1.12       'ton long
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1       ' ton metrik
+    End If
+    If bolum.Text = "Enerji-İş"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1000      'kj.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1055.1      'btu
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 4186.8      'kalori
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (-7)      'erg
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1.3558       'ftlbf.
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 1.0551 * 10 ^ (8)        'therm
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 9.8066      'kgf.m
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 3.6 * 10 ^ (6)       'kw.h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1       ' n.m.
+    End If
+    If bolum.Text = "Power"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1000      'kW.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 0.29307       'btu/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 1.163      'Kcal/h
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (-7)       'erg/s
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1.3558        'ftlbf/sn
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 735.5       'HP(metrik)
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 745.7       'HP(İngiliz)
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 9.8066         'kgf.m./s
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1      'joule/sn(Watt)
+    End If
+    If bolum.Text = "Pressure"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 101.97      'KiloPascal
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 10332        'atmosfer
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 10197       'bar
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 345.31        'inch.civa
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 4.8824        'lbf/ayak^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 10000      'Kgf/cm^2
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 13.595      'mm.civa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 703.07          'PSI(lb./inch^2)
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1       'kgf.m./s
+    End If
+    If bolum.Text = "Force"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 7.233      'newton
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 7.233 * 10 ^ (-5)         'dyne
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 70.932        'kgf.
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 2.0109         'ouncef
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 32.174         'pounf
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 70.932       'kilopound
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 64348      'ton kısa
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 72070          'ton uzun
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1        'poundal
+    End If
+    If bolum.Text = "Velocity"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1.0936       'm/s
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 9.2593 * 10 ^ (-5)         'ft/h
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 0.0055556         'ft/min
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 0.33333          'ft/sn
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 0.027778          'inch/s
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 0.30378        'km/h
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 0.5626      'knots
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 0.48889            'mil/h
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1         'yard/s
+    End If
+    If bolum.Text = "Acceleration"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 1000        'metre/saniye^2"
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 10        'cm./saniye^2"
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 304.8       'Ayak/saniye^2"
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 25.4         'Parmak/saniye^2"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1 * 10 ^ (6)           'km/saniye^2
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 277.78        'km/saniye*saat"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 1.6093 * 10 ^ (6)      'mil/saniye^2"
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 447.04            'mil/saniye*saat"
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1        'mm./saniye^2"
+    End If
+    If bolum.Text = "Moment"
+        If r11.Value = True Then sonuc.Text = Val(giris.Text) * 141.61         'Nm.
+        If r12.Value = True Then sonuc.Text = Val(giris.Text) * 1.41611 * 10 ^ (-5)          'dynecm
+        If r13.Value = True Then sonuc.Text = Val(giris.Text) * 13.887        'kgf.cm
+        If r14.Value = True Then sonuc.Text = Val(giris.Text) * 1388.7         'kgf.m"
+        If r15.Value = True Then sonuc.Text = Val(giris.Text) * 1.41611 * 10 ^ (5)             'KN.m."
+        If r16.Value = True Then sonuc.Text = Val(giris.Text) * 192         'libre f. ayak"
+        If r17.Value = True Then sonuc.Text = Val(giris.Text) * 16      'libre.f. par
+        If r18.Value = True Then sonuc.Text = Val(giris.Text) * 1.4161              'N.cm
+        If r19.Value = True Then sonuc.Text = Val(giris.Text) * 1       'ozf.in."
+    End If
+cik:
+
+End
+
+Public Sub r11_Click()
+
+    tm
+
+End
+
+Public Sub r12_Click()
+
+    tm
+
+End
+
+Public Sub r13_Click()
+
+    tm
+
+End
+
+Public Sub r14_Click()
+
+    tm
+
+End
+
+Public Sub r15_Click()
+
+    tm
+
+End
+
+Public Sub r16_Click()
+
+    tm
+
+End
+
+Public Sub r17_Click()
+
+    tm
+
+End
+
+Public Sub r18_Click()
+
+    tm
+
+End
+
+Public Sub r19_Click()
+
+    tm
+
+End
+
+Sub tm()
+
+    sonuc.Text = ""
+    r21.Value = False
+    r22.Value = False
+    r23.Value = False
+    r24.Value = False
+    r25.Value = False
+    r26.Value = False
+    r27.Value = False
+    r28.Value = False
+    r29.Value = False
+    r21_Click()
+    r22_Click()
+    r23_Click()
+    r24_Click()
+    r25_Click()
+    r26_Click()
+    r27_Click()
+    r28_Click()
+    r29_Click()
+
+End
+
+Public Sub giris_Change()
+
+    tm
+
+End
+
+Public Sub bolum_Change()
+
+    giris.Text = ""
+    sonuc.Text = ""
+
+End
+
+Public Sub giris_Activate()
+
+    tm
+
+End
+
+Public Sub Label3_MouseDown()
+
+End

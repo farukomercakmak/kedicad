@@ -1,0 +1,543 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(374,64,512,464)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  { TabStrip1 TabStrip
+    Move(0,0,504,464)
+    Count = 4
+    Index = 0
+    Text = ("Bending")
+    { Wizard1 Wizard
+      Move(0,-7,496,440)
+      Count = 4
+      ShowIndex = True
+      Index = 0
+      Text = ("Step #1")
+      { resime PictureBox
+        Move(8,0,400,152)
+        Stretch = True
+      }
+      { ae TextBox
+        Move(232,160,63,28)
+      }
+      { Label7 Label
+        Move(184,160,42,28)
+        Text = ("a(cm.)")
+      }
+      { Label6 Label
+        Move(312,160,42,28)
+        Text = ("b(cm.)")
+      }
+      { be TextBox
+        Move(360,160,63,28)
+      }
+      { yukleme ComboBox
+        Move(88,232,232,32)
+        Text = (" ")
+      }
+      { Label3 Label
+        Move(8,232,70,28)
+        Text = ("Load Type")
+      }
+      { Label2 Label
+        Move(8,200,77,21)
+        Text = ("Supports")
+      }
+      { mesnetsayi ComboBox
+        Move(88,200,232,32)
+        Text = (" ")
+      }
+      Index = 1
+      Text = ("Step #2")
+      { eb Label
+        Move(0,259,119,21)
+        Text = ("Label9")
+      }
+      { etiket Label
+        Move(0,217,120,24)
+        Text = ("Label1")
+      }
+      { cb Label
+        Move(0,231,120,32)
+        Text = ("Label8")
+      }
+      { bb Label
+        Move(0,280,120,24)
+        Text = ("Label7")
+      }
+      { yazi Label
+        Move(0,189,128,32)
+        Text = ("Label1")
+      }
+      { ab Label
+        Move(0,168,136,24)
+        Text = ("Label6")
+      }
+      { b TextBox
+        Move(102,198,112,28)
+      }
+      { c TextBox
+        Move(105,280,112,28)
+      }
+      { Frame1 Frame
+        Move(0,0,140,161)
+        Text = ("Section Type")
+        { daire RadioButton
+          Move(7,28,112,21)
+          Text = ("Round Solid")
+        }
+        { boru RadioButton
+          Move(8,48,112,21)
+          Text = ("Round Hallow")
+        }
+        { npi RadioButton
+          Move(7,112,63,21)
+          Text = ("I")
+        }
+        { npu RadioButton
+          Move(7,133,56,21)
+          Text = ("U")
+        }
+        { dikdort RadioButton
+          Move(7,70,126,21)
+          Text = ("Rectangle Solid")
+        }
+        { bosdort RadioButton
+          Move(7,91,126,28)
+          Text = ("Rectangle Hallow")
+        }
+      }
+      { resim PictureBox
+        Move(272,-8,216,176)
+        Expand = True
+        Stretch = True
+      }
+      { a TextBox
+        Move(105,168,63,28)
+      }
+      { nip ComboBox
+        Move(105,224,119,28)
+        Text = (" ")
+      }
+      { profil ComboBox
+        Move(105,252,119,28)
+        Text = (" ")
+      }
+      { Label39 Label
+        Move(240,184,128,32)
+        Text = ("Moment of Inertia\nIxx (cm^4)")
+      }
+      { atalet TextBox
+        Move(368,184,120,32)
+      }
+      { iyy TextBox
+        Move(368,216,120,32)
+      }
+      { Label40 Label
+        Move(240,216,128,32)
+        Text = ("Moment of Inertia\nIyy (cm^4)")
+      }
+      { Label41 Label
+        Move(240,256,119,28)
+        Text = ("Section Modulüs\n(cm^3)")
+      }
+      { mukavemet TextBox
+        Move(368,248,120,32)
+      }
+      { alana TextBox
+        Move(368,280,120,32)
+      }
+      { Label42 Label
+        Move(240,288,104,24)
+        Text = ("Area (cm^2)")
+      }
+      { Label43 Label
+        Move(240,320,120,32)
+        Text = ("Mass (Kg/m.)")
+      }
+      { agir TextBox
+        Move(368,312,120,32)
+      }
+      { e TextBox
+        Move(56,400,112,28)
+      }
+      { Button5 Button
+        Move(144,6,114,48)
+        Text = ("From drawing\n(Closed Polygon)")
+      }
+      Index = 2
+      Text = ("Step #3")
+      { yuke TextBox
+        Move(120,40,112,32)
+      }
+      { Label4 Label
+        Move(16,40,88,32)
+        Text = ("Load(kgf.)")
+      }
+      { Label5 Label
+        Move(16,80,56,32)
+        Text = ("L(cm.)")
+      }
+      { le TextBox
+        Move(120,80,112,32)
+      }
+      { emode TextBox
+        Move(120,128,112,32)
+        Text = ("2100000")
+      }
+      { Label12 Label
+        Move(16,120,96,32)
+        Text = ("Elasticity\nModule")
+      }
+      { Button1 Button
+        Move(152,200,200,64)
+        Text = ("Calculate")
+        Picture = Picture["standart/accessories-calculator.png"]
+      }
+      Index = 3
+      Text = ("Step #4")
+      { momente TextBox
+        Move(200,8,112,32)
+      }
+      { Label8 Label
+        Move(24,14,160,32)
+        Text = ("Max.Moment(kgf.cm)")
+      }
+      { Label9 Label
+        Move(24,48,152,32)
+        Text = ("Strength(kgf/cm^2)")
+      }
+      { Label10 Label
+        Move(24,88,152,24)
+        Text = ("Deflection(mm.)")
+      }
+      { sehime TextBox
+        Move(200,88,112,32)
+      }
+      { gere TextBox
+        Move(200,48,112,32)
+      }
+      Index = 0
+    }
+    Index = 1
+    Text = ("Torsional")
+    { Wizard2 Wizard
+      Move(0,0,496,432)
+      Count = 4
+      Index = 0
+      Text = ("Step #1")
+      { RadioButton7 RadioButton
+        Move(120,152,192,24)
+        Text = ("Power Calculate")
+      }
+      { RadioButton5 RadioButton
+        Move(120,112,216,24)
+        Text = ("Shaft dia. (d) calculate")
+      }
+      Index = 1
+      Text = ("Step #2")
+      { PictureBox1 PictureBox
+        Move(0,0,120,168)
+        Picture = Picture["res/burul.png"]
+      }
+      { Label32 Label
+        Move(24,168,120,32)
+        Text = ("Label32")
+      }
+      { Label31 Label
+        Move(136,0,144,32)
+        Visible = False
+        Text = ("Shaft Length(L)(cm.)")
+      }
+      { miluz TextBox
+        Move(280,0,152,32)
+        Visible = False
+      }
+      { milcap TextBox
+        Move(280,32,152,32)
+        Visible = False
+      }
+      { Label30 Label
+        Move(136,32,136,32)
+        Visible = False
+        Text = ("Shaft dia. (d)(cm.)")
+      }
+      { Label13 Label
+        Move(136,64,136,32)
+        Text = ("Power (kW.)")
+      }
+      { gucmil TextBox
+        Move(280,64,152,32)
+      }
+      { yukb TextBox
+        Move(280,96,152,32)
+      }
+      { Label14 Label
+        Move(136,96,128,32)
+        Text = ("Load (Kgf.)")
+      }
+      { Label15 Label
+        Move(136,128,136,32)
+        Text = ("RPM")
+      }
+      { dd TextBox
+        Move(280,128,152,32)
+      }
+      { Frame2 Frame
+        Move(120,208,360,120)
+        Text = ("convert ")
+        { dda TextBox
+          Move(288,8,72,32)
+        }
+        { radi TextBox
+          Move(288,88,72,32)
+        }
+        { Label28 Label
+          Move(192,8,88,32)
+        }
+        { Label29 Label
+          Move(192,88,88,32)
+        }
+        { cevir Button
+          Move(192,48,168,32)
+          Text = ("Convert")
+          Picture = Picture["simgeler/cozum/ykuv.png"]
+        }
+        { RadioButton6 RadioButton
+          Move(7,28,140,28)
+          Text = ("rpm to radian")
+        }
+        { RadioButton8 RadioButton
+          Move(8,56,140,28)
+          Text = ("Radian to rpm")
+        }
+      }
+      Index = 2
+      Text = ("Step #3")
+      { Button8 Button
+        Move(168,160,160,56)
+        Text = ("Calculate")
+        Picture = Picture["standart/accessories-calculator.png"]
+      }
+      Index = 3
+      Text = ("Step #4")
+      { gerb TextBox
+        Move(176,16,96,32)
+      }
+      { Label16 Label
+        Move(16,16,152,32)
+        Text = ("Strength(kgf/cm^2)")
+      }
+      { Label17 Label
+        Move(16,56,160,32)
+        Text = ("Torsional angle(degree)")
+      }
+      { burul TextBox
+        Move(176,56,96,32)
+      }
+      { milli TextBox
+        Move(176,96,96,32)
+      }
+      { Label18 Label
+        Move(16,96,128,32)
+        Text = ("Shaft diameter")
+      }
+      { Label26 Label
+        Move(16,136,152,32)
+        Text = ("Torsional Moment")
+      }
+      { dmom TextBox
+        Move(176,136,96,32)
+      }
+      { Label27 Label
+        Move(272,136,64,32)
+        Text = ("kgf.cm.")
+      }
+      Index = 0
+    }
+    Index = 2
+    Text = ("Flambaj")
+    { Wizard3 Wizard
+      Move(0,0,496,432)
+      Count = 4
+      Index = 0
+      Text = ("Step #1")
+      { Button3 Button
+        Move(168,120,184,56)
+        Text = ("Specify Section")
+        Picture = Picture["standart/select-rectangular.png"]
+      }
+      Index = 1
+      Text = ("Step #2")
+      { Frame3 Frame
+        Move(0,16,487,264)
+        Text = ("Connection Form")
+        { RadioButton2 RadioButton
+          Move(136,200,84,35)
+          Text = ("Both end \njoint")
+        }
+        { RadioButton3 RadioButton
+          Move(256,192,112,49)
+          Text = ("First end joint\nsecond end\n fixed")
+        }
+        { PictureBox4 PictureBox
+          Move(272,24,72,136)
+          Picture = Picture["res/hid3.png"]
+        }
+        { PictureBox3 PictureBox
+          Move(144,24,88,144)
+          Picture = Picture["res/hid2.png"]
+        }
+        { PictureBox2 PictureBox
+          Move(16,24,80,144)
+          Picture = Picture["res/hid1.png"]
+        }
+        { RadioButton1 RadioButton
+          Move(0,184,128,64)
+          Font = Font["9"]
+          Text = ("Upper end  free\nlower end fixed")
+        }
+        { PictureBox5 PictureBox
+          Move(400,24,80,136)
+          Picture = Picture["res/hid4.png"]
+        }
+        { RadioButton4 RadioButton
+          Move(392,192,84,42)
+          Text = ("Both end\nfixed")
+        }
+      }
+      Index = 2
+      Text = ("Step #3")
+      { yuk TextBox
+        Move(114,22,72,32)
+      }
+      { Label1 Label
+        Move(0,24,104,24)
+        Text = ("Load (Kgf.)")
+      }
+      { Label20 Label
+        Move(8,64,104,32)
+        Text = ("Safety \ncoefficient")
+      }
+      { emkat TextBox
+        Move(112,64,72,32)
+        Text = ("2.5")
+      }
+      { Label21 Label
+        Move(192,72,98,28)
+        Text = ("No less then 2,5")
+      }
+      { pku TextBox
+        Move(112,104,72,32)
+      }
+      { Label23 Label
+        Move(192,112,28,21)
+        Text = ("cm.")
+      }
+      { Label22 Label
+        Move(8,104,96,32)
+        Text = ("Length (l)")
+      }
+      { Label11 Label
+        Move(8,144,88,32)
+        Text = ("Elasticity \nmodule")
+      }
+      { emod TextBox
+        Move(112,144,80,32)
+        Text = ("2100000")
+      }
+      Index = 3
+      Text = ("Step #4")
+      { Button4 Button
+        Move(248,8,126,42)
+        Visible = False
+        Text = ("Check")
+        Picture = Picture["standart/ok.png"]
+      }
+      { Label24 Label
+        Move(112,104,240,72)
+        Font = Font["14,Bold"]
+      }
+      { Label25 Label
+        Move(128,296,120,32)
+        Visible = False
+        Text = ("Max Load (kgf.)")
+      }
+      { myuk TextBox
+        Move(256,296,168,32)
+        Visible = False
+      }
+      Index = 0
+    }
+    Index = 3
+    Text = ("Power Calculation")
+    { Wizard4 Wizard
+      Move(0,0,496,432)
+      Count = 2
+      Index = 0
+      Text = ("Step #1")
+      { PictureBox6 PictureBox
+        Move(296,16,176,216)
+        Picture = Picture["Resim/guc.png"]
+      }
+      { tyuk TextBox
+        Move(140,14,84,28)
+        Text = ("500")
+      }
+      { ycap TextBox
+        Move(140,56,84,28)
+        Text = ("100")
+      }
+      { dev TextBox
+        Move(140,98,84,28)
+        Text = ("50")
+      }
+      { Label35 Label
+        Move(0,98,98,28)
+        Text = ("RPM")
+      }
+      { Label34 Label
+        Move(0,56,98,28)
+        Text = ("Radius(mm.)")
+      }
+      { Label33 Label
+        Move(0,21,133,21)
+        Text = ("Load(kgf.)")
+      }
+      { Button6 Button
+        Move(224,248,136,48)
+        Text = ("Calculate")
+        Picture = Picture["standart/accessories-calculator.png"]
+      }
+      Index = 1
+      Text = ("Step #2")
+      { t TextBox
+        Move(176,72,84,28)
+      }
+      { Label38 Label
+        Move(71,65,105,28)
+        Text = ("Torque(kgf.cm.)")
+      }
+      { Label36 Label
+        Move(71,100,105,28)
+        Text = ("Power (kW.)")
+      }
+      { g TextBox
+        Move(176,107,84,28)
+      }
+      { Label37 Label
+        Move(71,142,105,28)
+        Text = ("Velocity(cm/dk)")
+      }
+      { hes TextBox
+        Move(176,142,84,28)
+      }
+      Index = 0
+    }
+    Index = 0
+  }
+}

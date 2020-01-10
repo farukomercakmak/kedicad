@@ -1,0 +1,597 @@
+' Gambas module file
+
+Public mazgi As A
+Public fsec As Integer
+Public tmk As Integer
+Public cazgi As Czm
+Public earCounter As Integer
+Public tribool As Boolean
+Public earbool As Boolean
+Public arebool As Boolean
+Public conbool As Boolean
+Public earHasBeenCut As Boolean
+Public ccw As Boolean
+Public concaveCount As Integer
+Public npoints As Integer
+Public areasum As Float
+Public hk As Integer
+Public hkx As Integer
+Public hky As Integer
+Public rk As Integer
+Public rkx As Integer
+Public rky As Integer
+Public birx As Float
+Public biry As Float
+Public ikix As Float
+Public ikiy As Float
+Public jet As Integer
+Public ket As Integer
+Public xcz As Integer
+Public talax As Float
+Public ysa As Integer
+Public r2 As Integer
+Public yus As Float
+Public basy As Float
+Public sony As Float
+Public basx As Float
+Public sonx As Float
+Public alax As Float
+Public idpoints As New Integer[]
+Public xpoints As New Float[]
+Public ypoints As New Float[]
+Public ptType As New Float[]
+Public depo As New Integer[]
+Public nokx As New Integer[]
+Public noky As New Integer[]
+Public tex As New Float[]
+Public tey As New Float[]
+Public ax1 As New Float[]
+Public ay1 As New Float[]
+Public ax2 As New Float[]
+Public ay2 As New Float[]
+Public ax3 As New Float[]
+Public ay3 As New Float[]
+Public axid As New Float[]
+Public xid As New Float[]
+Public alan As New Integer[]
+Public atel As New Integer[]
+Public mezmi As Collection
+
+Public Sub bas()
+
+    Dim i, c, u As Integer
+
+    mezmi = New Collection
+    tex.Clear
+    tey.Clear
+    alan.Clear
+    atel.Clear
+    xpoints.Clear
+    ypoints.Clear
+    idpoints.Clear
+    ptType.Clear
+    depo.Clear
+    noky.Clear
+    axid.Clear
+    nokx.Clear
+    ay3.Clear
+    ax3.Clear
+    yus = 0
+    ket = 0
+    jet = 0
+    r2 = 0
+    hk = 0
+    hkx = 0
+    hky = 0
+    rk = 0
+    rkx = 0
+    rky = 0
+    birx = 0
+    biry = 0
+    ikix = 0
+    ikiy = 0
+    xcz = 0
+    talax = 0
+    ysa = 0
+    xcz = 0
+    earCounter = 0
+    concaveCount = 0
+    u = 1
+    For c = 0 To ax1.Count - 1
+        mazgi = New A
+        mazgi.id = u
+        mazgi.x1 = ax1[c]
+        mazgi.y1 = ay1[c]
+        mazgi.x2 = ax2[c]
+        mazgi.y2 = ay2[c]
+        mezmi.Add(mazgi, u)
+        u = u + 1
+    Next
+    If mezmi.Count < 2 Then
+        message("Eksik veri girişi", "OK")
+        Goto cik
+    Endif
+    For Each mazgi In mezmi
+        If mazgi.id = 1 Then
+            altr(mazgi.x1, mazgi.y1)
+            If xpoints.Count < 3 Then
+                xpoints.Clear
+                ypoints.Clear
+                altr(mazgi.x2, mazgi.y2)
+            Endif
+        Endif
+    Next
+    npoints = xpoints.Count
+    For i = 0 To xpoints.Count - 3
+        ptType.Clear
+        classifyPoints()
+        doCutEar()
+    Next
+    ciz
+cik:
+    Return
+Catch
+    ilk.hatayaz("bas " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Sub altr(xs As Float, ys As Float)
+
+    Dim f, l As Integer
+
+    f = ax1.Count - 1
+    For Each mazgi In mezmi
+        If mazgi.id <= 0 Then Goto gec
+        If ((xs = mazgi.x1) And (ys = mazgi.y1)) Then
+            xs = mazgi.x2
+            ys = mazgi.y2
+            xpoints.Add(mazgi.x1)
+            ypoints.Add(mazgi.y1)
+            l = mazgi.id
+        Else If ((xs = mazgi.x2) And (ys = mazgi.y2)) Then
+            xs = mazgi.x1
+            ys = mazgi.y1
+            xpoints.Add(mazgi.x2)
+            ypoints.Add(mazgi.y2)
+            l = mazgi.id
+        Endif
+        If l <> -1 Then
+            mazgi.id = - 1 * (mazgi.id)
+            l = -1
+        Endif
+    gec:
+    Next
+cik:
+    Return
+Catch
+    ilk.hatayaz("altr " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub classifyPoints()
+
+    Dim i As Integer
+
+    ptType.Clear
+    polygonClockwise
+    If earCounter = 0
+        If ccw = False
+            xpoints.Reverse
+            ypoints.Reverse
+        End If
+    End If
+
+    For i = 0 To (npoints - 2)
+        If i = 0
+            convex(xpoints[npoints - 2], ypoints[npoints - 2], xpoints[i], ypoints[i], xpoints[i + 1], ypoints[i + 1])
+            If conbool = True Then
+                ptType.Add(1, i)    ' Dışbükey
+            Else
+                ptType.Add(-1, i)          ' içbükey
+                concaveCount = concaveCount + 1
+            Endif
+        Else
+            convex(xpoints[i - 1], ypoints[i - 1], xpoints[i], ypoints[i], xpoints[i + 1], ypoints[i + 1])
+            If conbool = True Then
+                ptType.Add(1, i)         ' Dışbükey
+            Else
+                ptType.Add(-1, i)          ' içbükey
+                concaveCount = concaveCount + 1
+            Endif
+        End If
+    Next
+    Return
+Catch
+    ilk.hatayaz("clssify " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub convex(x1 As Float, y1 As Float, x2 As Float, y2 As Float, x3 As Float, y3 As Float)
+
+    area(x1, y1, x2, y2, x3, y3)
+    If areasum < 0
+        conbool = False
+    Else
+        conbool = True
+    End If
+    Return
+Catch
+    ilk.hatayaz("cnvx " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub area(x1 As Float, y1 As Float, x2 As Float, y2 As Float, x3 As Float, y3 As Float)
+
+    areasum = 0
+    areasum = areasum + x1 * (y3 - y2)
+    areasum = areasum + x2 * (y1 - y3)
+    areasum = areasum + x3 * (y2 - y1)
+    areasum = areasum / 2
+    Return
+Catch
+    ilk.hatayaz("area " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub polygonClockwise()
+
+    Dim i As Integer
+    Dim aa, bb, cc, b, c, theta As Float
+    Dim convex_turn As Float
+    Dim convex_sum As Float
+
+    convex_sum = 0
+
+    For i = 0 To (npoints - 3)
+        aa = ((xpoints[i + 2] - xpoints[i]) * (xpoints[i + 2] - xpoints[i])) + ((-1 * ypoints[i + 2] + ypoints[i]) * (-1 * ypoints[i + 2] + ypoints[i]))
+        bb = ((xpoints[i + 1] - xpoints[i]) * (xpoints[i + 1] - xpoints[i])) + ((- 1 * ypoints[i + 1] + ypoints[i]) * (-1 * ypoints[i + 1] + ypoints[i]))
+        cc = ((xpoints[i + 2] - xpoints[i + 1]) * (xpoints[i + 2] - xpoints[i + 1])) + ((-1 * ypoints[i + 2] + ypoints[i + 1]) * (-1 * ypoints[i + 2] + ypoints[i + 1]))
+        b = Sqr(bb)
+        c = Sqr(cc)
+        theta = ACos((bb + cc - aa) / ((2 * b * c) - 0.00001))
+        convex(xpoints[i], ypoints[i], xpoints[i + 1], ypoints[i + 1], xpoints[i + 2], ypoints[i + 2])
+        If conbool = True Then
+            convex_turn = Pi - theta
+            convex_sum = convex_sum + convex_turn
+        Else
+            convex_sum = convex_sum - (Pi - theta)
+        End If
+    Next
+    aa = Hyp((xpoints[1] - xpoints[npoints - 2]), (-1 * ypoints[1] + ypoints[npoints - 2]))
+    bb = Hyp((xpoints[0] - xpoints[npoints - 2]), (-1 * ypoints[0] + ypoints[npoints - 2]))
+    cc = Hyp((xpoints[1] - xpoints[0]), (-1 * ypoints[1] + ypoints[0]))
+    b = Sqr(bb)
+    c = Sqr(cc)
+    theta = ACos((bb + cc - aa) / ((2 * b * c) - 0.000001))
+    convex(xpoints[npoints - 2], ypoints[npoints - 2], xpoints[0], ypoints[0], xpoints[1], ypoints[1])
+    If conbool = True Then
+        convex_turn = Pi - theta
+        convex_sum = convex_sum + convex_turn
+    Else
+        convex_sum = convex_sum - (Pi - theta)
+    End If
+
+    If convex_sum < (Pi)
+        ccw = False
+    Else
+        ccw = True
+    End If
+    Return
+Catch
+    ilk.hatayaz("polygonClockwise " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Public Sub doCutEar()
+
+    Dim i As Integer
+
+    earHasBeenCut = False
+    For i = 0 To (npoints - 2)
+        If ptType[i] = 1 Then     ' convex uç
+            If i = 0 Then
+                ear(xpoints[npoints - 2], ypoints[npoints - 2], xpoints[0], ypoints[0], xpoints[1], ypoints[1])
+                If earbool = True Then   ' kulak
+                    cutEar(0)             ' kulağı kes
+                    xpoints.Remove(0)
+                    ypoints.Remove(0)
+                    npoints = npoints - 1
+                    earHasBeenCut = True     ' Kesim yapıldı
+                    Goto cik
+                End If
+            Else
+                ear(xpoints[i - 1], ypoints[i - 1], xpoints[i], ypoints[i], xpoints[i + 1], ypoints[i + 1])
+                If earbool = True Then  ' kulak
+                    cutEar(i)            ' kulağı kes
+                    xpoints.Remove(i)
+                    ypoints.Remove(i)
+                    npoints = npoints - 1
+                    earHasBeenCut = True    ' Kesim yapıldı
+                    Goto cik
+                End If
+            End If
+        End If
+    Next
+cik:
+    Return
+Catch
+    ilk.hatayaz("doCutEar " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub ear(x1 As Float, y1 As Float, x2 As Float, y2 As Float, x3 As Float, y3 As Float)
+
+    If concaveCount > 0 Then
+        triangleContainsPoint(x1, y1, x2, y2, x3, y3)
+        If tribool = True Then   ' nokta var
+            earbool = False      ' kulak değil
+        Else
+            earbool = True          ' kulak
+        End If
+    Else
+        earbool = True
+    End If
+    Return
+Catch
+    ilk.hatayaz("ear " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub triangleContainsPoint(x1 As Float, y1 As Float, x2 As Float, y2 As Float, x3 As Float, y3 As Float)
+
+    Dim i As Integer
+    Dim area1, area2, area3 As Float
+    Dim noPointInTriangle As Boolean
+
+    noPointInTriangle = True
+    For i = 0 To (npoints - 2)
+        If ptType[i] = -1
+            If (((xpoints[i] <> x1) And (ypoints[i] <> y1)) Or ((xpoints[i] <> x2) And (ypoints[i] <> y2)) Or ((xpoints[i] <> x3) And (ypoints[i] <> y3)))
+                area(x1, y1, x2, y2, xpoints[i], ypoints[i])
+                area1 = areasum
+                area(x2, y2, x3, y3, xpoints[i], ypoints[i])
+                area2 = areasum
+                area(x3, y3, x1, y1, xpoints[i], ypoints[i])
+                area3 = areasum
+                If (area1 > 0)
+                    If (area2 > 0) And (area3 > 0)
+                        noPointInTriangle = False ' Nokta var
+                        Goto cik
+                    End If
+                Else If (area1 < 0)
+                    If (area2 < 0) And (area3 < 0) Then
+                        noPointInTriangle = False  ' Nokta var
+                        Goto cik
+                    End If
+                End If
+            End If
+        End If
+    Next
+cik:
+    If noPointInTriangle = False   ' Nokta varsa
+        tribool = True             'var
+    Else
+        tribool = False              ' yok
+    End If
+    Return
+Catch
+    ilk.hatayaz("triangle " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub cutEar(index As Integer)
+
+    Dim ex As New Float[]
+    Dim ey As New Float[]
+
+    If index = 0
+        ex.Add(xpoints[npoints - 2], 0)
+        ey.Add(ypoints[npoints - 2], 0)
+        ex.Add(xpoints[index], 1)
+        ey.Add(ypoints[index], 1)
+        ex.Add(xpoints[index + 1], 2)
+        ey.Add(ypoints[index + 1], 2)
+
+    Else If (index > 0) And (index < (npoints - 2))
+        ex.Add(xpoints[index - 1], 0)
+        ey.Add(ypoints[index - 1], 0)
+        ex.Add(xpoints[index], 1)
+        ey.Add(ypoints[index], 1)
+        ex.Add(xpoints[index + 1], 2)
+        ey.Add(ypoints[index + 1], 2)
+
+    Else If index = (npoints - 2)
+        ex.Add(xpoints[index - 1], 0)
+        ey.Add(ypoints[index - 1], 0)
+        ex.Add(xpoints[index], 1)
+        ey.Add(ypoints[index], 1)
+        ex.Add(xpoints[0], 2)
+        ey.Add(ypoints[0], 2)
+    End If
+    tex.add(ex[0])
+    tey.add(ey[0])
+    tex.add(ex[1])
+    tey.add(ey[1])
+    tex.add(ex[2])
+    tey.add(ey[2])
+    nokx.Add((ex[0] + ex[1] + ex[2]) / 3)
+    noky.Add((ey[0] + ey[1] + ey[2]) / 3)
+    Return
+Catch
+    ilk.hatayaz("cutEar " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub ciz()
+
+    kesitli.fex = tex
+    kesitli.fey = tey
+    altust
+    hesap
+    hesap2
+    Return
+Catch
+    ilk.atayaz("area " & Error.Text, Error.Where & "--" & Error.code)
+    ciz
+End
+
+Public xus As Float
+Public xsa As Float
+Public atelx As New Float[]
+
+Sub hesap2()
+
+    Dim i As Integer
+    Dim r1, usy, asy, usx, asx, alana As Float
+
+    For i = 0 To nokx.Count - 1
+        r1 = Abs(Abs(noky[i]) - Abs(yus))
+        ysa = ysa + atel[i] + r1 ^ 2 * alan[i]
+    Next
+    For i = 0 To nokx.Count - 1
+        r1 = Abs(Abs(nokx[i]) - Abs(xus))
+        xsa = xsa + atelx[i] + r1 ^ 2 * alan[i]
+    Next
+
+    For i = 0 To nokx.Count - 1
+        alana = alana + alan[i]
+    Next
+    If fsec = 1 Then
+        mukavemetli.alana.Text = Round(alana / 100, -2)
+        mukavemetli.atalet.Text = Round(ysa / 10000, -4)
+        mukavemetli.iyy.Text = Round(xsa / 10000, -4)
+    Else
+        kesitli.alan.Text = Round(alana / 100, -2)
+        kesitli.atalet.Text = Round(ysa / 10000, -4)
+        kesitli.iyy.Text = Round(xsa / 10000, -4)
+    End If
+    usy = Abs(Abs(basy) - Abs(yus))
+    asy = Abs(Abs(sony) - Abs(yus))
+    usx = Abs(Abs(basx) - Abs(xus))
+    asx = Abs(Abs(sonx) - Abs(xus))
+
+    If usy > asy
+        r2 = ysa / usy
+        If fsec = 1 Then
+            mukavemetli.a.Text = Round(usy / 10, -3)
+        Else
+            kesitli.a.Text = Round(usy / 10, -3)
+        Endif
+    Else
+        r2 = ysa / asy
+        If fsec = 1 Then
+            mukavemetli.a.Text = Round(asy / 10, -3)
+        Else
+            kesitli.a.Text = Round(asy / 10, -3)
+        Endif
+    End If
+    If fsec = 1 Then
+        mukavemetli.mukavemet.Text = Round(r2 / 1000, -3)
+    Else
+        kesitli.mukavemet.Text = Round(r2 / 1000, -3)
+    End If
+    If usx > asx
+        r2 = xsa / usx
+        If fsec = 1 Then
+            mukavemetli.b.Text = Round(usx / 10, -3)
+        Else
+            kesitli.b.Text = Round(usx / 10, -3)
+        End If
+    Else
+        r2 = xsa / asx
+        If fsec = 1 Then
+            mukavemetli.b.Text = Round(asx / 10, -3)
+        Else
+            kesitli.b.Text = Round(asx / 10, -3)
+        End If
+    End If
+    ilk.calanilk.Refresh
+    Return
+Catch
+    ilk.hatayaz("hsp2 " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Sub hesap()
+
+    Dim i As Integer
+    Dim xmin, ymin, xmax, ymax, rx, ry, usy, asy, usx, asx As Float
+
+    For i = 0 To tex.Count - 3 Step 3
+        xmin = Min(tex[i], tex[i + 1])
+        xmin = Min(xmin, tex[i + 2])
+        xmax = Max(tex[i], tex[i + 1])
+        xmax = Max(xmax, tex[i + 2])
+        ymin = Min(tey[i], tey[i + 1])
+        ymin = Min(ymin, tey[i + 2])
+        ymax = Max(tey[i], tey[i + 1])
+        ymax = Max(ymax, tey[i + 2])
+        rx = Abs(Abs(xmin) - Abs(xmax))
+        ry = Abs(Abs(ymin) - Abs(ymax))
+        atel.Add(rx * ry ^ 3 / 36)
+        atelx.Add(ry * rx ^ 3 / 36)
+        aln(tex[i], tey[i], tex[i + 1], tey[i + 1], tex[i + 2], tey[i + 2])
+        alan.Add(alax)
+    Next
+    For i = 0 To nokx.Count - 1
+        usy = usy + (noky[i] * alan[i])
+        asy = asy + alan[i]
+    Next
+    For i = 0 To nokx.Count - 1
+        usx = usx + (nokx[i] * alan[i])
+        asx = asx + alan[i]
+    Next
+    If asy <> 0 Then yus = usy / asy
+    If asx <> 0 Then xus = usx / asx
+    Return
+Catch
+    ilk.hatayaz("hsp " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub altust()
+
+    Dim i As Integer
+
+    basy = 100000000000
+    sony = -100000000000
+    basx = 100000000000
+    sonx = -100000000000
+    For i = 0 To tey.Count - 1
+        If tey[i] < basy Then basy = tey[i]
+        If tey[i] > sony Then sony = tey[i]
+    Next
+    For i = 0 To tex.Count - 1
+        If tex[i] < basx Then basx = tex[i]
+        If tex[i] > sonx Then sonx = tex[i]
+    Next
+    Return
+Catch
+    ilk.hatayaz("altust " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub aln(x1 As Float, y1 As Float, x2 As Float, y2 As Float, x3 As Float, y3 As Float)
+
+    alax = 0
+    alax = x1 * (y3 - y2)
+    alax = alax + x2 * (y1 - y3)
+    alax = alax + x3 * (y2 - y1)
+    alax = alax / 2
+    Return
+Catch
+    ilk.hatayaz("aln " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub ekle()
+
+    If kesitli.ListBox1.Find(ilk.idgec) = -1
+        kesitli.ListBox1.Add(ilk.idgec)
+    End If
+    Return
+Catch
+    ilk.hatayaz("ekle " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End

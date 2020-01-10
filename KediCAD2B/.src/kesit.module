@@ -1,0 +1,934 @@
+' Gambas module file
+
+Public atalet As Float
+Public atalety As Float
+Public mukavemet As Float
+Public allan As Float
+Public agir As Float
+
+
+Public Sub tem()
+atalet = 0
+mukavemet = 0
+allan = 0
+agir = 0
+atalety = 0
+
+End
+
+Public Sub daire(cap As Float)
+    atalet = Pi * cap ^ 4 / 64
+    mukavemet = Pi * cap ^ 3 / 32
+    allan = Pi * cap ^ 2 / 4
+    agir = allan * 100 * 7.98 / 1000
+    Return
+            Catch
+	ilk.hatayaz("daire " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub boru(icap As Float, dcap As Float)
+    atalet = Pi * ((dcap ^ 4) - (icap ^ 4)) / 64
+    mukavemet = Pi * ((dcap ^ 3) - (icap ^ 3)) / 32
+    allan = Pi * (dcap ^ 2 - icap ^ 2) / 4
+    agir = allan * 100 * 7.98 / 1000
+    Return
+            Catch
+	ilk.hatayaz("boru " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub dikd(dis As Float, ic As Float)
+    atalet = (ic * (dis ^ 3)) / 12
+    atalety = (dis * (ic ^ 3)) / 12
+    mukavemet = (ic * (dis ^ 2)) / 6
+    allan = ic * dis
+    agir = allan * 100 * 7.98 / 1000
+    Return
+            Catch
+	ilk.hatayaz("dikd " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub kutu(dis As Float, ic As Float, t As Float)
+Dim et, ek As Float
+    et = dis - 2 * t
+    ek = ic - 2 * t
+    atalet = (dis * (ic ^ 3) / 12) - (et * (ek ^ 3) / 12)
+    atalety = (ic * (dis ^ 3) / 12) - (ek * (et ^ 3) / 12)
+    mukavemet = atalet / (ic / 2)
+    allan = ic * dis - et * ek
+    agir = allan * 1000 * 7.86 / 1000000
+    Return
+            Catch
+	ilk.hatayaz("kutu " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub npu(h As String)
+If h = "30-15"
+    allan = 2.21
+    agir = 1.74
+    atalet = 2.53
+    mukavemet = 2.53 / 1.5
+    atalety = 0.38
+Else If h = "30-33" Then
+    allan = 5.44   
+    agir = 4.27 
+    atalet = 6.39
+    mukavemet = 6.39 / 1.5
+    atalety = 5.33
+Else If h = "40-20" Then
+    allan = 3.66  
+    agir = 2.87
+    atalet = 7.58
+    mukavemet = 7.58 / 2
+    atalety = 1.14
+Else If h = "40-35" Then
+    allan = 6.21 
+    agir = 4.87
+    atalet = 14.1
+    mukavemet = 14.1 / 2
+    atalety = 6.68
+Else If h = "50-25" Then
+    allan = 4.92  
+    agir = 3.86
+    atalet = 16.8
+    mukavemet = 16.8 / 2.5
+    atalety = 2.49
+Else If h = "50-38" Then
+    allan = 7.12
+    atalet = 26.4
+    mukavemet = 26.4 / 2.5
+    atalety = 9.12
+Else If h = 60 Then
+    allan = 6.46
+    agir = 5.07
+    atalet = 31.6
+    mukavemet = 31.6 / 3
+    atalety = 4.51
+Else If h = 65 Then
+    allan = 9.03
+    agir = 7.09
+    atalet = 57.5
+    mukavemet = 57.5 / 3.25
+    atalety = 14.1
+Else If h = 80 Then
+    allan = 11
+    agir = 8.64 
+    atalet = 106
+    mukavemet = 106 / 4
+    atalety = 19.4
+Else If h = 100 Then
+    allan = 13.5   
+    agir = 10.6 
+    atalet = 206 
+    mukavemet = 206 / 5
+    atalety = 29.3
+Else If h = 120 Then
+    allan = 17  
+    agir = 13.4
+    atalet = 364
+    mukavemet = 364 / 6
+    atalety = 43.2
+Else If h = 140 Then
+    allan = 20.4   
+    agir = 16
+    atalet = 605
+    mukavemet = 605 / 7
+    atalety = 62.7
+Else If h = 160 Then
+    allan = 24  
+    agir = 18.8
+    atalet = 925
+    mukavemet = 925 / 8
+    atalety = 85.3
+Else If h = 180 Then
+    allan = 28 
+    agir = 22
+    atalet = 1350
+    mukavemet = 1350 / 9
+    atalety = 114
+Else If h = 200 Then
+    allan = 32.2
+    agir = 25.3
+    atalet = 1910
+    mukavemet = 1910 / 10
+    atalety = 148
+Else If h = 220 Then
+    allan = 37.4
+    agir = 29.4
+    atalet = 2690
+    mukavemet = 2690 / 11
+    atalety = 197
+Else If h = 240 Then
+    allan = 42.3
+    agir = 33.2
+    atalet = 3600
+    mukavemet = 3600 / 12
+    atalety = 248
+Else If h = 260 Then
+    allan = 48.3
+    agir = 37.9
+    atalet = 4820
+    mukavemet = 4820 / 13
+    atalety = 317
+Else If h = 280 Then
+    allan = 53.3 
+    agir = 41.8
+    atalet = 6280
+    mukavemet = 6280 / 14
+    atalety = 399
+Else If h = 300 Then
+    allan = 58.8 
+    agir = 46.2
+    atalet = 8030
+    mukavemet = 8030 / 15
+    atalety = 495
+Else If h = 320 Then
+    allan = 75.8
+    agir = 59.5
+    atalet = 10870
+    mukavemet = 10870 / 16
+    atalety = 597
+Else If h = 350 Then
+    allan = 77.3 
+    agir = 60.6
+    atalet = 12840
+    mukavemet = 12840 / 17
+    atalety = 570
+Else If h = 380 Then
+    allan = 80.4 
+    agir = 63.1
+    atalet = 15760
+    mukavemet = 15760 / 18
+    atalety = 615
+Else If h = 400 Then
+    allan = 91.5 
+    agir = 71.8
+    atalet = 20350
+    mukavemet = 20350 / 19
+    atalety = 846
+Endif
+Return
+        Catch
+	ilk.hatayaz("npu " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub hem(h As Integer)
+If h = 80 Then
+    message("No HEM80 ", "OK")
+Else If h = 100 Then
+    allan = 53.24
+    agir = 41.8
+    atalet = 1143
+    mukavemet = 190.4
+    atalety = 399.2
+Else If h = 120 Then
+    allan = 66.41
+    agir = 52.1
+    atalet = 2018
+    mukavemet = 288.2
+    atalety = 702.8
+Else If h = 140 Then
+    allan = 80.56
+    agir = 63.2
+    atalet = 3291
+    mukavemet = 411.4
+    atalety = 1144
+Else If h = 160 Then
+    allan = 97.05
+    agir = 76.2
+    atalet = 5098
+    mukavemet = 566.5
+    atalety = 1759
+Else If h = 180 Then
+    allan = 113.3
+    agir = 88.9
+    atalet = 7483
+    mukavemet = 748.3
+    atalety = 2580
+Else If h = 200 Then
+    allan = 131.3 
+    agir = 103
+    atalet = 10640
+    mukavemet = 967.4
+    atalety = 3651
+Else If h = 220 Then
+    allan = 149.4
+    agir = 117
+    atalet = 14600
+    mukavemet = 1217
+    atalety = 5012
+Else If h = 240 Then
+    allan = 199.6
+    agir = 157
+    atalet = 24290
+    mukavemet = 1799
+    atalety = 8153
+Else If h = 260 Then
+    allan = 219.6
+    agir = 172
+    atalet = 31310
+    mukavemet = 2159
+    atalety = 10450
+Else If h = 280 Then
+    allan = 240.2
+    agir = 189
+    atalet = 39550
+    mukavemet = 2551
+    atalety = 13160
+Else If h = 300 Then
+    allan = 303.1
+    agir = 238
+    atalet = 59200
+    mukavemet = 3482
+    atalety = 19400
+Else If h = 320 Then
+    allan = 312
+    agir = 245
+    atalet = 68130
+    mukavemet = 3796
+    atalety = 19710
+Else If h = 340 Then
+    allan = 315.8
+    agir = 248
+    atalet = 76370
+    mukavemet = 4052
+    atalety = 19710
+Else If h = 360 Then
+    allan = 318.8
+    agir = 250
+    atalet = 84870
+    mukavemet = 4297
+    atalety = 19520
+Else If h = 380 Then
+    message("No HEM 380 ", "OK")
+Else If h = 400 Then
+    allan = 325.8
+    agir = 256
+    atalet = 104100
+    mukavemet = 4820
+    atalety = 19340
+Else If h = 450 Then
+    allan = 355.4
+    agir = 263
+    atalet = 131500
+    mukavemet = 5501
+    atalety = 19340
+Else If h = 500 Then
+    allan = 344.3
+    agir = 270
+    atalet = 161900
+    mukavemet = 6180
+    atalety = 19150
+Else If h = 550 Then
+    allan = 354.4
+    agir = 278
+    atalet = 198000
+    mukavemet = 6923
+    atalety = 19160
+Else If h = 600 Then
+    allan = 363.7
+    agir = 285
+    atalet = 237400
+    mukavemet = 7660
+    atalety = 18980
+Else If h = 650 Then
+    allan = 373.7
+    agir = 293
+    atalet = 281700
+    mukavemet = 8433
+    atalety = 18980
+Else If h = 700 Then
+    allan = 383
+    agir = 301
+    atalet = 329300
+    mukavemet = 9198
+    atalety = 18800
+Else If h = 800 Then
+    allan = 404.3
+    agir = 317
+    atalet = 442600
+    mukavemet = 10870
+    atalety = 18630
+Else If h = 900 Then
+    allan = 423.6
+    agir = 3333
+    atalet = 570400
+    mukavemet = 12540
+    atalety = 18450
+Else If h = 1000 Then
+    allan = 444.2
+    agir = 349
+    atalet = 722300
+    mukavemet = 14330
+    atalety = 18460
+Endif
+Return
+        Catch
+	ilk.hatayaz("hem " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub heb(h As Integer)
+If h = 80 Then
+    message("No HEB80 ", "OK")
+Else If h = 100 Then
+    allan = 26.04 
+    agir = 20.4
+    atalet = 449.5
+    mukavemet = 89.91
+    atalety = 167.3
+Else If h = 120 Then
+    allan = 34.01 
+    agir = 26.7
+    atalet = 864.4
+    mukavemet = 144.1
+    atalety = 317.5
+Else If h = 140 Then
+    allan = 42.96 
+    agir = 33.7
+    atalet = 1509
+    mukavemet = 215.6
+    atalety = 549.7
+Else If h = 160 Then
+    allan = 54.25
+    agir = 42.3
+    atalet = 2492
+    mukavemet = 311.5
+    atalety = 889.2
+Else If h = 180 Then
+    allan = 65.25
+    agir = 51.2
+    atalet = 3831
+    mukavemet = 425.7
+    atalety = 1363
+Else If h = 200 Then
+    allan = 78.08 
+    agir = 61.3
+    atalet = 5696
+    mukavemet = 569.6
+    atalety = 2003
+Else If h = 220 Then
+    allan = 91.04
+    agir = 71.5
+    atalet = 8091
+    mukavemet = 735.5
+    atalety = 2843
+Else If h = 240 Then
+    allan = 106
+    agir = 83.2
+    atalet = 11260
+    mukavemet = 938.3
+    atalety = 3923
+Else If h = 260 Then
+    allan = 118.4
+    agir = 93
+    atalet = 14920
+    mukavemet = 1148
+    atalety = 5135
+Else If h = 280 Then
+    allan = 131.4
+    agir = 103
+    atalet = 19270
+    mukavemet = 1376
+    atalety = 6595
+Else If h = 300 Then
+    allan = 149.1
+    agir = 117
+    atalet = 25170
+    mukavemet = 1678
+    atalety = 8563
+Else If h = 320 Then
+    allan = 161.3
+    agir = 127
+    atalet = 30820
+    mukavemet = 1926
+    atalety = 9239
+Else If h = 340 Then
+    allan = 170.9
+    agir = 134
+    atalet = 36660
+    mukavemet = 2156
+    atalety = 9690
+Else If h = 360 Then
+    allan = 180.6
+    agir = 142
+    atalet = 43190
+    mukavemet = 2400
+    atalety = 10140
+Else If h = 380 Then
+    message("No HEB 380 ", "OK")
+Else If h = 400 Then
+    allan = 197.8
+    agir = 155
+    atalet = 57680
+    mukavemet = 2884
+    atalety = 10820
+Else If h = 450 Then
+    allan = 218
+    agir = 171
+    atalet = 79890
+    mukavemet = 3551
+    atalety = 11720
+Else If h = 500 Then
+    allan = 238.6
+    agir = 187
+    atalet = 107200
+    mukavemet = 4287
+    atalety = 12620
+Else If h = 550 Then
+    allan = 254.1
+    agir = 199
+    atalet = 136700
+    mukavemet = 4971
+    atalety = 13080
+Else If h = 600 Then
+    allan = 270
+    agir = 212
+    atalet = 171000
+    mukavemet = 5701
+    atalety = 13530
+Else If h = 650 Then
+    allan = 286.3
+    agir = 225
+    atalet = 210600
+    mukavemet = 6480
+    atalety = 13980
+Else If h = 700 Then
+    allan = 306.4 
+    agir = 241
+    atalet = 256900
+    mukavemet = 7340
+    atalety = 14440
+Else If h = 800 Then
+    allan = 334.2
+    agir = 262
+    atalet = 359100
+    mukavemet = 8977
+    atalety = 14900
+Else If h = 900 Then
+    allan = 371.3
+    agir = 291
+    atalet = 494100
+    mukavemet = 10980
+    atalety = 15820 
+Else If h = 1000 Then
+    allan = 400
+    agir = 314
+    atalet = 644700
+    mukavemet = 12890
+    atalety = 16280
+Endif
+Return
+        Catch
+	ilk.hatayaz("heb " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+
+Public Sub hea(h As Integer)
+If h = 80 Then
+    message("No HEA80 ", "OK")
+Else If h = 100 Then
+    allan = 21.24  
+    agir = 16.7
+    atalet = 349.2
+    mukavemet = 72.76
+    atalety = 133.8
+Else If h = 120 Then
+    allan = 25.34
+    agir = 19.9
+    atalet = 606.2
+    mukavemet = 106.3
+    atalety = 230.9
+Else If h = 140 Then
+    allan = 31.42  
+    agir = 24.7
+    atalet = 1033
+    mukavemet = 155.4
+    atalety = 389.3
+Else If h = 160 Then
+    allan = 38.77 
+    agir = 30.4
+    atalet = 1673
+    mukavemet = 220.1
+    atalety = 615.6
+Else If h = 180 Then
+    allan = 45.25
+    agir = 35.5
+    atalet = 2510
+    mukavemet = 293.6
+    atalety = 924.6
+Else If h = 200 Then
+    allan = 53.83
+    agir = 42.3
+    atalet = 3692
+    mukavemet = 388.6
+    atalety = 1336
+Else If h = 220 Then
+    allan = 34.34 
+    agir = 50.5
+    atalet = 5410
+    mukavemet = 515.2
+    atalety = 1955
+Else If h = 240 Then
+    allan = 76.84
+    agir = 60.3
+    atalet = 7763
+    mukavemet = 675.1
+    atalety = 2769
+Else If h = 260 Then
+    allan = 86.82
+    agir = 68.2
+    atalet = 10450
+    mukavemet = 836.4
+    atalety = 3668
+Else If h = 280 Then
+    allan = 97.26
+    agir = 76.34
+    atalet = 13670
+    mukavemet = 1013
+    atalety = 4763
+Else If h = 300 Then
+    allan = 112.5
+    agir = 88.3
+    atalet = 18260
+    mukavemet = 1260
+    atalety = 6310
+Else If h = 320 Then
+    allan = 124.4
+    agir = 97.6
+    atalet = 22930
+    mukavemet = 1479
+    atalety = 6985
+Else If h = 340 Then
+    allan = 133.5
+    agir = 105
+    atalet = 27690
+    mukavemet = 1678
+    atalety = 7436
+Else If h = 360 Then
+    allan = 142.8
+    agir = 112
+    atalet = 33090
+    mukavemet = 1891
+    atalety = 7887
+Else If h = 380 Then
+    message("No HEA 380 ", "OK")
+Else If h = 400 Then
+    allan = 159
+    agir = 125
+    atalet = 45070
+    mukavemet = 2311
+    atalety = 8564
+Else If h = 450 Then
+    allan = 178
+    agir = 140
+    atalet = 6372
+    mukavemet = 2896
+    atalety = 9465
+Else If h = 500 Then
+    allan = 197.5
+    agir = 155
+    atalet = 86970
+    mukavemet = 3550
+    atalety = 10370
+Else If h = 550 Then
+    allan = 211.8
+    agir = 166
+    atalet = 111900
+    mukavemet = 4146
+    atalety = 10820
+Else If h = 600 Then
+    allan = 226.5
+    agir = 178
+    atalet = 141200
+    mukavemet = 4787
+    atalety = 11270
+Else If h = 650 Then
+    allan = 241.6
+    agir = 190
+    atalet = 175200
+    mukavemet = 5474
+    atalety = 11720
+Else If h = 700 Then
+    allan = 260.5
+    agir = 204
+    atalet = 215300
+    mukavemet = 6241
+    atalety = 12180
+Else If h = 800 Then
+    allan = 285.8
+    agir = 224
+    atalet = 303400
+    mukavemet = 7682
+    atalety = 12640
+Else If h = 900 Then
+    allan = 320.5
+    agir = 252
+    atalet = 422100
+    mukavemet = 9485
+    atalety = 13550
+Else If h = 1000 Then
+    allan = 346.8
+    agir = 272
+    atalet = 553800
+    mukavemet = 11190
+    atalety = 14000
+Endif
+Return
+        Catch
+	ilk.hatayaz("hea " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub ipe(h As Integer)
+If h = 100 Then
+    allan = 8.78  
+    agir = 6.9
+    atalet = 141.2
+    mukavemet = 28.81
+    atalety = 13.12
+Else If h = 120 Then
+    allan = 10.32 
+    agir = 8.1
+    atalet = 171
+    mukavemet = 34.2
+    atalety = 15.92
+Else If h = 140 Then
+    allan = 13.21  
+    agir = 10.4
+    atalet = 317.8
+    mukavemet = 52.96
+    atalety = 27.67
+Else If h = 160 Then
+    allan = 16.43  
+    agir = 12.9
+    atalet = 541.2
+    mukavemet = 77.32
+    atalety = 44.92
+Else If h = 180 Then
+    allan = 23.95
+    agir = 18.8
+    atalet = 1317
+    mukavemet = 146.3
+    atalety = 100.9
+Else If h = 200 Then
+    allan = 28.48
+    agir = 22.4
+    atalet = 1943
+    mukavemet = 194.3
+    atalety = 142.4
+Else If h = 220 Then
+    allan = 33.37
+    agir = 26.2
+    atalet = 2772
+    mukavemet = 252
+    atalety = 204.9
+Else If h = 240 Then
+    allan = 39.12
+    agir = 30.7
+    atalet = 38.92
+    mukavemet = 324.3
+    atalety = 283.6
+Else If h = 260 Then
+    message("IPE 270 Data", "Ok")
+    allan = 45.95
+    agir = 36.1
+    atalet = 5790
+    mukavemet = 428.9
+    atalety = 419.9
+Else If h = 280 Then
+    message("No IPE 280 ", "OK")
+Else If h = 300 Then
+    allan = 53.81
+    agir = 42.2
+    atalet = 8356
+    mukavemet = 557.1
+    atalety = 603.8
+Else If h = 320 Then
+    message("IPE 330 Data", "OK")
+    allan = 62.61
+    agir = 49.1
+    atalet = 11770
+    mukavemet = 713.1
+    atalety = 788.1
+Else If h = 340 Then
+    message("No IPE 340 ", "OK")
+Else If h = 360 Then
+    allan = 72.73 
+    agir = 57.1
+    atalet = 16270
+    mukavemet = 903.6
+    atalety = 1043
+Else If h = 380 Then
+    message("No IPE 380 ", "OK")
+Else If h = 400 Then
+    allan = 84.46 
+    agir = 66.3
+    atalet = 23310
+    mukavemet = 1156
+    atalety = 1318
+Else If h = 450 Then
+    allan = 98.82 
+    agir = 77.6
+    atalet = 33740
+    mukavemet = 1500
+    atalety = 1676
+Else If h = 500 Then
+    allan = 115.5
+    agir = 90.7
+    atalet = 48200
+    mukavemet = 1928
+    atalety = 2142
+Else If h = 550 Then
+    allan = 134.4
+    agir = 106
+    atalet = 67120
+    mukavemet = 2441
+    atalety = 2668
+Else If h = 600 Then
+    allan = 156
+    agir = 122
+    atalet = 92080
+    mukavemet = 3069
+    atalety = 3387
+Else If h = 750 Then
+    allan = 221.3
+    agir = 173
+    atalet = 205800
+    mukavemet = 5402
+    atalety = 6873
+End If
+Return
+        Catch
+	ilk.hatayaz("ipe " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub npi(h As Integer)
+    If h = 80 Then
+        allan = 7.58 
+        agir = 5.95 
+        atalet = 77.8
+        mukavemet = 19.45
+        atalety = 6.29
+    Else If h = 100 Then
+        allan = 10.6   
+        agir = 8.32 
+        atalet = 171 
+        mukavemet = 34.2
+        atalety = 12.2
+    Else If h = 120 Then
+        allan = 14.2  
+        agir = 11.2
+        atalet = 328
+        mukavemet = 54.7
+        atalety = 21.5
+    Else If h = 140 Then
+        allan = 18.3   
+        agir = 14.4 
+        atalet = 573
+        mukavemet = 81.9
+        atalety = 35.2
+    Else If h = 160 Then
+       allan = 22.8   
+       agir = 17.9
+        atalet = 935
+        mukavemet = 117
+        atalety = 54.7
+    Else If h = 180 Then
+      allan = 27.9 
+      agir = 21.9
+        atalet = 1450
+        mukavemet = 161 
+        atalety = 81.3
+    Else If h = 200 Then
+      allan = 33.5
+      agir = 26.3
+        atalet = 2140
+        mukavemet = 214 
+        atalety = 117
+    Else If h = 220 Then
+      allan = 39.6
+      agir = 31.1
+        atalet = 3060
+        mukavemet = 278 
+        atalety = 162
+    Else If h = 240 Then
+      allan = 46.1
+      agir = 36.2
+        atalet = 4250
+        mukavemet = 354
+        atalety = 221
+    Else If h = 260 Then
+      allan = 53.4
+      agir = 41.9
+        atalet = 5740
+        mukavemet = 442
+        atalety = 288
+    Else If h = 280 Then
+      allan = 61.1 
+      agir = 48
+        atalet = 7590
+        mukavemet = 542
+        atalety = 36
+    Else If h = 300 Then
+      allan = 69.1 
+      agir = 54.2
+        atalet = 9800
+        mukavemet = 653 
+        atalety = 451
+    Else If h = 320 Then
+      allan = 77.8 
+      agir = 61.1
+        atalet = 12510
+        mukavemet = 782
+        atalety = 555
+    Else If h = 340 Then
+      allan = 86.8 
+      agir = 68.1
+        atalet = 15700
+        mukavemet = 923
+        atalety = 674
+    Else If h = 360 Then
+      allan = 97.1 
+      agir = 76.2
+        atalet = 19610
+        mukavemet = 1090
+        atalety = 818    
+    Else If h = 380 Then
+      allan = 107 
+      agir = 84
+        atalet = 24010
+        mukavemet = 1260
+        atalety = 975
+    Else If h = 400 Then
+      allan = 118
+      agir = 92.6
+        atalet = 29212
+        mukavemet = 1460 
+        atalety = 1160
+    Else If h = 450 Then
+      allan = 147 
+      agir = 115
+        atalet = 45850
+        mukavemet = 2040
+        atalety = 1730
+    Else If h = 500 Then
+      allan = 180 
+      agir = 141
+        atalet = 68740
+        mukavemet = 2750
+        atalety = 2480
+    Else If h = 550 Then
+      allan = 213
+      agir = 167
+        atalet = 99180
+        mukavemet = 2750
+        atalety = 3490
+    End If
+Return
+        Catch
+	ilk.hatayaz("npi " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+

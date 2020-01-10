@@ -1,0 +1,3842 @@
+' Gambas module file
+
+Public bazgi As Cvb
+Public pak As Integer
+Public kacino As Integer
+Public yolac As String
+Public dosya As String
+Public cazgi As Czm
+Public sazgi As Czm
+Public renkcik As String
+Public seksek As String
+Public ucd As Float
+Public tx As String
+Public reskayit As Picture
+Public myFile As File
+Public snb As String
+
+
+Sub blokbol(gf As String)
+
+    Dim kx As Integer
+    Dim stre As String
+    Dim m As String[]
+
+    m = Split(gf, "<")
+    For Each stre In m
+        kx = kx + 1
+        If kx = 1 Then snb = Trim$(stre)
+        If kx = 2 Then snb = snb & Trim$(stre)
+        If kx = 3 Then snb = snb & Trim$(stre)
+        If kx = 4 Then snb = snb & Trim$(stre)
+        If kx = 5 Then snb = snb & Trim$(stre)
+        If kx = 6 Then snb = snb & Trim$(stre)
+        If kx = 7 Then snb = snb & Trim$(stre)
+        If kx = 8 Then snb = snb & Trim$(stre)
+        If kx = 9 Then snb = snb & Trim$(stre)
+        If kx = 10 Then snb = snb & Trim$(stre)
+    Next
+    Return
+   Catch
+ilk.hatayaz("blokbol " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub dxfkay(gf As String)
+
+    Dim tt As Integer
+
+    ilk.mesgul = 1
+    For Each cazgi In ilk.cezmi
+        If cazgi.id > 0
+            If cazgi.blok <> 0
+                If cazgi.blok <> "" Then
+                    blokbol(cazgi.blok)
+                    cazgi.blok = snb
+                Endif
+            Endif
+        Endif
+    Next
+    ' tem.kontrol
+    If ilk.cezmi.Count > 99
+        pak = ilk.cezmi.Count
+    Else
+        pak = 99
+    End If
+    ilk.ListBox10.Clear
+    For Each cazgi In ilk.cezmi
+        If cazgi.id > 0
+            If cazgi.blok <> 0
+                If cazgi.blok <> "" Then
+                    If ilk.ListBox10.Find(cazgi.blok) = -1 Then ilk.ListBox10.Add(cazgi.blok)
+                Endif
+            Endif
+        Endif
+    Next
+    If gf = ""
+        myFile = Open System.User.Home &/ "yedek.dxf" For Create
+        ilk.komyaz.Text = "Automatic record"
+    Else If gf = "fea"
+        myFile = Open System.User.Home &/ "z88y/z88x.dxf" For Create
+    Else If gf = "fea2"
+        myFile = Open System.User.Home &/ "z88y.dxf" For Create
+    Else
+        myFile = Open ilk.kaci For Create
+        ilk.komyaz.Text = "File is saving"
+    End If
+    sac
+    For tt = 0 To ilk.ListBox10.Count - 1
+        ilk.ListBox10.Index = tt
+        Print #myFile, "BLOCK_RECORD"
+        Print #myFile, "  5"
+        pak = pak + 2
+        Print #myFile, pak
+        Print #myFile, "100"
+        Print #myFile, "AcDbSymbolTableRecord"
+        Print #myFile, "100"
+        Print #myFile, "AcDbBlockTableRecord"
+        Print #myFile, "  2"
+        Print #myFile, ilk.ListBox10.Text
+        Print #myFile, "340"
+        Print #myFile, "0"
+        Print #myFile, "  0"
+    Next
+    nbv
+    For tt = 0 To ilk.ListBox10.Count - 1
+        ilk.ListBox10.Index = tt
+        Print #myFile, "BLOCK"
+        Print #myFile, "  5"
+        pak = pak + 2
+        Print #myFile, pak
+        Print #myFile, "100"
+        Print #myFile, "AcDbEntity"
+        Print #myFile, "  8"
+        Print #myFile, "0"
+        Print #myFile, "100"
+        Print #myFile, "AcDbBlockBegin"
+        Print #myFile, "  2"
+        Print #myFile, ilk.ListBox10.Text
+        Print #myFile, " 70"
+        Print #myFile, "0"
+        Print #myFile, " 10"
+        Print #myFile, "0.0"
+        Print #myFile, " 20"
+        Print #myFile, "0.0"
+        Print #myFile, " 30"
+        Print #myFile, "0.0"
+        Print #myFile, "  3"
+        Print #myFile, ilk.ListBox10.Text
+        Print #myFile, "  1"
+        Print #myFile, ""
+        Print #myFile, "  0"
+        For Each cazgi In ilk.cezmi
+            If cazgi.id > 0 Then
+                If cazgi.blok = ilk.ListBox10.Text
+                    If cazgi.komut = 25 Then cmb()
+                    If cazgi.komut = 20 Then arce()
+                    If cazgi.komut = 1 Then ciz()
+                    If cazgi.komut = 60 Then yzi()
+                End If
+            End If
+        Next
+        Print #myFile, "ENDBLK"
+        Print #myFile, "  5"
+        pak = pak + 2
+        Print #myFile, pak
+        Print #myFile, "100"
+        Print #myFile, "AcDbEntity"
+        Print #myFile, "  8"
+        Print #myFile, "0"
+        Print #myFile, "100"
+        Print #myFile, "AcDbBlockEnd"
+        Print #myFile, "  0"
+    Next
+    Print #myFile, "ENDSEC"
+    Print #myFile, "  0"
+    Print #myFile, "SECTION"
+    Print #myFile, "  2"
+    Print #myFile, "ENTITIES"
+    Print #myFile, "  0"
+    For Each cazgi In ilk.cezmi
+        If cazgi.id > 0 Then
+            If ilk.ListBox10.Find(cazgi.blok) = -1
+                If cazgi.komut = 25 Then cmb()
+                If cazgi.komut = 20 Then arce()
+                If cazgi.komut = 1 Then ciz()
+                If cazgi.komut = 60 Then yzi()
+                 End If
+        End If
+    Next
+    For Each cazgi In ilk.cezmi
+        If cazgi.id > 0 Then
+                If cazgi.komut = 105 Or cazgi.komut = 100 Then dolc()
+                If cazgi.komut = 120 Then olc()
+                If cazgi.komut = 200 Then colc()
+                If cazgi.komut = 190 Then yolc()
+                If cazgi.komut = 110 Then aolc()
+        End If
+    Next
+    
+    For tt = 0 To ilk.ListBox10.Count - 1
+        ilk.ListBox10.Index = tt
+        Print #myFile, "INSERT"
+        Print #myFile, "  5"
+        pak = pak + 2
+        Print #myFile, pak
+        Print #myFile, "100"
+        Print #myFile, "AcDbEntity"
+        Print #myFile, "100"
+        Print #myFile, "AcDbBlockReference"
+        Print #myFile, "  8"
+        Print #myFile, "0"
+        Print #myFile, "  2"
+        Print #myFile, ilk.ListBox10.Text
+        Print #myFile, " 10"
+        Print #myFile, "0.0"
+        Print #myFile, " 20"
+        Print #myFile, "0.0"
+        Print #myFile, " 30"
+        Print #myFile, "0.0"
+        Print #myFile, "  0"
+    Next
+    son
+    ilk.komyaz.Text = "Komut Satırı"
+    If gf <> ""
+        ilk.Text = "KediCAD2B " & " ~ " & ilk.kaci
+        torba5.pasam(ilk.kaci)
+        Close myFile
+        If Exist(System.User.Home &/ ".KediCAD/Acilis/dosya.ulu") Then
+            myFile = Open System.User.Home &/ ".KediCAD/Acilis/dosya.ulu" For Write
+        Else
+            myFile = Open System.User.Home &/ ".KediCAD/Acilis/dosya.ulu" For Create
+        End If
+        Seek #myFile, Lof(myFile)
+        Print #myFile, ilk.kaci
+        Close myFile
+        ilk.mesgul = 0
+    End If
+    ilk.mesgul = 0
+    Return
+   Catch
+ilk.hatayaz("dxfkay " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public kati As String
+
+Sub ciz()
+
+    Print #myFile, "LINE"
+    Print #myFile, "  5"
+    pak = pak + 3
+    Print #myFile, pak
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLine"
+    Print #myFile, "  8"
+    katmanci
+    Print #myFile, kati
+    If cazgi.sekil <> 0 Or cazgi.sekil <> ""
+        sekci(cazgi.sekil)
+    Else
+        seksek = "ByLayer"
+    End If
+    Print #myFile, "  6"
+    Print #myFile, seksek
+    renkli(cazgi.renk)
+    Print #myFile, " 62"
+    Print #myFile, renkcik
+    Print #myFile, "370"
+    Print #myFile, "-1"
+    Print #myFile, " 10"
+    ucd = cazgi.x1 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 20"
+    ucd = -1 * cazgi.y1 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, " 11"
+    ucd = cazgi.x2 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 21"
+    ucd = -1 * cazgi.y2 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 31"
+    Print #myFile, "0.0"
+    Print #myFile, "  0"
+    Return
+   Catch
+ilk.hatayaz("ciz " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub cmb()
+
+    Print #myFile, "CIRCLE"
+    Print #myFile, "  5"
+    pak = pak + 2
+    Print #myFile, pak
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, "  8"
+    katmanci
+    Print #myFile, kati
+    If cazgi.sekil <> 0 Or cazgi.sekil <> ""
+        sekci(cazgi.sekil)
+    Else
+        seksek = "ByLayer"
+    End If
+    Print #myFile, "  6"
+    Print #myFile, seksek
+    renkli(cazgi.renk)
+    Print #myFile, " 62"
+    Print #myFile, renkcik
+    Print #myFile, "100"
+    Print #myFile, "AcDbCircle"
+    Print #myFile, " 10"
+    ucd = cazgi.x1 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 20"
+    ucd = -1 * cazgi.y1 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, " 40"
+    ucd = cazgi.yaricap
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, "  0"
+    Return
+   Catch
+ilk.hatayaz("cmb " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub arce()
+
+    Print #myFile, "ARC"
+    Print #myFile, "  5"
+    pak = pak + 2
+    Print #myFile, pak
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, "  8"
+    katmanci
+    Print #myFile, kati
+    If cazgi.sekil <> 0 Or cazgi.sekil <> ""
+        sekci(cazgi.sekil)
+    Else
+        seksek = "ByLayer"
+    End If
+    Print #myFile, "  6"
+    Print #myFile, seksek
+    renkli(cazgi.renk)
+    Print #myFile, " 62"
+    Print #myFile, renkcik
+    Print #myFile, "100"
+    Print #myFile, "AcDbCircle"
+    Print #myFile, " 10"
+    ucd = cazgi.x1 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 20"
+    ucd = -1 * cazgi.y1 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, " 40"
+    ucd = cazgi.yaricap
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, "100"
+    Print #myFile, "AcDbArc"
+    Print #myFile, " 50"
+    ucd = cazgi.teta
+    ucd = Deg(ucd)
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 51"
+    ucd = cazgi.r
+    ucd = Deg(ucd)
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, "  0"
+    Return
+   Catch
+ilk.hatayaz("arce " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub yzi()
+
+    Dim fv As String
+
+    fv = cazgi.yazi
+    If cazgi.yazi = "" Then Return
+    Print #myFile, "TEXT"
+    Print #myFile, "  5"
+    pak = pak + 2
+    Print #myFile, pak
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, "100"
+    Print #myFile, "AcDbText"
+    Print #myFile, "  8"
+    katmanci
+    Print #myFile, kati
+    renkli(cazgi.renk)
+    Print #myFile, " 62"
+    Print #myFile, renkcik
+    Print #myFile, "370"
+    Print #myFile, "-1"
+    Print #myFile, " 10"
+    ucd = cazgi.x1 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 20"
+    ucd = -1 * cazgi.y1 - (cazgi.x6) + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, " 40"
+    ucd = cazgi.x6
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, "  1"
+    Print #myFile, cazgi.yazi
+    Print #myFile, "100"
+    Print #myFile, "AcDbText"
+    Print #myFile, "  0"
+    Return
+   Catch
+ilk.hatayaz("yzi " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub dolc()          '  Dik ölçü  100    105
+
+    Print #myFile, "DIMENSION"
+    Print #myFile, "  5"
+    pak = pak + 2
+    Print #myFile, pak
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, "  8"
+    katmanci
+    Print #myFile, kati
+    If cazgi.sekil <> 0 Or cazgi.sekil <> ""
+        sekci(cazgi.sekil)
+    Else
+        seksek = "ByLayer"
+    End If
+    Print #myFile, "  6"
+    Print #myFile, seksek
+    renkli(cazgi.renk)
+    Print #myFile, " 62"
+    Print #myFile, renkcik
+    Print #myFile, "370"
+    Print #myFile, "-1"
+    Print #myFile, "  6"
+    Print #myFile, "ByLayer"
+    Print #myFile, "100"
+    Print #myFile, "AcDbDimension"
+    Print #myFile, " 10"
+    ucd = cazgi.x4 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 20"
+    ucd = -1 * cazgi.y4 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, " 11"
+    ucd = cazgi.yazix - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 21"
+    ucd = -1 * cazgi.yaziy + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 31"
+    Print #myFile, "0.0"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, " 71"
+    Print #myFile, "5"
+    Print #myFile, " 72"
+    Print #myFile, "1"
+    Print #myFile, " 41"
+    Print #myFile, "1.0"
+    Print #myFile, " 42"
+    Print #myFile, cazgi.yazi
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  3"
+    Print #myFile, "Standard"
+    Print #myFile, "100"
+    Print #myFile, "AcDbAlignedDimension"
+    Print #myFile, " 13"
+    ucd = cazgi.x2 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 23"
+    ucd = -1 * cazgi.y2 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 33"
+    Print #myFile, "0.0"
+    Print #myFile, " 14"
+    ucd = cazgi.x1 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 24"
+    ucd = -1 * cazgi.y1 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 34"
+    Print #myFile, "0.0"
+    Print #myFile, " 50"
+    If cazgi.komut = 100
+        Print #myFile, "0.0"
+    Else
+        Print #myFile, "90.0"
+    End If
+    Print #myFile, "100"
+    Print #myFile, "AcDbRotatedDimension"
+    Print #myFile, "  0"
+    Return
+   Catch
+ilk.hatayaz("dolc " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub aolc()
+
+    Print #myFile, "DIMENSION"
+    Print #myFile, "  5"
+    pak = pak + 2
+    Print #myFile, pak
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, "  8"
+    katmanci
+    Print #myFile, kati
+    If cazgi.sekil <> 0 Or cazgi.sekil <> ""
+        sekci(cazgi.sekil)
+    Else
+        seksek = "ByLayer"
+    End If
+    Print #myFile, "  6"
+    Print #myFile, seksek
+    renkli(cazgi.renk)
+    Print #myFile, " 62"
+    Print #myFile, renkcik
+    Print #myFile, "370"
+    Print #myFile, "-1"
+    Print #myFile, "  6"
+    Print #myFile, "ByLayer"
+    Print #myFile, "100"
+    Print #myFile, "AcDbDimension"
+    Print #myFile, " 10"
+    ucd = cazgi.x1 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 20"
+    ucd = -1 * cazgi.y1 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, " 11"
+    ucd = (cazgi.yazix - ilk.orix)
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 21"
+    ucd = - cazgi.yaziy + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 31"
+    Print #myFile, "0.0"
+    Print #myFile, " 70"
+    Print #myFile, "    34"
+    Print #myFile, " 71"
+    Print #myFile, "5"
+    Print #myFile, " 72"
+    Print #myFile, "0"
+    Print #myFile, " 42"
+    Print #myFile, cazgi.yazi
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  3"
+    Print #myFile, "Standard"
+    Print #myFile, "100"
+    Print #myFile, "AcDb2LineAngularDimension"
+    Print #myFile, " 13"
+    ucd = cazgi.x1 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 23"
+    ucd = -1 * cazgi.y1 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 33"
+    Print #myFile, "0.0"
+    Print #myFile, " 14"
+    ucd = cazgi.x2 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 24"
+    ucd = -1 * cazgi.y2 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 34"
+    Print #myFile, "0.0"
+    Print #myFile, " 15"
+    ucd = cazgi.x3 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 25"
+    ucd = -1 * cazgi.y3 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 35"
+    Print #myFile, "0.0"
+    Print #myFile, " 16"
+    ucd = cazgi.yazix - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 26"
+    ucd = - cazgi.yaziy + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 36"
+    Print #myFile, "0.0"
+    Print #myFile, "  0"
+    Return
+   Catch
+ilk.hatayaz("aolc " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub olc()         ' 120 Eğik ölçü
+
+    Print #myFile, "DIMENSION"
+    Print #myFile, "  5"
+    pak = pak + 2
+    Print #myFile, pak
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, "  8"
+    katmanci
+    Print #myFile, kati
+    If cazgi.sekil <> 0 Or cazgi.sekil <> ""
+        sekci(cazgi.sekil)
+    Else
+        seksek = "ByLayer"
+    End If
+    Print #myFile, "  6"
+    Print #myFile, seksek
+    renkli(cazgi.renk)
+    Print #myFile, " 62"
+    Print #myFile, renkcik
+    Print #myFile, "370"
+    Print #myFile, "-1"
+    Print #myFile, "  6"
+    Print #myFile, "ByLayer"
+    Print #myFile, "100"
+    Print #myFile, "AcDbDimension"
+    Print #myFile, " 10"
+    ucd = cazgi.x5 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 20"
+    ucd = -1 * cazgi.y5 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, " 11"
+    ucd = cazgi.yazix - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 21"
+    ucd = -1 * cazgi.yaziy + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 31"
+    Print #myFile, "0.0"
+    Print #myFile, " 70"
+    Print #myFile, "1"
+    Print #myFile, " 71"
+    Print #myFile, "5"
+    Print #myFile, " 72"
+    Print #myFile, "0"
+    Print #myFile, " 41"
+    Print #myFile, "1.0"
+    Print #myFile, " 42"
+    Print #myFile, cazgi.yazi
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  3"
+    Print #myFile, "Standard"
+    Print #myFile, "100"
+    Print #myFile, "AcDbAlignedDimension"
+    Print #myFile, " 13"
+    ucd = cazgi.x1 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 23"
+    ucd = -1 * cazgi.y1 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 33"
+    Print #myFile, "0.0"
+    Print #myFile, " 14"
+    ucd = cazgi.x2 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 24"
+    ucd = -1 * cazgi.y2 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 34"
+    Print #myFile, "0.0"
+    Print #myFile, "  0"
+    Return
+   Catch
+ilk.hatayaz("olc " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub colc()
+
+    Print #myFile, "DIMENSION"
+    Print #myFile, "  5"
+    pak = pak + 2
+    Print #myFile, pak
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, "  8"
+    katmanci
+    Print #myFile, kati
+    If cazgi.sekil <> 0 Or cazgi.sekil <> ""
+        sekci(cazgi.sekil)
+    Else
+        seksek = "ByLayer"
+    End If
+    Print #myFile, "  6"
+    Print #myFile, seksek
+    renkli(cazgi.renk)
+    Print #myFile, " 62"
+    Print #myFile, renkcik
+    Print #myFile, "100"
+    Print #myFile, "AcDbDimension"
+    Print #myFile, " 10"
+    ucd = cazgi.x4 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 20"
+    ucd = -1 * cazgi.y4 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, " 11"
+    ucd = cazgi.yazix - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 21"
+    ucd = -1 * cazgi.yaziy + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 31"
+    Print #myFile, "0.0"
+    Print #myFile, " 70"
+    Print #myFile, "3"
+    Print #myFile, " 71"
+    Print #myFile, "     5"
+    Print #myFile, " 72"
+    Print #myFile, "     1"
+    Print #myFile, " 41"
+    Print #myFile, "1.0"
+    Print #myFile, " 42"
+    Print #myFile, cazgi.yazi
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  3"
+    Print #myFile, "Standard"
+    Print #myFile, "100"
+    Print #myFile, "AcDbDiametricDimension"
+    Print #myFile, " 15"
+    ucd = cazgi.x5 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 25"
+    ucd = -1 * cazgi.y5 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 35"
+    Print #myFile, "0.0"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  0"
+    Return
+   Catch
+ilk.hatayaz("colc " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub yolc()
+
+    Print #myFile, "DIMENSION"
+    Print #myFile, "  5"
+    pak = pak + 2
+    Print #myFile, pak
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, "  8"
+    katmanci
+    Print #myFile, kati
+    If cazgi.sekil <> 0 Or cazgi.sekil <> ""
+        sekci(cazgi.sekil)
+    Else
+        seksek = "ByLayer"
+    End If
+    Print #myFile, "  6"
+    Print #myFile, seksek
+    renkli(cazgi.renk)
+    Print #myFile, " 62"
+    Print #myFile, renkcik
+    Print #myFile, "100"
+    Print #myFile, "AcDbDimension"
+    Print #myFile, " 10"
+    ucd = cazgi.x1 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 20"
+    ucd = -1 * cazgi.y1 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, " 11"
+    ucd = cazgi.yazix - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 21"
+    ucd = -1 * cazgi.yaziy + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 31"
+    Print #myFile, "0.0"
+    Print #myFile, " 70"
+    Print #myFile, "4"
+    Print #myFile, " 71"
+    Print #myFile, "5"
+    Print #myFile, " 72"
+    Print #myFile, "0"
+    Print #myFile, " 41"
+    Print #myFile, "1.0"
+    Print #myFile, " 42"
+    Print #myFile, cazgi.yazi
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  3"
+    Print #myFile, "Standard"
+    Print #myFile, "100"
+    Print #myFile, "AcDbRadialDimension"
+    Print #myFile, " 15"
+    ucd = cazgi.x5 - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 25"
+    ucd = -1 * cazgi.y5 + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 35"
+    Print #myFile, "0.0"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  0"
+    Return
+   Catch
+ilk.hatayaz("yolc " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub ketmen()
+
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad <> "Defpoints"
+            Print #myFile, "LAYER"
+            Print #myFile, "  5"
+            pak = pak + 2
+            Print #myFile, pak
+            Print #myFile, "330"
+            Print #myFile, "2"
+            Print #myFile, "100"
+            Print #myFile, "AcDbSymbolTableRecord"
+            Print #myFile, "100"
+            Print #myFile, "AcDbLayerTableRecord"
+            Print #myFile, "  2"
+            Print #myFile, bazgi.ad
+            Print #myFile, " 70"
+            If bazgi.gor <> 0
+                Print #myFile, "     1"
+            Else
+                Print #myFile, "     0"
+            End If
+            Print #myFile, " 62"
+            renkli(bazgi.renk)
+            Print #myFile, renkcik
+            If bazgi.tip <> 0 Or bazgi.tip <> ""
+                sekci(bazgi.tip)
+            Else
+                seksek = "ByLayer"
+            End If
+            Print #myFile, "  6"
+            Print #myFile, seksek
+            Print #myFile, "370"
+            Print #myFile, "    -3"
+            Print #myFile, "390"
+            Print #myFile, "F"
+            Print #myFile, "  0"
+        End If
+    Next
+    Return
+   Catch
+ilk.hatayaz("ketmen " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub renkli(ilkColor As Integer)
+
+    If ilkColor = Color.RGB(0, 0, 0) Then renkcik = 1
+    If ilkColor = Color.RGB(255, 0, 0) Then renkcik = 2
+    If ilkColor = Color.RGB(255, 255, 0) Then renkcik = 3
+    If ilkColor = Color.RGB(0, 255, 255) Then renkcik = 4
+    If ilkColor = Color.RGB(0, 0, 255) Then renkcik = 5
+    If ilkColor = Color.RGB(255, 0, 255) Then renkcik = 6
+    If ilkColor = Color.RGB(255, 255, 255) Then renkcik = 7
+    If ilkColor = Color.RGB(65, 65, 65) Then renkcik = 8
+    If ilkColor = Color.RGB(128, 128, 128) Then renkcik = 9
+    If ilkColor = Color.RGB(255, 0, 0) Then renkcik = 10
+    If ilkColor = Color.RGB(255, 170, 170) Then renkcik = 11
+    If ilkColor = Color.RGB(189, 0, 0) Then renkcik = 12
+    If ilkColor = Color.RGB(189, 126, 126) Then renkcik = 13
+    If ilkColor = Color.RGB(129, 0, 0) Then renkcik = 14
+    If ilkColor = Color.RGB(129, 86, 86) Then renkcik = 15
+    If ilkColor = Color.RGB(104, 0, 0) Then renkcik = 16
+    If ilkColor = Color.RGB(104, 69, 69) Then renkcik = 17
+    If ilkColor = Color.RGB(79, 0, 0) Then renkcik = 18
+    If ilkColor = Color.RGB(79, 53, 53) Then renkcik = 19
+    If ilkColor = Color.RGB(255, 63, 0) Then renkcik = 20
+    If ilkColor = Color.RGB(255, 191, 170) Then renkcik = 21
+    If ilkColor = Color.RGB(189, 46, 0) Then renkcik = 22
+    If ilkColor = Color.RGB(189, 141, 126) Then renkcik = 23
+    If ilkColor = Color.RGB(129, 31, 0) Then renkcik = 24
+    If ilkColor = Color.RGB(129, 96, 86) Then renkcik = 25
+    If ilkColor = Color.RGB(104, 25, 0) Then renkcik = 26
+    If ilkColor = Color.RGB(104, 78, 69) Then renkcik = 27
+    If ilkColor = Color.RGB(79, 19, 0) Then renkcik = 28
+    If ilkColor = Color.RGB(79, 19, 53) Then renkcik = 29
+    If ilkColor = Color.RGB(255, 127, 0) Then renkcik = 30
+    If ilkColor = Color.RGB(255, 212, 170) Then renkcik = 31
+    If ilkColor = Color.RGB(189, 94, 0) Then renkcik = 32
+    If ilkColor = Color.RGB(189, 157, 126) Then renkcik = 33
+    If ilkColor = Color.RGB(129, 64, 0) Then renkcik = 34
+    If ilkColor = Color.RGB(129, 107, 86) Then renkcik = 35
+    If ilkColor = Color.RGB(104, 52, 0) Then renkcik = 36
+    If ilkColor = Color.RGB(104, 86, 69) Then renkcik = 37
+    If ilkColor = Color.RGB(79, 39, 0) Then renkcik = 38
+    If ilkColor = Color.RGB(79, 66, 53) Then renkcik = 39
+    If ilkColor = Color.RGB(255, 191, 0) Then renkcik = 40
+    If ilkColor = Color.RGB(255, 234, 170) Then renkcik = 41
+    If ilkColor = Color.RGB(189, 141, 0) Then renkcik = 42
+    If ilkColor = Color.RGB(189, 173, 126) Then renkcik = 43
+    If ilkColor = Color.RGB(129, 96, 0) Then renkcik = 44
+    If ilkColor = Color.RGB(129, 118, 86) Then renkcik = 45
+    If ilkColor = Color.RGB(104, 78, 0) Then renkcik = 46
+    If ilkColor = Color.RGB(104, 95, 69) Then renkcik = 47
+    If ilkColor = Color.RGB(79, 59, 0) Then renkcik = 48
+    If ilkColor = Color.RGB(79, 73, 53) Then renkcik = 49
+    If ilkColor = Color.RGB(255, 255, 0) Then renkcik = 50
+    If ilkColor = Color.RGB(255, 255, 170) Then renkcik = 51
+    If ilkColor = Color.RGB(189, 189, 0) Then renkcik = 52
+    If ilkColor = Color.RGB(189, 189, 126) Then renkcik = 53
+    If ilkColor = Color.RGB(129, 129, 0) Then renkcik = 54
+    If ilkColor = Color.RGB(129, 129, 86) Then renkcik = 55
+    If ilkColor = Color.RGB(104, 104, 0) Then renkcik = 56
+    If ilkColor = Color.RGB(104, 104, 69) Then renkcik = 57
+    If ilkColor = Color.RGB(79, 79, 0) Then renkcik = 58
+    If ilkColor = Color.RGB(79, 79, 53) Then renkcik = 59
+    If ilkColor = Color.RGB(191, 255, 0) Then renkcik = 60
+    If ilkColor = Color.RGB(234, 255, 170) Then renkcik = 61
+    If ilkColor = Color.RGB(141, 189, 0) Then renkcik = 62
+    If ilkColor = Color.RGB(173, 189, 126) Then renkcik = 63
+    If ilkColor = Color.RGB(96, 129, 0) Then renkcik = 64
+    If ilkColor = Color.RGB(118, 129, 255) Then renkcik = 65
+    If ilkColor = Color.RGB(78, 104, 0) Then renkcik = 66
+    If ilkColor = Color.RGB(95, 104, 69) Then renkcik = 67
+    If ilkColor = Color.RGB(59, 79, 0) Then renkcik = 68
+    If ilkColor = Color.RGB(73, 79, 53) Then renkcik = 69
+    If ilkColor = Color.RGB(127, 255, 0) Then renkcik = 70
+    If ilkColor = Color.RGB(212, 255, 170) Then renkcik = 71
+    If ilkColor = Color.RGB(94, 189, 126) Then renkcik = 72
+    If ilkColor = Color.RGB(157, 189, 126) Then renkcik = 73
+    If ilkColor = Color.RGB(64, 129, 0) Then renkcik = 74
+    If ilkColor = Color.RGB(107, 129, 86) Then renkcik = 75
+    If ilkColor = Color.RGB(52, 104, 0) Then renkcik = 76
+    If ilkColor = Color.RGB(86, 104, 69) Then renkcik = 77
+    If ilkColor = Color.RGB(39, 79, 0) Then renkcik = 78
+    If ilkColor = Color.RGB(66, 79, 53) Then renkcik = 79
+    If ilkColor = Color.RGB(63, 255, 0) Then renkcik = 80
+    If ilkColor = Color.RGB(191, 255, 170) Then renkcik = 81
+    If ilkColor = Color.RGB(46, 189, 0) Then renkcik = 82
+    If ilkColor = Color.RGB(141, 189, 126) Then renkcik = 83
+    If ilkColor = Color.RGB(31, 129, 0) Then renkcik = 84
+    If ilkColor = Color.RGB(96, 129, 86) Then renkcik = 85
+    If ilkColor = Color.RGB(25, 104, 0) Then renkcik = 86
+    If ilkColor = Color.RGB(78, 104, 69) Then renkcik = 87
+    If ilkColor = Color.RGB(19, 79, 0) Then renkcik = 88
+    If ilkColor = Color.RGB(59, 79, 53) Then renkcik = 89
+    If ilkColor = Color.RGB(0, 255, 0) Then renkcik = 90
+    If ilkColor = Color.RGB(170, 255, 170) Then renkcik = 91
+    If ilkColor = Color.RGB(0, 189, 0) Then renkcik = 92
+    If ilkColor = Color.RGB(126, 189, 126) Then renkcik = 93
+    If ilkColor = Color.RGB(0, 129, 0) Then renkcik = 94
+    If ilkColor = Color.RGB(86, 129, 86) Then renkcik = 95
+    If ilkColor = Color.RGB(0, 104, 0) Then renkcik = 96
+    If ilkColor = Color.RGB(69, 104, 69) Then renkcik = 97
+    If ilkColor = Color.RGB(0, 79, 0) Then renkcik = 98
+    If ilkColor = Color.RGB(53, 79, 53) Then renkcik = 99
+    If ilkColor = Color.RGB(0, 255, 63) Then renkcik = 100
+    If ilkColor = Color.RGB(170, 255, 191) Then renkcik = 101
+    If ilkColor = Color.RGB(0, 189, 46) Then renkcik = 102
+    If ilkColor = Color.RGB(126, 189, 141) Then renkcik = 103
+    If ilkColor = Color.RGB(0, 129, 141) Then renkcik = 104
+    If ilkColor = Color.RGB(86, 129, 96) Then renkcik = 105
+    If ilkColor = Color.RGB(0, 104, 25) Then renkcik = 10
+    If ilkColor = Color.RGB(69, 104, 78) Then renkcik = 107
+    If ilkColor = Color.RGB(0, 79, 19) Then renkcik = 108
+    If ilkColor = Color.RGB(53, 79, 59) Then renkcik = 109
+    If ilkColor = Color.RGB(0, 255, 127) Then renkcik = 110
+    If ilkColor = Color.RGB(170, 255, 212) Then renkcik = 111
+    If ilkColor = Color.RGB(0, 189, 94) Then renkcik = 112
+    If ilkColor = Color.RGB(126, 189, 157) Then renkcik = 113
+    If ilkColor = Color.RGB(0, 129, 64) Then renkcik = 114
+    If ilkColor = Color.RGB(86, 129, 64) Then renkcik = 115
+    If ilkColor = Color.RGB(0, 104, 52) Then renkcik = 116
+    If ilkColor = Color.RGB(69, 104, 86) Then renkcik = 117
+    If ilkColor = Color.RGB(0, 79, 39) Then renkcik = 118
+    If ilkColor = Color.RGB(53, 79, 66) Then renkcik = 119
+    If ilkColor = Color.RGB(0, 255, 191) Then renkcik = 120
+    If ilkColor = Color.RGB(170, 255, 234) Then renkcik = 121
+    If ilkColor = Color.RGB(0, 189, 141) Then renkcik = 122
+    If ilkColor = Color.RGB(126, 189, 173) Then renkcik = 123
+    If ilkColor = Color.RGB(0, 129, 118) Then renkcik = 124
+    If ilkColor = Color.RGB(86, 129, 118) Then renkcik = 125
+    If ilkColor = Color.RGB(0, 104, 78) Then renkcik = 126
+    If ilkColor = Color.RGB(69, 104, 95) Then renkcik = 127
+    If ilkColor = Color.RGB(0, 79, 59) Then renkcik = 128
+    If ilkColor = Color.RGB(53, 79, 73) Then renkcik = 129
+    If ilkColor = Color.RGB(0, 255, 255) Then renkcik = 130
+    If ilkColor = Color.RGB(170, 255, 255) Then renkcik = 131
+    If ilkColor = Color.RGB(0, 189, 189) Then renkcik = 132
+    If ilkColor = Color.RGB(126, 189, 189) Then renkcik = 133
+    If ilkColor = Color.RGB(0, 129, 129) Then renkcik = 134
+    If ilkColor = Color.RGB(86, 129, 129) Then renkcik = 135
+    If ilkColor = Color.RGB(0, 104, 104) Then renkcik = 136
+    If ilkColor = Color.RGB(69, 104, 104) Then renkcik = 137
+    If ilkColor = Color.RGB(0, 79, 79) Then renkcik = 138
+    If ilkColor = Color.RGB(53, 79, 79) Then renkcik = 139
+    If ilkColor = Color.RGB(0, 191, 255) Then renkcik = 140
+    If ilkColor = Color.RGB(170, 234, 255) Then renkcik = 141
+    If ilkColor = Color.RGB(0, 141, 189) Then renkcik = 142
+    If ilkColor = Color.RGB(126, 173, 189) Then renkcik = 143
+    If ilkColor = Color.RGB(0, 96, 129) Then renkcik = 144
+    If ilkColor = Color.RGB(86, 118, 129) Then renkcik = 145
+    If ilkColor = Color.RGB(0, 78, 104) Then renkcik = 146
+    If ilkColor = Color.RGB(69, 95, 104) Then renkcik = 147
+    If ilkColor = Color.RGB(0, 59, 79) Then renkcik = 148
+    If ilkColor = Color.RGB(53, 73, 79) Then renkcik = 149
+    If ilkColor = Color.RGB(0, 127, 255) Then renkcik = 150
+    If ilkColor = Color.RGB(170, 212, 255) Then renkcik = 151
+    If ilkColor = Color.RGB(0, 94, 189) Then renkcik = 152
+    If ilkColor = Color.RGB(126, 157, 189) Then renkcik = 153
+    If ilkColor = Color.RGB(0, 64, 129) Then renkcik = 154
+    If ilkColor = Color.RGB(86, 107, 129) Then renkcik = 155
+    If ilkColor = Color.RGB(0, 52, 104) Then renkcik = 156
+    If ilkColor = Color.RGB(69, 86, 104) Then renkcik = 157
+    If ilkColor = Color.RGB(0, 39, 79) Then renkcik = 158
+    If ilkColor = Color.RGB(53, 66, 79) Then renkcik = 159
+    If ilkColor = Color.RGB(0, 63, 255) Then renkcik = 160
+    If ilkColor = Color.RGB(170, 191, 255) Then renkcik = 161
+    If ilkColor = Color.RGB(0, 46, 189) Then renkcik = 162
+    If ilkColor = Color.RGB(126, 141, 189) Then renkcik = 163
+    If ilkColor = Color.RGB(0, 31, 129) Then renkcik = 164
+    If ilkColor = Color.RGB(86, 96, 129) Then renkcik = 165
+    If ilkColor = Color.RGB(0, 25, 104) Then renkcik = 166
+    If ilkColor = Color.RGB(69, 78, 104) Then renkcik = 167
+    If ilkColor = Color.RGB(0, 19, 79) Then renkcik = 168
+    If ilkColor = Color.RGB(53, 59, 79) Then renkcik = 169
+    If ilkColor = Color.RGB(0, 0, 255) Then renkcik = 170
+    If ilkColor = Color.RGB(170, 170, 255) Then renkcik = 171
+    If ilkColor = Color.RGB(0, 0, 189) Then renkcik = 172
+    If ilkColor = Color.RGB(126, 126, 189) Then renkcik = 173
+    If ilkColor = Color.RGB(0, 0, 129) Then renkcik = 174
+    If ilkColor = Color.RGB(86, 86, 129) Then renkcik = 175
+    If ilkColor = Color.RGB(0, 0, 104) Then renkcik = 176
+    If ilkColor = Color.RGB(69, 69, 104) Then renkcik = 177
+    If ilkColor = Color.RGB(0, 0, 79) Then renkcik = 178
+    If ilkColor = Color.RGB(53, 53, 79) Then renkcik = 179
+    If ilkColor = Color.RGB(63, 0, 255) Then renkcik = 180
+    If ilkColor = Color.RGB(191, 170, 255) Then renkcik = 181
+    If ilkColor = Color.RGB(46, 0, 189) Then renkcik = 182
+    If ilkColor = Color.RGB(141, 126, 189) Then renkcik = 183
+    If ilkColor = Color.RGB(31, 0, 129) Then renkcik = 184
+    If ilkColor = Color.RGB(96, 86, 129) Then renkcik = 185
+    If ilkColor = Color.RGB(25, 0, 104) Then renkcik = 186
+    If ilkColor = Color.RGB(78, 69, 104) Then renkcik = 187
+    If ilkColor = Color.RGB(19, 0, 79) Then renkcik = 188
+    If ilkColor = Color.RGB(127, 0, 255) Then renkcik = 190
+    If ilkColor = Color.RGB(212, 170, 255) Then renkcik = 191
+    If ilkColor = Color.RGB(94, 0, 189) Then renkcik = 192
+    If ilkColor = Color.RGB(157, 126, 189) Then renkcik = 193
+    If ilkColor = Color.RGB(64, 0, 129) Then renkcik = 194
+    If ilkColor = Color.RGB(107, 86, 129) Then renkcik = 195
+    If ilkColor = Color.RGB(52, 0, 104) Then renkcik = 196
+    If ilkColor = Color.RGB(86, 69, 104) Then renkcik = 197
+    If ilkColor = Color.RGB(39, 0, 79) Then renkcik = 198
+    If ilkColor = Color.RGB(66, 53, 79) Then renkcik = 199
+    If ilkColor = Color.RGB(191, 0, 255) Then renkcik = 200
+    If ilkColor = Color.RGB(234, 170, 255) Then renkcik = 201
+    If ilkColor = Color.RGB(141, 0, 189) Then renkcik = 202
+    If ilkColor = Color.RGB(173, 126, 189) Then renkcik = 203
+    If ilkColor = Color.RGB(96, 0, 129) Then renkcik = 204
+    If ilkColor = Color.RGB(118, 86, 129) Then renkcik = 205
+    If ilkColor = Color.RGB(78, 0, 104) Then renkcik = 206
+    If ilkColor = Color.RGB(95, 69, 104) Then renkcik = 207
+    If ilkColor = Color.RGB(59, 0, 79) Then renkcik = 208
+    If ilkColor = Color.RGB(73, 53, 79) Then renkcik = 209
+    If ilkColor = Color.RGB(255, 0, 255) Then renkcik = 210
+    If ilkColor = Color.RGB(255, 170, 255) Then renkcik = 211
+    If ilkColor = Color.RGB(189, 0, 189) Then renkcik = 212
+    If ilkColor = Color.RGB(189, 126, 189) Then renkcik = 213
+    If ilkColor = Color.RGB(129, 0, 129) Then renkcik = 214
+    If ilkColor = Color.RGB(129, 86, 129) Then renkcik = 215
+    If ilkColor = Color.RGB(104, 0, 104) Then renkcik = 216
+    If ilkColor = Color.RGB(104, 69, 104) Then renkcik = 217
+    If ilkColor = Color.RGB(79, 0, 79) Then renkcik = 218
+    If ilkColor = Color.RGB(79, 53, 79) Then renkcik = 219
+    If ilkColor = Color.RGB(255, 0, 191) Then renkcik = 220
+    If ilkColor = Color.RGB(255, 170, 234) Then renkcik = 221
+    If ilkColor = Color.RGB(189, 0, 141) Then renkcik = 222
+    If ilkColor = Color.RGB(189, 126, 173) Then renkcik = 223
+    If ilkColor = Color.RGB(129, 0, 96) Then renkcik = 224
+    If ilkColor = Color.RGB(129, 86, 118) Then renkcik = 225
+    If ilkColor = Color.RGB(104, 0, 78) Then renkcik = 226
+    If ilkColor = Color.RGB(104, 69, 78) Then renkcik = 227
+    If ilkColor = Color.RGB(79, 0, 59) Then renkcik = 228
+    If ilkColor = Color.RGB(79, 53, 73) Then renkcik = 229
+    If ilkColor = Color.RGB(255, 0, 127) Then renkcik = 230
+    If ilkColor = Color.RGB(255, 170, 212) Then renkcik = 231
+    If ilkColor = Color.RGB(189, 0, 94) Then renkcik = 232
+    If ilkColor = Color.RGB(189, 126, 157) Then renkcik = 233
+    If ilkColor = Color.RGB(129, 0, 64) Then renkcik = 234
+    If ilkColor = Color.RGB(129, 86, 107) Then renkcik = 235
+    If ilkColor = Color.RGB(104, 0, 52) Then renkcik = 236
+    If ilkColor = Color.RGB(104, 69, 86) Then renkcik = 237
+    If ilkColor = Color.RGB(79, 0, 39) Then renkcik = 238
+    If ilkColor = Color.RGB(79, 53, 66) Then renkcik = 239
+    If ilkColor = Color.RGB(255, 0, 63) Then renkcik = 240
+    If ilkColor = Color.RGB(255, 170, 191) Then renkcik = 241
+    If ilkColor = Color.RGB(189, 0, 46) Then renkcik = 242
+    If ilkColor = Color.RGB(189, 126, 141) Then renkcik = 243
+    If ilkColor = Color.RGB(129, 0, 31) Then renkcik = 244
+    If ilkColor = Color.RGB(129, 86, 96) Then renkcik = 245
+    If ilkColor = Color.RGB(104, 0, 25) Then renkcik = 246
+    If ilkColor = Color.RGB(104, 0, 25) Then renkcik = 247
+    If ilkColor = Color.RGB(79, 0, 19) Then renkcik = 248
+    If ilkColor = Color.RGB(79, 53, 59) Then renkcik = 249
+    If ilkColor = Color.RGB(51, 51, 51) Then renkcik = 250
+    If ilkColor = Color.RGB(80, 80, 80) Then renkcik = 251
+    If ilkColor = Color.RGB(105, 105, 105) Then renkcik = 252
+    If ilkColor = Color.RGB(130, 130, 130) Then renkcik = 253
+    If ilkColor = Color.RGB(190, 190, 190) Then renkcik = 254
+    If renkcik = 0 Then renkcik = 255
+    Return
+   Catch
+       If renkcik = 0 Then renkcik = 255
+ilk.hatayaz("renkli " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub katmanci()
+
+    If cazgi.katman <> "" Then
+        kati = cazgi.katman
+        If kati = 370 Then kati = "0"
+    Else
+        kati = "0"
+    Endif
+
+    Return
+   Catch
+       If renkcik = 0 Then renkcik = 255
+ilk.hatayaz("katmanci " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub sekci(bnb As Integer)
+
+    If bnb = 2
+        seksek = "DASHED2"
+    Else If bnb = 4 Then
+        seksek = "DOT"
+    Else If bnb = 5 Then
+        seksek = "CENTER"
+    Else If bnb = 6 Then
+        seksek = "DIVIDE"
+    Else If bnb = 3 Then
+        seksek = "DASHED"
+    Else
+        seksek = "CONTINUOUS"
+    End If
+    Return
+Catch
+    seksek = "ByLayer"
+ilk.hatayaz("sekci " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Sub uyuz(gelen As String)
+
+    Dim elt As String[]
+    Dim sb As String
+    Dim x As Integer
+
+    elt = Split(gelen, ",")
+    For Each sb In elt
+        If x = 0 Then tx = sb
+        If x = 1 Then tx = tx & "." & sb
+        tx = Trim$(tx)
+        x = x + 1
+    Next
+    Return
+   Catch
+ilk.hatayaz("uyuz " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub sac()
+
+    Print #myFile, "999"
+    Print #myFile, "KediCAD"
+    Print #myFile, "  0"
+    Print #myFile, "SECTION"
+    Print #myFile, "  2"
+    Print #myFile, "HEADER"
+    Print #myFile, "  9"
+    Print #myFile, "$ACADVER"
+    Print #myFile, "  1"
+    Print #myFile, "AC1018"
+    Print #myFile, "  9"
+    Print #myFile, "$HANDSEED"
+    Print #myFile, "  5"
+    Print #myFile, "FFFF"
+    Print #myFile, "  9"
+    Print #myFile, "$USERR4"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTDEC"
+    Print #myFile, " 70"
+    Print #myFile, "2"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTAD"
+    Print #myFile, " 70"
+    Print #myFile, "1"
+    Print #myFile, "  9"
+    Print #myFile, "$CMLSTYLE"
+    Print #myFile, "  2"
+    Print #myFile, "Standard"
+    Print #myFile, "  9"
+    Print #myFile, "$VISRETAIN"
+    Print #myFile, " 70"
+    Print #myFile, "1"
+    Print #myFile, "  9"
+    Print #myFile, "$TILEMODE"
+    Print #myFile, " 70"
+    Print #myFile, "1"
+    Print #myFile, "  9"
+    Print #myFile, "$SHADEDIF"
+    Print #myFile, " 70"
+    Print #myFile, "70"
+    Print #myFile, "  9"
+    Print #myFile, "$USERR5"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSYDIR"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "1.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$CHAMFERA"
+    Print #myFile, " 40"
+    Print #myFile, "10.0"
+    Print #myFile, "  9"
+    Print #myFile, "$MENU"
+    Print #myFile, "  1"
+    Print #myFile, "."
+    Print #myFile, "  9"
+    Print #myFile, "$DIMALTZ"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$CLAYER"
+    Print #myFile, "  8"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$OLESTARTUP"
+    Print #myFile, "290"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSXDIR"
+    Print #myFile, " 10"
+    Print #myFile, "1.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$CHAMFERB"
+    Print #myFile, " 40"
+    Print #myFile, "10.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMADEC"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMUPT"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMASZ"
+    Print #myFile, " 40"
+    Print #myFile, "2.5"
+    Print #myFile, "  9"
+    Print #myFile, "$TRACEWID"
+    Print #myFile, " 40"
+    Print #myFile, "1.0"
+    Print #myFile, "  9"
+    Print #myFile, "$REGENMODE"
+    Print #myFile, " 70"
+    Print #myFile, "1"
+    Print #myFile, "  9"
+    Print #myFile, "$ORTHOMODE"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$EXTMIN"
+    Print #myFile, " 10"
+    ucd = torba6.basx - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 20"
+    ucd = -1 * torba6.basy + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$ENDCAPS"
+    Print #myFile, "280"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$MEASUREMENT"
+    Print #myFile, " 70"
+    Print #myFile, "1"
+    Print #myFile, "  9"
+    Print #myFile, "$CMLJUST"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSYDIR"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "1.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$ANGBASE"
+    Print #myFile, " 50"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$USRTIMER"
+    Print #myFile, " 70"
+    Print #myFile, "1"
+    Print #myFile, "  9"
+    Print #myFile, "$CHAMFERC"
+    Print #myFile, " 40"
+    Print #myFile, "20.0"
+    Print #myFile, "  9"
+    Print #myFile, "$SKETCHINC"
+    Print #myFile, " 40"
+    Print #myFile, "1.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMGAP"
+    Print #myFile, " 40"
+    Print #myFile, "0.625"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTFAC"
+    Print #myFile, " 40"
+    Print #myFile, "1.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMSAH"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMALT"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMSHO"
+    Print #myFile, " 70"
+    Print #myFile, "1"
+    Print #myFile, "  9"
+    Print #myFile, "$VERSIONGUID"
+    Print #myFile, "  2"
+    Print #myFile, "{32691AAC-1F59-11DD-3286-0002449A8F44}"
+    Print #myFile, "  9"
+    Print #myFile, "$LWDISPLAY"
+    Print #myFile, "290"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSXDIR"
+    Print #myFile, " 10"
+    Print #myFile, "1.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$SURFTYPE"
+    Print #myFile, " 70"
+    Print #myFile, "6"
+    Print #myFile, "  9"
+    Print #myFile, "$SPLFRAME"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$CHAMFERD"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMALTRND"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMALTTD"
+    Print #myFile, " 70"
+    Print #myFile, "3"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTSZ"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$LIMMIN"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$CELWEIGHT"
+    Print #myFile, "370"
+    Print #myFile, "-1"
+    Print #myFile, "  9"
+    Print #myFile, "$SURFTAB1"
+    Print #myFile, " 70"
+    Print #myFile, "6"
+    Print #myFile, "  9"
+    Print #myFile, "$SPLINESEGS"
+    Print #myFile, " 70"
+    Print #myFile, "8"
+    Print #myFile, "  9"
+    Print #myFile, "$AUPREC"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$LUNITS"
+    Print #myFile, " 70"
+    Print #myFile, "2"
+    Print #myFile, "  9"
+    Print #myFile, "$DWGCODEPAGE"
+    Print #myFile, "  3"
+    Print #myFile, "ANSI_1254"
+    Print #myFile, "  9"
+    Print #myFile, "$PSTYLEMODE"
+    Print #myFile, "290"
+    Print #myFile, "1"
+    Print #myFile, "  9"
+    Print #myFile, "$UNITMODE"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$USERI1"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSORTHOVIEW"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$SURFTAB2"
+    Print #myFile, " 70"
+    Print #myFile, "6"
+    Print #myFile, "  9"
+    Print #myFile, "$TDUUPDATE"
+    Print #myFile, " 40"
+    Print #myFile, "2454598.5368625922128558"
+    Print #myFile, "  9"
+    Print #myFile, "$TDUCREATE"
+    Print #myFile, " 40"
+    Print #myFile, "2454598.5160534367896616"
+    Print #myFile, "  9"
+    Print #myFile, "$SKPOLY"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$ELEVATION"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMDSEP"
+    Print #myFile, " 70"
+    Print #myFile, "44"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMCEN"
+    Print #myFile, " 40"
+    Print #myFile, "2.5"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMRND"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$INSBASE"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$INSUNITS"
+    Print #myFile, " 70"
+    Print #myFile, "4"
+    Print #myFile, "  9"
+    Print #myFile, "$USERI2"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSORGRIGHT"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSORG"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PELEVATION"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMEXO"
+    Print #myFile, " 40"
+    Print #myFile, "0.625"
+    Print #myFile, "  9"
+    Print #myFile, "$TEXTSIZE"
+    Print #myFile, " 40"
+    Print #myFile, "2.5"
+    Print #myFile, "  9"
+    Print #myFile, "$FILLMODE"
+    Print #myFile, " 70"
+    Print #myFile, "1"
+    Print #myFile, "  9"
+    Print #myFile, "$EXTMAX"
+    Print #myFile, " 10"
+    ucd = torba6.sonx - ilk.orix
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 20"
+    ucd = -1 * torba6.sony + ilk.oriy
+    uyuz(ucd)
+    Print #myFile, tx
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$LIMMAX"
+    Print #myFile, " 10"
+    Print #myFile, "420.0"
+    Print #myFile, " 20"
+    Print #myFile, "297.0"
+    Print #myFile, "  9"
+    Print #myFile, "$ORTHOMODE"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$REGENMODE"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$FILLMODE"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$QTEXTMODE"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$MIRRTEXT"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$LTSCALE"
+    Print #myFile, " 40"
+    Print #myFile, "1.0"
+    Print #myFile, "  9"
+    Print #myFile, "$ATTMODE"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$TEXTSIZE"
+    Print #myFile, " 40"
+    Print #myFile, "2.5"
+    Print #myFile, "  9"
+    Print #myFile, "$TRACEWID"
+    Print #myFile, " 40"
+    Print #myFile, "1.0"
+    Print #myFile, "  9"
+    Print #myFile, "$TEXTSTYLE"
+    Print #myFile, "  7"
+    Print #myFile, "Standard"
+    Print #myFile, "  9"
+    Print #myFile, "$CLAYER"
+    Print #myFile, "  8"
+    Print #myFile, "0"
+    Print #myFile, "  9"
+    Print #myFile, "$CELTYPE"
+    Print #myFile, "  6"
+    Print #myFile, "ByLayer"
+    Print #myFile, "  9"
+    Print #myFile, "$CECOLOR"
+    Print #myFile, " 62"
+    Print #myFile, "   256"
+    Print #myFile, "  9"
+    Print #myFile, "$CELTSCALE"
+    Print #myFile, " 40"
+    Print #myFile, "1.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DISPSILH"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMSCALE"
+    Print #myFile, " 40"
+    Print #myFile, "1.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMASZ"
+    Print #myFile, " 40"
+    Print #myFile, "2.5"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMEXO"
+    Print #myFile, " 40"
+    Print #myFile, "0.625"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMDLI"
+    Print #myFile, " 40"
+    Print #myFile, "3.75"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMRND"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMDLE"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMEXE"
+    Print #myFile, " 40"
+    Print #myFile, "1.25"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTP"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTM"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTXT"
+    Print #myFile, " 40"
+    Print #myFile, "2.5"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMCEN"
+    Print #myFile, " 40"
+    Print #myFile, "2.5"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTSZ"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTOL"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMLIM"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTIH"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTOH"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMSE1"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMSE2"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTAD"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMZIN"
+    Print #myFile, " 70"
+    Print #myFile, "     8"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMBLK"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$DIMASO"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMSHO"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMPOST"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$DIMAPOST"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$DIMALT"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMALTD"
+    Print #myFile, " 70"
+    Print #myFile, "     3"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMALTF"
+    Print #myFile, " 40"
+    Print #myFile, "0.03937007874016"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMLFAC"
+    Print #myFile, " 40"
+    Print #myFile, "1.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTOFL"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTVP"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTIX"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMSOXD"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMSAH"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMBLK1"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$DIMBLK2"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$DIMSTYLE"
+    Print #myFile, "  2"
+    Print #myFile, "ISO-25"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMCLRD"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMCLRE"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMCLRT"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTFAC"
+    Print #myFile, " 40"
+    Print #myFile, "1.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMGAP"
+    Print #myFile, " 40"
+    Print #myFile, "0.625"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMJUST"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMSD1"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMSD2"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTOLJ"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTZIN"
+    Print #myFile, " 70"
+    Print #myFile, "     8"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMALTZ"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMALTTZ"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMUPT"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMDEC"
+    Print #myFile, " 70"
+    Print #myFile, "     2"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTDEC"
+    Print #myFile, " 70"
+    Print #myFile, "     2"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMALTU"
+    Print #myFile, " 70"
+    Print #myFile, "     2"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMALTTD"
+    Print #myFile, " 70"
+    Print #myFile, "     3"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTXSTY"
+    Print #myFile, "  7"
+    Print #myFile, "Standard"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMAUNIT"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMADEC"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMALTRND"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMAZIN"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMDSEP"
+    Print #myFile, " 70"
+    Print #myFile, "    44"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMATFIT"
+    Print #myFile, " 70"
+    Print #myFile, "     3"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMFRAC"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMLDRBLK"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$DIMLUNIT"
+    Print #myFile, " 70"
+    Print #myFile, "     2"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMLWD"
+    Print #myFile, " 70"
+    Print #myFile, "    -2"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMLWE"
+    Print #myFile, " 70"
+    Print #myFile, "    -2"
+    Print #myFile, "  9"
+    Print #myFile, "$DIMTMOVE"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$LUNITS"
+    Print #myFile, " 70"
+    Print #myFile, "     2"
+    Print #myFile, "  9"
+    Print #myFile, "$LUPREC"
+    Print #myFile, " 70"
+    Print #myFile, "     4"
+    Print #myFile, "  9"
+    Print #myFile, "$SKETCHINC"
+    Print #myFile, " 40"
+    Print #myFile, "1.0"
+    Print #myFile, "  9"
+    Print #myFile, "$FILLETRAD"
+    Print #myFile, " 40"
+    Print #myFile, "10.0"
+    Print #myFile, "  9"
+    Print #myFile, "$AUNITS"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$AUPREC"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$MENU"
+    Print #myFile, "  1"
+    Print #myFile, "."
+    Print #myFile, "  9"
+    Print #myFile, "$ELEVATION"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PELEVATION"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$THICKNESS"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$LIMCHECK"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$CHAMFERA"
+    Print #myFile, " 40"
+    Print #myFile, "10.0"
+    Print #myFile, "  9"
+    Print #myFile, "$CHAMFERB"
+    Print #myFile, " 40"
+    Print #myFile, "10.0"
+    Print #myFile, "  9"
+    Print #myFile, "$CHAMFERC"
+    Print #myFile, " 40"
+    Print #myFile, "20.0"
+    Print #myFile, "  9"
+    Print #myFile, "$CHAMFERD"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$SKPOLY"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$TDCREATE"
+    Print #myFile, " 40"
+    Print #myFile, "2454598.641053438"
+    Print #myFile, "  9"
+    Print #myFile, "$TDUCREATE"
+    Print #myFile, " 40"
+    Print #myFile, "2454598.516053437"
+    Print #myFile, "  9"
+    Print #myFile, "$TDUPDATE"
+    Print #myFile, " 40"
+    Print #myFile, "2454598.661862593"
+    Print #myFile, "  9"
+    Print #myFile, "$TDUUPDATE"
+    Print #myFile, " 40"
+    Print #myFile, "2454598.536862592"
+    Print #myFile, "  9"
+    Print #myFile, "$TDINDWG"
+    Print #myFile, " 40"
+    Print #myFile, "0.0006788889"
+    Print #myFile, "  9"
+    Print #myFile, "$TDUSRTIMER"
+    Print #myFile, " 40"
+    Print #myFile, "0.0006778819"
+    Print #myFile, "  9"
+    Print #myFile, "$USRTIMER"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$ANGBASE"
+    Print #myFile, " 50"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$ANGDIR"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$PDMODE"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$PDSIZE"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PLINEWID"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$SPLFRAME"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$SPLINETYPE"
+    Print #myFile, " 70"
+    Print #myFile, "     6"
+    Print #myFile, "  9"
+    Print #myFile, "$SPLINESEGS"
+    Print #myFile, " 70"
+    Print #myFile, "     8"
+    Print #myFile, "  9"
+    Print #myFile, "$HANDSEED"
+    Print #myFile, "  5"
+    Print #myFile, "59"
+    Print #myFile, "  9"
+    Print #myFile, "$SURFTAB1"
+    Print #myFile, " 70"
+    Print #myFile, "     6"
+    Print #myFile, "  9"
+    Print #myFile, "$SURFTAB2"
+    Print #myFile, " 70"
+    Print #myFile, "     6"
+    Print #myFile, "  9"
+    Print #myFile, "$SURFTYPE"
+    Print #myFile, " 70"
+    Print #myFile, "     6"
+    Print #myFile, "  9"
+    Print #myFile, "$SURFU"
+    Print #myFile, " 70"
+    Print #myFile, "     6"
+    Print #myFile, "  9"
+    Print #myFile, "$SURFV"
+    Print #myFile, " 70"
+    Print #myFile, "     6"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSBASE"
+    Print #myFile, "  2"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$UCSNAME"
+    Print #myFile, "  2"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$UCSORG"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSXDIR"
+    Print #myFile, " 10"
+    Print #myFile, "1.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSYDIR"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "1.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSORTHOREF"
+    Print #myFile, "  2"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$UCSORTHOVIEW"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSORGTOP"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSORGBOTTOM"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSORGLEFT"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSORGRIGHT"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSORGFRONT"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$UCSORGBACK"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSBASE"
+    Print #myFile, "  2"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSNAME"
+    Print #myFile, "  2"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSORG"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSXDIR"
+    Print #myFile, " 10"
+    Print #myFile, "1.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSYDIR"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "1.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSORTHOREF"
+    Print #myFile, "  2"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSORTHOVIEW"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSORGTOP"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSORGBOTTOM"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSORGLEFT"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSORGRIGHT"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSORGFRONT"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PUCSORGBACK"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$USERI1"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$USERI2"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$USERI3"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$USERI4"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$USERI5"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$USERR1"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$USERR2"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$USERR3"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$USERR4"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$USERR5"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$WORLDVIEW"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$SHADEDGE"
+    Print #myFile, " 70"
+    Print #myFile, "     3"
+    Print #myFile, "  9"
+    Print #myFile, "$SHADEDIF"
+    Print #myFile, " 70"
+    Print #myFile, "    70"
+    Print #myFile, "  9"
+    Print #myFile, "$TILEMODE"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$MAXACTVP"
+    Print #myFile, " 70"
+    Print #myFile, "    64"
+    Print #myFile, "  9"
+    Print #myFile, "$PINSBASE"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PLIMCHECK"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$PEXTMIN"
+    Print #myFile, " 10"
+    Print #myFile, "1.000000000000000E+20"
+    Print #myFile, " 20"
+    Print #myFile, "1.000000000000000E+20"
+    Print #myFile, " 30"
+    Print #myFile, "1.000000000000000E+20"
+    Print #myFile, "  9"
+    Print #myFile, "$PEXTMAX"
+    Print #myFile, " 10"
+    Print #myFile, "-1.000000000000000E+20"
+    Print #myFile, " 20"
+    Print #myFile, "-1.000000000000000E+20"
+    Print #myFile, " 30"
+    Print #myFile, "-1.000000000000000E+20"
+    Print #myFile, "  9"
+    Print #myFile, "$PLIMMIN"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PLIMMAX"
+    Print #myFile, " 10"
+    Print #myFile, "420.0"
+    Print #myFile, " 20"
+    Print #myFile, "297.0"
+    Print #myFile, "  9"
+    Print #myFile, "$UNITMODE"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$VISRETAIN"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$PLINEGEN"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$PSLTSCALE"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$TREEDEPTH"
+    Print #myFile, " 70"
+    Print #myFile, "  3020"
+    Print #myFile, "  9"
+    Print #myFile, "$CMLSTYLE"
+    Print #myFile, "  2"
+    Print #myFile, "Standard"
+    Print #myFile, "  9"
+    Print #myFile, "$CMLJUST"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$CMLSCALE"
+    Print #myFile, " 40"
+    Print #myFile, "20.0"
+    Print #myFile, "  9"
+    Print #myFile, "$PROXYGRAPHICS"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$MEASUREMENT"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$CELWEIGHT"
+    Print #myFile, "370"
+    Print #myFile, "    -1"
+    Print #myFile, "  9"
+    Print #myFile, "$ENDCAPS"
+    Print #myFile, "280"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$JOINSTYLE"
+    Print #myFile, "280"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$LWDISPLAY"
+    Print #myFile, "290"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$INSUNITS"
+    Print #myFile, " 70"
+    Print #myFile, "     4"
+    Print #myFile, "  9"
+    Print #myFile, "$HYPERLINKBASE"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$STYLESHEET"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  9"
+    Print #myFile, "$XEDIT"
+    Print #myFile, "290"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$CEPSNTYPE"
+    Print #myFile, "380"
+    Print #myFile, "     0"
+    Print #myFile, "  9"
+    Print #myFile, "$PSTYLEMODE"
+    Print #myFile, "290"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$FINGERPRINTGUID"
+    Print #myFile, "  2"
+    Print #myFile, "{FDEAD578-A652-11D2-9A35-0060089B3A3F}"
+    Print #myFile, "  9"
+    Print #myFile, "$VERSIONGUID"
+    Print #myFile, "  2"
+    Print #myFile, "{32691AAC-1F59-11DD-3286-0002449A8F44}"
+    Print #myFile, "  9"
+    Print #myFile, "$EXTNAMES"
+    Print #myFile, "290"
+    Print #myFile, "     1"
+    Print #myFile, "  9"
+    Print #myFile, "$PSVPSCALE"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  9"
+    Print #myFile, "$OLESTARTUP"
+    Print #myFile, "290"
+    Print #myFile, "     0"
+    Print #myFile, "  0"
+    Print #myFile, "ENDSEC"
+    Print #myFile, "  0"
+    Print #myFile, "SECTION"
+    Print #myFile, "  2"
+    Print #myFile, "TABLES"
+    Print #myFile, "  0"
+    Print #myFile, "TABLE"
+    Print #myFile, "  2"
+    Print #myFile, "VPORT"
+    Print #myFile, "  5"
+    Print #myFile, "8"
+    Print #myFile, "330"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTable"
+    Print #myFile, " 70"
+    Print #myFile, "     2"
+    Print #myFile, "  0"
+    Print #myFile, "VPORT"
+    Print #myFile, "  5"
+    Print #myFile, "58"
+    Print #myFile, "330"
+    Print #myFile, "8"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbViewportTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "*Active"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 11"
+    Print #myFile, "1.0"
+    Print #myFile, " 21"
+    Print #myFile, "1.0"
+    Print #myFile, " 12"
+    Print #myFile, "372.5731632106144"
+    Print #myFile, " 22"
+    Print #myFile, "260.4854742786073"
+    Print #myFile, " 13"
+    Print #myFile, "0.0"
+    Print #myFile, " 23"
+    Print #myFile, "0.0"
+    Print #myFile, " 14"
+    Print #myFile, "10.0"
+    Print #myFile, " 24"
+    Print #myFile, "10.0"
+    Print #myFile, " 15"
+    Print #myFile, "10.0"
+    Print #myFile, " 25"
+    Print #myFile, "10.0"
+    Print #myFile, " 16"
+    Print #myFile, "0.0"
+    Print #myFile, " 26"
+    Print #myFile, "0.0"
+    Print #myFile, " 36"
+    Print #myFile, "1.0"
+    Print #myFile, " 17"
+    Print #myFile, "0.0"
+    Print #myFile, " 27"
+    Print #myFile, "0.0"
+    Print #myFile, " 37"
+    Print #myFile, "0.0"
+    Print #myFile, " 40"
+    Print #myFile, "520.9709485572151"
+    Print #myFile, " 41"
+    Print #myFile, "1.43030303030303"
+    Print #myFile, " 42"
+    Print #myFile, "50.0"
+    Print #myFile, " 43"
+    Print #myFile, "0.0"
+    Print #myFile, " 44"
+    Print #myFile, "0.0"
+    Print #myFile, " 50"
+    Print #myFile, "0.0"
+    Print #myFile, " 51"
+    Print #myFile, "0.0"
+    Print #myFile, " 71"
+    Print #myFile, "     0"
+    Print #myFile, " 72"
+    Print #myFile, "   100"
+    Print #myFile, " 73"
+    Print #myFile, "     1"
+    Print #myFile, " 74"
+    Print #myFile, "     3"
+    Print #myFile, " 75"
+    Print #myFile, "     0"
+    Print #myFile, " 76"
+    Print #myFile, "     0"
+    Print #myFile, " 77"
+    Print #myFile, "     0"
+    Print #myFile, " 78"
+    Print #myFile, "     0"
+    Print #myFile, "281"
+    Print #myFile, "     0"
+    Print #myFile, " 65"
+    Print #myFile, "     1"
+    Print #myFile, "110"
+    Print #myFile, "0.0"
+    Print #myFile, "120"
+    Print #myFile, "0.0"
+    Print #myFile, "130"
+    Print #myFile, "0.0"
+    Print #myFile, "111"
+    Print #myFile, "1.0"
+    Print #myFile, "121"
+    Print #myFile, "0.0"
+    Print #myFile, "131"
+    Print #myFile, "0.0"
+    Print #myFile, "112"
+    Print #myFile, "0.0"
+    Print #myFile, "122"
+    Print #myFile, "1.0"
+    Print #myFile, "132"
+    Print #myFile, "0.0"
+    Print #myFile, " 79"
+    Print #myFile, "     0"
+    Print #myFile, "146"
+    Print #myFile, "0.0"
+    Print #myFile, "  0"
+    Print #myFile, "ENDTAB"
+    Print #myFile, "  0"
+    Print #myFile, "TABLE"
+    Print #myFile, "  2"
+    Print #myFile, "LTYPE"
+    Print #myFile, "  5"
+    Print #myFile, "5"
+    Print #myFile, "330"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTable"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  0"
+    Print #myFile, "LTYPE"
+    Print #myFile, "  5"
+    Print #myFile, "14"
+    Print #myFile, "330"
+    Print #myFile, "5"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLinetypeTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "ByBlock"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  3"
+    Print #myFile, ""
+    Print #myFile, " 72"
+    Print #myFile, "    65"
+    Print #myFile, " 73"
+    Print #myFile, "     0"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  0"
+    Print #myFile, "LTYPE"
+    Print #myFile, "  5"
+    Print #myFile, "15"
+    Print #myFile, "330"
+    Print #myFile, "5"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLinetypeTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "ByLayer"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  3"
+    Print #myFile, ""
+    Print #myFile, " 72"
+    Print #myFile, "    65"
+    Print #myFile, " 73"
+    Print #myFile, "     0"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  0"
+    Print #myFile, "LTYPE"
+    Print #myFile, "  5"
+    Print #myFile, "16"
+    Print #myFile, "330"
+    Print #myFile, "5"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLinetypeTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "CONTINUOUS"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  3"
+    Print #myFile, "Solid line"
+    Print #myFile, " 72"
+    Print #myFile, "    65"
+    Print #myFile, " 73"
+    Print #myFile, "     0"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, "  0"
+    Print #myFile, "LTYPE"
+    Print #myFile, "  5"
+    Print #myFile, "31"
+    Print #myFile, "330"
+    Print #myFile, "5"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLinetypeTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "DOT"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  3"
+    Print #myFile, "Dot . . . . . . . . . . . . . . . . . . . . . ."
+    Print #myFile, " 72"
+    Print #myFile, "    65"
+    Print #myFile, " 73"
+    Print #myFile, "     2"
+    Print #myFile, " 40"
+    Print #myFile, "6.349999999999999"
+    Print #myFile, " 49"
+    Print #myFile, "0.0"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "-6.349999999999999"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, "  0"
+    Print #myFile, "LTYPE"
+    Print #myFile, "  5"
+    Print #myFile, "34"
+    Print #myFile, "330"
+    Print #myFile, "5"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLinetypeTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "DASHED"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  3"
+    Print #myFile, "Dashed __ __ __ __ __ __ __ __ __ __ __ __ __ _"
+    Print #myFile, " 72"
+    Print #myFile, "    65"
+    Print #myFile, " 73"
+    Print #myFile, "     2"
+    Print #myFile, " 40"
+    Print #myFile, "19.05"
+    Print #myFile, " 49"
+    Print #myFile, "12.7"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "-6.349999999999999"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, "  0"
+    Print #myFile, "LTYPE"
+    Print #myFile, "  5"
+    Print #myFile, "35"
+    Print #myFile, "330"
+    Print #myFile, "5"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLinetypeTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "DASHED2"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  3"
+    Print #myFile, "Dashed (.5x) _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _"
+    Print #myFile, " 72"
+    Print #myFile, "    65"
+    Print #myFile, " 73"
+    Print #myFile, "     2"
+    Print #myFile, " 40"
+    Print #myFile, "9.525"
+    Print #myFile, " 49"
+    Print #myFile, "6.349999999999999"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "-3.174999999999999"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, "  0"
+    Print #myFile, "LTYPE"
+    Print #myFile, "  5"
+    Print #myFile, "37"
+    Print #myFile, "330"
+    Print #myFile, "5"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLinetypeTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "DASHDOT"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  3"
+    Print #myFile, "Dash dot __ . __ . __ . __ . __ . __ . __ . __"
+    Print #myFile, " 72"
+    Print #myFile, "    65"
+    Print #myFile, " 73"
+    Print #myFile, "     4"
+    Print #myFile, " 40"
+    Print #myFile, "25.4"
+    Print #myFile, " 49"
+    Print #myFile, "12.7"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "-6.349999999999999"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "0.0"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "-6.349999999999999"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, "  0"
+    Print #myFile, "LTYPE"
+    Print #myFile, "  5"
+    Print #myFile, "3A"
+    Print #myFile, "330"
+    Print #myFile, "5"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLinetypeTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "DIVIDE"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  3"
+    Print #myFile, "Divide ____ . . ____ . . ____ . . ____ . . ____"
+    Print #myFile, " 72"
+    Print #myFile, "    65"
+    Print #myFile, " 73"
+    Print #myFile, "     6"
+    Print #myFile, " 40"
+    Print #myFile, "31.75"
+    Print #myFile, " 49"
+    Print #myFile, "12.7"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "-6.349999999999999"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "0.0"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "-6.349999999999999"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "0.0"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "-6.349999999999999"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, "  0"
+    Print #myFile, "LTYPE"
+    Print #myFile, "  5"
+    Print #myFile, "3D"
+    Print #myFile, "330"
+    Print #myFile, "5"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLinetypeTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "CENTER"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  3"
+    Print #myFile, "Center ____ _ ____ _ ____ _ ____ _ ____ _ ____"
+    Print #myFile, " 72"
+    Print #myFile, "    65"
+    Print #myFile, " 73"
+    Print #myFile, "     4"
+    Print #myFile, " 40"
+    Print #myFile, "50.8"
+    Print #myFile, " 49"
+    Print #myFile, "31.75"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "-6.349999999999999"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "6.349999999999999"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, " 49"
+    Print #myFile, "-6.349999999999999"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, "  0"
+    Print #myFile, "ENDTAB"
+    Print #myFile, "  0"
+    Print #myFile, "TABLE"
+    Print #myFile, "  2"
+    Print #myFile, "LAYER"
+    Print #myFile, "  5"
+    Print #myFile, "2"
+    Print #myFile, "330"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTable"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  0"
+    Print #myFile, "LAYER"
+    Print #myFile, "  5"
+    Print #myFile, "10"
+    Print #myFile, "330"
+    Print #myFile, "2"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLayerTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "0"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, " 62"
+    Print #myFile, "     7"
+    Print #myFile, "  6"
+    Print #myFile, "CONTINUOUS"
+    Print #myFile, "370"
+    Print #myFile, "     0"
+    Print #myFile, "390"
+    Print #myFile, "F"
+    Print #myFile, "  0"
+    ketmen
+    Print #myFile, "ENDTAB"
+    Print #myFile, "  0"
+    Print #myFile, "TABLE"
+    Print #myFile, "  2"
+    Print #myFile, "STYLE"
+    Print #myFile, "  5"
+    Print #myFile, "3"
+    Print #myFile, "330"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTable"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  0"
+    Print #myFile, "STYLE"
+    Print #myFile, "  5"
+    Print #myFile, "11"
+    Print #myFile, "330"
+    Print #myFile, "3"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbTextStyleTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "Standard"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, " 41"
+    Print #myFile, "1.0"
+    Print #myFile, " 50"
+    Print #myFile, "0.0"
+    Print #myFile, " 71"
+    Print #myFile, "     0"
+    Print #myFile, " 42"
+    Print #myFile, "2.5"
+    Print #myFile, "  3"
+    Print #myFile, "txt"
+    Print #myFile, "  4"
+    Print #myFile, ""
+    Print #myFile, "  0"
+    Print #myFile, "ENDTAB"
+    Print #myFile, "  0"
+    Print #myFile, "TABLE"
+    Print #myFile, "  2"
+    Print #myFile, "VIEW"
+    Print #myFile, "  5"
+    Print #myFile, "6"
+    Print #myFile, "330"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTable"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  0"
+    Print #myFile, "ENDTAB"
+    Print #myFile, "  0"
+    Print #myFile, "TABLE"
+    Print #myFile, "  2"
+    Print #myFile, "UCS"
+    Print #myFile, "  5"
+    Print #myFile, "7"
+    Print #myFile, "330"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTable"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  0"
+    Print #myFile, "ENDTAB"
+    Print #myFile, "  0"
+    Print #myFile, "TABLE"
+    Print #myFile, "  2"
+    Print #myFile, "APPID"
+    Print #myFile, "  5"
+    Print #myFile, "2C"
+    Print #myFile, "330"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTable"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, "  0"
+    Print #myFile, "APPID"
+    Print #myFile, "  5"
+    Print #myFile, "12"
+    Print #myFile, "330"
+    Print #myFile, "9"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbRegAppTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "ACAD"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  0"
+    Print #myFile, "ENDTAB"
+    Print #myFile, "  0"
+    Print #myFile, "TABLE"
+    Print #myFile, "  2"
+    Print #myFile, "DIMSTYLE"
+    Print #myFile, "  5"
+    Print #myFile, "A"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTable"
+    Print #myFile, " 70"
+    Print #myFile, "1"
+    Print #myFile, "100"
+    Print #myFile, "AcDbDimStyleTable"
+    Print #myFile, " 71"
+    Print #myFile, "0"
+    Print #myFile, "  0"
+    Print #myFile, "DIMSTYLE"
+    Print #myFile, "105"
+    Print #myFile, "27"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbDimStyleTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "Standard"
+    Print #myFile, " 41"
+    Print #myFile, "2.5"
+    Print #myFile, " 42"
+    Print #myFile, "0.625"
+    Print #myFile, " 43"
+    Print #myFile, "3.75"
+    Print #myFile, " 44"
+    Print #myFile, "1.25"
+    Print #myFile, " 70"
+    Print #myFile, "0"
+    Print #myFile, " 73"
+    Print #myFile, "0"
+    Print #myFile, " 74"
+    Print #myFile, "0"
+    Print #myFile, " 77"
+    Print #myFile, "1"
+    Print #myFile, " 78"
+    Print #myFile, "8"
+    Print #myFile, "140"
+    Print #myFile, "2.5"
+    Print #myFile, "141"
+    Print #myFile, "2.5"
+    Print #myFile, "143"
+    Print #myFile, "0.03937007874016"
+    Print #myFile, "147"
+    Print #myFile, "0.625"
+    Print #myFile, "171"
+    Print #myFile, "3"
+    Print #myFile, "172"
+    Print #myFile, "1"
+    Print #myFile, "271"
+    Print #myFile, "2"
+    Print #myFile, "272"
+    Print #myFile, "2"
+    Print #myFile, "274"
+    Print #myFile, "3"
+    Print #myFile, "278"
+    Print #myFile, "44"
+    Print #myFile, "283"
+    Print #myFile, "0"
+    Print #myFile, "284"
+    Print #myFile, "8"
+    Print #myFile, "340"
+    Print #myFile, "11"
+    Print #myFile, "  0"
+    Print #myFile, "ENDTAB"
+    Print #myFile, "  0"
+    Print #myFile, "TABLE"
+    Print #myFile, "  2"
+    Print #myFile, "BLOCK_RECORD"
+    Print #myFile, "  5"
+    Print #myFile, "1"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTable"
+    Print #myFile, " 70"
+    Print #myFile, "1"
+    Print #myFile, "  0"
+    Print #myFile, "BLOCK_RECORD"
+    Print #myFile, "  5"
+    Print #myFile, "1F"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbBlockTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "*Model_Space"
+    Print #myFile, "340"
+    Print #myFile, "22"
+    Print #myFile, "  0"
+    Print #myFile, "BLOCK_RECORD"
+    Print #myFile, "  5"
+    Print #myFile, "1B"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbBlockTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "*Paper_Space"
+    Print #myFile, "340"
+    Print #myFile, "1E"
+    Print #myFile, "  0"
+    Print #myFile, "BLOCK_RECORD"
+    Print #myFile, "  5"
+    Print #myFile, "23"
+    Print #myFile, "100"
+    Print #myFile, "AcDbSymbolTableRecord"
+    Print #myFile, "100"
+    Print #myFile, "AcDbBlockTableRecord"
+    Print #myFile, "  2"
+    Print #myFile, "*Paper_Space0"
+    Print #myFile, "340"
+    Print #myFile, "26"
+    Print #myFile, "  0"
+    Return
+
+End
+
+Sub nbv()
+
+    Print #myFile, "ENDTAB"
+    Print #myFile, "  0"
+    Print #myFile, "ENDSEC"
+    Print #myFile, "  0"
+    Print #myFile, "SECTION"
+    Print #myFile, "  2"
+    Print #myFile, "BLOCKS"
+    Print #myFile, "  0"
+    Print #myFile, "BLOCK"
+    Print #myFile, "  5"
+    Print #myFile, "20"
+    Print #myFile, "330"
+    Print #myFile, "1F"
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, "  8"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbBlockBegin"
+    Print #myFile, "  2"
+    Print #myFile, "*Model_Space"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  3"
+    Print #myFile, "*Model_Space"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  0"
+    Print #myFile, "ENDBLK"
+    Print #myFile, "  5"
+    Print #myFile, "21"
+    Print #myFile, "330"
+    Print #myFile, "1F"
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, "  8"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbBlockEnd"
+    Print #myFile, "  0"
+    Print #myFile, "BLOCK"
+    Print #myFile, "  5"
+    Print #myFile, "1C"
+    Print #myFile, "330"
+    Print #myFile, "1B"
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, " 67"
+    Print #myFile, "     1"
+    Print #myFile, "  8"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbBlockBegin"
+    Print #myFile, "  2"
+    Print #myFile, "*Paper_Space"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  3"
+    Print #myFile, "*Paper_Space"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  0"
+    Print #myFile, "ENDBLK"
+    Print #myFile, "  5"
+    Print #myFile, "1D"
+    Print #myFile, "330"
+    Print #myFile, "1B"
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, " 67"
+    Print #myFile, "     1"
+    Print #myFile, "  8"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbBlockEnd"
+    Print #myFile, "  0"
+    Print #myFile, "BLOCK"
+    Print #myFile, "  5"
+    Print #myFile, "24"
+    Print #myFile, "330"
+    Print #myFile, "23"
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, "  8"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbBlockBegin"
+    Print #myFile, "  2"
+    Print #myFile, "*Paper_Space0"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 30"
+    Print #myFile, "0.0"
+    Print #myFile, "  3"
+    Print #myFile, "*Paper_Space0"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  0"
+    Print #myFile, "ENDBLK"
+    Print #myFile, "  5"
+    Print #myFile, "25"
+    Print #myFile, "100"
+    Print #myFile, "AcDbEntity"
+    Print #myFile, "  8"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbBlockEnd"
+    Print #myFile, "  0"
+    Return
+
+End
+
+Sub son()
+
+    Print #myFile, "ENDSEC"
+    Print #myFile, "  0"
+    Print #myFile, "SECTION"
+    Print #myFile, "  2"
+    Print #myFile, "OBJECTS"
+    Print #myFile, "  0"
+    Print #myFile, "DICTIONARY"
+    Print #myFile, "  5"
+    Print #myFile, "C"
+    Print #myFile, "330"
+    Print #myFile, "0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbDictionary"
+    Print #myFile, "281"
+    Print #myFile, "     1"
+    Print #myFile, "  3"
+    Print #myFile, "ACAD_GROUP"
+    Print #myFile, "350"
+    Print #myFile, "D"
+    Print #myFile, "  3"
+    Print #myFile, "ACAD_LAYOUT"
+    Print #myFile, "350"
+    Print #myFile, "1A"
+    Print #myFile, "  3"
+    Print #myFile, "ACAD_MLINESTYLE"
+    Print #myFile, "350"
+    Print #myFile, "17"
+    Print #myFile, "  3"
+    Print #myFile, "ACAD_PLOTSETTINGS"
+    Print #myFile, "350"
+    Print #myFile, "19"
+    Print #myFile, "  3"
+    Print #myFile, "ACAD_PLOTSTYLENAME"
+    Print #myFile, "350"
+    Print #myFile, "E"
+    Print #myFile, "  0"
+    Print #myFile, "DICTIONARY"
+    Print #myFile, "  5"
+    Print #myFile, "D"
+    Print #myFile, "102"
+    Print #myFile, "{ACAD_REACTORS"
+    Print #myFile, "330"
+    Print #myFile, "C"
+    Print #myFile, "102"
+    Print #myFile, "}"
+    Print #myFile, "330"
+    Print #myFile, "C"
+    Print #myFile, "100"
+    Print #myFile, "AcDbDictionary"
+    Print #myFile, "281"
+    Print #myFile, "     1"
+    Print #myFile, "  0"
+    Print #myFile, "DICTIONARY"
+    Print #myFile, "  5"
+    Print #myFile, "1A"
+    Print #myFile, "102"
+    Print #myFile, "{ACAD_REACTORS"
+    Print #myFile, "330"
+    Print #myFile, "C"
+    Print #myFile, "102"
+    Print #myFile, "}"
+    Print #myFile, "330"
+    Print #myFile, "C"
+    Print #myFile, "100"
+    Print #myFile, "AcDbDictionary"
+    Print #myFile, "281"
+    Print #myFile, "     1"
+    Print #myFile, "  3"
+    Print #myFile, "Layout1"
+    Print #myFile, "350"
+    Print #myFile, "1E"
+    Print #myFile, "  3"
+    Print #myFile, "Layout2"
+    Print #myFile, "350"
+    Print #myFile, "26"
+    Print #myFile, "  3"
+    Print #myFile, "Model"
+    Print #myFile, "350"
+    Print #myFile, "22"
+    Print #myFile, "  0"
+    Print #myFile, "DICTIONARY"
+    Print #myFile, "  5"
+    Print #myFile, "17"
+    Print #myFile, "102"
+    Print #myFile, "{ACAD_REACTORS"
+    Print #myFile, "330"
+    Print #myFile, "C"
+    Print #myFile, "102"
+    Print #myFile, "}"
+    Print #myFile, "330"
+    Print #myFile, "C"
+    Print #myFile, "100"
+    Print #myFile, "AcDbDictionary"
+    Print #myFile, "281"
+    Print #myFile, "     1"
+    Print #myFile, "  3"
+    Print #myFile, "Standard"
+    Print #myFile, "350"
+    Print #myFile, "18"
+    Print #myFile, "  0"
+    Print #myFile, "DICTIONARY"
+    Print #myFile, "  5"
+    Print #myFile, "19"
+    Print #myFile, "102"
+    Print #myFile, "{ACAD_REACTORS"
+    Print #myFile, "330"
+    Print #myFile, "C"
+    Print #myFile, "102"
+    Print #myFile, "}"
+    Print #myFile, "330"
+    Print #myFile, "C"
+    Print #myFile, "100"
+    Print #myFile, "AcDbDictionary"
+    Print #myFile, "281"
+    Print #myFile, "     1"
+    Print #myFile, "  0"
+    Print #myFile, "ACDBDICTIONARYWDFLT"
+    Print #myFile, "  5"
+    Print #myFile, "E"
+    Print #myFile, "102"
+    Print #myFile, "{ACAD_REACTORS"
+    Print #myFile, "330"
+    Print #myFile, "C"
+    Print #myFile, "102"
+    Print #myFile, "}"
+    Print #myFile, "330"
+    Print #myFile, "C"
+    Print #myFile, "100"
+    Print #myFile, "AcDbDictionary"
+    Print #myFile, "281"
+    Print #myFile, "     1"
+    Print #myFile, "  3"
+    Print #myFile, "Normal"
+    Print #myFile, "350"
+    Print #myFile, "F"
+    Print #myFile, "100"
+    Print #myFile, "AcDbDictionaryWithDefault"
+    Print #myFile, "340"
+    Print #myFile, "F"
+    Print #myFile, "  0"
+    Print #myFile, "LAYOUT"
+    Print #myFile, "  5"
+    Print #myFile, "1E"
+    Print #myFile, "102"
+    Print #myFile, "{ACAD_REACTORS"
+    Print #myFile, "330"
+    Print #myFile, "1A"
+    Print #myFile, "102"
+    Print #myFile, "}"
+    Print #myFile, "330"
+    Print #myFile, "1A"
+    Print #myFile, "100"
+    Print #myFile, "AcDbPlotSettings"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  2"
+    Print #myFile, ""
+    Print #myFile, "  4"
+    Print #myFile, ""
+    Print #myFile, "  6"
+    Print #myFile, ""
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, " 41"
+    Print #myFile, "0.0"
+    Print #myFile, " 42"
+    Print #myFile, "0.0"
+    Print #myFile, " 43"
+    Print #myFile, "0.0"
+    Print #myFile, " 44"
+    Print #myFile, "0.0"
+    Print #myFile, " 45"
+    Print #myFile, "0.0"
+    Print #myFile, " 46"
+    Print #myFile, "0.0"
+    Print #myFile, " 47"
+    Print #myFile, "0.0"
+    Print #myFile, " 48"
+    Print #myFile, "0.0"
+    Print #myFile, " 49"
+    Print #myFile, "0.0"
+    Print #myFile, "140"
+    Print #myFile, "0.0"
+    Print #myFile, "141"
+    Print #myFile, "0.0"
+    Print #myFile, "142"
+    Print #myFile, "1.0"
+    Print #myFile, "143"
+    Print #myFile, "1.0"
+    Print #myFile, " 70"
+    Print #myFile, "   688"
+    Print #myFile, " 72"
+    Print #myFile, "     0"
+    Print #myFile, " 73"
+    Print #myFile, "     0"
+    Print #myFile, " 74"
+    Print #myFile, "     5"
+    Print #myFile, "  7"
+    Print #myFile, ""
+    Print #myFile, " 75"
+    Print #myFile, "    16"
+    Print #myFile, "147"
+    Print #myFile, "1.0"
+    Print #myFile, "148"
+    Print #myFile, "0.0"
+    Print #myFile, "149"
+    Print #myFile, "0.0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLayout"
+    Print #myFile, "  1"
+    Print #myFile, "Layout1"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, " 71"
+    Print #myFile, "     1"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 11"
+    Print #myFile, "420.0"
+    Print #myFile, " 21"
+    Print #myFile, "297.0"
+    Print #myFile, " 12"
+    Print #myFile, "0.0"
+    Print #myFile, " 22"
+    Print #myFile, "0.0"
+    Print #myFile, " 32"
+    Print #myFile, "0.0"
+    Print #myFile, " 14"
+    Print #myFile, "1.000000000000000E+20"
+    Print #myFile, " 24"
+    Print #myFile, "1.000000000000000E+20"
+    Print #myFile, " 34"
+    Print #myFile, "1.000000000000000E+20"
+    Print #myFile, " 15"
+    Print #myFile, "-1.000000000000000E+20"
+    Print #myFile, " 25"
+    Print #myFile, "-1.000000000000000E+20"
+    Print #myFile, " 35"
+    Print #myFile, "-1.000000000000000E+20"
+    Print #myFile, "146"
+    Print #myFile, "0.0"
+    Print #myFile, " 13"
+    Print #myFile, "0.0"
+    Print #myFile, " 23"
+    Print #myFile, "0.0"
+    Print #myFile, " 33"
+    Print #myFile, "0.0"
+    Print #myFile, " 16"
+    Print #myFile, "1.0"
+    Print #myFile, " 26"
+    Print #myFile, "0.0"
+    Print #myFile, " 36"
+    Print #myFile, "0.0"
+    Print #myFile, " 17"
+    Print #myFile, "0.0"
+    Print #myFile, " 27"
+    Print #myFile, "1.0"
+    Print #myFile, " 37"
+    Print #myFile, "0.0"
+    Print #myFile, " 76"
+    Print #myFile, "     0"
+    Print #myFile, "330"
+    Print #myFile, "1B"
+    Print #myFile, "  0"
+    Print #myFile, "LAYOUT"
+    Print #myFile, "  5"
+    Print #myFile, "26"
+    Print #myFile, "102"
+    Print #myFile, "{ACAD_REACTORS"
+    Print #myFile, "330"
+    Print #myFile, "1A"
+    Print #myFile, "102"
+    Print #myFile, "}"
+    Print #myFile, "330"
+    Print #myFile, "1A"
+    Print #myFile, "100"
+    Print #myFile, "AcDbPlotSettings"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  2"
+    Print #myFile, ""
+    Print #myFile, "  4"
+    Print #myFile, ""
+    Print #myFile, "  6"
+    Print #myFile, ""
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, " 41"
+    Print #myFile, "0.0"
+    Print #myFile, " 42"
+    Print #myFile, "0.0"
+    Print #myFile, " 43"
+    Print #myFile, "0.0"
+    Print #myFile, " 44"
+    Print #myFile, "0.0"
+    Print #myFile, " 45"
+    Print #myFile, "0.0"
+    Print #myFile, " 46"
+    Print #myFile, "0.0"
+    Print #myFile, " 47"
+    Print #myFile, "0.0"
+    Print #myFile, " 48"
+    Print #myFile, "0.0"
+    Print #myFile, " 49"
+    Print #myFile, "0.0"
+    Print #myFile, "140"
+    Print #myFile, "0.0"
+    Print #myFile, "141"
+    Print #myFile, "0.0"
+    Print #myFile, "142"
+    Print #myFile, "1.0"
+    Print #myFile, "143"
+    Print #myFile, "1.0"
+    Print #myFile, " 70"
+    Print #myFile, "   688"
+    Print #myFile, " 72"
+    Print #myFile, "     0"
+    Print #myFile, " 73"
+    Print #myFile, "     0"
+    Print #myFile, " 74"
+    Print #myFile, "     5"
+    Print #myFile, "  7"
+    Print #myFile, ""
+    Print #myFile, " 75"
+    Print #myFile, "    16"
+    Print #myFile, "147"
+    Print #myFile, "1.0"
+    Print #myFile, "148"
+    Print #myFile, "0.0"
+    Print #myFile, "149"
+    Print #myFile, "0.0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLayout"
+    Print #myFile, "  1"
+    Print #myFile, "Layout2"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, " 71"
+    Print #myFile, "     2"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 11"
+    Print #myFile, "12.0"
+    Print #myFile, " 21"
+    Print #myFile, "9.0"
+    Print #myFile, " 12"
+    Print #myFile, "0.0"
+    Print #myFile, " 22"
+    Print #myFile, "0.0"
+    Print #myFile, " 32"
+    Print #myFile, "0.0"
+    Print #myFile, " 14"
+    Print #myFile, "0.0"
+    Print #myFile, " 24"
+    Print #myFile, "0.0"
+    Print #myFile, " 34"
+    Print #myFile, "0.0"
+    Print #myFile, " 15"
+    Print #myFile, "0.0"
+    Print #myFile, " 25"
+    Print #myFile, "0.0"
+    Print #myFile, " 35"
+    Print #myFile, "0.0"
+    Print #myFile, "146"
+    Print #myFile, "0.0"
+    Print #myFile, " 13"
+    Print #myFile, "0.0"
+    Print #myFile, " 23"
+    Print #myFile, "0.0"
+    Print #myFile, " 33"
+    Print #myFile, "0.0"
+    Print #myFile, " 16"
+    Print #myFile, "1.0"
+    Print #myFile, " 26"
+    Print #myFile, "0.0"
+    Print #myFile, " 36"
+    Print #myFile, "0.0"
+    Print #myFile, " 17"
+    Print #myFile, "0.0"
+    Print #myFile, " 27"
+    Print #myFile, "1.0"
+    Print #myFile, " 37"
+    Print #myFile, "0.0"
+    Print #myFile, " 76"
+    Print #myFile, "     0"
+    Print #myFile, "330"
+    Print #myFile, "23"
+    Print #myFile, "  0"
+    Print #myFile, "LAYOUT"
+    Print #myFile, "  5"
+    Print #myFile, "22"
+    Print #myFile, "102"
+    Print #myFile, "{ACAD_REACTORS"
+    Print #myFile, "330"
+    Print #myFile, "1A"
+    Print #myFile, "102"
+    Print #myFile, "}"
+    Print #myFile, "330"
+    Print #myFile, "1A"
+    Print #myFile, "100"
+    Print #myFile, "AcDbPlotSettings"
+    Print #myFile, "  1"
+    Print #myFile, ""
+    Print #myFile, "  2"
+    Print #myFile, ""
+    Print #myFile, "  4"
+    Print #myFile, ""
+    Print #myFile, "  6"
+    Print #myFile, ""
+    Print #myFile, " 40"
+    Print #myFile, "0.0"
+    Print #myFile, " 41"
+    Print #myFile, "0.0"
+    Print #myFile, " 42"
+    Print #myFile, "0.0"
+    Print #myFile, " 43"
+    Print #myFile, "0.0"
+    Print #myFile, " 44"
+    Print #myFile, "0.0"
+    Print #myFile, " 45"
+    Print #myFile, "0.0"
+    Print #myFile, " 46"
+    Print #myFile, "0.0"
+    Print #myFile, " 47"
+    Print #myFile, "0.0"
+    Print #myFile, " 48"
+    Print #myFile, "0.0"
+    Print #myFile, " 49"
+    Print #myFile, "0.0"
+    Print #myFile, "140"
+    Print #myFile, "0.0"
+    Print #myFile, "141"
+    Print #myFile, "0.0"
+    Print #myFile, "142"
+    Print #myFile, "1.0"
+    Print #myFile, "143"
+    Print #myFile, "1.0"
+    Print #myFile, " 70"
+    Print #myFile, "  1712"
+    Print #myFile, " 72"
+    Print #myFile, "     0"
+    Print #myFile, " 73"
+    Print #myFile, "     0"
+    Print #myFile, " 74"
+    Print #myFile, "     0"
+    Print #myFile, "  7"
+    Print #myFile, ""
+    Print #myFile, " 75"
+    Print #myFile, "     0"
+    Print #myFile, "147"
+    Print #myFile, "1.0"
+    Print #myFile, "148"
+    Print #myFile, "0.0"
+    Print #myFile, "149"
+    Print #myFile, "0.0"
+    Print #myFile, "100"
+    Print #myFile, "AcDbLayout"
+    Print #myFile, "  1"
+    Print #myFile, "Model"
+    Print #myFile, " 70"
+    Print #myFile, "     1"
+    Print #myFile, " 71"
+    Print #myFile, "     0"
+    Print #myFile, " 10"
+    Print #myFile, "0.0"
+    Print #myFile, " 20"
+    Print #myFile, "0.0"
+    Print #myFile, " 11"
+    Print #myFile, "12.0"
+    Print #myFile, " 21"
+    Print #myFile, "9.0"
+    Print #myFile, " 12"
+    Print #myFile, "0.0"
+    Print #myFile, " 22"
+    Print #myFile, "0.0"
+    Print #myFile, " 32"
+    Print #myFile, "0.0"
+    Print #myFile, " 14"
+    Print #myFile, "0.0"
+    Print #myFile, " 24"
+    Print #myFile, "0.0"
+    Print #myFile, " 34"
+    Print #myFile, "0.0"
+    Print #myFile, " 15"
+    Print #myFile, "0.0"
+    Print #myFile, " 25"
+    Print #myFile, "0.0"
+    Print #myFile, " 35"
+    Print #myFile, "0.0"
+    Print #myFile, "146"
+    Print #myFile, "0.0"
+    Print #myFile, " 13"
+    Print #myFile, "0.0"
+    Print #myFile, " 23"
+    Print #myFile, "0.0"
+    Print #myFile, " 33"
+    Print #myFile, "0.0"
+    Print #myFile, " 16"
+    Print #myFile, "1.0"
+    Print #myFile, " 26"
+    Print #myFile, "0.0"
+    Print #myFile, " 36"
+    Print #myFile, "0.0"
+    Print #myFile, " 17"
+    Print #myFile, "0.0"
+    Print #myFile, " 27"
+    Print #myFile, "1.0"
+    Print #myFile, " 37"
+    Print #myFile, "0.0"
+    Print #myFile, " 76"
+    Print #myFile, "     0"
+    Print #myFile, "330"
+    Print #myFile, "1F"
+    Print #myFile, "  0"
+    Print #myFile, "MLINESTYLE"
+    Print #myFile, "  5"
+    Print #myFile, "18"
+    Print #myFile, "102"
+    Print #myFile, "{ACAD_REACTORS"
+    Print #myFile, "330"
+    Print #myFile, "17"
+    Print #myFile, "102"
+    Print #myFile, "}"
+    Print #myFile, "330"
+    Print #myFile, "17"
+    Print #myFile, "100"
+    Print #myFile, "AcDbMlineStyle"
+    Print #myFile, "  2"
+    Print #myFile, "STANDARD"
+    Print #myFile, " 70"
+    Print #myFile, "     0"
+    Print #myFile, "  3"
+    Print #myFile, ""
+    Print #myFile, " 62"
+    Print #myFile, "   256"
+    Print #myFile, " 51"
+    Print #myFile, "90.0"
+    Print #myFile, " 52"
+    Print #myFile, "90.0"
+    Print #myFile, " 71"
+    Print #myFile, "     2"
+    Print #myFile, " 49"
+    Print #myFile, "0.5"
+    Print #myFile, " 62"
+    Print #myFile, "   256"
+    Print #myFile, "  6"
+    Print #myFile, "BYLAYER"
+    Print #myFile, " 49"
+    Print #myFile, "-0.5"
+    Print #myFile, " 62"
+    Print #myFile, "   256"
+    Print #myFile, "  6"
+    Print #myFile, "BYLAYER"
+    Print #myFile, "  0"
+    Print #myFile, "ACDBPLACEHOLDER"
+    Print #myFile, "  5"
+    Print #myFile, "F"
+    Print #myFile, "102"
+    Print #myFile, "{ACAD_REACTORS"
+    Print #myFile, "330"
+    Print #myFile, "E"
+    Print #myFile, "102"
+    Print #myFile, "}"
+    Print #myFile, "330"
+    Print #myFile, "E"
+    Print #myFile, "  0"
+    Print #myFile, "ENDSEC"
+    Print #myFile, "  0"
+    Print #myFile, "EOF"
+    Catch
+	ilk.hatayaz("son " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End

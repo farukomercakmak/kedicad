@@ -1,0 +1,72 @@
+' Gambas class file
+
+Public bazgi As New Cvb
+Public cazgi As New Czm
+
+Public Function kalin(Optional kal As Integer) As Integer
+Dim kali As Float = 1
+If kal Then
+    kali = kal
+Else
+    If Trim(ilk.kalin.Text) = "ByLayer"
+        For Each bazgi In ilk.bezmi
+             If bazgi.ad = Trim(ilk.katmer.Text) Then kali = bazgi.kal
+         Next
+    Else
+        kali = ilk.kalin.text
+    Endif
+Endif
+Return kali
+End
+Public Function renk(Optional ren As Integer) As Integer
+Dim reng As Integer
+If ren Then
+    reng = ren
+Else
+    If Trim(ilk.Button41.Text) <> ""
+        For Each bazgi In ilk.bezmi
+             If bazgi.ad = Trim(ilk.katmer.Text) Then reng = bazgi.renk
+         Next
+    Else
+        reng = ilk.Button41.Background
+    Endif
+Endif
+Return reng
+End
+Public Function sekil(Optional sekli As Integer) As Integer
+Dim sek As Integer
+If sekli Then
+    sek = sekli
+Else
+    If Trim(ilk.sekil.Text) = "ByLayer"
+        For Each bazgi In ilk.bezmi
+             If bazgi.ad = Trim(ilk.katmer.Text) Then sek = bazgi.tip
+         Next
+    Else
+        sek = ilk.sekil.Index
+    Endif
+Endif
+Return sek
+End
+
+Public Function katman(Optional katim As String) As String
+Dim katmen As String
+If katim Then
+    katmen = katim
+Else
+    katmen = ilk.katmer.Text
+Endif
+Return katmen
+End
+
+Public Function blok(Optional bloku As String) As String
+Dim blak As String
+
+If bloku Then
+    blak = bloku
+Else
+    blak = ""
+Endif
+Return blak
+End
+

@@ -1,0 +1,530 @@
+' Gambas class file
+
+Public cazgi As Czm
+Public azamet As Float
+Public mukavim As Float
+Public satalet As Float
+Public siyy As Float
+Public sukavet As Float
+Public salan As Float
+Public sagir As Float
+Public basx As Float
+Public basy As Float
+Public sonx As Float
+Public sony As Float
+
+Public vg As Integer
+
+Public Sub Form_Open()
+
+    torba6.tef
+    vg = 1
+    Me.Move(0, 100)
+    daire.Value = True
+    a.Move(80, 200)
+    ab.Move(8, 200)
+    a.Visible = True
+    ab.Visible = True
+    Me.text = "KediCAD 2B SECTION MODULUS"
+        Catch
+	ilk.hatayaz("fopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub daire_Click()
+
+    DrawingArea1.Visible = False
+    Button3_Click
+    a.Move(80, 200)
+    ab.Move(8, 200)
+    a.Visible = True
+    ab.Visible = True
+    ab.text = " Dia(mm.) "
+    resim.Picture = picture["res/daireres.png"]
+    profil.Clear
+        Catch
+	ilk.hatayaz("daireclk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub boru_Click()
+
+    DrawingArea1.Visible = False
+    Button3_Click
+    profil.Clear
+    a.Move(150, 200)
+    ab.Move(8, 200)
+    b.Move(150, 230)
+    bb.Move(8, 230)
+    a.Visible = True
+    b.Visible = True
+    ab.Visible = True
+    bb.Visible = True
+    ab.text = "Outer Dia(mm.)"
+    bb.text = "Inner Dia(mm.)"
+    resim.Picture = picture["res/borures.png"]
+        Catch
+	ilk.hatayaz("boryclk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub dikdort_Click()
+
+    DrawingArea1.Visible = False
+    Button3_Click
+    profil.Clear
+    a.Move(80, 200)
+    ab.Move(8, 200)
+    b.Move(80, 230)
+    bb.Move(8, 230)
+    a.Visible = True
+    b.Visible = True
+    ab.Visible = True
+    bb.Visible = True
+    ab.text = " a(mm.)"
+    bb.text = "b(mm.)"
+    resim.Picture = picture["res/dikres.png"]
+        Catch
+	ilk.hatayaz("dikdclk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub bosdort_Click()
+
+    DrawingArea1.Visible = False
+    Button3_Click
+    profil.Clear
+    a.Move(80, 200)
+    ab.Move(8, 200)
+    b.Move(80, 230)
+    bb.Move(8, 230)
+    c.Move(200, 200)
+    cb.Move(160, 200)
+    a.Visible = True
+    b.Visible = True
+    c.Visible = True
+    e.Visible = True
+    ab.Visible = True
+    bb.Visible = True
+    cb.Visible = True
+    ab.text = "a(mm.)"
+    bb.text = "b(mm.)"
+    cb.text = "t(mm.)"
+    resim.Picture = picture["res/bosdikres.png"]
+        Catch
+	ilk.hatayaz("bosdrtclk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub npi_Click()
+
+    DrawingArea1.Visible = False
+    Button3_Click
+    nip.clear
+    profil.Clear
+    profil.Visible = True
+    yazi.Visible = True
+    nip.Visible = True
+    etiket.Visible = True
+    etiket.text = "Select I height"
+    resim.Picture = picture["res/i.png"]
+    yazi.text = "Select I type"
+    nip.Add("NPI", 0)
+    nip.Add("IPE", 1)
+    nip.Add("HEA", 2)
+    nip.Add("HEB", 3)
+    nip.Add("HEM", 4)
+    ekle
+    Button1_Click
+        Catch
+	ilk.hatayaz("npiclk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub npu_Click()
+
+    DrawingArea1.Visible = False
+    Button3_Click
+    profil.Clear
+    profil.Visible = True
+    etiket.Visible = True
+    resim.Picture = picture["res/u.png"]
+    etiket.text = "Select U"
+    akla
+    Button1_Click
+        Catch
+	ilk.hatayaz("npuclk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub kosebent_Click()
+
+    Button3_Click
+    profil.Clear
+    profil.Visible = True
+    etiket.text = "Select Angle height"
+    resim.Picture = picture["res/kosebent.png"]
+        Catch
+	ilk.hatayaz("kosbentclk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Sub ekle()
+
+    profil.Visible = True
+    profil.Add(80, 0)
+    profil.Add(100, 1)
+    profil.Add(120, 2)
+    profil.Add(140, 3)
+    profil.Add(160, 4)
+    profil.Add(180, 5)
+    profil.Add(200, 6)
+    profil.Add(220, 7)
+    profil.Add(240, 8)
+    profil.Add(260, 9)
+    profil.Add(280, 10)
+    profil.Add(300, 11)
+    profil.Add(320, 12)
+    profil.Add(340, 13)
+    profil.Add(360, 14)
+    profil.Add(380, 15)
+    profil.Add(400, 16)
+    profil.Add(450, 17)
+    profil.Add(500, 18)
+    profil.Add(550, 19)
+    Return
+        Catch
+	ilk.hatayaz("ekle " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub akla()
+
+    profil.Visible = True
+    profil.Add("30-15", 0)
+    profil.Add("30-33", 1)
+    profil.Add("40-20", 2)
+    profil.Add("40-35", 3)
+    profil.Add("50-25", 4)
+    profil.Add("50-38", 5)
+    profil.Add(60, 6)
+    profil.Add(65, 7)
+    profil.Add(80, 8)
+    profil.Add(100, 9)
+    profil.Add(120, 10)
+    profil.Add(140, 11)
+    profil.Add(160, 12)
+    profil.Add(180, 13)
+    profil.Add(200, 14)
+    profil.Add(220, 15)
+    profil.Add(240, 16)
+    profil.Add(260, 17)
+    profil.Add(280, 18)
+    profil.Add(300, 19)
+    profil.Add(320, 20)
+    profil.Add(350, 21)
+    profil.Add(380, 22)
+    profil.Add(400, 23)
+    Return
+        Catch
+	ilk.hatayaz("akla " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub Button1_Click()
+
+    kesit.tem
+    If daire.Value = True Then
+        If IsFloat(a.Text)
+            kesit.daire(a.Text)
+            atalet.Text = Format$(kesit.atalet, "#.####")
+            iyy.Text = Format$(kesit.atalet, "#.####")
+            mukavemet.Text = Format$(kesit.mukavemet, "#.####")
+            alan.Text = Format$(kesit.allan, "#.####")
+            agir.Text = Format$(kesit.agir, "#.####")
+        Endif
+    End If
+    If boru.Value = True Then
+        If IsFloat(a.Text)
+            If IsFloat(b.Text)
+                kesit.boru(b.Text, a.Text)
+                atalet.Text = Format$(kesit.atalet, "#.###")
+                iyy.Text = Format$(kesit.atalet, "#.###")
+                mukavemet.Text = Format$(kesit.mukavemet, "#.###")
+                alan.Text = Format$(kesit.allan, "#.###")
+                agir.Text = Format$(kesit.agir, "#.###")
+            End If
+        End If
+    End If
+    If dikdort.Value = True Then
+        If IsFloat(a.Text)
+            If IsFloat(b.Text)
+                kesit.dikd(b.Text, a.Text)
+                atalet.Text = Format$(kesit.atalet, "#.###")
+                iyy.Text = Format$(kesit.atalety, "#.###")
+                mukavemet.Text = Format$(kesit.mukavemet, "#.###")
+                alan.Text = Format$(kesit.allan, "#.###")
+                agir.Text = Format$(kesit.agir, "#.###")
+            End If
+        Endif
+    End If
+
+    If bosdort.Value = True Then
+        If IsFloat(a.Text)
+            If IsFloat(b.Text)
+                If IsFloat(c.Text)
+                    kesit.kutu(a.Text, b.Text, c.Text)
+                    atalet.Text = Format$(kesit.atalet, "#.###")
+                    iyy.Text = Format$(kesit.atalety, "#.###")
+                    mukavemet.Text = Format$(kesit.mukavemet, "#.###")
+                    alan.Text = Format$(kesit.allan, "#.###")
+                    agir.Text = Format$(kesit.agir, "#.###")
+                Endif
+            Endif
+        Endif
+    End If
+
+    If npi.Value = True Then
+        If nip.Text = "NPI" Then
+            kesit.npi(profil.Text)
+        End If
+        If nip.Text = "IPE" Then
+            kesit.ipe(profil.Text)
+        End If
+        If nip.Text = "HEA" Then
+            kesit.hea(profil.Text)
+        End If
+        If nip.Text = "HEB" Then
+            kesit.heb(profil.Text)
+        End If
+        If nip.Text = "HEM" Then
+            kesit.heb(profil.Text)
+        Endif
+        alan.Text = kesit.allan
+        agir.Text = kesit.agir
+        atalet.Text = kesit.atalet
+        mukavemet.Text = kesit.mukavemet
+        iyy.Text = kesit.atalety
+    End If
+    If npu.Value = True Then
+        kesit.npu(profil.Text)
+        alan.Text = kesit.allan
+        agir.Text = kesit.agir
+        atalet.Text = kesit.atalet
+        mukavemet.Text = Format$(kesit.mukavemet, "#.###")
+        iyy.Text = kesit.atalety
+    End If
+    azamet = kesit.atalet
+    mukavim = kesit.mukavemet
+    If mukavemet.Text <> ""
+        If fea.faa = 1 Then
+            fea.ataletx.Text = kesitli.atalet.Text
+            fea.atalety.Text = kesitli.iyy.Text
+            fea.mukavemet.Text = kesitli.mukavemet.Text
+            fea.alan.Text = kesitli.alan.Text
+            fea.agir.Text = kesitli.agir.Text
+            fea.faa = 0
+            fea.Show
+            Me.hide
+        Endif
+    Endif
+        Catch
+	ilk.hatayaz("btn1clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button3_Click()
+
+    a.Visible = False
+    b.Visible = False
+    c.Visible = False
+    e.Visible = False
+    ab.Visible = False
+    bb.Visible = False
+    cb.Visible = False
+    eb.Visible = False
+    profil.Visible = True
+    yazi.Visible = False
+    nip.Visible = False
+    etiket.Visible = False
+    yazi.Visible = False
+    profil.Visible = ""
+    atalet.Text = ""
+    alan.Text = ""
+    mukavemet.Text = ""
+    agir.Text = ""
+    a.Text = ""
+    b.Text = ""
+    c.Text = ""
+    e.Text = ""
+    iyy.Text = ""
+        Catch
+	ilk.hatayaz("btn3clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button2_Click()
+
+    vg = 0
+    ilk.dolas
+    Me.close
+
+End
+
+Public Sub Form_Close()
+
+    ilk.dolas
+    vg = 0
+
+End
+
+Public Sub profil_Change()
+
+    Button1_Click
+
+End
+
+Public Sub nip_Change()
+
+    Button1_Click
+
+End
+
+Public Sub a_Activate()
+
+    Button1_Click
+
+End
+
+Public Sub e_Activate()
+
+    Button1_Click
+
+End
+
+Public Sub b_Activate()
+
+    Button1_Click
+
+End
+
+Public Sub c_Activate()
+
+    Button1_Click
+
+End
+
+Public Sub Button5_Click()
+
+    Dim sn1, sn2 As String
+
+    fex.Clear
+    fey.Clear
+    vg = 1
+    DrawingArea1.Visible = True
+    DrawingArea1.Refresh
+    resim.Picture = picture[""]
+    Button3_Click
+    a.Move(150, 200)
+    ab.Move(8, 200)
+    b.Move(150, 230)
+    bb.Move(8, 230)
+    a.Visible = True
+    b.Visible = True
+    ab.Visible = True
+    bb.Visible = True
+    ab.text = "x distance(mm.)"
+    bb.text = "y distance(mm.)"
+    sn1 = ""
+    sn2 = ""
+    ListBox1.Clear
+    ilk.Menu113_Click
+    Wait 0.5
+    ucg.cizv
+    ilk.calanilk.Refresh
+    DrawingArea1.Refresh
+        Catch
+	ilk.hatayaz("btn5clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button4_Click()
+
+    Dim dosya As String
+
+    Dim myFile As File
+
+    If Dialog.SaveFile() Then Return
+    dosya = File.Name(Dialog.Path)
+    myFile = Open System.User.Home &/ dosya & ".txt" For Create
+    Print #myFile, "   ATALET-MUKAVEMET MOMENTİ SONUÇLARI"
+    Print #myFile, "   "
+    Print #myFile, "   VERİLER "
+    If daire.Value = True Then
+        Print #myFile, "Daire Kesitli  "
+        Print #myFile, "Çap :  " & a.Text & " cm."
+    End If
+    If boru.Value = True Then
+        Print #myFile, "Boru Kesitli  "
+        Print #myFile, "Dış Çap :  " & a.Text & " cm."
+        Print #myFile, "İç Çap :  " & b.Text & " cm."
+    End If
+    If dikdort.Value = True Then
+        Print #myFile, "Dikdörtgen Kesitli  "
+        Print #myFile, "Kenar Uzunlukları :  " & a.Text & " x " & b.Text & " cm."
+    End If
+    If bosdort.Value = True Then
+        Print #myFile, "İçi Boş Dikdörtgen Kesitli  "
+        Print #myFile, "Dış Kenar Uzunlukları :  " & a.Text & " x " & b.Text & " cm."
+        Print #myFile, "İç Kenar Uzunlukları :  " & e.Text & " x " & c.Text & " cm."
+    End If
+    If npi.Value = True Then
+        Print #myFile, "I Kesitli  "
+        Print #myFile, "I Çeşidi = " & nip.Text & " - " & profil.Text
+    End If
+    If npu.Value = True Then
+        Print #myFile, "U Kesitli  "
+        Print #myFile, "I Çeşidi = " & nip.Text & " - " & profil.Text
+    End If
+    Print #myFile, "   "
+    Print #myFile, "   SONUÇLAR"
+    Print #myFile, "  Atalet Momenti(Ixx) :  " & atalet.Text & " cm^4"
+    Print #myFile, "Atalet Momenti (Iyy) :  " & iyy.Text & " cm^4"
+    Print #myFile, "Mukavemet Momenti :  " & mukavemet.Text & " cm^4"
+    Print #myFile, "Alan :  " & alan.Text & " cm^2"
+    Print #myFile, "1 Metrenin Ağırlığı :  " & agir.Text & " kg/m"
+    Close myFile
+        Catch
+	ilk.hatayaz("btn4clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public sbp As Float
+Public olcek As Float
+Public fex As New Float[]
+Public fey As New Float[]
+
+Public Sub DrawingArea1_Draw()
+
+    Dim penge, penye As Float
+    Dim i As Integer
+    Dim folx As New Integer[]
+
+    If sbp = 0
+        penge = (torba6.sonx - torba6.basx) * 1.2
+        penye = (torba6.sony - torba6.basy) * 1.2
+        If penge = 0 Or penye = 0 Then
+            penge = 1
+            penye = 1
+        Endif
+        olcek = Min(DrawingArea1.Width / penge, DrawingArea1.height / penye)
+        sbp = 1
+    End If
+    draw.scale(olcek, olcek)
+    draw.translate(- 1 * (torba6.basx - 10), -1 * (torba6.basy - 10))
+    For i = 0 To fex.Count - 3 Step 3
+        folx.Add(fex[i])
+        folx.Add(fey[i])
+        folx.Add(fex[i + 1])
+        folx.Add(fey[i + 1])
+        folx.Add(fex[i + 2])
+        folx.Add(fey[i + 2])
+        Draw.LineWidth = 2
+        Draw.Foreground = Color.Blue
+        Draw.FillColor = Color.Blue
+        draw.FillStyle = Fill.Solid
+        Draw.Polygon(folx)
+        Draw.Polyline(folx)
+        folx.Clear
+    Next
+        Catch
+	ilk.hatayaz("dwgaredraw " & Error.Text, Error.Where & "--" & Error.code)
+End

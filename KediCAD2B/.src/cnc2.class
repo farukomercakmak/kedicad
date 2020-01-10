@@ -1,0 +1,47 @@
+' Gambas class file
+
+Public cncgor As Integer
+
+Public Sub Button1_Click()
+ Dim myFile As File
+ilk.calanilk.Refresh
+cnc.mlzx = CFloat(TextBox1.Text)
+cnc.mlzy = CFloat(TextBox2.Text)
+cnc.mlzz = CFloat(TextBox3.Text)
+myFile = Open System.User.Home &/ ".KediCAD/Kayit/cncolcu" For Create
+    Print #myFile, CFloat(TextBox1.Text)
+    Print #myFile, CFloat(TextBox2.Text)
+    Print #myFile, CFloat(TextBox3.Text)
+Close myFile
+cnc.goru = 1
+If cncgor = 1 Then cnc.Show
+Me.close
+Catch
+ilk.hatayaz("btn1clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Form_Open()
+Dim doza As Integer
+ Dim myFile As File
+    Dim myLine As String
+Me.center
+If Exist(System.User.Home &/ ".KediCAD/Kayit/cncolcu")
+myFile = Open System.User.Home &/ ".KediCAD/Kayit/cncolcu" For Read
+    If Lof(myFile) > 0 Then
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            doza = doza + 1
+            If doza = 1 Then TextBox1.Text = CInt(myLine)
+            If doza = 2 Then TextBox2.Text = CInt(myLine)
+            If doza = 3 Then TextBox3.Text = CInt(myLine)
+            
+        Wend
+    End If
+Endif
+Catch
+ilk.hatayaz("fopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button2_Click()
+Me.Close
+End

@@ -1,0 +1,36 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,336,322)
+  #Scaled = False
+  Visible = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  { Menu1 Menu
+    Text = ("Description")
+    { Menu2 Menu
+      Text = ("Help")
+    }
+    { Menu3 Menu
+      Text = ("Hide")
+    }
+  }
+  { yazi TextArea
+    Move(0,0,329,259)
+    Font = Font["Monospace,10"]
+    Background = &HFFFFFF&
+    Foreground = &H000000&
+    ReadOnly = True
+  }
+  { komut TextBox
+    Move(0,264,161,28)
+    Font = Font["Monospace,10"]
+    Background = &HFFFFFF&
+    Foreground = &H000000&
+  }
+  { yardim TextArea
+    Move(0,308,329,259)
+    Visible = False
+    Text = ("Komut istemcisi yazılışı\nÇizgi çizdirmek için :\nKedi çizgi x1,y1,x2,y2\nÇember çizdirmek için\nKedi çember yarıçap,x1,y1\n")
+  }
+}

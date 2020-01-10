@@ -1,0 +1,100 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(399,77,483,252)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  SkipTaskbar = True
+  { Button1 Button
+    Move(0,210,147,35)
+    Text = ("New Layer")
+    Picture = Picture["ysimge/katmanekle.png"]
+  }
+  { Button2 Button
+    Move(343,217,96,36)
+    Text = ("Close")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+  { colon TableView
+    Move(0,-7,154,217)
+  }
+  { ComboBox1 ComboBox
+    Move(259,203,82,25)
+    Visible = False
+  }
+  { ComboBox2 ComboBox
+    Move(168,189,82,25)
+    Visible = False
+  }
+  { ColorButton1 ColorButton
+    Move(231,168,80,28)
+    Visible = False
+  }
+  { Panel1 Panel
+    Move(406,7,322,252)
+    Visible = False
+    Background = Color.LightForeground
+    { TextBox1 TextBox
+      Move(112,7,189,35)
+    }
+    { ColorButton2 ColorButton
+      Move(112,105,189,42)
+    }
+    { ComboBox3 ComboBox
+      Move(112,35,189,35)
+      Text = ("ComboBox3")
+    }
+    { ComboBox4 ComboBox
+      Move(112,70,189,35)
+      Text = ("ComboBox4")
+    }
+    { Button3 Button
+      Move(119,217,91,35)
+      Text = ("Add")
+    }
+    { PictureBox1 PictureBox
+      Move(112,147,182,28)
+    }
+    { Label1 Label
+      Move(7,0,91,35)
+      Text = ("Layer Name")
+    }
+    { Label2 Label
+      Move(7,42,77,28)
+      Text = ("Line Type")
+    }
+    { Label3 Label
+      Move(7,77,77,28)
+      Text = ("Line Width")
+    }
+    { Label4 Label
+      Move(7,112,77,21)
+      Text = ("Line Color")
+    }
+    { Label5 Label
+      Move(7,147,77,28)
+      Text = ("Visibility")
+    }
+    { Button4 Button
+      Move(7,217,77,35)
+      Text = ("Cancel")
+    }
+    { Button5 Button
+      Move(231,217,70,35)
+      Text = ("Close")
+    }
+    { PictureBox2 PictureBox
+      Move(112,182,182,28)
+    }
+    { Label6 Label
+      Move(7,182,77,28)
+      Text = ("Lock")
+    }
+  }
+  { Label7 Label
+    Move(161,231,119,21)
+    Text = ("Label7")
+  }
+}

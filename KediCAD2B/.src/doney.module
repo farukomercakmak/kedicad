@@ -1,0 +1,140 @@
+' Gambas module file
+
+Public cazgi As Czm
+Public sbn As Integer
+Public aci As Float
+Public x4oku As Float
+Public y4oku As Float
+Public x5oku As Float
+Public y5oku As Float
+Public yarim As Float
+Public ar As Float
+Public at As Float
+
+
+Public Sub dondur()
+
+    Dim zx, zy, acig, r, r2, acig2, aci3, acig3, x6oku, y6oku, aci1, aci2 As Float
+    With ilk
+        .mesgul = 1 
+        Paint.Brush = Paint.Color(ilk.apla)                     'çizgi seçildi çizgiyi kalın  çiz.
+        Paint.LineWidth = 1
+        zx = .birx + 0.00001
+        zy = .biry + 0.00001
+        '///////    r tanımlanıyor  777777777777777777777
+        acimi.aci(zx, zy, .Mousex, .Mousey)
+        aci = acimi.raci
+        While aci > (2 * Pi)
+            aci = aci - (2 * Pi)
+        Wend
+        If (.komutsayi) = 129 Then Goto atl5
+        If (.komutcuk.Text) <> "" Then
+            If IsFloat(.komutcuk.Text) Then
+            Else
+                Return
+            Endif
+            aci = Rad(CFloat(.komutcuk.Text))
+            Goto atl5
+        Endif
+        If Abs(2 * Pi - aci) < 0.05 Then aci = 0
+        If Abs(Pi - aci) < 0.05 Then aci = Pi
+        If Abs((Pi / 2) - aci) < 0.05 Then aci = Pi / 2
+        If Abs((Pi + Pi / 2) - aci) < 0.05 Then aci = Pi + Pi / 2
+        If Abs(aci) < 0.05 Then aci = 0
+    atl5:
+        For Each cazgi In ilk.cezmi 
+            If .depo1.Exist(cazgi.id)
+                acimi.aci(cazgi.x1 * .olcum, cazgi.y1 * .olcum, zx, zy)
+                r = acimi.boy
+                acig2 = acimi.raci - Pi
+                acig = acig2 + aci
+                acimi.aci(cazgi.x2 * .olcum, cazgi.y2 * .olcum, zx, zy)
+                r2 = acimi.boy
+                acig3 = acimi.raci - Pi
+                aci3 = acig3 + aci
+                x4oku = zx + (r * Cos(acig))
+                y4oku = zy - (r * Sin(acig))
+                If cazgi.komut = 1
+                    x5oku = zx + (r2 * Cos(aci3))
+                    y5oku = zy - (r2 * Sin(aci3))
+                    Paint.MoveTo(x4oku, y4oku)
+                    Paint.LineTo(x5oku, y5oku)
+                    Goto atl
+                Endif
+                If cazgi.komut = 25
+                    Paint.Arc(x4oku, y4oku, cazgi.yaricap * .olcum)
+                    Goto atl
+                Endif
+                If cazgi.komut = 20
+                    acimi.aci(zx, zy, cazgi.x1 * .olcum, cazgi.y1 * .olcum)
+                    acig = acimi.raci + aci
+                    r = acimi.boy
+                    x4oku = zx + (r * (Cos(acig)))
+                    y4oku = zy - (r * (Sin(acig)))
+
+                    acimi.aci(zx, zy, cazgi.x2 * .olcum, cazgi.y2 * .olcum)
+                    acig2 = acimi.raci + aci
+                    r = acimi.boy
+                    x5oku = zx + (r * (Cos(acig2)))
+                    y5oku = zy - (r * (Sin(acig2)))
+
+                    acimi.aci(zx, zy, cazgi.x3 * .olcum, cazgi.y3 * .olcum)
+                    aci3 = acimi.raci + aci
+                    r = acimi.boy
+                    x6oku = zx + (r * (Cos(aci3)))
+                    y6oku = zy - (r * (Sin(aci3)))
+
+                    acimi.aci(x4oku, y4oku, x5oku, y5oku)
+                    aci1 = acimi.raci
+                    acimi.aci(x4oku, y4oku, x6oku, y6oku)
+                    aci2 = acimi.raci
+                   
+                    If aci2 < aci1 Then aci2 = aci2 + 2 * Pi
+                    Paint.Arc(x4oku, y4oku, cazgi.yaricap * .olcum, - aci1, - aci2 + aci1)
+                    Goto atl
+                Endif
+                If cazgi.komut = 60
+                    x5oku = zx + (r2 * Cos(aci3))
+                    y5oku = zy - (r2 * Sin(aci3))
+                    Paint.MoveTo(x4oku, y4oku)
+                    Paint.Translate(x4oku, y4oku)
+                    Paint.Text(cazgi.yazi, x4oku, y4oku)
+                    Paint.Rotate(cazgi.y4 + aci)
+                     Paint.Translate(- x4oku, - y4oku)
+                      Paint.Stroke
+                     Paint.MoveTo(x4oku, y4oku)
+                    Paint.Translate(x4oku, y4oku)
+                    Paint.Rotate(- cazgi.y4 - aci)
+                     Paint.Translate(- x4oku, - y4oku)
+                    Goto atl
+                Endif
+                If cazgi.komut = 100
+                    x5oku = zx + (r2 * Cos(aci3))
+                    y5oku = zy - (r2 * Sin(aci3))
+                    Goto atl
+                Endif
+                If cazgi.komut = 105
+                    x5oku = zx + (r2 * Cos(aci3))
+                    y5oku = zy - (r2 * Sin(aci3))
+                    Goto atl
+                Endif
+                If cazgi.komut = 120
+                    x5oku = zx + (r2 * Cos(aci3))
+                    y5oku = zy - (r2 * Sin(aci3))
+                    Goto atl
+                Endif
+                If cazgi.komut = 242
+                    Paint.arc(x4oku, y4oku, cazgi.yaricap * ilk.olcum)
+                End If
+            atl:
+            End If
+        Next
+        paint.Text("Açı = " & Format$(Deg(aci), "0.0"), ilk.mousex + 20, ilk.mousey + 20)
+        .mesgul = 0
+    End With
+    Paint.Stroke
+    Return
+        Catch
+	ilk.hatayaz("dondur " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

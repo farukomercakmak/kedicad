@@ -1,0 +1,185 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,342,480)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  SkipTaskbar = True
+  { TabStrip1 TabStrip
+    Move(0,0,336,184)
+    Count = 2
+    Index = 0
+    Text = ("Rotate")
+    { Label1 Label
+      Move(0,8,91,35)
+      Text = ("Specify \nDrawings")
+    }
+    { Button3 Button
+      Move(136,8,72,32)
+      Text = ("Select")
+    }
+    { aci TextBox
+      Move(144,120,56,28)
+    }
+    { Button4 Button
+      Move(136,48,72,32)
+      Text = ("Select")
+    }
+    { Label3 Label
+      Move(0,56,126,35)
+      Text = ("Specify rotate\ncenter")
+    }
+    { dx TextBox
+      Move(248,8,64,32)
+    }
+    { dy TextBox
+      Move(248,48,64,32)
+    }
+    { Label5 Label
+      Move(216,8,28,28)
+      Text = ("X :")
+    }
+    { Label6 Label
+      Move(216,48,28,28)
+      Text = ("Y :")
+    }
+    { aci2 TextBox
+      Move(147,161,49,28)
+      Visible = False
+    }
+    { Label7 Label
+      Move(7,161,140,28)
+      Visible = False
+      Text = ("Dönme Açısı (derece)")
+    }
+    { acci TextBox
+      Move(144,88,56,28)
+    }
+    { Label10 Label
+      Move(0,88,144,32)
+      Text = ("Rotate angle(degree)")
+    }
+    { Label2 Label
+      Move(0,112,136,40)
+      Text = ("Angular velocity\n (degree/sc)")
+    }
+    { RadioButton1 RadioButton
+      Move(208,88,112,24)
+      Text = ("counter\nclockwise")
+      Value = True
+    }
+    { RadioButton2 RadioButton
+      Move(208,112,112,32)
+      Text = ("clockwise")
+    }
+    Index = 1
+    Text = ("plain")
+    { Button5 Button
+      Move(144,8,104,40)
+      Text = ("Select")
+    }
+    { Label9 Label
+      Move(7,7,112,32)
+      Text = ("Select\nDrawings")
+    }
+    { Label12 Label
+      Move(0,56,72,40)
+      Text = ("start\npoint")
+    }
+    { drx2 TextBox
+      Move(160,56,64,32)
+      ReadOnly = True
+    }
+    { dry2 TextBox
+      Move(264,56,64,32)
+      ReadOnly = True
+    }
+    { Label13 Label
+      Move(248,64,16,24)
+      Text = ("Y :")
+    }
+    { Label14 Label
+      Move(144,56,16,32)
+      Text = ("X :")
+    }
+    { dry3 TextBox
+      Move(266,98,64,32)
+      ReadOnly = True
+    }
+    { Label15 Label
+      Move(248,96,16,32)
+      Text = ("Y :")
+    }
+    { drx3 TextBox
+      Move(160,96,64,32)
+      ReadOnly = True
+    }
+    { Label16 Label
+      Move(144,96,16,32)
+      Text = ("X :")
+    }
+    { Label17 Label
+      Move(0,96,64,32)
+      Text = ("finish\npoint")
+    }
+    { Button7 Button
+      Move(72,96,64,40)
+      Text = ("Select")
+    }
+    { Button6 Button
+      Move(72,56,64,40)
+      Text = ("Select")
+    }
+    Index = 0
+  }
+  { liste ListBox
+    Move(352,320,91,105)
+    Visible = False
+  }
+  { Button10 Button
+    Move(0,444,336,40)
+    Text = ("Create video")
+  }
+  { Label8 Label
+    Move(184,184,144,16)
+    Visible = False
+    Text = ("Label8")
+  }
+  { Label11 Label
+    Move(24,184,136,16)
+    Visible = False
+    Text = ("Label11")
+  }
+  { Slider2 Slider
+    Move(0,200,160,24)
+  }
+  { Slider1 Slider
+    Move(176,200,152,24)
+  }
+  { Button2 Button
+    Move(252,224,77,28)
+    Text = ("Close")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+  { Button8 Button
+    Move(140,222,63,28)
+    Text = ("Stop")
+    Picture = Picture["standart/media-playback-stop.png"]
+  }
+  { Button9 Button
+    Move(60,222,77,28)
+    Text = ("Watch")
+    Picture = Picture["standart/media-playback-start.png"]
+  }
+  { Button1 Button
+    Move(-4,222,63,28)
+    Text = ("Run")
+    Picture = Picture["standart/media-record.png"]
+  }
+  { PictureBox1 PictureBox
+    Move(0,252,336,186)
+    Stretch = True
+  }
+}

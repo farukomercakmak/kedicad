@@ -1,0 +1,10 @@
+' Gambas class file
+
+Public cazid As Integer
+Public id As Integer
+Public ad As String
+Public tip As Integer
+Public kal As Integer
+Public renk As Integer
+Public gor As Integer
+Public kilit As Integer

@@ -1,0 +1,437 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,1098,498)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  SkipTaskbar = True
+  { Label20 Label
+    Move(315,329,140,42)
+    Text = ("Moment per \nstage(kgf.cm.)")
+  }
+  { PictureBox1 PictureBox
+    Move(0,0,1099,329)
+    Background = Color.SelectedForeground
+    Picture = Picture["Resim/paserella.jpg"]
+  }
+  { TextBox5 TextBox
+    Move(329,35,63,28)
+    Text = ("4500")
+  }
+  { TextBox6 TextBox
+    Move(357,77,70,28)
+    Text = ("4000")
+  }
+  { TextBox7 TextBox
+    Move(385,112,56,28)
+    Text = ("3000")
+  }
+  { TextBox8 TextBox
+    Move(413,140,70,28)
+    Text = ("2000")
+  }
+  { TextBox9 TextBox
+    Move(476,175,63,28)
+    Text = ("1000")
+  }
+  { TextBox10 TextBox
+    Move(546,203,63,28)
+    Text = ("500")
+  }
+  { TextBox11 TextBox
+    Move(728,35,42,28)
+    Text = ("40")
+  }
+  { TextBox12 TextBox
+    Move(686,119,35,28)
+    Text = ("80")
+  }
+  { TextBox13 TextBox
+    Move(721,175,42,28)
+    Text = ("2")
+  }
+  { TextBox14 TextBox
+    Move(833,35,42,28)
+    Text = ("60")
+  }
+  { TextBox15 TextBox
+    Move(784,119,35,28)
+    Text = ("100")
+  }
+  { TextBox16 TextBox
+    Move(826,175,35,28)
+    Text = ("2")
+  }
+  { TextBox17 TextBox
+    Move(903,119,35,28)
+    Text = ("120")
+  }
+  { TextBox18 TextBox
+    Move(945,35,42,28)
+    Text = ("80")
+  }
+  { TextBox19 TextBox
+    Move(931,175,42,28)
+    Text = ("3")
+  }
+  { Frame1 Frame
+    Move(0,330,192,168)
+    Text = ("Cylinder")
+    { TextBox21 TextBox
+      Move(114,48,66,24)
+      Text = ("2")
+    }
+    { TextBox22 TextBox
+      Move(114,78,66,24)
+      Text = ("200")
+    }
+    { TextBox23 TextBox
+      Move(114,108,66,24)
+      Text = ("25")
+    }
+    { TextBox24 TextBox
+      Move(114,138,66,24)
+      Text = ("150")
+    }
+    { Label5 Label
+      Move(7,49,112,21)
+      Text = ("Cylinder quantity")
+    }
+    { Label6 Label
+      Move(7,77,105,21)
+      Text = ("Stroke (mm.)")
+    }
+    { Label7 Label
+      Move(7,105,112,21)
+      Text = ("Up time(sn.)")
+    }
+    { Label8 Label
+      Move(7,126,98,35)
+      Text = ("Working \nPressure(Bar)")
+    }
+    { CheckBox1 CheckBox
+      Move(7,21,231,28)
+      Text = ("Cylindir elevate the F Load")
+      Value = CheckBox.True
+    }
+  }
+  { Button1 Button
+    Move(600,462,126,30)
+    Text = ("Calculate")
+    Picture = Picture["standart/accessories-calculator.png"]
+  }
+  { TextBox25 TextBox
+    Move(777,301,56,28)
+    Text = ("80")
+  }
+  { Button2 Button
+    Move(1014,462,78,30)
+    Text = ("Close")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+  { Label22 Label
+    Move(700,77,77,35)
+    Visible = False
+    Background = &HFF0000&
+    Foreground = &H0000FF&
+    Text = ("unsuitable")
+  }
+  { Label23 Label
+    Move(805,77,77,35)
+    Visible = False
+    Background = &HFF0000&
+    Foreground = &H0000FF&
+    Text = ("unsuitable")
+  }
+  { Label24 Label
+    Move(924,77,77,35)
+    Visible = False
+    Background = &HFF0000&
+    Foreground = &H0000FF&
+    Text = ("unsuitable")
+  }
+  { TextBox40 TextBox
+    Move(126,7,308,28)
+  }
+  { Label27 Label
+    Move(7,7,119,28)
+    Text = ("PROJECT NAME  :")
+  }
+  { TextBox26 TextBox
+    Move(329,371,108,24)
+  }
+  { TextBox27 TextBox
+    Move(330,402,108,24)
+  }
+  { TextBox28 TextBox
+    Move(330,432,108,24)
+  }
+  { TextBox30 TextBox
+    Move(473,402,84,24)
+  }
+  { TextBox31 TextBox
+    Move(473,432,84,24)
+  }
+  { TextBox32 TextBox
+    Move(567,371,77,28)
+  }
+  { TextBox33 TextBox
+    Move(567,399,77,28)
+  }
+  { TextBox34 TextBox
+    Move(567,427,77,28)
+  }
+  { TextBox29 TextBox
+    Move(473,372,84,24)
+  }
+  { Label10 Label
+    Move(294,402,42,24)
+    Font = Font["+3"]
+    Text = ("M2")
+  }
+  { Label11 Label
+    Move(294,438,36,24)
+    Font = Font["+3"]
+    Text = ("M3")
+  }
+  { Label9 Label
+    Move(294,372,36,24)
+    Font = Font["+3"]
+    Text = ("M1")
+  }
+  { Label12 Label
+    Move(444,402,28,28)
+    Font = Font["+2"]
+    Text = ("W2")
+  }
+  { Label13 Label
+    Move(444,426,28,28)
+    Font = Font["+2"]
+    Text = ("W3")
+  }
+  { Label14 Label
+    Move(444,372,28,28)
+    Font = Font["+2"]
+    Text = ("W1")
+  }
+  { TextBox35 TextBox
+    Move(780,372,105,28)
+  }
+  { Label15 Label
+    Move(648,372,126,30)
+    Font = Font["+1"]
+    Text = ("Cylinder load(kgf)")
+  }
+  { TextBox36 TextBox
+    Move(780,402,105,28)
+  }
+  { TextBox37 TextBox
+    Move(780,432,105,28)
+  }
+  { Label16 Label
+    Move(648,402,108,30)
+    Font = Font["+1"]
+    Text = ("İnner Dia. (mm.)")
+  }
+  { Label17 Label
+    Move(648,426,126,30)
+    Font = Font["+1"]
+    Text = ("Outer Dia.(mm.)")
+  }
+  { TextBox38 TextBox
+    Move(1008,406,84,35)
+    ReadOnly = True
+  }
+  { Label18 Label
+    Move(917,413,98,28)
+    Font = Font["+2"]
+    Text = ("Flow (l/dk)")
+  }
+  { Label19 Label
+    Move(910,364,98,21)
+    Font = Font["+2"]
+    Text = ("Power(kW)")
+  }
+  { TextBox39 TextBox
+    Move(1008,357,91,35)
+    ReadOnly = True
+  }
+  { Separator1 Separator
+    Move(553,350,14,105)
+  }
+  { Separator2 Separator
+    Move(288,366,354,6)
+  }
+  { Label21 Label
+    Move(588,350,56,14)
+    Text = ("Have")
+  }
+  { Separator3 Separator
+    Move(432,330,14,126)
+  }
+  { Separator4 Separator
+    Move(637,329,14,126)
+  }
+  { Separator5 Separator
+    Move(888,330,14,126)
+  }
+  { Label25 Label
+    Move(678,324,96,24)
+    Font = Font["+1"]
+    Text = ("Each cylinder")
+  }
+  { Label26 Label
+    Move(1008,329,140,21)
+    Font = Font["+1"]
+    Text = ("All system")
+  }
+  { Button3 Button
+    Move(858,462,144,30)
+    Text = ("Save To File")
+    Picture = Picture["standart/save.png"]
+  }
+  { Separator7 Separator
+    Move(288,450,810,12)
+  }
+  { Label28 Label
+    Move(476,350,49,14)
+    Text = ("Need")
+  }
+  { Label29 Label
+    Move(462,329,182,21)
+    Text = ("Section modulüs(cm^3)")
+  }
+  { Button4 Button
+    Move(742,461,108,30)
+    Text = ("Open")
+    Picture = Picture["standart/open.png"]
+  }
+  { TextBox4 TextBox
+    Move(490,301,56,28)
+    Text = ("60")
+  }
+  { TextBox3 TextBox
+    Move(287,301,56,28)
+    Text = ("45")
+  }
+  { Label3 Label
+    Move(245,301,28,28)
+    Font = Font["+3"]
+    Text = ("g2")
+  }
+  { TextBox2 TextBox
+    Move(133,301,49,28)
+    Text = ("20")
+  }
+  { Label2 Label
+    Move(91,301,28,28)
+    Font = Font["+3"]
+    Text = ("g1")
+  }
+  { TextBox1 TextBox
+    Move(0,301,49,28)
+    Text = ("150")
+  }
+  { Label1 Label
+    Move(21,280,21,21)
+    Font = Font["+3"]
+    Background = Color.SelectedForeground
+    Text = ("F")
+  }
+  { Label4 Label
+    Move(448,301,28,28)
+    Font = Font["+3"]
+    Text = ("g3")
+  }
+  { ComboBox1 ComboBox
+    Move(553,7,126,28)
+    Text = ("ComboBox1")
+  }
+  { Label30 Label
+    Move(462,7,91,28)
+    Font = Font["+2"]
+    Text = ("Malzeme :")
+  }
+  { PictureBox5 PictureBox
+    Move(994,35,126,161)
+    Picture = Picture["Resim/pas1.jpeg"]
+    Stretch = True
+  }
+  { gyuk TextBox
+    Move(1022,175,56,28)
+    Text = ("50")
+  }
+  { yyuk TextBox
+    Move(1029,147,42,21)
+    Text = ("40")
+  }
+  { Label32 Label
+    Move(648,342,150,30)
+    Font = Font["+1"]
+    Text = ("Shaft Diameter(mm.)")
+  }
+  { TextBox20 TextBox
+    Move(780,342,105,28)
+    ReadOnly = True
+  }
+  { Button5 Button
+    Move(480,462,108,30)
+    Text = ("Clear")
+    Picture = Picture["standart/gtk-clear.png"]
+  }
+  { Button6 Button
+    Move(306,462,114,30)
+    Text = ("All Clear")
+    Picture = Picture["standart/gtk-clear.png"]
+  }
+  { Label31 Label
+    Move(63,245,112,14)
+    Text = ("1.Level")
+  }
+  { Label33 Label
+    Move(245,245,112,14)
+    Text = ("2.Level")
+  }
+  { Label34 Label
+    Move(420,238,154,21)
+    Text = ("3.Level")
+  }
+  { Label35 Label
+    Move(707,0,84,35)
+    Text = ("1.level\n   section")
+  }
+  { Label36 Label
+    Move(819,0,84,35)
+    Text = ("2.level\n   section")
+  }
+  { Label37 Label
+    Move(924,0,84,35)
+    Text = ("3.level\n   section")
+  }
+  { Label38 Label
+    Move(994,0,105,35)
+    Text = ("Hydraulic Cylinder\n        Axle")
+  }
+  { Label39 Label
+    Move(1008,203,91,28)
+    Text = ("Mil Malzemesi\n 316 / St 42")
+  }
+  { Frame2 Frame
+    Move(196,343,90,78)
+    Text = ("Stage")
+    { csira RadioButton
+      Move(6,18,77,28)
+      Text = ("Double")
+      Value = True
+    }
+    { tsira RadioButton
+      Move(6,48,84,28)
+      Text = ("Single")
+    }
+  }
+  { Separator8 Separator
+    Move(288,324,6,174)
+  }
+}

@@ -1,0 +1,435 @@
+' Gambas class file
+
+Public dof As Integer
+Public bazgi As Cvb
+Public cazgi As Czm
+Public dur As Integer
+Private $sPath As String
+Public can As New Integer[]
+Public ias As Integer
+
+
+Public Sub Form_Open()
+
+    Me.text = "KediCAD 2B CANLANDIRMA"
+    Me.Move(ilk.width - Me.width, 100)
+    $Spath = System.User.Home &/ ".KediCAD/vdeo"
+    Shell "rm " & System.User.Home &/ ".KediCAD/vdeo/*"
+    Slider1.MinValue = 100
+    Slider1.MaxValue = 1500
+    Slider2.MinValue = 0
+    Slider2.MaxValue = 360
+    Slider1.Value = 500
+    Slider2.Value = 100
+    If ilk.komutsayi = 336 Then TabStrip1.index = 1
+    If ilk.komutsayi = 337 Then TabStrip1.index = 1
+    Catch
+ilk.hatayaz("formopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button3_Click()
+
+    ilk.sonkom = "Döndür"
+    If ilk.depo1.count <> 0 Then
+        ilk.komutsayi = 331
+    Else
+        tem.temizlik
+        ilk.komutsayi = 334
+    End If
+
+End
+
+Public Sub merk(mousex As Float, mousey As Float)
+
+    Dim nokx, noky As Float
+
+    If torba2.musx <> 0
+        nokx = torba2.musx                   ' Fare konumu  x1 y1
+        noky = mousey
+    Else If torba2.musy <> 0
+        nokx = mousex                    ' Fare konumu  x1 y1
+        noky = torba2.musy
+    Else
+        nokx = mouseX                    ' Fare konumu  x1 y1
+        noky = mouseY
+    End If
+
+    If ilk.uca = 1 Then
+        If ilk.isaretx > 0
+            If ilk.isarety > 0 Then
+                nokx = ilk.isaretx
+                noky = ilk.isarety
+            Else
+                nokx = mouseX
+                noky = mouseY
+            End If
+        End If
+    Else
+        nokx = mouseX
+        noky = mouseY
+    End If
+    If dof = 0
+        dx.Text = Round(nokx, -1)
+        dy.Text = Round(noky, -1)
+    Else If dof = 1
+        drx2.Text = Round(nokx, -1)
+        dry2.Text = Round(noky, -1)
+    Else If dof = 2
+        drx3.Text = Round(nokx, -1)
+        dry3.Text = Round(noky, -1)
+    End If
+
+    Return
+    Catch
+ilk.hatayaz("mrk " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub Button1_Click()
+
+    can.Clear
+    If TabStrip1.Index = 0
+        If dx.Text = "" Or aci.Text = "" Or dy.Text = "" Or acci.Text = "" Then
+            Message("Missing Data", "OK ")
+            Return
+        Endif
+    Else
+        If drx3.Text = "" Or drx2.Text = "" Or dry3.Text = "" Or dry2.Text = "" Then
+            Message("Missing Data", "OK ")
+            Return
+        Endif
+    End If
+
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id)
+            can.Add(- cazgi.id, - cazgi.id)
+            ilk.sil(cazgi.id)
+        End If
+    Next
+    ilk.dolas
+    If Exist(System.User.Home &/ "KediCAD.mpg")
+        Shell "rm " & System.User.Home &/ "KediCAD.mpg"
+        Wait 0.5
+    End If
+    ilk.calanilk.Refresh
+    If TabStrip1.Index = 0
+        dondure
+    Else If TabStrip1.Index = 1
+        ilerle
+    End If
+    Catch
+	ilk.hatayaz("btn1clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+
+
+Public Sub ilerle()
+
+    Dim i, sh As Integer
+    Dim zz1, zy1, zz2, zy2, rse, jh, tetam, ac2, ac3 As Float
+    Dim abl, nbv, tym As String
+    Dim vbn As String[]
+    Dim reskayit As Picture
+
+    With ilk
+        ac2 = CFloat(drx3.Text) - CFloat(drx2.Text)
+        ac3 = CFloat(dry3.Text) - CFloat(dry2.Text)
+        rse = Hyp(ac2, ac3)
+        tetam = (Atn((ac3) / (ac2 - 0.00001)))
+        If CFloat(drx2.Text) > CFloat(drx3.Text)
+            tetam = tetam + Pi
+        End If
+        For jh = 0 To rse Step rse / 50
+            For i = 0 To liste.Count - 1
+                liste.Index = i
+                ilk.sil(liste.Text)
+            Next
+            liste.Clear
+            For Each cazgi In ilk.cezmi
+                If can.Exist(cazgi.id)
+                    zz1 = cazgi.x1 * .olcum + jh * Cos(tetam)
+                    zy1 = cazgi.y1 * .olcum + jh * Sin(tetam)
+                    zz2 = zz1 + (cazgi.x2 * .olcum - cazgi.x1 * .olcum)
+                    zy2 = zy1 + (cazgi.y2 * .olcum - cazgi.y1 * .olcum)
+                    If cazgi.blok = 0 Then
+                        abl = 0
+                    Else
+                        vbn = Split(cazgi.blok, "<")
+                        For Each nbv In vbn
+                            tym = nbv
+                        Next
+                        If tym = cazgi.blok Then
+                            abl = cazgi.blok & "<" & tasima.dzm
+                        Else
+                            abl = cazgi.blok & tasima.dzm
+                        End If
+                    End If
+                    cizem.aktar(cazgi.id)
+                    cizem.bloku = abl
+                    If cazgi.komut = 20 Then
+                        cizem.yay(zz1, zy1, cazgi.yaricap, cazgi.teta, cazgi.r)
+                    Else If cazgi.komut = 25 Then
+                        cizem.cember(zz1, zy1, cazgi.yaricap)
+                    Else If cazgi.komut = 1 Then
+                        cizem.cizgi(zz1, zy1, zz2, zy2)
+                    End If
+                    liste.Add(dacy.kyno - 1)
+                End If
+            Next
+            .calanilk.Refresh
+            Wait 0.1
+            reskayit = desktop.Screenshot(100, 100, ilk.w - 500, ilk.h - 150)
+            If Not IsDir(System.User.Home &/ ".KediCAD/vdeo") Then
+                Mkdir System.User.Home &/ ".KediCAD/vdeo"
+            End If
+            $Spath = System.User.Home &/ ".KediCAD/vdeo/img" & ias & ".png"
+            ias = ias + 1
+            reskayit.Save($Spath, 3)
+            sh = 1
+        cik:
+        Next
+        drx3.Clear
+        drx2.Clear
+        dry3.Clear
+        dry2.Clear
+    End With
+    Message("Process End", "OK")
+    ilk.depo1.Clear
+    Return
+    Catch
+	ilk.hatayaz("ilerle " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub aci_Activate()
+
+    dondure
+
+End
+
+Public Sub dondure()
+
+    Dim zx, zy, x4oku, y4oku, x5oku, y5oku, acig, r, r2, acig2, aci3, acig3, asi, cd, ali, i, lcc, ax, ay, ux, uy As Float
+    Dim onay, idi As Integer
+    Dim reskayit As Picture
+    Dim abl, nbv, tym As String
+    Dim vbn As String[]
+    
+    ax = 99999999
+    ay = 99999999
+    ux = -99999999
+    uy = -99999999
+    label8.Text = 2064500 / CInt(aci.Text)
+    ali = Rad(CFloat(aci2.Text))
+    asi = Rad(CFloat(aci.Text)) / 100
+    liste.Clear
+    If Not IsDir(System.User.Home &/ ".KediCAD/vdeo") Then Mkdir System.User.Home &/ ".KediCAD/vdeo"
+    If RadioButton1.Value = True Then
+        lcc = 0.2
+    Else
+        ali = - ali
+        lcc = -0.2
+    End If
+    With ilk
+        onay = 1
+        zx = dx.Text
+        zy = dy.Text
+        For Each cazgi In ilk.cezmi
+            If can.Exist(cazgi.id)
+                ax = Min(ax, cazgi.x1)
+                ax = Min(ax, cazgi.x2)
+                ay = Min(ay, cazgi.y1)
+                ay = Min(ay, cazgi.y2)
+                ux = Max(ux, cazgi.x1)
+                ux = Max(ux, cazgi.x2)
+                uy = Max(uy, cazgi.y1)
+                uy = Max(uy, cazgi.y2)
+            Endif
+        Next
+
+        ux = ux - ax
+        ax = 250
+
+        uy = uy - ay
+        ay = 250
+
+        For cd = 0 To ali Step lcc
+            For i = 0 To liste.Count - 1
+                liste.Index = i
+                ilk.sil(liste.Text)
+            Next
+            liste.Clear
+            For Each cazgi In ilk.cezmi
+                If can.Exist(cazgi.id)
+                    r = 0
+                    r2 = 0
+                    acig = 0
+                    x4oku = 0
+                    y4oku = 0
+                    x5oku = 0
+                    y5oku = 0
+                    acimi.aci(cazgi.x1 * .olcum, cazgi.y1 * .olcum, zx, zy)
+                    acig2 = acimi.raci - Pi
+                    r = acimi.boy
+                    acimi.aci(cazgi.x2 * .olcum, cazgi.y2 * .olcum, zx, zy)
+                    r2 = acimi.boy
+                    acig3 = acimi.raci - Pi
+                    If cazgi.blok = 0 Then
+                        abl = 0
+                    Else
+                        vbn = Split(cazgi.blok, "<")
+                        For Each nbv In vbn
+                            tym = nbv
+                        Next
+                        If tym = cazgi.blok Then
+                            abl = cazgi.blok & "<" & tasima.dzm
+                        Else
+                            abl = cazgi.blok & tasima.dzm
+                        End If
+                    End If
+                    acig = acig2 + cd * asi
+                    aci3 = acig3 + cd * asi
+                    If idi = cazgi.id
+                        ilk.sil(dacy.kyno)
+                        dacy.kyno = dacy.kyno - 1
+                    End If
+                    x4oku = zx + (r * Cos(acig))
+                    y4oku = zy - (r * Sin(acig))
+                    cizem.aktar(cazgi.id)
+                    cizem.bloku = abl
+                    If cazgi.komut = 1
+                        x5oku = zx + (r2 * Cos(aci3))
+                        y5oku = zy - (r2 * Sin(aci3))
+                        cizem.cizgi(x4oku, y4oku, x5oku, y5oku)
+                    Else If cazgi.komut = 25
+                        cizem.cember(x4oku, y4oku, cazgi.yaricap)
+                    Else If cazgi.komut = 20
+                        cizem.yay(x4oku, y4oku, cazgi.yaricap, cazgi.r + acig - Pi, cazgi.teta + acig - Pi)
+                    End If
+                    liste.Add(dacy.kyno - 1)
+                    If dur = 1 Then Goto cik
+                End If
+            Next
+            .calanilk.Refresh
+            If idi Then ilk.sil(idi)
+            idi = cazgi.id
+            
+            reskayit = desktop.Screenshot(100, 100, ilk.w - 500, ilk.h - 150)
+            $Spath = System.User.Home &/ ".KediCAD/vdeo/img" & ias & ".png"
+            reskayit.Save($Spath, 3)
+            PictureBox1.Picture = Picture[System.User.Home &/ ".KediCAD/vdeo/img" & ias & ".png"]
+             ias = ias + 1
+            Wait 0.1
+        Next
+    End With
+    Message("Process End", "OK")
+cik:
+    dur = 0
+    Return
+    Catch
+	ilk.hatayaz("dondure " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub Button4_Click()
+
+    dof = 0
+    Me.Hide
+
+End
+
+Public Sub Button2_Click()
+
+    Me.hide
+    tem.temizlik
+    ilk.Show
+    ilk.komutcuk.SetFocus
+
+End
+
+Public Sub aci_Change()
+If acci.Text And aci.Text Then
+    label8.Text = 2064500 / CInt(aci.Text)
+    label11.Text = 2064500 / ((360 / CInt(acci.Text)) * CInt(aci.Text))
+    aci2.Text = 2064500 / ((360 / CInt(acci.Text)) * CInt(aci.Text))
+Endif
+    Catch
+	ilk.hatayaz("acichange " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub acci_Change()
+
+    aci2.Text = 2064500 / ((360 / CInt(acci.Text)) * CInt(aci.Text))
+Catch
+ilk.hatayaz("acci " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button5_Click()
+
+    ilk.sonkom = "Ötele"
+    If ilk.depo1.count <> 0 Then
+        ilk.komutsayi = 336
+    Else
+        tem.temizlik
+        ilk.komutsayi = 337
+    End If
+    dof = 1
+
+End
+
+Public Sub Button7_Click()
+
+    dof = 2
+    Me.Hide
+
+End
+
+Public Sub Button6_Click()
+
+    dof = 1
+    Me.Hide
+
+End
+
+Public Sub Button8_Click()
+
+    dur = 1
+
+End
+
+Public Sub Slider1_Change()
+
+    aci.Text = Slider1.Value
+
+End
+
+Public Sub Slider2_Change()
+
+    acci.Text = Slider2.Value
+
+End
+
+Public msFile As String
+
+Public Sub Button9_Click()
+
+    ias = 0
+    For Each msFile In Dir(system.User.Home &/ ".KediCAD/vdeo")
+        ' cDir.Add(msFile)
+        PictureBox1.Picture = picture[System.User.Home &/ ".KediCAD/vdeo/img" & ias & ".png"]
+        PictureBox1.Refresh
+        ias = ias + 1
+        Wait 0.02
+    Next
+        Catch
+	ilk.hatayaz("btn9clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button10_Click()
+
+    Shell "ffmpeg -f image2 -i " & System.User.Home &/ ".KediCAD/vdeo/img%d.png " & System.User.Home &/ "KediCAD.mpg"
+    Wait 3
+    Message("Process End", "OK")
+
+End
+

@@ -1,0 +1,304 @@
+' Gambas class file
+
+Public ide As Integer
+Public shw As Integer
+Public cazgi As Czm
+Public bazgi As Cvb
+
+Static Public Sub Main()
+
+    Dim hForm As Form
+
+    hForm = New Katiman
+    hForm.Show
+
+End
+
+Public Sub Form_Open()
+
+    shw = 1
+    Me.Move(0, 0)
+    panel1.Move(120, 5)
+    colon.Move(0, 0, 575, 210)
+    grn = 0
+    brn = 0
+    Me.text = "KediCAD 2B LAYER MANAGER"
+    colon.Move(0, 0)
+    colon.Clear
+    ComboBox1.Add("1 ______")
+    ComboBox1.Add("2 ------")
+    ComboBox1.Add("3 ......")
+    ComboBox1.Add("4 _ . _ ")
+    ComboBox1.Add("5 _ .. _")
+    ComboBox3.Add("1 ______")
+    ComboBox3.Add("2 ------")
+    ComboBox3.Add("3 ......")
+    ComboBox3.Add("4 _ . _ ")
+    ComboBox3.Add("5 _ .. _")
+    ComboBox2.Add("1")
+    ComboBox2.Add("2")
+    ComboBox2.Add("3")
+    ComboBox2.Add("4")
+    ComboBox2.Add("5")
+    ComboBox4.Add("1")
+    ComboBox4.Add("2")
+    ComboBox4.Add("3")
+    ComboBox4.Add("4")
+    ComboBox4.Add("5")
+    ColorButton2.Value = Color.White
+    colon.rows.Count = 100
+    colon.columns.Count = 7
+    colon.columns.Width = 70
+    colon.Rows.Height = 30
+    colon[0, 0].Text = "No"
+    colon[0, 1].Text = "Name"
+    colon[0, 2].Text = "LineWidth"
+    colon[0, 3].Text = "Linetype"
+    colon[0, 4].Text = "Color"
+    colon[0, 5].Text = "Visibility"
+    colon[0, 6].Text = "Lock"
+    PictureBox1.Picture = Picture["simgeler/gorun.png"]
+    PictureBox2.Picture = Picture["simgeler/lock2.png"]
+    yenile
+        Catch
+	ilk.hatayaz("fopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Sub yenile()
+
+    Dim kk As Integer
+
+    For Each bazgi In ilk.bezmi
+        kk = kk + 1
+        colon[kk, 0].Text = bazgi.id
+        colon[kk, 1].Text = bazgi.ad
+        colon[kk, 2].Text = bazgi.kal
+        colon[kk, 3].Text = bazgi.tip
+        If bazgi.renk <> ""
+            colon[kk, 4].Background = bazgi.renk
+        End If
+        If bazgi.gor = 0
+            colon[kk, 5].Picture = Picture["simgeler/gorun.png"]
+        Else
+            colon[kk, 5].Picture = Picture["simgeler/gorunme.png"]
+        End If
+        If bazgi.kilit = 0
+            colon[kk, 6].Picture = Picture["simgeler/lock2.png"]
+        Else
+            colon[kk, 6].Picture = Picture["simgeler/lock.png"]
+        End If
+    Next
+    ColorButton1.Visible = False
+    ComboBox1.Visible = False
+    ComboBox2.Visible = False
+    Return
+        Catch
+	ilk.hatayaz("yenile " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub colon_Click()
+
+    If colon[colon.row, 0].Text = "" Then Goto cik
+    If colon.row = 1 Then Goto cik
+    If colon.row = 0 Then Goto cik
+    ide = CInt(colon[colon.row, 0].Text)
+    If colon.row <> 0
+        If colon.column = 4
+            ColorButton1.Visible = True
+            ColorButton1.Value = CInt(colon[colon.row, colon.column].Background)
+            ColorButton1.Move(colon[colon.row, colon.column + 1].X - 80, colon[colon.row + 1, colon.column].y - 25)
+        Else If colon.column = 3
+            ComboBox1.Visible = True
+            ComboBox1.Move(colon[colon.row, colon.column + 1].X - 80, colon[colon.row + 1, colon.column].y - 25)
+        Else If colon.column = 2
+            ComboBox2.Visible = True
+            ComboBox2.Move(colon[colon.row, colon.column + 1].X - 80, colon[colon.row + 1, colon.column].y - 25)
+        Else If colon.column = 5
+            If colon[colon.row, 5].Picture = Picture["simgeler/gorun.png"]
+                colon[colon.row, 5].Picture = Picture["simgeler/gorunme.png"]
+                Label7.Text = colon[colon.row, 1].Text
+                For Each cazgi In ilk.cezmi
+                    If cazgi.katman = colon[colon.row, 1].Text Then cazgi.gor = 1
+                Next
+            Else
+                colon[colon.row, 5].Picture = Picture["simgeler/gorun.png"]
+                For Each cazgi In ilk.cezmi
+                    If cazgi.katman = colon[colon.row, 1].Text Then cazgi.gor = 0
+                Next
+            End If
+        Else If colon.column = 6
+            If colon[colon.row, 6].Picture = Picture["simgeler/lock2.png"]
+                colon[colon.row, 6].Picture = Picture["simgeler/lock.png"]
+                For Each cazgi In ilk.cezmi
+                    If cazgi.katman = colon[colon.row, 1].Text Then cazgi.kilit = 1
+                Next
+            Else
+                colon[colon.row, 6].Picture = Picture["simgeler/lock2.png"]
+                For Each cazgi In ilk.cezmi
+                    If cazgi.katman = colon[colon.row, 1].Text Then cazgi.kilit = 0
+                Next
+            End If
+        End If
+    End If
+    ilk.calanilk.Refresh
+cik:
+        Catch
+	ilk.hatayaz("colon " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button2_Click()
+
+    shw = 0
+    ilk.Show
+    Me.hide
+
+End
+
+Public Sub ColorButton1_Change()
+
+    For Each bazgi In ilk.bezmi
+        If ide = bazgi.id Then bazgi.renk = ColorButton1.Value
+    Next
+    For Each bazgi In ilk.bezmi
+        If bazgi.id = ide Then
+            For Each cazgi In ilk.cezmi
+                If cazgi.katman = bazgi.ad Then cazgi.renk = bazgi.renk
+            Next
+        Endif
+    Next
+    yenile
+        Catch
+	ilk.hatayaz("colorbtn1clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ComboBox2_Change()
+
+    For Each bazgi In ilk.bezmi
+        If ide = bazgi.id Then bazgi.kal = ComboBox2.Text
+    Next
+    For Each bazgi In ilk.bezmi
+        If bazgi.id = ide Then
+            For Each cazgi In ilk.cezmi
+                If cazgi.katman = bazgi.ad Then cazgi.sekil = bazgi.tip
+            Next
+        Endif
+    Next
+    yenile
+        Catch
+	ilk.hatayaz("cmbbx2chn " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ComboBox1_Change()
+
+    For Each bazgi In ilk.bezmi
+        If ide = bazgi.id Then bazgi.tip = ComboBox1.Index + 1
+    Next
+    For Each bazgi In ilk.bezmi
+        If bazgi.id = ide Then
+            For Each cazgi In ilk.cezmi
+                If cazgi.katman = bazgi.ad Then cazgi.kalinlik = bazgi.kal
+            Next
+        Endif
+    Next
+    yenile
+        Catch
+	ilk.hatayaz("cmbbxchn1 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button1_Click()
+
+    panel1.Visible = True
+
+End
+
+Public Sub Button3_Click()
+
+    If TextBox1.Text = "" Then Goto cik
+    For Each bazgi In ilk.bezmi
+        If TextBox1.Text = bazgi.ad
+            Message("This name is used.Please Change the Layer Name", "OK")
+            Goto cik
+        End If
+    Next
+    bazgi = New Cvb
+    bazgi.ad = TextBox1.Text
+    bazgi.tip = ComboBox3.Index + 1
+    bazgi.renk = ColorButton2.Value
+    bazgi.kal = ComboBox4.Text
+    bazgi.gor = grn
+    bazgi.kilit = brn
+    bazgi.id = dacy.byno
+    ilk.bezmi.Add(bazgi, dacy.byno)
+    dacy.byno = dacy.byno + 1
+    ilk.katmer.Clear
+    For Each bazgi In ilk.bezmi
+        ilk.katmer.Add(bazgi.ad)
+    Next
+    yenile
+    TextBox1.Text = ""
+cik:
+        Catch
+	ilk.hatayaz("btn3clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button4_Click()
+
+    panel1.Visible = False
+
+End
+
+Public Sub Button5_Click()
+
+    Dim i As Integer
+
+    For Each bazgi In ilk.bezmi
+        If TextBox1.Text = bazgi.ad
+            i = 1
+        End If
+    Next
+    If i = 0
+        Select Message.Question("This list not saved.Doyu want to save?", "Yes", "No")
+            Case 1
+                Button3_Click
+            Case 2
+        End Select
+    End If
+    panel1.Visible = False
+        Catch
+	ilk.hatayaz("btn5clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public grn As Integer
+Public brn As Integer
+
+Public Sub PictureBox1_MouseDown()
+
+    If PictureBox1.Picture = Picture["simgeler/gorun.png"]
+        PictureBox1.Picture = Picture["simgeler/gorunme.png"]
+        grn = 1
+    Else
+        PictureBox1.Picture = Picture["simgeler/gorun.png"]
+        grn = 0
+    End If
+    ilk.calanilk.Refresh
+
+End
+
+Public Sub PictureBox2_MouseDown()
+
+    If PictureBox2.Picture = Picture["simgeler/lock2.png"]
+        PictureBox2.Picture = Picture["simgeler/lock.png"]
+        brn = 1
+    Else
+        PictureBox2.Picture = Picture["simgeler/lock2.png"]
+        brn = 0
+    End If
+
+End
+
+Public Sub Form_Close()
+
+    shw = 0
+
+End

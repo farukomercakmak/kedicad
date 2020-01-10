@@ -1,0 +1,230 @@
+' Gambas class file
+
+Public yagk As String
+Public myAr As String[]
+Public gwr As Integer
+Public fabr As Integer
+
+Static Public Sub Main()
+
+    Dim hForm As Form
+
+    hForm = New Kece
+    hForm.Show
+
+End
+
+Public Sub Form_Open()
+
+    Me.text = "KediCAD 2B SEAL SELECT"
+    kod.Add(" ")
+    kod.Add("K03")
+    kod.Add("K15")
+    kod.Add("K17")
+    kod.Add("K18")
+    kod.Add("K19")
+    kod.Add("K21")
+    kod.Add("K23")
+    kod.Add("K36")
+    kod.Add("K40")
+    kod.Add("K69")
+    kod.Add("K95")
+    resim.Picture = picture["Resim/kodyok.png"]
+    Me.Center
+
+End
+
+Public Sub Button1_Click()
+
+    Dim myFile As File
+    Dim myLine As String
+    Dim elt As String[]
+    Dim sb, out, gk, gl, hk, hl, hm, hn, ho, hp As String
+    Dim mx, tx As Integer
+    Dim pax As Float
+
+    liste.Clear
+    liste.Visible = True
+    If kod.Text = "K17" Then liste.Add("   KOD             D      d     b     B")
+    If kod.Text = "K19" Then liste.Add("   KOD             D      d     L     r")
+    If kod.Text = "K18" Then liste.Add("   KOD             D      d     b     B")
+    If kod.Text = "K23" Then liste.Add("   KOD             D      d     b     B")
+    If kod.Text = "K40" Then liste.Add("   KOD             D      d     B     d1")
+    If kod.Text = "K69" Then liste.Add("   KOD             D      d     b     B    a     k     r")
+    If kod.Text <> "K18" And kod.Text <> "K17" And kod.Text <> "K19" And kod.Text <> "K23" And kod.Text <> "K40" And kod.Text <> "K69"
+        liste.Add("   KOD          d     D    b    B")
+    End If
+    If kod.Index > 0
+        myFile = Open "keçe" &/ kod.Text For Read
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            tx = 0
+            myAr = Split(myLine, "<")
+            gl = ""
+            gk = ""
+            For Each out In myAr
+                hl = ""
+                hk = ""
+                hm = ""
+                hn = ""
+                tx = tx + 1
+                If tx = 1 Then gk = out
+                If tx = 2 Then
+                    gl = out
+                    mx = 0
+                    elt = Split(gl, ">")
+                    For Each sb In elt
+                        mx = mx + 1
+                        If mx = 1 Then
+                            hk = sb
+                            hk = Trim$(hk)
+                        End If
+                        If mx = 2 Then
+                            hl = sb
+                            hl = Trim$(hl)
+                        End If
+                        If mx = 3 Then hm = sb
+                        If mx = 5 Then ho = sb
+                        If mx = 6 Then hp = sb
+                        If mx = 4 Then
+                            hn = sb
+                            If kod.Text <> "K17" And kod.Text <> "K18" And kod.Text <> "K19" And kod.Text <> "K23" And kod.Text <> "K40" And kod.Text <> "K69"
+                                If hl <> "" Then
+                                    pax = CFloat(hl)
+                                    If pax = Val(iccap.Text) Then
+                                        liste.Add(Trim$(gk) & " , " & hk & " , " & hl & " , " & Trim$(hm) & " , " & Trim$(hn) & " , " & Trim$(ho) & " , " & Trim$(hp))
+                                    End If
+                                End If
+                            Else
+                                If hk <> "" Then
+                                    pax = CFloat(hk)
+                                    If pax = Val(iccap.Text) Then
+                                        liste.Add(Trim$(gk) & " , " & hk & " , " & hl & " , " & Trim$(hm) & " , " & Trim$(hn))
+                                    End If
+                                End If
+                            End If
+                        End If
+                    Next
+                End If
+            Next
+        Wend
+    cik:
+        Close myFile
+    Else
+        Message("Select Seal Type", "Ok")
+    End If
+Catch
+    ilk.hatayaz("btn1clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub liste_Click()
+
+    Dim elt As String[]
+    Dim sb, gl, gk, hl As String
+    Dim tx As Integer
+
+    tx = 0
+    hl = liste.Text
+    elt = Split(hl, " ")
+    gl = ""
+    gk = ""
+    For Each sb In elt
+        tx = tx + 1
+        If tx = 2 Then gl = sb
+    Next
+
+End
+
+Public Sub iccap_Activate()
+
+    Button1_Click
+
+End
+
+Public Sub kod_Change()
+
+    liste.Clear
+    If kod.Text = " " Then resim.Picture = picture["res/hidan.png"]
+    If kod.Text = "K21" Then resim.Picture = picture["Resim/ykece1.png"]
+    If kod.Text = "K36" Then resim.Picture = picture["Resim/ykece2.png"]
+    If kod.Text = "K95" Then resim.Picture = picture["Resim/ykece3.png"]
+    If kod.Text = "K03" Then resim.Picture = picture["Resim/ykece4.png"]
+    If kod.Text = "K15" Then resim.Picture = picture["Resim/ykece5.png"]
+    If kod.Text = "K17" Then resim.Picture = picture["Resim/ykece6.png"]
+    If kod.Text = "K18" Then resim.Picture = picture["Resim/ykece7.png"]
+    If kod.Text = "K19" Then resim.Picture = picture["Resim/ykece8.png"]
+    If kod.Text = "K23" Then resim.Picture = picture["Resim/ykece9.png"]
+    If kod.Text = "K40" Then resim.Picture = picture["Resim/ykece10.png"]
+    If kod.Text = "K69" Then resim.Picture = picture["Resim/ykece11.png"]
+    If iccap.Text <> "" Then Button1_Click()
+
+End
+
+Public Sub kececiz_Click()
+
+    Me.Hide
+    ilk.komyaz.Text = "Specify first point."
+    ilk.kbr = 1
+
+End
+
+Public Sub kecciz(frx As Float, fry As Float)
+
+    Dim elt As String[]
+    Dim sb As String
+    Dim mx As Integer
+    Dim hl, hm, hn As String
+    Dim pax, fax, tax As Float
+
+    frx = frx / ilk.olcum
+    fry = fry / ilk.olcum
+    liste.Index = gwr
+    elt = Split(ilk.sabd, ",")
+    For Each sb In elt
+        mx = mx + 1
+        If mx = 2 Then
+            hl = sb
+            hl = Trim$(hl)
+        Else If mx = 3 Then
+            hm = sb
+            hm = Trim$(hm)
+        Else If mx = 4 Then
+            hn = sb
+            hn = Trim$(hn)
+        End If
+    Next
+
+    pax = CFloat(hl) / 2
+    fax = CFloat(hm) / 2
+    tax = CFloat(hn)
+    ilk.bolok = ilk.bolok + 1
+    cizem.bloku = ilk.bolok + 1
+    cizem.cember(frx * ilk.olcum, fry * ilk.olcum, pax)
+    cizem.cember(frx * ilk.olcum, fry * ilk.olcum, fax)
+    cizem.cizgi((frx + pax * 3) * ilk.olcum, (fry + fax) * ilk.olcum, (frx + pax * 3) * ilk.olcum, (fry - fax) * ilk.olcum)
+    cizem.cizgi((frx + pax * 3 + tax) * ilk.olcum, (fry + fax) * ilk.olcum, (frx + pax * 3 + tax) * ilk.olcum, (fry - fax) * ilk.olcum)
+    cizem.cizgi((frx + pax * 3) * ilk.olcum, (fry + fax) * ilk.olcum, (frx + pax * 3 + tax) * ilk.olcum, (fry + fax) * ilk.olcum)
+    cizem.cizgi((frx + pax * 3) * ilk.olcum, (fry - fax) * ilk.olcum, (frx + pax * 3 + tax) * ilk.olcum, (fry - fax) * ilk.olcum)
+    cizem.cizgi((frx + pax * 3) * ilk.olcum, (fry + pax) * ilk.olcum, (frx + pax * 3 + tax) * ilk.olcum, (fry + pax) * ilk.olcum)
+    cizem.cizgi((frx + pax * 3) * ilk.olcum, (fry - pax) * ilk.olcum, (frx + pax * 3 + tax) * ilk.olcum, (fry - pax) * ilk.olcum)
+    fabr = 0
+    ilk.bolok = ilk.bolok + 1
+
+    Me.Close
+    Return
+Catch
+    ilk.hatayaz("kecciz " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub liste_Select()
+
+    ilk.sabd = liste.Text
+
+End
+
+Public Sub cikar_Click()
+
+    Me.Close
+
+End

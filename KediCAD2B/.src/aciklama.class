@@ -1,0 +1,33 @@
+' Gambas class file
+
+Public Sub zaman_Timer()
+
+    Dim Y As Integer
+
+    Y = kayar.ScrollY
+    Inc kayar.ScrollY
+    If Y = kayar.ScrollY Then kayar.ScrollY = 0
+
+End
+
+Public Sub Form_Open()
+
+    Me.Caption = "Description"
+    Me.center
+    Me.text = " About KediCAD2B  "
+    yazi1.text = "KediCAD2B  "
+    yaziver.text = "  <h3 align=Left>  Version </h3>" & Application.Version
+    listbox1.Clear
+    listbox1.Add("Mimari : " & System.Architecture)
+    listbox1.Add("System : " & System.Family)
+    listbox1.Add("Host Name : " & System.Host)
+    listbox1.Add("PATH : " & System.Path)
+    listbox1.Add("Version : Gambas" & System.FullVersion)
+
+End
+
+Public Sub Button6_Click()
+
+    Me.Hide
+
+End

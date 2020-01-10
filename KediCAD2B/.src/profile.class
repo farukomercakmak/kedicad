@@ -1,0 +1,527 @@
+' Gambas class file
+
+Public drme As Integer
+Public yol As String
+Public ylc As String
+Private $sPath As String
+
+Public Sub Form_Open()
+
+    yhg
+
+End
+
+Public Sub Button10_Click()
+
+    If CheckBox10.Value = True Then ilk.lir = 1
+    ilk.ylc = System.User.Home &/ ".KediCAD/cizim/profiller/IPE" &/ ComboBox10.Text
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    drme = 1
+    Me.hide
+
+End
+
+Public Sub Button11_Click()
+
+    If CheckBox11.Value = True Then ilk.lir = 1
+    ilk.ylc = System.User.Home &/ ".KediCAD/cizim/profiller/HEA" &/ ComboBox11.Text
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    drme = 1
+    Me.hide
+
+End
+
+Public Sub Button12_Click()
+
+    If CheckBox12.Value = True Then ilk.lir = 1
+    ilk.ylc = System.User.Home &/ ".KediCAD/cizim/profiller/HEB" &/ ComboBox12.Text
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    drme = 1
+    Me.hide
+
+End
+
+Public Sub Button13_Click()
+
+    If CheckBox13.Value = True Then ilk.lir = 1
+    ilk.ylc = System.User.Home &/ ".KediCAD/cizim/profiller/HEM" &/ ComboBox13.Text
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    drme = 1
+    Me.hide
+
+End
+
+Public Sub Button1_Click()
+
+    If CheckBox1.Value = True Then ilk.lir = 1
+    ilk.ylc = System.User.Home &/ ".KediCAD/cizim/profiller/npi" &/ ComboBox1.Text
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    drme = 1
+    Me.hide
+
+End
+
+Public Sub Button2_Click()
+
+    If CheckBox2.Value = True Then ilk.lir = 1
+    ilk.ylc = System.User.Home &/ ".KediCAD/cizim/profiller/npu" &/ ComboBox2.Text
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    drme = 1
+    Me.hide
+
+End
+
+Public Sub Button3_Click()
+
+    If CheckBox3.Value = True Then ilk.lir = 1
+    ilk.ylc = System.User.Home &/ ".KediCAD/cizim/profiller/kosebent" &/ ComboBox3.Text
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    drme = 1
+    Me.hide
+
+End
+
+Public Sub Button4_Click()
+
+    If CheckBox4.Value = True Then ilk.lir = 1
+    ilk.ylc = System.User.Home &/ ".KediCAD/cizim/profiller/kutu" &/ ComboBox4.Text
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    drme = 1
+    Me.hide
+
+End
+
+Public Sub Button5_Click()
+
+    If CheckBox5.Value = True Then ilk.lir = 1
+    ilk.ylc = System.User.Home &/ ".KediCAD/cizim/profiller/didortgen" &/ ComboBox5.Text
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    drme = 1
+    Me.hide
+
+End
+
+Sub yhg()
+
+    Dim sFile As String
+
+    ComboBox1.clear
+    ComboBox2.clear
+    ComboBox3.clear
+    ComboBox4.clear
+    ComboBox5.clear
+    ComboBox10.clear
+    ComboBox11.clear
+    ComboBox12.clear
+    ComboBox13.clear
+
+    $sPath = System.User.Home &/ ".KediCAD/cizim/profiller/npi"
+    For Each sFile In Dir($sPath)
+        ComboBox1.Add(sFile)
+    Next
+    ComboBox1.Sorted = True
+    $sPath = System.User.Home &/ ".KediCAD/cizim/profiller/npu"
+    For Each sFile In Dir($sPath)
+        ComboBox2.Add(sFile)
+    Next
+    ComboBox2.Sorted = True
+    $sPath = System.User.Home &/ ".KediCAD/cizim/profiller/kosebent"
+    For Each sFile In Dir($sPath)
+        ComboBox3.Add(sFile)
+    Next
+    ComboBox3.Sorted = True
+    $sPath = System.User.Home &/ ".KediCAD/cizim/profiller/kutu"
+    For Each sFile In Dir($sPath)
+        ComboBox4.Add(sFile)
+    Next
+    ComboBox4.Sorted = True
+    $sPath = System.User.Home &/ ".KediCAD/cizim/profiller/didortgen"
+    For Each sFile In Dir($sPath)
+        ComboBox5.Add(sFile)
+    Next
+    ComboBox5.Sorted = True
+
+    $sPath = System.User.Home &/ ".KediCAD/cizim/profiller/IPE"
+    For Each sFile In Dir($sPath)
+        ComboBox10.Add(sFile)
+    Next
+    ComboBox10.Sorted = True
+
+    $sPath = System.User.Home &/ ".KediCAD/cizim/profiller/HEA"
+    For Each sFile In Dir($sPath)
+        ComboBox11.Add(sFile)
+    Next
+    ComboBox11.Sorted = True
+
+    $sPath = System.User.Home &/ ".KediCAD/cizim/profiller/HEB"
+    For Each sFile In Dir($sPath)
+        ComboBox12.Add(sFile)
+    Next
+    ComboBox12.Sorted = True
+
+    $sPath = System.User.Home &/ ".KediCAD/cizim/profiller/HEM"
+    For Each sFile In Dir($sPath)
+        ComboBox13.Add(sFile)
+    Next
+    ComboBox13.Sorted = True
+
+End
+
+Public tstr As String
+
+Sub dol(tst As String)
+
+    Dim sFile As String
+
+    PictureBox18.Move(0, 0)
+    PictureBox18.Visible = True
+    Label7.Visible = True
+    ComboBox6.Clear
+    label7.Text = tst
+    $sPath = tst
+    For Each sFile In Dir($sPath)
+        ComboBox6.Add(sFile)
+    Next
+    ComboBox6.Sorted = True
+
+End
+
+Public Sub PictureBox6_MouseDown()
+
+    PictureBox18.Picture = PictureBox6.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din84"
+    dol(tstr)
+
+End
+
+Public Sub PictureBox9_MouseDown()
+
+    PictureBox18.Picture = PictureBox9.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din603"
+    dol(tstr)
+
+End
+
+Public Sub PictureBox13_MouseDown()
+
+    PictureBox18.Picture = PictureBox13.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din933"
+    dol(tstr)
+
+End
+
+Public Sub PictureBox11_MouseDown()
+
+    PictureBox18.Picture = PictureBox11.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din964"
+    dol(tstr)
+
+End
+
+Public Sub PictureBox7_MouseDown()
+
+    PictureBox18.Picture = PictureBox7.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din95"
+    dol(tstr)
+
+End
+
+Public Sub PictureBox8_MouseDown()
+
+    PictureBox18.Picture = PictureBox8.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din912"
+    dol(tstr)
+
+End
+
+Public Sub PictureBox12_MouseDown()
+
+    PictureBox18.Picture = PictureBox12.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din963"
+    dol(tstr)
+
+End
+
+Public Sub PictureBox10_MouseDown()
+
+    PictureBox18.Picture = PictureBox10.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din965"
+    dol(tstr)
+
+End
+
+Public Sub PictureBox14_MouseDown()
+
+    PictureBox18.Picture = PictureBox14.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din966"
+    dol(tstr)
+
+End
+
+Public Sub PictureBox15_MouseDown()
+
+    PictureBox18.Picture = PictureBox15.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din6912"
+    dol(tstr)
+
+End
+
+Public Sub PictureBox16_MouseDown()
+
+    PictureBox18.Picture = PictureBox16.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din7972"
+    dol(tstr)
+
+End
+
+Public Sub PictureBox17_MouseDown()
+
+    PictureBox18.Picture = PictureBox17.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din7984"
+    dol(tstr)
+
+End
+
+Public Sub PictureBox21_MouseDown()
+
+    PictureBox18.Picture = PictureBox21.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din7985"
+    dol(tstr)
+
+End
+
+Public Sub PictureBox20_MouseDown()
+
+    PictureBox18.Picture = PictureBox20.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/civata/din7991"
+    dol(tstr)
+
+End
+
+Public Sub Button6_Click()
+
+    If CheckBox6.Value = True Then ilk.lir = 1
+    ilk.ylc = label7.Text & "/" & ComboBox6.Text
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    drme = 1
+    Me.hide
+
+End
+
+Public Sub PictureBox18_MouseDown()
+
+    PictureBox18.Visible = False
+    Label7.Visible = False
+
+End
+
+Public Sub PictureBox22_MouseDown()
+
+    PictureBox18.Picture = PictureBox20.Picture
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/retain/din472"
+    label9.Text = System.User.Home &/ ".KediCAD/cizim/profiller/retain/din472"
+    dol2(tstr)
+
+End
+
+Public Sub PictureBox19_MouseDown()
+
+    PictureBox18.Picture = PictureBox20.Picture
+    label9.Text = System.User.Home &/ ".KediCAD/cizim/profiller/retain/din471"
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/retain/din471"
+    dol2(tstr)
+
+End
+
+Sub dol2(tst As String)
+
+    Dim sFile As String
+
+    ComboBox7.Clear
+    $sPath = tst
+    For Each sFile In Dir($sPath)
+        ComboBox7.Add(sFile)
+    Next
+    ComboBox7.Sorted = True
+
+End
+
+Public Sub Button7_Click()
+
+    If CheckBox7.Value = True Then ilk.lir = 1
+    ilk.ylc = label9.Text & "/" & ComboBox7.Text
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    drme = 1
+    Me.hide
+
+End
+
+Public Sub PictureBox23_MouseDown()
+
+    tstr = System.User.Home &/ ".KediCAD/cizim/rulman/deep"
+    label12.Text = "Deep groove ball bearing / single"
+    rdol(tstr)
+
+End
+
+Sub rdol(tst As String)
+
+    Dim sFile As String
+
+    label10.Text = tst
+    ComboBox8.Clear
+    $sPath = tst
+    For Each sFile In Dir($sPath)
+        ComboBox8.Add(sFile)
+    Next
+    ComboBox8.Sorted = True
+
+End
+
+Public Sub Button8_Click()
+
+    If CheckBox8.Value = True Then ilk.lir = 1
+    ilk.ylc = label10.Text & "/" & ComboBox8.Text
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    drme = 1
+    Me.hide
+
+End
+
+Public Sub PictureBox39_MouseDown()
+
+    tstr = System.User.Home &/ ".KediCAD/cizim/rulman/ddeep"
+    rdol(tstr)
+    label12.Text = "Deep groove ball bearing / double"
+
+End
+
+Public Sub PictureBox40_MouseDown()
+
+    tstr = System.User.Home &/ ".KediCAD/cizim/rulman/angcntct"
+    label12.Text = "Angular contact ball bearing / single"
+    rdol(tstr)
+
+End
+
+Public Sub PictureBox41_MouseDown()
+
+    tstr = System.User.Home &/ ".KediCAD/cizim/rulman/angcntctd"
+    label12.Text = "Angular contact ball bearing / double"
+    rdol(tstr)
+
+End
+
+Sub sdol(tst As String)
+
+    Dim sFile As String
+
+    label11.Text = tst
+    ComboBox9.Clear
+    $sPath = tst
+    For Each sFile In Dir($sPath)
+        ComboBox9.Add(sFile)
+    Next
+    ComboBox9.Sorted = True
+
+End
+
+Public Sub PictureBox25_MouseDown()
+
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/somun/din439"
+    sdol(tstr)
+
+End
+
+Public Sub PictureBox26_MouseDown()
+
+    tstr = "profiller/somun/din980"
+    sdol(tstr)
+
+End
+
+Public Sub PictureBox45_MouseDown()
+
+    tstr = System.User.Home &/ ".KediCAD/cizim/profiller/somun/din985"
+    sdol(tstr)
+
+End
+
+Public Sub Button9_Click()
+
+    If CheckBox8.Value = True Then ilk.lir = 1
+    ilk.ylc = label11.Text & "/" & ComboBox9.Text
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    drme = 1
+    Me.hide
+
+End
+
+Public Sub PictureBox43_MouseDown()
+
+    tstr = System.User.Home &/ ".KediCAD/cizim/rulman/taper"
+    rdol(tstr)
+    label12.Text = "Tapered roller bearing"
+
+End
+
+Public Sub PictureBox33_MouseDown()
+
+    tstr = System.User.Home &/ ".KediCAD/cizim/rulman/5100"
+    label12.Text = "Thrust ball bearings"
+    rdol(tstr)
+
+End
+
+Public Sub PictureBox30_MouseDown()
+
+    label12.Text = "Cylindrical roller thrust bearing"
+    tstr = System.User.Home &/ ".KediCAD/cizim/rulman/8100"
+    rdol(tstr)
+
+End
+
+Public Sub PictureBox37_MouseDown()
+
+    label12.Text = "Cylindrical roller bearing"
+    tstr = System.User.Home &/ ".KediCAD/cizim/rulman/n200"
+    rdol(tstr)
+
+End
+
+Public Sub PictureBox28_MouseDown()
+
+    tstr = System.User.Home &/ ".KediCAD/cizim/rulman/nnu"
+    label12.Text = "Double row cylindrical roller bearing"
+    rdol(tstr)
+
+End
+
+Public Sub PictureBox24_MouseDown()
+
+    tstr = System.User.Home &/ ".KediCAD/cizim/rulman/igne"
+    label12.Text = "Needle roller bearings"
+    rdol(tstr)
+
+End
+
+Public Sub PictureBox27_MouseDown()
+
+    tstr = System.User.Home &/ ".KediCAD/cizim/rulman/kure"
+    label12.Text = "Spherical roller thrust bearing"
+    rdol(tstr)
+
+End

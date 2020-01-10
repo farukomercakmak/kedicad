@@ -1,0 +1,305 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(196,0,399,343)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  SkipTaskbar = True
+  Margin = True
+  { TabStrip1 TabStrip
+    Move(0,7,392,294)
+    Count = 3
+    Index = 0
+    Text = ("General")
+    { Label6 Label
+      Move(77,189,175,21)
+      Visible = False
+      Text = ("Right click behavior")
+    }
+    { sagtikli TextBox
+      Move(14,210,161,28)
+      Visible = False
+      Text = ("Pencere Aç.")
+    }
+    { sagtik ComboBox
+      Move(196,210,154,28)
+      Visible = False
+      Text = (" Pencere Aç.")
+    }
+    { Label17 Label
+      Move(119,140,160,24)
+      Text = ("Right Click Menu")
+    }
+    { sagsecim ComboBox
+      Move(182,161,168,32)
+      Text = ("İsim Listesi")
+    }
+    { sagmenu TextBox
+      Move(6,162,168,32)
+      Text = ("İsim Listesi")
+    }
+    { Button5 Button
+      Move(231,7,63,35)
+      Background = Color.Black
+      Picture = Picture["res/crsr.png"]
+    }
+    { Button4 Button
+      Move(140,7,63,35)
+      Background = Color.Black
+      Picture = Picture["res/kmt.png"]
+    }
+    { Label18 Label
+      Move(7,7,98,28)
+      Text = ("Select cursor")
+    }
+    { Label2 Label
+      Move(7,56,119,28)
+      Text = ("Bacground color")
+    }
+    { arkaplan ColorButton
+      Move(133,56,91,28)
+    }
+    { Button3 Button
+      Move(231,49,133,42)
+      Text = ("Select Default \n     Color")
+    }
+    { Label29 Label
+      Move(119,91,126,14)
+      Text = ("Toolbars places")
+    }
+    { Button6 Button
+      Move(21,105,154,35)
+      Text = (" on top")
+    }
+    { Button7 Button
+      Move(196,105,161,35)
+      Text = ("on side")
+    }
+    Index = 1
+    Text = ("Selection")
+    { ucyakdeger TextBox
+      Move(210,14,84,28)
+    }
+    { Label11 Label
+      Move(21,42,182,21)
+      Text = ("Osnap color")
+    }
+    { Label15 Label
+      Move(21,70,182,21)
+      Text = ("Selceted drawings")
+    }
+    { secciz TextBox
+      Move(210,70,84,28)
+    }
+    { Label5 Label
+      Move(21,14,119,21)
+      Text = ("Osnap dimension")
+    }
+    { Label16 Label
+      Move(21,112,189,28)
+      Text = ("proximity to the \ndrawing for select")
+    }
+    { yakin TextBox
+      Move(210,112,84,28)
+    }
+    { secis TextBox
+      Move(210,189,77,28)
+      Text = ("5")
+    }
+    { Label19 Label
+      Move(21,189,182,28)
+      Text = ("Selection Sign Size")
+    }
+    { ucyakrenk ColorButton
+      Move(210,35,84,28)
+    }
+    { Label20 Label
+      Move(21,224,147,28)
+      Text = ("Preselection :")
+    }
+    { ucyakrenk2 ColorButton
+      Move(210,147,84,28)
+    }
+    { Label28 Label
+      Move(21,154,182,28)
+      Text = ("Indicate the selected\n drawing color")
+    }
+    { hiz2 ComboBox
+      Move(210,224,77,28)
+      Text = (" ")
+    }
+    Index = 2
+    Text = ("Other")
+    { Label4 Label
+      Move(7,182,112,21)
+      Text = ("Drawing Unit:")
+    }
+    { birimli TextBox
+      Move(126,182,42,28)
+      Text = ("mm.")
+    }
+    { birim ComboBox
+      Move(196,182,56,28)
+      Text = ("mm.")
+    }
+    { kayitara CheckBox
+      Move(7,0,364,35)
+      Text = ("Automatic save")
+    }
+    { Label3 Label
+      Move(56,35,84,28)
+      Text = ("minutes")
+    }
+    { hiz ComboBox
+      Move(126,126,126,28)
+      Text = (" ")
+    }
+    { Label14 Label
+      Move(7,126,112,35)
+      Text = ("monitor hertz")
+    }
+    { kayitdak TextBox
+      Move(14,35,35,28)
+      Text = ("5")
+    }
+    { boyut ComboBox
+      Move(203,84,49,28)
+      Text = (" A4")
+    }
+    { boyutlu TextBox
+      Move(126,84,49,28)
+    }
+    { Label1 Label
+      Move(7,91,105,21)
+      Text = ("Page dimensions")
+    }
+    { Separator2 Separator
+      Move(7,63,378,7)
+    }
+    { Label9 Label
+      Move(417,43,147,28)
+      Text = ("Dimension Text color")
+    }
+    { Label8 Label
+      Move(417,71,154,21)
+      Text = ("Dimension Lines color")
+    }
+    { Label10 Label
+      Move(417,106,154,28)
+      Text = ("Dimension lines extended")
+    }
+    { Label12 Label
+      Move(417,141,140,28)
+      Text = ("Lines / Text ")
+    }
+    { cizgiyazi TextBox
+      Move(564,141,112,28)
+    }
+    { cizgiuzama TextBox
+      Move(564,106,112,28)
+    }
+    { yazibuyuk TextBox
+      Move(567,14,112,28)
+    }
+    { Label13 Label
+      Move(417,176,112,28)
+      Text = ("Hassasiyet")
+    }
+    { ondalik ComboBox
+      Move(564,176,112,28)
+      Text = (" ")
+    }
+    { Label7 Label
+      Move(417,15,147,21)
+      Text = ("Dimension Text height")
+    }
+    { yazirenk ColorButton
+      Move(564,43,112,28)
+    }
+    { cizgirenk ColorButton
+      Move(564,71,112,28)
+    }
+    { okbuyuk TextBox
+      Move(564,211,105,28)
+    }
+    { Label21 Label
+      Move(417,211,147,28)
+      Text = ("Ok Büyüklüğü")
+    }
+    { Label22 Label
+      Move(683,15,28,28)
+      Font = Font["+4"]
+      Text = ("10")
+    }
+    { Label23 Label
+      Move(725,15,21,28)
+      Font = Font["+2"]
+      Text = ("10")
+    }
+    { Label24 Label
+      Move(767,15,21,28)
+      Text = ("10")
+    }
+    { Label25 Label
+      Move(683,43,28,28)
+      Font = Font["+4"]
+      Foreground = &HFF0000&
+      Text = ("10")
+    }
+    { Label26 Label
+      Move(725,43,28,28)
+      Font = Font["+4"]
+      Foreground = &H0000FF&
+      Text = ("10")
+    }
+    { Label27 Label
+      Move(767,43,28,28)
+      Font = Font["+4"]
+      Foreground = &H00FF00&
+      Text = ("10")
+    }
+    { PictureBox1 PictureBox
+      Move(676,71,35,28)
+      Picture = Picture["simgeler/dikolcu1.png"]
+      Stretch = True
+    }
+    { PictureBox2 PictureBox
+      Move(711,71,35,28)
+      Picture = Picture["simgeler/dikolcu2.png"]
+      Stretch = True
+    }
+    { PictureBox3 PictureBox
+      Move(760,71,35,28)
+      Picture = Picture["simgeler/dikolcu3.png"]
+      Stretch = True
+    }
+    { PictureBox4 PictureBox
+      Move(669,141,35,28)
+      Picture = Picture["simgeler/dikolcu4.png"]
+      Stretch = True
+    }
+    { PictureBox5 PictureBox
+      Move(711,141,35,28)
+      Picture = Picture["simgeler/dikolcu5.png"]
+      Stretch = True
+    }
+    { PictureBox6 PictureBox
+      Move(760,141,35,28)
+      Picture = Picture["simgeler/dikolcu6.png"]
+      Stretch = True
+    }
+    Index = 0
+  }
+  { Button1 Button
+    Move(0,308,140,35)
+    Text = ("Save to settings")
+    Picture = Picture["standart/save.png"]
+  }
+  { Button2 Button
+    Move(301,308,84,35)
+    Text = ("Close")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+}

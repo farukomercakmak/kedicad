@@ -1,0 +1,104 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,469,378)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  SkipTaskbar = True
+  { Frame1 Frame
+    Move(0,0,464,96)
+    Text = ("Specify kind of bearing")
+    { Button1 Button
+      Move(0,21,63,70)
+      Text = ("200\n300")
+    }
+    { Button3 Button
+      Move(63,21,63,70)
+      Text = ("4000")
+    }
+    { Button4 Button
+      Move(126,21,63,70)
+      Text = ("6000")
+    }
+    { Button5 Button
+      Move(189,21,63,70)
+      Text = ("22000")
+    }
+    { Button6 Button
+      Move(252,21,63,70)
+      Text = ("51000")
+    }
+    { Button7 Button
+      Move(315,21,70,70)
+      Text = ("stainless")
+    }
+    { Button8 Button
+      Move(385,21,77,70)
+      Text = ("high \ntemperature")
+    }
+  }
+  { iccap TextBox
+    Move(328,128,64,32)
+  }
+  { Label1 Label
+    Move(216,128,104,32)
+    Text = ("Diameter : ")
+  }
+  { Label2 Label
+    Move(400,136,40,24)
+    Text = ("mm.")
+  }
+  { liste ListBox
+    Move(0,196,469,147)
+  }
+  { kod Label
+    Move(217,98,168,24)
+  }
+  { Button9 Button
+    Move(371,343,96,32)
+    Text = ("Close")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+  { Button10 Button
+    Move(0,344,98,35)
+    Text = ("Cancel")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+  { Frame2 Frame
+    Move(0,98,184,96)
+    Text = ("Bearing search")
+    { CheckBox3 CheckBox
+      Move(7,42,128,24)
+      Text = (" hole diameter")
+    }
+    { CheckBox2 CheckBox
+      Move(7,14,128,32)
+      Text = ("Shaft diameter")
+    }
+    { CheckBox1 CheckBox
+      Move(7,63,176,32)
+      Text = (" shaft + hole diameter")
+    }
+  }
+  { Label3 Label
+    Move(217,161,104,32)
+    Visible = False
+    Text = ("Hole Diameter :")
+  }
+  { dcap TextBox
+    Move(328,160,64,32)
+    Visible = False
+  }
+  { Label4 Label
+    Move(400,168,40,24)
+    Visible = False
+    Text = ("mm.")
+  }
+  { Button2 Button
+    Move(144,344,152,32)
+    Text = ("Draw Bearing")
+    Picture = Picture["standart/draw-path.png"]
+  }
+}

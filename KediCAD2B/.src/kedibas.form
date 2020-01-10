@@ -1,0 +1,23 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,84,32)
+  Background = Color.Transparent
+  Border = False
+  { PictureBox1 PictureBox
+    MoveScaled(0,0,85,31)
+    Picture = Picture["logo.png"]
+    Stretch = True
+  }
+  { Label1 Label
+    MoveScaled(0,0,84,7)
+    Font = Font["Bold,+7"]
+    Text = ("KediCAD2B Loading")
+    Alignment = Align.Center
+  }
+  { Label2 Label
+    MoveScaled(38,24,9,6)
+    Font = Font["Bold,+2"]
+    Alignment = Align.Center
+  }
+}

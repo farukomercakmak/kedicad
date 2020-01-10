@@ -1,0 +1,37 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(224,30002,546,441)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  { FileChooser1 FileChooser
+    Move(0,0,552,408)
+    Filter = [("*.dxf"), ("*.DXF"), ("*.ulu"), ("*.ULU")]
+  }
+  { TextBox1 TextBox
+    Move(0,343,546,35)
+  }
+  { Button2 Button
+    Move(0,408,104,32)
+    Text = ("Cancel")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+  { Button1 Button
+    Move(432,408,96,32)
+    Text = ("Save")
+    Picture = Picture["standart/save.png"]
+  }
+  { Button4 Button
+    Move(63,0,63,28)
+    Text = ("Desktop")
+  }
+  { Button5 Button
+    Move(126,0,63,28)
+    Text = ("USB")
+  }
+  { Button3 Button
+    Move(0,0,63,28)
+    Text = ("Home")
+  }
+}

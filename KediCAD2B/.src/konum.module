@@ -1,0 +1,973 @@
+' Gambas module file
+
+Public sira As Integer
+Public nokx As Float
+Public noky As Float
+Public id1 As Integer
+
+
+Public Sub cizgi()
+
+    nok
+    If sira = 0 Then                       'çizim sırası. çizgi yok  sıra=0
+        ilk.birx = nokx
+        ilk.biry = noky
+        id1 = ilk.idgec
+        sira = 1
+        ilk.komyaz.Text = "Specify second point:(X)(Y)(X , Y)(X < Y):"
+    Else If sira = 1 Then          ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        cizge.cizgicizim
+    End If
+    Return
+        Catch
+	ilk.hatayaz("cizgi " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub spline()
+
+    nok
+        ilk.birx = nokx
+        ilk.biry = noky
+        cizge.czdpx.Add(nokx)
+        cizge.czdpy.Add(noky)
+        ilk.komyaz.Text = "Specify other points or Right click:"
+        Return
+        Catch
+	ilk.hatayaz("spline " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub dortgen()
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.komyaz.Text = "Specify second point :"
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 0
+        cizge.dortgen
+        ilk.dolas
+    End If
+    Return
+        Catch
+	ilk.hatayaz("dortgen " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub cember()
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.komyaz.Text = "Specify diameter :(D):"
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 0
+        cmbr.cemberci
+    End If
+    Return
+        Catch
+	ilk.hatayaz("cember " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub cember2()
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.komyaz.Text = "Specify second point :"
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 0
+        cmbr.cemberiki
+    End If
+    Return
+        Catch
+	ilk.hatayaz("cember2 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub cember3()
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.komyaz.Text = "Specify second point :"
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 2
+        ilk.komyaz.Text = "Specify third point :"
+    Else If sira = 2 Then   ' x3 y3 konumları için  sıra=2
+        ilk.ucx = nokx
+        ilk.ucy = noky
+        sira = 0
+        cmbr.cemberuc
+    End If
+    Return
+        Catch
+	ilk.hatayaz("cmbr3 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub yay()
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.komyaz.Text = "Specify second point Or enter radius :"
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 2
+        ilk.komyaz.Text = "Specify third point Or enter finish angle :"
+    Else If sira = 2 Then   ' x3 y3 konumları için  sıra=2
+        ilk.ucx = nokx
+        ilk.ucy = noky
+        sira = 0
+        cmbr.yayci
+    End If
+    Return
+        Catch
+	ilk.hatayaz("yay " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub yay3()
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.komyaz.Text = "Specify second point :(Right click OK..):"
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 2
+        ilk.komyaz.Text = "Specify third point :(Right click OK..):"
+    Else If sira = 2 Then   ' x3 y3 konumları için  sıra=2
+        ilk.ucx = nokx
+        ilk.ucy = noky
+        sira = 0
+        cmbr.yayciuc
+    End If
+    Return
+        Catch
+	ilk.hatayaz("yay3 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub cokgen()
+    Dim kosegen As Float
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.komyaz.Text = "Specify side number"
+    Else If sira = 1 Then    ' 6 Kabul edildi
+        ilk.komyaz.Text = "Specify length of the polygon"
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        acimi.aci(ilk.birx, ilk.biry, ilk.ikix, ilk.ikiy)
+        kosegen = acimi.boy
+        sira = 0
+        If ilk.kose = 0
+            torba7.cokgen(6, kosegen)
+        Else
+            torba7.cokgen(ilk.kose, kosegen)
+        End If
+    Endif
+    Return
+        Catch
+	ilk.hatayaz("cokgen " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub tara()
+nok
+ilk.birx = nokx
+        ilk.biry = noky
+    torba9.tarama
+    Return
+        Catch
+	ilk.hatayaz("tara " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub eksen()
+
+    If ilk.idgec <> 0
+        dekle
+        eksenci.eks
+    End If
+    Return
+        Catch
+	ilk.hatayaz("eksen " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public sycek As Float
+
+Public Sub detay()
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.komyaz.Text = "Specify diameter :(D):"
+        Goto cik
+    Endif
+    If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 0
+        cmbr.dember
+    Endif
+cik:
+Return
+        Catch
+	ilk.hatayaz("dty " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub detay2()
+
+    nok
+    If sira = 3 Then
+        sira = 0
+        ilk.birx = nokx
+        ilk.biry = noky
+        ilk.komyaz.Text = "Specify second point:"
+        sycek = InputBox("Ölçek değerini girin", "KediCAD", 2)
+        cmbr.dember2
+    Endif
+    Return
+    
+        Catch
+	ilk.hatayaz("dty2 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub dikolcu()
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.komyaz.Text = "Specify second point :(Right click OK..):"
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 2
+        ilk.komyaz.Text = "Specify third point :(Right click OK..):"
+    Else If sira = 2 Then   ' x3 y3 konumları için  sıra=2
+        ilk.ucx = nokx
+        ilk.ucy = noky
+        sira = 0
+        olcucur.olcukayit
+    End If
+    Return
+        Catch
+	ilk.hatayaz("dikolcu " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub dekle()
+
+    If ilk.idgec <> 0
+        torbasecim.okg(ilk.idgec)
+        ilk.depo1.Add(ilk.idgec, ilk.idgec)
+        If ilk.blokgec <> ""
+            If ilk.blokgec <> 0
+                torbasecim.blad(ilk.blokgec)
+            End If
+        End If
+    Else
+        ilk.depo1.Add(ilk.idoku, ilk.idoku)
+        If ilk.blokoku <> ""
+            If ilk.blokoku <> 0
+                torbasecim.blad(ilk.blokoku)
+            End If
+        End If
+    End If
+    Return
+        Catch
+	ilk.hatayaz("dekle " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub acolcu()
+
+    nok
+    If sira = 0 Then
+        If ilk.idgec <> 0
+            dekle
+            torba2.uzat3
+            sira = 1
+            ilk.komyaz.Text = "Specify second line :(Right click OK..):"
+        End If
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        If ilk.idgec <> 0
+            dekle
+            torba2.yuvarla1
+            sira = 2
+            ilk.komyaz.Text = "Specify text point :(Right click OK..):"
+        End If
+    Else If sira = 2 Then   ' x3 y3 konumları için  sıra=2
+        ilk.birx = nokx
+        ilk.biry = noky
+        olcucur.yarimx = ilk.mousex
+        olcucur.yarimy = ilk.mousey
+        sira = 3
+        If ilk.komutsayi = 110 Then
+            olcucur.acikma2
+            gerde.zkayit("olcu", (dacy.kyno - 1))
+        End If
+    Else If sira = 3 Then   ' x3 y3 konumları için  sıra=2
+        tem.temizlik
+    End If
+    Return
+        Catch
+	ilk.hatayaz("acolcu " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub capolcu()
+    nok
+    If sira = 0 Then
+        If ilk.idgec <> 0
+        If ilk.komgec = 20 Or ilk.komgec = 25
+            torbasecim.okg(ilk.idgec)
+            ilk.depo1.Add(ilk.idgec, ilk.idgec)
+'             torba2.uzat3
+            sira = 1
+            ilk.komyaz.Text = "Select text place :(Right click OK..):"
+        End If
+        Endif
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        ilk.birx = nokx
+        ilk.biry = noky
+        olcucur.rolcuk
+        sira = 0
+        ilk.dolas
+    End If
+Return
+        Catch
+	ilk.hatayaz("capolcu " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub tasi()
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.baca = 1
+        ilk.komyaz.Text = "Specify end point(Right click OK.):"
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 0
+        tasima.tasir
+        ilk.dolas
+    End If
+    Return
+        Catch
+	ilk.hatayaz("btntasi1clk " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub don()
+
+    Dim ac1, ac2 As Float
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.baca = 1
+        ilk.komyaz.Text = "Specify rotate angle :"
+        Return
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        done.dondur(doney.aci)
+        sira = 0
+        ilk.dolas
+    Else If sira = 2 Then   ' x2 y2 konumları için  sıra=1
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 3
+        Return
+    Else If sira = 3 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 4
+        Return
+    Else If sira = 4 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ucx = nokx
+        ilk.ucy = noky
+        acimi.aci(ilk.birx, ilk.biry, ilk.ikix, ilk.ikiy)
+        ac1 = acimi.raci
+        acimi.aci(ilk.birx, ilk.biry, ilk.ucx, ilk.ucy)
+        ac2 = acimi.raci
+        ac2 = ac1 - ac2
+        done.dondur(- ac2)
+        sira = 0
+        ilk.dolas
+    End If
+    Return
+        Catch
+	ilk.hatayaz("don " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub ayna()
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.baca = 1
+        ilk.komyaz.Text = "Specify end point(Right click OK.):"
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 0
+        ayine.aynalar()
+        ilk.dolas
+    End If
+    Return
+        Catch
+	ilk.hatayaz("ayna " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub olcek()
+
+    nok
+    ilk.baca = 1
+    ilk.birx = nokx
+    ilk.biry = noky
+    sira = 1
+    ilk.komyaz.Text = "Specify scale factor :"
+    Return
+        Catch
+	ilk.hatayaz("olcek " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub tasima()
+
+    nok
+    If sira = 0 Then
+        ilk.komyaz.Text = "Add Drawing (ESC İPTAL)(Right click OK.):"
+    Else If sira = 5 Then   ' x2 y2 konumları için  sıra=1
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 6
+        ilk.komyaz.Text = "Specify next point :"
+    Else If sira = 6 Then   ' x3 y3 konumları için  sıra=2
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        tasima.tasir
+    End If
+    Return
+        Catch
+	ilk.hatayaz("tsma " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub done()
+
+    nok
+    If sira = 0 Then
+        ilk.komyaz.Text = "Add Drawing (ESC İPTAL)(Right click OK.):"
+    Else If sira = 5 Then   ' x2 y2 konumları için  sıra=1
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 6
+        ilk.komyaz.Text = "Specify end point(Right click OK.):"
+    Else If sira = 6 Then   ' x3 y3 konumları için  sıra=2
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 0
+        done.dondur(doney.aci)
+        ilk.dolas
+    End If
+    Return
+        Catch
+	ilk.hatayaz("done " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub ote()
+
+    nok
+    ilk.baca = 1
+    ilk.birx = nokx
+    ilk.biry = noky
+    ilk.komyaz.Text = "Specify offset distance"
+    ilk.komutcuk.SetFocus
+    Return
+        Catch
+	ilk.hatayaz("ote " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub fil()
+
+    nok
+    If sira = 0 Then   ' x2 y2 konumları için  sıra=1
+        If ilk.idgec <> 0
+            dekle
+            torba2.yuvarla1
+            sira = 1
+            ilk.komyaz.Text = "Specify second line (Right click OK..):"
+        End If
+    Else If sira = 1 Then   ' x3 y3 konumları için  sıra=2
+        If ilk.idgec <> 0
+            dekle
+            torba2.uzat3
+            sira = 0
+            ilk.komyaz.Text = "Specify fillet radius   :"
+            ilk.komutcuk.SetFocus
+        End If
+    End If
+    Return
+        Catch
+	ilk.hatayaz("fil " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub pah()
+
+    nok
+    If sira = 0 Then   ' x2 y2 konumları için  sıra=1
+        If ilk.idgec <> 0
+            dekle
+            torba2.yuvarla1
+            sira = 1
+            ilk.komyaz.Text = "Specify second line (Right click OK..):"
+        End If
+    Else If sira = 1 Then   ' x3 y3 konumları için  sıra=2
+        If ilk.idgec <> 0
+            dekle
+            torba2.uzat3
+            sira = 0
+            ilk.komyaz.Text = "Enter pah distance (korner to new korner) (Right click Cancel..):"
+            ilk.komutcuk.SetFocus
+        End If
+    End If
+    Return
+        Catch
+	ilk.hatayaz("pah " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub yaz()
+
+    nok
+    ilk.baca = 1
+    ilk.ikix = nokx
+    ilk.ikiy = noky
+    sira = 1
+    ilk.hazim.Visible = True
+    ilk.TextArea1.SetFocus
+    ilk.hazim.Visible = True
+    Return
+        Catch
+	ilk.hatayaz("yaz " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub benze()
+
+    nok
+    If sira = 0 Then
+        If ilk.idgec <> 0
+            ilk.komyaz.Text = "Specify target lines :"
+            dekle
+            torba.benze1
+            sira = 5
+        End If
+    Else If sira = 5 Then   ' x2 y2 konumları için  sıra=1
+        dekle
+        torba.benze2
+    End If
+    Return
+        Catch
+	ilk.hatayaz("benze " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub ayna2()
+
+    nok
+    If sira = 0 Then
+        ilk.komyaz.Text = "Add Drawing (ESC İPTAL)(Right click OK.):"
+    Else If sira = 5 Then   ' x2 y2 konumları için  sıra=1
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 6
+        ilk.komyaz.Text = "Specify Axis end point(Right click OK.):"
+    Else If sira = 6 Then   ' x3 y3 konumları için  sıra=2
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 0
+        ayine.aynalar()
+        ilk.dolas
+    End If
+    Return
+        Catch
+	ilk.hatayaz("ayna2 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub olcek2()
+
+    nok
+    If sira = 0 Then
+        ilk.komyaz.Text = "Add Drawing (ESC İPTAL)(Right click OK.):"
+    Else If sira = 5 Then   ' x2 y2 konumları için  sıra=1
+        ilk.birx = nokx
+        ilk.biry = noky
+        ilk.komutsayi = 237
+        sira = 0
+        ilk.komyaz.Text = "Specify  scale factor :"
+        ilk.komutcuk.SetFocus
+    End If
+    Return
+        Catch
+	ilk.hatayaz("olck2" & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub gergi()
+
+    nok
+    If sira = 0 Then
+        ilk.komyaz.Text = "Add Drawing (ESC İPTAL)(Right click OK.):"
+    Else If sira = 5 Then   ' x2 y2 konumları için  sıra=1
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 6
+        ilk.komyaz.Text = "Specify target point :"
+    Else If sira = 6 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 0
+        ger.germe
+    End If
+    Return
+        Catch
+	ilk.hatayaz("gergi " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub gergi2()
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.komyaz.Text = "Specify target point :"
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 0
+        ger.germe
+    End If
+    Return
+        Catch
+	ilk.hatayaz("gergi2 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub ote2()
+
+    nok
+    If sira = 0 Then
+        ilk.komyaz.Text = "Add Drawing (ESC İPTAL)(Right click OK.):"
+    Else If sira = 5 Then   ' x2 y2 konumları için  sıra=1
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 6
+        ilk.komyaz.Text = "Specify offset distance or first point "
+        ilk.komutcuk.SetFocus
+    Else If sira = 6 Then   ' x2 y2 konumları için  sıra=1
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 7
+        ilk.komyaz.Text = "Specify second point"
+        ilk.komutcuk.SetFocus
+    Else If sira = 7 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        icle.icerler
+        ilk.komyaz.Text = "tmm"
+        ilk.komutcuk.SetFocus
+        sira = 0
+    End If
+    Return
+        Catch
+	ilk.hatayaz("ote2 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub blokyap()
+
+    nok
+    ilk.komyaz.Text = "Add Drawing (ESC İPTAL)(Right click OK.):"
+Return
+End
+
+Public Sub canta()
+
+    nok
+    ilk.komyaz.Text = "Add Drawing (ESC İPTAL)(Right click OK.):"
+Return
+End
+
+Public Sub sil()
+
+    nok
+    ilk.komyaz.Text = "Add Drawing (ESC İPTAL)(Right click OK.):"
+Return
+End
+
+Public Sub buda()
+
+    If sira = 0 Then
+        If ilk.idgec <> 0
+            dekle
+            torba2.yuvarla1
+            sira = 1
+            ilk.komyaz.Text = "Specify second line :(Right click OK..):"
+        End If
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        torba2.fillet
+    End If 
+    Return
+    
+        Catch
+	ilk.hatayaz("buda " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub tuda()
+
+    If sira = 0 Then
+        If ilk.idgec <> 0
+            dekle
+            torba2.yuvarla1
+            sira = 1
+            ilk.komyaz.Text = "Specify second line :(Right click OK..):"
+        End If
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        torba2.taba
+    End If
+    Return
+        Catch
+	ilk.hatayaz("tuda " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub kes()
+
+    nok
+    If sira = 0 Then
+        If ilk.idgec <> 0
+            dekle
+            torba2.yuvarla1
+            sira = 1
+            ilk.komyaz.Text = "Specify second line :(Right click OK..):"
+        End If
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        dekle
+        torba2.uzat3
+        ilk.komyaz.Text = "Specify third point :(Right click OK..):"
+        torba2.kesisme
+    End If
+    Return
+        Catch
+	ilk.hatayaz("kes " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub aralik()
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        sira = 1
+        ilk.komyaz.Text = "Specify target point :(Right click ESC..)"
+    Else If sira = 1 Then   ' x2 y2 konumları için  sıra=1
+        ilk.ikix = nokx
+        ilk.ikiy = noky
+        sira = 2
+        torba2.ara
+    Else If sira = 2 Then   ' x2 y2 konumları için  sıra=1
+        tem.temizlik
+    End If
+    Return
+        Catch
+	ilk.hatayaz("aralik " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub nokta()
+
+    nok
+    If sira = 0 Then
+        ilk.birx = nokx
+        ilk.biry = noky
+        torba2.nokta2
+        sira = 1
+    Else If sira = 1 Then
+        tem.temizlik
+    End If
+    Return
+        Catch
+	ilk.hatayaz("nokta " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub blkal()
+
+    nok
+    ilk.birx = nokx
+    ilk.biry = noky
+    ilk.blkal
+Return
+End
+Public Sub yapis()
+
+    nok
+    ilk.birx = nokx
+    ilk.biry = noky
+    ilk.yapisir
+Return
+End
+
+Public Sub atalet()
+
+    nok
+    If ilk.idgec <> 0
+        ilk.komyaz.Text = "Add Drawing (ESC İPTAL)(Right click OK.):"
+        dekle
+        kesad.ekle
+    End If
+Return
+End
+
+Public Sub dizi()
+    nok
+    ilk.komyaz.Text = "Add Drawing (ESC İPTAL)(Right click OK.):"
+Return
+End
+
+Public Sub dizim()
+
+    nok
+    ilk.birx = nokx * ilk.olcum
+    ilk.biry = noky * ilk.olcum
+    dizim.merk(ilk.birx, ilk.biry)
+    dizim.show
+    Return
+    Catch
+	ilk.hatayaz("dizim " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub pan()
+
+    ilk.potx1 = ilk.mousex
+    ilk.poty1 = ilk.mousey
+Return
+End
+
+Public Sub birles()
+
+    ilk.komyaz.Text = "Add Drawing (ESC İPTAL)(Right click OK.):"
+Return
+End
+
+Public Sub patla()
+
+    ilk.komyaz.Text = "Add Drawing (ESC İPTAL)(Right click OK.):"
+Return
+End
+
+Public Sub uzat()
+
+    torba9.uzasa
+Return
+End
+
+Public Sub nok()
+
+    nokx = ilk.mousex                    ' Fare konumu  x1 y1
+    noky = ilk.mousey
+    If torba2.musx <> 0
+        nokx = torba2.musx                   ' Fare konumu  x1 y1
+        noky = ilk.mousey
+    Else If torba2.musy <> 0
+        nokx = ilk.mousex                    ' Fare konumu  x1 y1
+        noky = torba2.musy
+    End If
+   If ilk.onisaretx <> 0 Then nokx = ilk.onisaretx 
+   If ilk.onisarety <> 0 Then noky = ilk.onisarety
+    acimi.aci(torba2.lusx, torba2.musy, ilk.mousex, ilk.mousey)
+    If acimi.boy < (10 / ilk.olcum) Then
+        nokx = torba2.lusx
+        noky = torba2.musy
+    Endif
+    acimi.aci(torba2.musx, torba2.lusy, ilk.mousex, ilk.mousey)
+    If acimi.boy < (10 / ilk.olcum) Then
+        nokx = torba2.musx
+        noky = torba2.lusy
+    Endif
+    If ilk.birx Then
+        If ilk.orto = 1 Then
+            If Abs(Abs(ilk.birx) - Abs(ilk.mousex)) < Abs(Abs(ilk.biry) - Abs(ilk.mousey))
+                nokx = ilk.birx
+            Else
+                noky = ilk.biry
+            Endif
+        Endif
+    Endif
+    ' If ilk.x1gec <> 0 Then
+    '     If (ilk.mousex - ilk.x1gec) < (10 / ilk.olcum) Then nokx = ilk.x1gec
+    ' Endif
+    ' If ilk.y1gec <> 0 Then
+    '     If (ilk.mousey - ilk.y1gec) < (10 / ilk.olcum) Then noky = ilk.y1gec
+    ' Endif
+'     If ilk.uca = 1 Then
+        If ilk.isaretx <> 0 Then nokx = ilk.isaretx
+        If ilk.isarety <> 0 Then noky = ilk.isarety
+'     End If
+    Return
+
+End

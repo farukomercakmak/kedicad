@@ -1,0 +1,23 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,805,427)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  { liste ListBox
+    Move(637,63,154,322)
+    Visible = False
+  }
+  { liste2 ListBox
+    Move(609,49,154,322)
+    Visible = False
+  }
+  { liste3 ListBox
+    Move(0,35,798,392)
+  }
+  { Button1 Button
+    Move(21,0,161,35)
+    Text = ("Hataları Temizle")
+  }
+}

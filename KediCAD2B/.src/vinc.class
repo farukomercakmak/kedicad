@@ -1,0 +1,1605 @@
+' Gambas class file
+
+Public cazgi As Czm
+Private csp As New Csplit
+Public khiz As Float
+Private $sPath As String
+Public htg As Integer
+Public kul As Integer
+Public halatyuku As Float
+Public yerse As Float
+Public korta As Float
+Public ksayi As Float
+Public msayi As Float
+Public dsayi As Float
+Public hcap As Float
+Public tcap As Float
+Public mcap As Float
+Public dcap As Float
+Public ltambur As Float
+Public sarim As Float
+Public tsarim As Float
+Public tuzun As Float
+Public huzun As Float
+Public alan As Float
+Public hiz As Float
+Public deb As Float
+Public sk As Float
+Public j As Float
+Public K As Float
+Public fyuk As Integer
+Public esra As Integer
+Public Sub Form_Open()
+
+    GridView1.Columns.Count = 5
+    GridView1.Rows.Count = 15
+    GridView1.Columns.Width = 125
+
+    GridView1[0, 1].Text = "Moment(kgf.cm)"
+    GridView1[0, 0].Text = "Kiriş No"
+    GridView1[0, 2].Text = "Gerilme(kg/cm^2)"
+    GridView1[0, 3].Text = "en(mm)"
+    GridView1[0, 4].Text = "boy(mm)"
+    yuk.Rows.Count = 20
+    yuk.Columns.Count = 4
+    yuk.Columns.Width = 85
+    yuk[0, 0].Text = "Yük(kgf.)"
+    yuk[0, 1].Text = "Uzunluk(mm.)"
+    yuk[0, 2].Text = "Muk.M.(cm^3)"
+    yuk[0, 3].Text = "Hes.Ağ.(kgf.)"
+    rb1.Value = True
+    mesnetsayi.Index = 0
+    ciftkiris.Value = True
+    temiz
+    TextBox1.SetFocus
+    mesnetsayi.Add("ANKASTRE", 1)
+    mesnetsayi.Add("İKİ KENARDA", 0)
+    yukleme.Text = "Tekil merkez yük"
+    yukleme_Change
+    ComboBox2.Add("Gemi Vinci", 0)
+    ComboBox2.Add("Hidrolik Platform", 1)
+    ComboBox2.Add("Karıştırıcı", 2)
+    ComboBox2.Add("Forklift", 3)
+    ComboBox2.Add("Hareketli Vinç", 4)
+    ComboBox2.Add("Robot", 5)
+    ComboBox2.Add("Kule Vinç", 6)
+    Me.text = "KediCAD 2B CRANE CALCULATION"
+
+    ae.Visible = False
+    be.Visible = False
+    label6.Visible = False
+    label7.Visible = False
+    resime.picture = picture["res/ankastyay.png"]
+    daire.Value = True
+    a.Move(80, 200)
+    ab.Move(8, 200)
+    a.Visible = True
+    ab.Visible = True
+    TextBox18_Change()
+    TextBox57_Change()
+       Catch
+	ilk.hatayaz("fopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub TextBox1_Activate()
+
+    goster
+    htgsec
+    If htg = 6
+        Message("Specify working cycle per hour", "OK")
+        Goto cik
+    End If
+
+    ksec
+    hcap = korta * (halatyuku) ^ (1 / 2)
+    TextBox2.Text = Format$(hcap, "#.#")
+    tsec
+    tcap = hcap * ksayi
+    TextBox3.Text = Format$(tcap, "#.#")
+    mcap = hcap * msayi
+    TextBox4.Text = Format$(mcap, "#.#")
+    dcap = hcap * dsayi
+    TextBox5.Text = Format$(dcap, "#.#")
+
+cik:
+       Catch
+	ilk.hatayaz("TextBox1_Activate " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub htgsec()
+
+    If rb1.Value = False And rb2.Value = False And rb3.Value = False And rb4.Value = False And rb5.Value = False
+        htg = 6
+    End If
+    If rb1.Value = True Then htg = 0
+    If rb2.Value = True Then htg = 1
+    If rb3.Value = True Then htg = 2
+    If rb4.Value = True Then htg = 3
+    If rb5.Value = True Then htg = 4
+    Return
+       Catch
+	ilk.hatayaz("htgsec " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub ksec()
+
+    If htg = 0 Then korta = 0.29
+    If htg = 1 Then korta = 0.31
+    If htg = 2 Then korta = 0.34
+    If htg = 3 Then korta = 0.36
+    If htg = 4 Then korta = 0.40
+    Return
+       Catch
+	ilk.hatayaz("ksec " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub tsec()
+
+    If htg = 0 Then
+        ksayi = 15
+        msayi = 16
+        dsayi = 14
+    End If
+    If htg = 1 Then
+        ksayi = 18
+        msayi = 20
+        dsayi = 14
+    End If
+    If htg = 2 Then
+        ksayi = 20
+        msayi = 22
+        dsayi = 15
+    End If
+    If htg = 3 Then
+        ksayi = 22
+        msayi = 24
+        dsayi = 16
+    End If
+    If htg = 4 Then
+        ksayi = 24
+        msayi = 26
+        dsayi = 16
+    End If
+    Return
+       Catch
+	ilk.hatayaz("tsec " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub temiz()
+
+    TextBox1.Text = ""
+    TextBox2.Text = ""
+    TextBox3.Text = ""
+    TextBox4.Text = ""
+    TextBox5.Text = ""
+    TextBox2.Visible = False
+    TextBox4.Visible = False
+    TextBox5.Visible = False
+    label2.Visible = False
+    label3.Visible = False
+    label4.Visible = False
+    label5.Visible = False
+    TextBox1.SetFocus
+    Return
+
+End
+
+Public Sub goster()
+
+    TextBox2.Visible = True
+    TextBox3.Visible = True
+    TextBox4.Visible = True
+    TextBox5.Visible = True
+    label2.Visible = True
+    label3.Visible = True
+    label4.Visible = True
+    label5.Visible = True
+    Return
+
+End
+
+Public Sub rb1_Click()
+
+    temiz
+
+End
+
+Public Sub rb2_Click()
+
+    temiz
+
+End
+
+Public Sub rb3_Click()
+
+    temiz
+
+End
+
+Public Sub rb4_Click()
+
+    temiz
+
+End
+
+Public Sub rb5_Click()
+
+    temiz
+
+End
+
+Public Sub Wizard1_Cancel()
+
+    vinc.Close
+    ilk.komutcuk.SetFocus
+    ilk.Show
+    tem.temizlik
+
+End
+
+Public Sub Button2_Click()
+
+    Dim ticcap1, ticcap2, tger As Float
+
+    If TextBox6.Text <> "" And TextBox7.Text <> ""
+        halatyuku = CFloat(TextBox7.Text) / CFloat(TextBox6.Text)
+        TextBox1.Text = Format$(halatyuku, "#.#")
+        TextBox1_Activate
+    Else
+        Message("Missing data", "OK")
+    End If
+    sarim = Pi * tcap
+    tsarim = (Val(TextBox9.Text) * 1000 * Val(TextBox6.Text) / sarim) + 3
+    TextBox10.Text = Format$(tsarim, "#.#")
+    tuzun = (hcap + 2) * tsarim
+    TextBox8.Text = Format$(tuzun, "#.#")
+    huzun = sarim * tsarim / 1000
+    TextBox11.Text = Format$(huzun, "#.#")
+    ticcap1 = ((tcap / 10) ^ 4 - (16 * (tcap / 10) ^ 2 * halatyuku / (2 * Pi * 250))) ^ (1 / 4)
+    ticcap2 = ((tcap / 10) ^ 4 - (32 * (tcap / 10) * halatyuku * (tuzun / 10) / (Pi * 500))) ^ (1 / 4)
+    If ticcap1 > ticcap2
+        tger = (ticcap1 * 10) - 5
+    Else
+        tger = (ticcap2 * 10) - 5
+    End If
+    TextBox13.Text = Format$(tger, "#.#")
+    TextBox14.Text = Format$(Val(TextBox12.Text) / 6, "#.#")  'Başlık teker açıklığı
+    TextBox16.Text = Format$(Val(TextBox8.Text) * 1.2, "#")
+
+    hesa.Text = Format(TextBox27.Text * 10 / (Pi * tcap), "#")
+    khiz = TextBox27.Text / (Pi * tcap)
+    kiris
+       Catch
+	ilk.hatayaz("btn2clk " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub kiris()
+
+    yuke.Text = Val(TextBox7.Text) * 1.7
+    TextBox15.Text = Format$(Val(yuke.Text) / 4, "#.#")
+    le.Text = Val(TextBox12.Text) / 10
+    csp = New Csplit
+    csp.yazi = atalet.Text
+    csp.nokta()
+    If csp.sonuc2
+        J = Val(csp.sonuc1 & "," & csp.sonuc2)
+    Else
+        J = Val(atalet.Text)
+    End If
+    csp = New Csplit
+    csp.yazi = mukavemet.Text
+    csp.nokta()
+    If csp.sonuc2
+        K = Val(csp.sonuc1 & "," & csp.sonuc2)
+    Else
+        K = Val(mukavemet.Text)
+    End If
+
+    If ciftkiris.Value = True
+        j = 2 * J
+        K = 2 * K
+    End If
+    If j = "" Or K = "" Then
+        message("Specify Section", "OK")
+        Goto cik
+    End If
+    If mesnetsayi.Text = "İKİ KENARDA" And yukleme.Text = "Tekil merkez yük" Then
+        momente.Text = Format$(Val(yuke.Text) * Val(le.Text) / 4, "#.#")
+        sehime.Text = Format$(Val(yuke.Text) * Val(le.Text) ^ 3 * 10 / (48 * Val(emode.Text) * j), "#")
+        deb = (yuke.Text * le.Text) / 4
+        gere.Text = Format$(deb / K, "#.#")
+    End If
+
+    If mesnetsayi.Text = "ANKASTRE" And yukleme.Text = "Tekil merkez yük" Then
+        momente.Text = Format$(Val(yuke.Text) * Val(le.Text), "#.#")
+        sehime.Text = Format$(Val(yuke.Text) * Val(le.Text) ^ 3 * 10 / (3 * Val(emode.Text) * j), "#")
+        deb = (yuke.Text * le.Text)
+        gere.Text = Format$(deb / K, "#.#")
+    End If
+    g.Text = Format(halatyuku * tcap / 2 * 10 * khiz / 955000, "#")
+    t.Text = Format(halatyuku * tcap / 20, "#")
+cik:
+       Catch
+	ilk.hatayaz("kiris " & Error.Text, Error.Where & "--" & Error.code)
+    If yuke.Text = "" Or le.Text = ""
+        message("Missing Data", "OK")
+    Else
+        message("Specify Section", "OK")
+    End If
+    Return
+
+End
+
+Public Sub yukleme_Change()
+
+    If mesnetsayi.Text = "ANKASTRE" And yukleme.Text = "Tekil merkez yük" Then
+        resime.picture = picture["res/ankasttek.png"]
+    End If
+    If mesnetsayi.Text = "İKİ KENARDA" And yukleme.Text = "Tekil merkez yük" Then
+        resime.picture = picture["res/ikilitek.png"]
+    End If
+       Catch
+	ilk.hatayaz("yukleme_Change " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub mesnetsayi_Change()
+
+    If mesnetsayi.Text = "ANKASTRE" And yukleme.Text = "Tekil merkez yük" Then
+        resime.picture = picture["res/ankasttek.png"]
+    End If
+    If mesnetsayi.Text = "İKİ KENARDA" And yukleme.Text = "Tekil merkez yük" Then
+        resime.picture = picture["res/ikilitek.png"]
+    End If
+       Catch
+	ilk.hatayaz("mesnetsayi_Change " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public tork1 As Float
+Public tork2 As Float
+
+Public Sub momhesap()
+
+    Dim mt, l1, l2, l3, l4, l5, l6, l7, l8, l9, f1, f2, f3, f4, f5, f6, f7, f8, f9, eger, agi, geril As Float  ' 0 yuk  1 uzunluk  2 mukavemet momenti
+
+    eger = CFloat(TextBox29.Text) / CFloat(TextBox17.Text)
+    If yuk[1, 0].Text <> "" Then l1 = yuk[1, 1].Text / 20
+    If yuk[2, 0].Text <> "" Then l2 = yuk[2, 1].Text / 20
+    If yuk[3, 0].Text <> "" Then l3 = yuk[3, 1].Text / 20
+    If yuk[4, 0].Text <> "" Then l4 = yuk[4, 1].Text / 20
+    If yuk[5, 0].Text <> "" Then l5 = yuk[5, 1].Text / 20
+    If yuk[6, 0].Text <> "" Then l6 = yuk[6, 1].Text / 20
+    If yuk[7, 0].Text <> "" Then l7 = yuk[7, 1].Text / 20
+    If yuk[8, 0].Text <> "" Then l8 = yuk[8, 1].Text / 20
+    If yuk[9, 0].Text <> "" Then l9 = yuk[9, 1].Text / 20
+    If yuk[1, 0].Text <> "" Then f1 = yuk[1, 0].Text
+    If yuk[2, 0].Text <> "" Then f2 = yuk[2, 0].Text
+    If yuk[3, 0].Text <> "" Then f3 = yuk[3, 0].Text
+    If yuk[4, 0].Text <> "" Then f4 = yuk[4, 0].Text
+    If yuk[5, 0].Text <> "" Then f5 = yuk[5, 0].Text
+    If yuk[6, 0].Text <> "" Then f6 = yuk[6, 0].Text
+    If yuk[7, 0].Text <> "" Then f7 = yuk[7, 0].Text
+    If yuk[8, 0].Text <> "" Then f8 = yuk[8, 0].Text
+    If yuk[9, 0].Text <> "" Then f9 = yuk[9, 0].Text
+    If yuk[1, 0].Text <> "" Then
+        mt = testyuk * 2 * l1 + f1 * l1
+        If mt > tork1 Then
+            tork2 = tork1
+            tork1 = mt
+        Endif
+        agi = testyuk + f1
+        GridView1[1, 1].Text = Format$(mt, "#.#")
+        geril = mt / yuk[1, 2].Text
+        GridView1[1, 2].Text = Format$(geril, "#.#")
+        If geril > eger Then
+            GridView1[1, 2].Background = Color.red
+        Else
+            GridView1[1, 2].Background = Color.white
+        Endif
+        GridView1[1, 0].Text = 1
+    Endif
+    If yuk[2, 0].Text <> "" Then
+        mt = testyuk * (2 * l2 + 2 * l1) + f1 * (2 * l2 + l1) + f2 * l2
+        If mt > tork1 Then
+            tork2 = tork1
+            tork1 = mt
+        Endif
+        agi = testyuk + f1 + f2
+        GridView1[2, 1].Text = Format$(mt, "#.#")
+        geril = mt / yuk[2, 2].Text
+        GridView1[2, 2].Text = Format$(geril, "#.#")
+        If geril > eger Then
+            GridView1[2, 2].Background = Color.red
+        Else
+            GridView1[2, 2].Background = Color.White
+        Endif
+        GridView1[2, 0].Text = 2
+    Endif
+    If yuk[3, 0].Text <> "" Then
+        mt = testyuk * (2 * l3 + 2 * l2 + 2 * l1) + f1 * (2 * l3 + 2 * l2 + l1) + f2 * (2 * l3 + l2) + f3 * l3
+        If mt > tork1 Then
+            tork2 = tork1
+            tork1 = mt
+        Endif
+        agi = testyuk + f1 + f2 + f3
+        GridView1[3, 1].Text = Format$(mt, "#.#")
+        geril = mt / yuk[3, 2].Text
+        GridView1[3, 2].Text = Format$(geril, "#.#")
+        If geril > eger Then
+            GridView1[3, 2].Background = Color.red
+        Else
+            GridView1[3, 2].Background = Color.White
+        Endif
+        GridView1[3, 0].Text = 3
+    Endif
+    If yuk[4, 0].Text <> "" Then
+        mt = testyuk * (2 * l4 + 2 * l3 + 2 * l2 + 2 * l1) + f1 * (2 * l4 + 2 * l3 + 2 * l2 + l1) + f2 * (2 * l4 + 2 * l3 + l2) + f3 * (2 * l4 + l3) + f4 * l4
+        If mt > tork1 Then
+            tork2 = tork1
+            tork1 = mt
+        Endif
+        agi = testyuk + f1 + f2 + f3 + f4
+        GridView1[4, 1].Text = Format$(mt, "#.#")
+        geril = mt / yuk[4, 2].Text
+        GridView1[4, 2].Text = Format$(geril, "#.#")
+        If geril > eger Then
+            GridView1[4, 2].Background = Color.red
+        Else
+            GridView1[4, 2].Background = Color.White
+        Endif
+        GridView1[4, 0].Text = 4
+    Endif
+    If yuk[5, 0].Text <> "" Then
+        mt = testyuk * (2 * l5 + 2 * l4 + 2 * l3 + 2 * l2 + 2 * l1) + f1 * (2 * l5 + 2 * l4 + 2 * l3 + 2 * l2 + l1) + f2 * (2 * l5 + 2 * l4 + 2 * l3 + l2) + f3 * (2 * l5 + 2 - l4 + l3) + f4 * (2 * l5 + l4) + f5 * l5
+        If mt > tork1 Then
+            tork2 = tork1
+            tork1 = mt
+        Endif
+        agi = testyuk + f1 + f2 + f3 + f4 + f5
+        GridView1[5, 1].Text = Format$(mt, "#.#")
+        geril = mt / yuk[5, 2].Text
+        GridView1[5, 2].Text = Format$(geril, "#.#")
+        If geril > eger Then
+            GridView1[5, 2].Background = Color.red
+        Else
+            GridView1[5, 2].Background = Color.White
+        Endif
+        GridView1[5, 0].Text = 5
+    Endif
+    If yuk[6, 0].Text <> "" Then
+        mt = testyuk * (2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + 2 * l2 + 2 * l1) + f1 * (2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + 2 * l2 + l1) + f2 * (2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + l2) + f3 * (2 * l6 + 2 * l5 + 2 - l4 + l3) + f4 * (2 * l6 + 2 * l5 + l4) + f5 * (2 * l6 + l5) + f6 * l6
+        If mt > tork1 Then
+            tork2 = tork1
+            tork1 = mt
+        Endif
+        agi = testyuk + f1 + f2 + f3 + f4 + f5 + f6
+        GridView1[6, 1].Text = Format$(mt, "#.#")
+        geril = mt / yuk[6, 2].Text
+        GridView1[6, 2].Text = Format$(geril, "#.#")
+        If geril > eger Then
+            GridView1[6, 2].Background = Color.red
+        Else
+            GridView1[6, 2].Background = Color.White
+        Endif
+        GridView1[6, 0].Text = 6
+    Endif
+    If yuk[7, 0].Text <> "" Then
+        mt = testyuk * (2 * l7 + 2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + 2 * l2 + 2 * l1) + f1 * (2 * l7 + 2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + 2 * l2 + l1) + f2 * (2 * l7 + 2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + l2) + f3 * (2 * l7 + 2 * l6 + 2 * l5 + 2 - l4 + l3) + f4 * (2 * l7 + 2 * l6 + 2 * l5 + l4) + f5 * (2 * l7 + 2 * l6 + l5) + f6 * (2 * l7 + l6) + f7 * l7
+        If mt > tork1 Then
+            tork2 = tork1
+            tork1 = mt
+        Endif
+        agi = testyuk + f1 + f2 + f3 + f4 + f5 + f6 + f7
+        GridView1[7, 1].Text = Format$(mt, "#.#")
+        geril = mt / yuk[7, 2].Text
+        GridView1[7, 2].Text = Format$(geril, "#.#")
+        If geril > eger Then
+            GridView1[7, 2].Background = Color.red
+        Else
+            GridView1[7, 2].Background = Color.White
+        Endif
+        GridView1[7, 0].Text = 7
+    Endif
+    If yuk[8, 0].Text <> "" Then
+        mt = testyuk * (2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + 2 * l2 + 2 * l1) + f1 * (2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + 2 * l2 + l1) + f2 * (2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + l2) + f3 * (2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + 2 - l4 + l3) + f4 * (2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + l4) + f5 * (2 * l8 + 2 * l7 + 2 * l6 + l5) + f6 * (2 * l8 + 2 * l7 + l6) + f7 * (2 * l8 + l7) + f8 * l8
+        If mt > tork1 Then
+            tork2 = tork1
+            tork1 = mt
+        Endif
+        agi = testyuk + f1 + f2 + f3 + f4 + f5 + f6 + f7 + f8
+        GridView1[8, 1].Text = Format$(mt, "#.#")
+        geril = mt / yuk[8, 2].Text
+        GridView1[8, 2].Text = Format$(geril, "#.#")
+        If geril > eger Then
+            GridView1[8, 2].Background = Color.red
+        Else
+            GridView1[8, 2].Background = Color.White
+        Endif
+        GridView1[8, 0].Text = 8
+    Endif
+    If yuk[9, 0].Text <> "" Then
+        mt = testyuk * (2 * l9 + 2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + 2 * l2 + 2 * l1) + f1 * (2 * l9 + 2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + 2 * l2 + l1) + f2 * (2 * l9 + 2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + l2) + f3 * (2 * l9 + 2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + 2 - l4 + l3) + f4 * (2 * l9 + 2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + l4) + f5 * (2 * l9 + 2 * l8 + 2 * l7 + 2 * l6 + l5) + f6 * (2 * l9 + 2 * l8 + 2 * l7 + l6) + f7 * (2 * l9 + 2 * l8 + l7) + f8 * (2 * l9 + l8) + f9 * l9
+        If mt > tork1 Then
+            tork2 = tork1
+            tork1 = mt
+        Endif
+        agi = testyuk + f1 + f2 + f3 + f4 + f5 + f6 + f7 + f9
+        GridView1[9, 1].Text = Format$(mt, "#.#")
+        geril = mt / yuk[9, 2].Text
+        GridView1[9, 2].Text = Format$(geril, "#.#")
+        If geril > eger Then
+            GridView1[9, 2].Background = Color.red
+        Else
+            GridView1[9, 2].Background = Color.White
+        Endif
+        GridView1[9, 0].Text = 9
+    Endif
+    TextBox20.Text = agi / 100
+    TextBox21.Text = Format$(tork1 / 10000, "#")
+    TextBox30.Text = Format$(tork2 / 10000, "#")
+    mt = testyuk * (2 * l9 + 2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + 2 * l2 + 2 * l1) ^ 2 + f1 * (2 * l9 + 2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + 2 * l2 + l1) ^ 2 + f2 * (2 * l9 + 2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + 2 * l4 + 2 * l3 + l2) ^ 2 + f3 * (2 * l9 + 2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + 2 - l4 + l3) ^ 2 + f4 * (2 * l9 + 2 * l8 + 2 * l7 + 2 * l6 + 2 * l5 + l4) ^ 2 + f5 * (2 * l9 + 2 * l8 + 2 * l7 + 2 * l6 + l5) ^ 2 + f6 * (2 * l9 + 2 * l8 + 2 * l7 + l6) ^ 2 + f7 * (2 * l9 + 2 * l8 + l7) ^ 2 + f8 * (2 * l9 + l8) ^ 2 + f9 * l9 ^ 2
+    mt = mt / 10000
+    TextBox56.Text = Format$(mt, "#")
+    dtdsec(TextBox21.Text)
+    f9 = CFloat(TextLabel1.Text) / 1100
+    l9 = Format$(CFloat(Label95.Text) + (1296 * f9), "#")
+    Message("Gerçek açıklık = " & l9 & "mm.  " & TextBox60.Text & "mm.  değil")
+    TextBox60.Text = l9
+    eger = CFloat(TextBox41.Text) * 2 * Pi / 60
+    geril = eger / 3
+    TextBox53.Text = Format$(mt * geril, "#")
+    eger = CFloat(TextBox33.Text) / CFloat(TextBox34.Text) * CFloat(TextBox41.Text)
+    TextBox51.Text = Format$(CFloat(TextBox53.Text) / eger, "#")
+    TextBox35.Text = testyukt
+    Return
+       Catch
+	ilk.hatayaz("momhesap " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+    ' kulsec
+    ' yersec
+
+End
+
+Sub dtdsec(mone As Float)
+
+    Dim myFile As File
+    Dim myLine As String
+
+    mone = mone * 1.4
+    myFile = Open "dtd/dtddis" For Read
+    If Lof(myFile) > 0 Then
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            csp.yazi = myLine
+            csp.dsy()
+            If (csp.sonuc2) <> "" Then
+                If mone < CFloat(csp.sonuc2) Then
+                    TextLabel1.Text = csp.sonuc4
+                    TextLabel2.Text = csp.sonuc3
+                    Return
+                Endif
+            Endif
+        Wend
+    End If
+    Close myFile
+
+    Return
+
+End
+
+Sub hidhesap()
+
+    Dim fkaldirma, fkirma, hcmkal, hcmkir As Float
+
+    fkaldirma = CFloat(TextBox21.Text) / (CFloat(TextBox31.Text) / 1000 * CFloat(TextBox36.Text)) * 100
+    fkirma = CFloat(TextBox30.Text) / (CFloat(TextBox32.Text) / 1000 * CFloat(TextBox58.Text)) * 100
+    TextBox42.Text = Format$(CFloat(TextBox21.Text) / (CFloat(TextBox31.Text) / 1000 * CFloat(TextBox36.Text)), "#")
+    TextBox43.Text = Format$(CFloat(TextBox30.Text) / (CFloat(TextBox32.Text) / 1000 * CFloat(TextBox58.Text)), "#")
+
+    TextBox44.Text = Format$(10 * Sqr(4 * fkaldirma / (Pi * CFloat(TextBox38.Text))), "#")
+    TextBox45.Text = Format$(10 * Sqr(4 * fkirma / (Pi * CFloat(TextBox38.Text))), "#")
+
+    hcmkal = Pi * CFloat(TextBox44.Text) ^ 2 * CFloat(TextBox37.Text) / 4000000
+    hcmkir = Pi * CFloat(TextBox45.Text) ^ 2 * CFloat(TextBox59.Text) / 4000000
+    TextBox47.Text = Format$(hcmkal / (CFloat(TextBox39.Text) / 60), "#")
+    TextBox48.Text = Format$(hcmkir / (CFloat(TextBox39.Text) / 60), "#")
+    TextBox49.Text = Format$(CFloat(TextBox38.Text) * CFloat(TextBox47.Text) / 540, "#")
+    TextBox50.Text = Format$(CFloat(TextBox38.Text) * CFloat(TextBox49.Text) / 540, "#")
+
+    TextBox46.Text = Format$(10 * Sqr(4 * testyukt / (Pi * CFloat(TextBox38.Text))), "#")
+    hcmkal = Pi * CFloat(TextBox46.Text) ^ 2 * CFloat(TextBox40.Text) / 4000000 * enb
+    TextBox52.Text = Format$(hcmkal / (CFloat(TextBox39.Text) / 60), "#")
+    TextBox54.Text = Format$(CFloat(TextBox38.Text) * CFloat(TextBox52.Text) / 540, "#")
+    Return
+Catch
+	ilk.hatayaz("hidhesap " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub Button6_Click()
+
+    Dim i As Integer
+    Dim dosya As String
+
+    Dim myFile As File
+
+    If Dialog.SaveFile() Then Return
+    dosya = File.Name(Dialog.Path)
+    $sPath = File.Dir(Dialog.Path)
+    myFile = Open $sPath &/ dosya & ".txt" For Create
+    Print #myFile, "   DÖNER TABLA DİŞLİSİ  SONUÇLARI"
+    Print #myFile, "   "
+    Print #myFile, "   GİRDİLER "
+    Print #myFile, "   Yükler              Açıklık  "
+    For i = 1 To 19
+        If yuk[i, 0].Text <> ""
+            Print #myFile, yuk[i, 0].Text & "     " & yuk[i, 1].Text
+        End If
+    Next
+    Print #myFile, "Kullanım Alanı  " & ComboBox2.Text
+    Print #myFile, "Emniyet Katsayısı  " & TextBox17.Text
+    Print #myFile, "İvme  " & TextBox22.Text & " m/sn^2."
+    Print #myFile, "Pinyon dişli oranı  " & TextBox23.Text
+    Print #myFile, "Dönme Hızı  " & TextBox25.Text & " d/d."
+    Print #myFile, "   SONUÇLAR "
+    Print #myFile, "Px (Toplam Dikey yük) :  " & TextBox20.Text & " kN."
+    Print #myFile, "Py(Toplam Moment) :  " & TextBox21.Text & " kNm."
+    Print #myFile, "Motor Torku :  " & TextBox24.Text & " kNm."
+    Close myFile
+Catch
+	ilk.hatayaz("Button6_Click " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub trkhesap()
+
+    Dim i As Integer
+    Dim ff, tt, ivme, v2, oran As Float
+
+    ivme = CFloat(textbox22.Text)
+    v2 = CFloat(textbox25.Text)
+    oran = CFloat(textbox23.Text)
+    For i = 1 To 19
+        If yuk[i, 0].Text <> ""
+            ff = ff + (CFloat(yuk[i, 0].Text) * (CFloat(yuk[i, 1].Text) ^ 2) / 1000000)
+            Label91.Text = Format$(ff, "#")
+        End If
+    Next
+    tt = 1.25 * Pi * v2 * ff / (294.2 * ivme * oran)
+    TextBox24.Text = Format$(tt * 9.8, "#")
+    Return
+Catch
+	ilk.hatayaz("trkhesap " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub TextBox26_Activate()
+
+    yuk[yuk.Row, yuk.Column].Text = TextBox26.Text
+    If TextBox26.Text = "" Then
+        yuk[yuk.Row, 0].Text = ""
+        yuk[yuk.Row, 1].Text = ""
+        yuk[yuk.Row, 2].Text = ""
+        yuk[yuk.Row, 3].Text = ""
+        yuk[yuk.Row + 1, 0].Text = ""
+        yuk[yuk.Row + 1, 1].Text = ""
+        yuk[yuk.Row + 1, 2].Text = ""
+        yuk[yuk.Row + 1, 3].Text = ""
+        yuk[yuk.Row + 2, 0].Text = ""
+        yuk[yuk.Row + 2, 1].Text = ""
+        yuk[yuk.Row + 2, 2].Text = ""
+        yuk[yuk.Row + 2, 3].Text = ""
+        yuk[yuk.Row + 3, 0].Text = ""
+        yuk[yuk.Row + 3, 1].Text = ""
+        yuk[yuk.Row + 3, 2].Text = ""
+        yuk[yuk.Row + 3, 3].Text = ""
+        yuk[yuk.Row + 4, 0].Text = ""
+        yuk[yuk.Row + 4, 1].Text = ""
+        yuk[yuk.Row + 4, 2].Text = ""
+        yuk[yuk.Row + 4, 3].Text = ""
+    Endif
+    TextBox26.Visible = False
+
+End
+
+Public oc As Integer
+Public ov As Integer
+
+Public Sub yuk_Click()
+
+    TextBox26.Clear
+    TextBox26.SetFocus
+    TextBox2.Move(yuk[yuk.Row, yuk.Column].X, yuk[yuk.Row, yuk.Column].Y, yuk[yuk.Row, yuk.Column].Width)
+    TextBox26.Visible = True
+    yuk[ov, oc].Background = Color.white
+    yuk[yuk.Row, yuk.Column].Background = Color.Cyan
+    oc = yuk.Column
+    ov = yuk.Row
+
+End
+
+Public Sub daire_Click()
+
+    clre
+    a.Move(80, 200)
+    ab.Move(8, 200)
+    a.Visible = True
+    ab.Visible = True
+    ab.text = " Dia(mm.) "
+    resim.Picture = picture["res/daireres.png"]
+    profil.Clear
+
+End
+
+Public Sub boru_Click()
+
+    clre
+    profil.Clear
+    a.Move(120, 200)
+    ab.Move(8, 200)
+    b.Move(120, 230)
+    bb.Move(8, 230)
+    a.Visible = True
+    b.Visible = True
+    ab.Visible = True
+    bb.Visible = True
+    ab.text = "Outer Dia(mm.)"
+    bb.text = "Inner Dia(mm.)"
+    resim.Picture = picture["res/borures.png"]
+
+End
+
+Public Sub dikdort_Click()
+
+    clre
+    profil.Clear
+    a.Move(80, 200)
+    ab.Move(8, 200)
+    b.Move(80, 230)
+    bb.Move(8, 230)
+    a.Visible = True
+    b.Visible = True
+    ab.Visible = True
+    bb.Visible = True
+    ab.text = " a(mm.)"
+    bb.text = "b(mm.)"
+    resim.Picture = picture["res/dikres.png"]
+
+End
+
+Public Sub bosdort_Click()
+
+    clre
+    profil.Clear
+    a.Move(80, 200)
+    ab.Move(8, 200)
+    b.Move(80, 230)
+    bb.Move(8, 230)
+    c.Move(80, 260)
+    cb.Move(8, 260)
+    a.Visible = True
+    b.Visible = True
+    c.Visible = True
+    e.Visible = True
+    ab.Visible = True
+    bb.Visible = True
+    cb.Visible = True
+    ab.text = "a(mm.)"
+    bb.text = "b(mm.)"
+    cb.text = "t(mm.)"
+    resim.Picture = picture["res/bosdikres.png"]
+
+End
+
+Public Sub npi_Click()
+
+    clre
+    nip.clear
+    profil.Clear
+    profil.Visible = True
+    yazi.move(3, 230)
+    etiket.move(3, 265)
+    yazi.Visible = True
+    nip.Visible = True
+
+    etiket.Visible = True
+    etiket.text = "Select I height"
+    resim.Picture = picture["res/i.png"]
+    yazi.text = "Select I type"
+    nip.Add("NPI", 0)
+    nip.Add("IPE", 1)
+    nip.Add("HEA", 2)
+    nip.Add("HEB", 3)
+    nip.Add("HEM", 4)
+    ekle
+    hsp
+
+End
+
+Public Sub npu_Click()
+
+    clre
+    profil.Clear
+    etiket.move(3, 265)
+    profil.Visible = True
+    etiket.Visible = True
+    resim.Picture = picture["res/u.png"]
+    etiket.text = "Select U height"
+    akla
+    hsp
+
+End
+
+Public Sub kosebent_Click()
+
+    clre
+    profil.Clear
+    profil.Visible = True
+    etiket.text = "Select Angle height"
+    resim.Picture = picture["res/kosebent.png"]
+
+End
+
+Sub ekle()
+
+    profil.Visible = True
+    profil.Add(80, 0)
+    profil.Add(100, 1)
+    profil.Add(120, 2)
+    profil.Add(140, 3)
+    profil.Add(160, 4)
+    profil.Add(180, 5)
+    profil.Add(200, 6)
+    profil.Add(220, 7)
+    profil.Add(240, 8)
+    profil.Add(260, 9)
+    profil.Add(280, 10)
+    profil.Add(300, 11)
+    profil.Add(320, 12)
+    profil.Add(340, 13)
+    profil.Add(360, 14)
+    profil.Add(380, 15)
+    profil.Add(400, 16)
+    profil.Add(450, 17)
+    profil.Add(500, 18)
+    profil.Add(550, 19)
+    Return
+
+End
+
+Sub akla()
+
+    profil.Visible = True
+    profil.Add("30-15", 0)
+    profil.Add("30-33", 1)
+    profil.Add("40-20", 2)
+    profil.Add("40-35", 3)
+    profil.Add("50-25", 4)
+    profil.Add("50-38", 5)
+    profil.Add(60, 6)
+    profil.Add(65, 7)
+    profil.Add(80, 8)
+    profil.Add(100, 9)
+    profil.Add(120, 10)
+    profil.Add(140, 11)
+    profil.Add(160, 12)
+    profil.Add(180, 13)
+    profil.Add(200, 14)
+    profil.Add(220, 15)
+    profil.Add(240, 16)
+    profil.Add(260, 17)
+    profil.Add(280, 18)
+    profil.Add(300, 19)
+    profil.Add(320, 20)
+    profil.Add(350, 21)
+    profil.Add(380, 22)
+    profil.Add(400, 23)
+    Return
+
+End
+
+Public Sub Wizard1_Change()
+
+    If Wizard1.Index = 2 Then
+        hsp
+        If atalet.Text
+        Else
+            message("Specify profile ", "OK")
+            Wizard1.Index = 1
+        End If
+    End If
+    If Wizard1.Index = 1
+
+    End If
+
+End
+
+Public Sub hsp()
+
+    kesit.tem
+    If daire.Value = True Then
+        If Val(a.Text) <> ""
+            kesit.daire(a.Text)
+            atalet.Text = Format$(kesit.atalet, "#")
+            iyy.Text = Format$(kesit.atalet, "#")
+            mukavemet.Text = Format$(kesit.mukavemet, "#")
+            alana.Text = Format$(kesit.allan, "#")
+            agir.Text = Format$(kesit.agir, "#")
+        End If
+    End If
+    If boru.Value = True Then
+        If Val(a.Text) <> "" And Val(b.Text) <> ""
+            kesit.boru(b.Text, a.Text)
+            atalet.Text = Format$(kesit.atalet, "#")
+            iyy.Text = Format$(kesit.atalet, "#")
+            mukavemet.Text = Format$(kesit.mukavemet, "#")
+            alana.Text = Format$(kesit.allan, "#")
+            agir.Text = Format$(kesit.agir, "#")
+        End If
+    End If
+    If dikdort.Value = True Then
+        If Val(a.Text) <> "" And Val(b.Text) <> ""
+            kesit.dikd(b.Text, a.Text)
+            atalet.Text = Format$(kesit.atalet, "#")
+            iyy.Text = Format$(kesit.atalety, "#")
+            mukavemet.Text = Format$(kesit.mukavemet, "#")
+            alana.Text = Format$(kesit.allan, "#")
+            agir.Text = Format$(kesit.agir, "#")
+        End If
+    End If
+    If bosdort.Value = True Then
+        If Val(a.Text) <> "" And Val(b.Text) <> "" And Val(c.Text) <> ""
+            kesit.kutu(a.Text, b.Text, c.Text)
+            kesit.dikd(b.Text, a.Text)
+            atalet.Text = Format$(kesit.atalet, "#")
+            iyy.Text = Format$(kesit.atalety, "#")
+            mukavemet.Text = Format$(kesit.mukavemet, "#")
+            alana.Text = Format$(kesit.allan, "#")
+            agir.Text = Format$(kesit.agir, "#")
+        End If
+    End If
+    If npi.Value = True Then
+        If nip.Text = "NPI" Then
+            kesit.npi(profil.Text)
+        End If
+        If nip.Text = "IPE" Then
+            kesit.ipe(profil.Text)
+        End If
+        If nip.Text = "HEA" Then
+            kesit.hea(profil.Text)
+        End If
+        If nip.Text = "HEB" Then
+            kesit.heb(profil.Text)
+        End If
+        If nip.Text = "HEM" Then
+            kesit.heb(profil.Text)
+        Endif
+        alana.Text = kesit.allan
+        agir.Text = kesit.agir
+        atalet.Text = kesit.atalet
+        mukavemet.Text = kesit.mukavemet
+        iyy.Text = kesit.atalety
+    End If
+    If npu.Value = True Then
+        kesit.npu(profil.Text)
+        alana.Text = kesit.allan
+        agir.Text = kesit.agir
+        atalet.Text = kesit.atalet
+        mukavemet.Text = Format$(kesit.mukavemet, "#")
+        iyy.Text = kesit.atalety
+    End If
+    Return
+Catch
+	ilk.hatayaz("hsp " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub clre()
+
+    a.Visible = False
+    b.Visible = False
+    c.Visible = False
+    e.Visible = False
+    ab.Visible = False
+    bb.Visible = False
+    cb.Visible = False
+    eb.Visible = False
+    profil.Visible = True
+    yazi.Visible = False
+    nip.Visible = False
+    etiket.Visible = False
+    yazi.Visible = False
+    profil.Visible = ""
+    atalet.Text = ""
+    alana.Text = ""
+    mukavemet.Text = ""
+    agir.Text = ""
+    a.Text = ""
+    b.Text = ""
+    c.Text = ""
+    e.Text = ""
+    iyy.Text = ""
+
+End
+
+Public Sub profil_Change()
+
+    hsp
+
+End
+
+Public Sub nip_Change()
+
+    hsp
+
+End
+
+Public Sub a_Activate()
+
+    hsp
+
+End
+
+Public Sub e_Activate()
+
+    hsp
+
+End
+
+Public Sub b_Activate()
+
+    hsp
+
+End
+
+Public Sub Form_Close()
+
+    Select Message.Question("Bilgileri Kaybediyorsun?", "Devam Et", "Yinede Çık")
+        Case 1
+            Stop Event
+        Case 2
+    End Select
+
+End
+
+Public Sub c_Activate()
+
+    hsp
+
+End
+
+Public Sub Wizard2_Cancel()
+
+    vinc.Close
+
+End
+
+Public Sub Wizard2_Change()
+
+    If Wizard2.Index = 2 Then
+        If yuk[2, 2].Text = "" Then CheckBox1.Value = True
+        momhesap()
+    Endif
+    If Wizard2.Index = 3 Then hidhesap()
+    If Wizard2.Index = 3 Then trkhesap()
+    tork1 = 0
+    tork2 = 0
+    ' If Wizard2.Index = 4 Then Button1_Click()
+
+End
+
+Public Sub TextBox57_Change()
+
+    If IsFloat(TextBox57.Text) Then
+        TextBox55.Text = CFloat(TextBox57.Text) * 1.15
+        testyukt = CFloat(TextBox57.Text)
+    Endif
+
+End
+
+Public testyukt As Float
+Public testyuk As Float
+
+Public Sub TextBox18_Change()
+
+    If IsFloat(TextBox18.Text) Then
+        TextBox19.Text = CFloat(TextBox18.Text) * 1.15
+        testyuk = CFloat(TextBox19.Text)
+    Endif
+
+End
+
+Public enb As Integer
+
+Public Sub CheckBox1_Click()
+
+    Dim i, kl As Integer
+    Dim et, ek, dis, ic, atelet, ona, onb, uzunv As Float
+
+    If yuk[1, 0].Text <> "" Then enb = 1
+    If yuk[2, 0].Text <> "" Then enb = 2
+    If yuk[3, 0].Text <> "" Then enb = 3
+    If yuk[4, 0].Text <> "" Then enb = 4
+    If yuk[5, 0].Text <> "" Then enb = 5
+    If yuk[6, 0].Text <> "" Then enb = 6
+    If yuk[7, 0].Text <> "" Then enb = 7
+    If yuk[8, 0].Text <> "" Then enb = 8
+    If yuk[9, 0].Text <> "" Then enb = 9
+    ona = CFloat(eni.Text)
+    onb = CFloat(boyi.Text)
+    If CheckBox1.Value = True Then
+        For i = 1 To enb
+            dis = CFloat(boyi.Text)
+            ic = CFloat(eni.Text)
+            et = CFloat(boyi.Text) - 2 * CFloat(kil.Text)
+            ek = CFloat(eni.Text) - 2 * CFloat(kil.Text)
+            kl = enb - i
+            uzunv = CFloat(yuk[kl + 1, 1].Text)
+            atelet = (ic * (dis ^ 3) / 12) - (ek * (et ^ 3) / 12)
+            yuk[kl + 1, 2].Text = Format$(atelet / (dis * 1000 / 2), "#")
+            yuk[kl + 1, 3].Text = Format$((ic * dis - et * ek) * uzunv * 7.86 / 1000000, "#")
+            GridView1[kl + 1, 3].Text = ic
+            GridView1[kl + 1, 4].Text = dis
+            eni.Text = ic - 30
+            boyi.Text = dis - 46
+        Next
+    Endif
+
+    eni.Text = ona
+    boyi.Text = onb
+
+End
+
+Public Sub yuk_Change() ' 0 yuk  1 uzunluk  2 mukavemet momenti
+
+    Dim i As Integer
+    Dim tuzu, nuzu, nagi As Float
+
+    For i = 1 To 15
+        If yuk[i, 1].Text <> "" And yuk[i, 0].Text <> "" Then
+            tuzu = tuzu + CFloat(yuk[i, 1].Text)
+            nuzu = tuzu - ((i - 1) * 350)
+            nagi = nagi + CFloat(yuk[i, 0].Text)
+        Endif
+    Next
+
+    Label94.Text = "Toplam Uzunluk=" & tuzu
+    Label95.Text = nuzu
+    Label96.Text = "Ağırlık=" & nagi
+
+End
+
+Public Sub Button1_Click()
+
+    yuk[1, 0].Text = 203
+    yuk[1, 1].Text = 2750
+    yuk[2, 0].Text = 213
+    yuk[2, 1].Text = 2610
+    yuk[3, 0].Text = 238
+    yuk[3, 1].Text = 2600
+    yuk[4, 0].Text = 265
+    yuk[4, 1].Text = 2610
+    yuk[5, 0].Text = 281
+    yuk[5, 1].Text = 2650
+    yuk[6, 0].Text = 298
+    yuk[6, 1].Text = 2430
+    yuk[7, 0].Text = 327
+    yuk[7, 1].Text = 2460
+    yuk[8, 0].Text = 600
+    yuk[8, 1].Text = 2379
+    yuk[9, 0].Text = 750
+    yuk[9, 1].Text = 1200
+    yuk_Change()
+
+End
+
+Public Sub Wizard2_Close()
+
+    Me.close
+
+End
+
+Public tss As Integer
+
+Public Sub Button7_Click()
+
+    Dim l1, l2, l3, l4, l5, l6, l7, l8, l9, f1, f2, f3, f4, f5, f6, f7, f9, eger, luzun, wi, he As Float  ' 0 yuk  1 uzunluk  2 mukavemet momenti
+    Dim xm, ym As Float
+
+    If yuk[2, 0].Text <> "" Then l2 = yuk[2, 1].Text
+    If yuk[3, 0].Text <> "" Then l3 = yuk[3, 1].Text
+    If yuk[4, 0].Text <> "" Then l4 = yuk[4, 1].Text
+    If yuk[5, 0].Text <> "" Then l5 = yuk[5, 1].Text
+    If yuk[6, 0].Text <> "" Then l6 = yuk[6, 1].Text
+    If yuk[7, 0].Text <> "" Then l7 = yuk[7, 1].Text
+    If yuk[8, 0].Text <> "" Then l8 = yuk[8, 1].Text
+    If yuk[9, 0].Text <> "" Then l9 = yuk[9, 1].Text
+    luzun = CFloat(TextBox60.Text) + CFloat(TextBox60.Text) / 3
+    f7 = CFloat(kil.Text)
+    ' ustten gorunuş
+    If yuk[1, 0].Text <> "" Then
+        l8 = 1
+        tss = 1
+        l1 = yuk[1, 1].Text
+        l2 = yuk[1, 1].Text
+        l4 = l1
+        l3 = luzun
+        f2 = GridView1[1, 3].Text
+        eger = GridView1[1, 4].Text
+        f4 = eger
+        cizil(1000, 500, f2, l1, Color.red) ' yandan gorunuş kapalı
+        cizil(luzun, 500, f2, l1, Color.red) ' yandan gorunuş açık
+        cizil(1000, 6500, eger, l1, Color.red) ' ustten gorunuş kapalı
+        cizil(l3, 6500, eger, l1, Color.red) ' ustten gorunuş açık
+        cizil(l2 + 1500, 6500, eger, f2, Color.red) ' önden gorunuş dış
+        cizil(l2 + 1500 + f7, 6500 + f7, eger - 2 * f7, f2 - 2 * f7, Color.red) ' önden gorunuş iç
+    Endif
+    luzun = luzun + l1
+    If yuk[2, 0].Text <> "" Then
+        l8 = 2
+        tss = 2
+        f1 = (CFloat(GridView1[2, 4].Text) - f2) / 2
+        f6 = (CFloat(GridView1[2, 3].Text) - f4) / 2
+        l1 = yuk[2, 1].Text
+        l4 = l4 + yuk[2, 1].Text
+        l3 = l3 - l1 + 350
+        f3 = GridView1[2, 3].Text
+        eger = GridView1[2, 4].Text
+        f5 = (eger - f4) / 2
+        cizil(1000, 500 - f6, f3, l1, Color.Yellow) ' yandan gorunuş kapalı
+        cizil(l3, 500 - f6, f3, l1, Color.Yellow)   '  yandan gorunu ş açık
+        cizil(1000, 6500 - f5, eger, l1, Color.Yellow) ' ustten gorunuş kapalı
+        cizil(l3, 6500 - f5, eger, l1, Color.Yellow) ' ustten gorunuş açık
+        cizil(l2 + 1500 - f6, 6500 - f1, eger, f3, Color.Yellow) ' önden gorunuş   dış
+        cizil(l2 + 1500 - f6 + f7, 6500 - f1 + f7, eger - 2 * f7, f3 - 2 * f7, Color.Yellow) ' önden gorunuş   iç
+    Endif
+    If yuk[3, 0].Text <> "" Then
+        l8 = 3
+        tss = 3
+        l1 = yuk[3, 1].Text
+        l4 = l4 + l1
+        l3 = l3 - l1 + 350
+        f1 = (CFloat(GridView1[3, 4].Text) - f2) / 2
+        f6 = (CFloat(GridView1[3, 3].Text) - f4) / 2
+        f3 = GridView1[3, 3].Text
+        eger = GridView1[3, 4].Text
+        f5 = (eger - f4) / 2
+        cizil(1000, 500 - f6, f3, l1, Color.Magenta) ' yandan gorunuş kapalı
+        cizil(l3, 500 - f6, f3, l1, Color.Magenta) ' yandan gorunuş açık
+        cizil(1000, 6500 - f5, eger, l1, Color.Magenta) ' ustten gorunuş kapalı
+        cizil(l3, 6500 - f5, eger, l1, Color.Magenta) ' ustten gorunuş  açık
+        cizil(l2 + 1500 - f6, 6500 - f1, eger, f3, Color.Magenta) ' önden gorunuş dış
+        cizil(l2 + 1500 - f6 + f7, 6500 - f1 + f7, eger - 2 * f7, f3 - 2 * f7, Color.Magenta) ' önden gorunuş
+    Endif
+
+    If yuk[4, 0].Text <> "" Then
+        l8 = 4
+        tss = 4
+        l1 = yuk[4, 1].Text
+        l4 = l4 + l1
+        l3 = l3 - l1 + 350
+        f1 = (CFloat(GridView1[4, 4].Text) - f2) / 2
+        f6 = (CFloat(GridView1[4, 3].Text) - f4) / 2
+        f3 = GridView1[4, 3].Text
+        eger = GridView1[4, 4].Text
+        f5 = (eger - f4) / 2
+        cizil(1000, 500 - f6, f3, l1, Color.Green) ' yandan gorunuş
+        cizil(l3, 500 - f6, f3, l1, Color.Green) ' yandan gorunuş
+        cizil(1000, 6500 - f5, eger, l1, Color.Green) ' ustten gorunuş
+        cizil(l3, 6500 - f5, eger, l1, Color.Green) ' ustten gorunuş
+        cizil(l2 + 1500 - f6, 6500 - f1, eger, f3, Color.Green) ' önden gorunuş
+        cizil(l2 + 1500 - f6 + f7, 6500 - f1 + f7, eger - 2 * f7, f3 - 2 * f7, Color.Green) ' önden gorunuş
+    Endif
+    If yuk[5, 0].Text <> "" Then
+        l8 = 5
+        tss = 5
+        l1 = yuk[5, 1].Text
+        l4 = l4 + l1
+        l3 = l3 - l1 + 350
+        f1 = (CFloat(GridView1[5, 4].Text) - f2) / 2
+        f6 = (CFloat(GridView1[5, 3].Text) - f4) / 2
+        f3 = GridView1[5, 3].Text
+        cizil(1000, 500 - f6, f3, l1, Color.Cyan) ' yandan gorunuş
+        cizil(l3, 500 - f6, f3, l1, Color.Cyan) ' yandan gorunuş
+        eger = GridView1[5, 4].Text
+        f5 = (eger - f4) / 2
+        cizil(1000, 6500 - f5, eger, l1, Color.Cyan) ' ustten gorunuş
+        cizil(l3, 6500 - f5, eger, l1, Color.Cyan) ' ustten gorunuş
+        cizil(l2 + 1500 - f6, 6500 - f1, eger, f3, Color.Cyan) ' önden gorunuş
+        cizil(l2 + 1500 - f6 + f7, 6500 - f1 + f7, eger - 2 * f7, f3 - 2 * f7, Color.Cyan) ' önden gorunuş
+    Endif
+    If yuk[6, 0].Text <> "" Then
+        l8 = 6
+        tss = 6
+        l1 = yuk[6, 1].Text
+        l4 = l4 + l1
+        l3 = l3 - l1 + 350
+        f1 = (CFloat(GridView1[6, 4].Text) - f2) / 2
+        f6 = (CFloat(GridView1[6, 3].Text) - f4) / 2
+        f3 = GridView1[6, 3].Text
+        cizil(1000, 500 - f6, f3, l1, Color.Blue) ' yandan gorunuş
+        cizil(l3, 500 - f6, f3, l1, Color.Blue) ' yandan gorunuş
+        eger = GridView1[6, 4].Text
+        f5 = (eger - f4) / 2
+        cizil(1000, 6500 - f5, eger, l1, Color.Blue) ' ustten gorunuş
+        cizil(l3, 6500 - f5, eger, l1, Color.Blue) ' ustten gorunuş
+        cizil(l2 + 1500 - f6, 6500 - f1, eger, f3, Color.Blue) ' önden gorunuş
+        cizil(l2 + 1500 - f6 + f7, 6500 - f1 + f7, eger - 2 * f7, f3 - 2 * f7, Color.Blue) ' önden gorunuş
+    Endif
+    If yuk[7, 0].Text <> "" Then
+        l8 = 7
+        tss = 7
+        l1 = yuk[7, 1].Text
+        l4 = l4 + l1
+        l3 = l3 - l1 + 350
+        f1 = (CFloat(GridView1[7, 4].Text) - f2) / 2
+        f6 = (CFloat(GridView1[7, 3].Text) - f4) / 2
+        f3 = GridView1[7, 3].Text
+        cizil(1000, 500 - f6, f3, l1, Color.Orange) ' yandan gorunuş
+        cizil(l3, 500 - f6, f3, l1, Color.Orange) ' yandan gorunuş
+        eger = GridView1[7, 4].Text
+        f5 = (eger - f4) / 2
+        cizil(1000, 6500 - f5, eger, l1, Color.Orange) ' ustten gorunuş
+        cizil(l3, 6500 - f5, eger, l1, Color.Orange) ' ustten gorunuş
+        cizil(l2 + 1500 - f6, 6500 - f1, eger, f3, Color.Orange) ' önden gorunuş
+        cizil(l2 + 1500 - f6 + f7, 6500 - f1 + f7, eger - 2 * f7, f3 - 2 * f7, Color.Orange) ' önden gorunuş
+    Endif
+    If yuk[8, 0].Text <> "" Then
+        l8 = 8
+        tss = 8
+        l1 = yuk[8, 1].Text
+        l4 = l4 + l1
+        l3 = l3 - l1 + 350
+        f1 = (CFloat(GridView1[8, 4].Text) - f2) / 2
+        f6 = (CFloat(GridView1[8, 3].Text) - f4) / 2
+        f3 = GridView1[8, 3].Text
+        cizil(1000, 500 - f6, f3, l1, Color.Pink) ' üstten gorunuş  kapalı
+        cizil(l3, 500 - f6, f3, l1, Color.Pink) ' üstten gorunuş açık
+        eger = GridView1[8, 4].Text
+        f5 = (eger - f4) / 2
+        cizil(1000, 6500 - f5, eger, l1, Color.Pink) ' yandan gorunuş  kapalı
+        cizil(l3, 6500 - f5, eger, l1, Color.Pink) ' yandan gorunuş açık
+        cizil(l2 + 1500 - f6, 6500 - f1, eger, f3, Color.Pink) ' önden gorunuş
+        cizil(l2 + 1500 - f6 + f7, 6500 - f1 + f7, eger - 2 * f7, f3 - 2 * f7, Color.Pink) ' önden gorunuş
+    Endif
+
+    If yuk[9, 0].Text <> "" Then
+        tss = 9
+        l1 = yuk[9, 1].Text
+        l4 = l4 + l1
+        l3 = l3 - l1 + 350
+        f1 = (CFloat(GridView1[9, 4].Text) - f2) / 2
+        f6 = (CFloat(GridView1[9, 3].Text) - f4) / 2
+        f3 = GridView1[9, 3].Text
+        cizil(500, 500 - f6, f3, l1, Color.Violet) ' yandan gorunuş
+        cizil(l3, 500 - f6, f3, l1, Color.Violet) ' yandan gorunuş
+        eger = GridView1[9, 4].Text
+        f5 = (eger - f4) / 2
+        cizil(500, 6500 - f5, eger, l1, Color.Violet) ' ustten gorunuş
+        cizil(l3, 6500 - f5, eger, l1, Color.Violet) ' ustten gorunuş
+        cizil(l2 + 1500 - f6, 6500 - f1, eger, f3, Color.Violet) ' önden gorunuş
+        cizil(l2 + 1500 - f6 + f7, 6500 - f1 + f7, eger - 2 * f7, f3 - 2 * f7, Color.Violet, "ee") ' önden gorunuş
+    Endif
+    f9 = CFloat(TextLabel1.Text) / 1100
+    cizem.renk = Color.Violet
+    cizem.bloku = "dsafer12"
+    cizem.cizgi(luzun - CFloat(TextBox60.Text), 6500, luzun - CFloat(TextBox60.Text) - 85, 11050) '  yan merkez
+    dacy.buyut(f9, luzun - CFloat(TextBox60.Text), 6500, "dsafer12", "dsafer")
+    For Each cazgi In ilk.cezmi
+        If cazgi.blok = "dsafer" Then
+            xm = cazgi.x1 '  yan alt merkez x
+            ym = cazgi.y1 '  yan alt merkez y
+        Endif
+    Next
+    cizem.cember(xm, 500 - f6 + eger / 2, CFloat(TextLabel1.Text) / 2) 'dtd üst açık
+    cizem.cember(-870, 500 - f6 + eger / 2, CFloat(TextLabel1.Text) / 2) 'dtd üst kapalı
+    cizem.bloku = "kule"
+    cizem.cember(l3 + 770, 6500 + eger / 2, 55) 'Silindir bağlantısı
+
+    ilk.bolok = ilk.bolok + 1
+    ilk.ylc = "dtd/dis/" & TextLabel2.text & "/" & TextLabel1.text
+    eklem("dtdy", xm - 1550, 9974 - f6 + eger / 2)  '  Yan açık DTD çiziliyor
+
+    ilk.ylc = "dtd/kulekiris.ulu"   ' yan açık kule kısmı
+    l8 = luzun - CFloat(TextBox60.Text) + 300
+    eklem("kule", l8 - 474, 230)
+    l8 = luzun - CFloat(TextBox60.Text)
+    dacy.buyut(f9, l8, 6500 - eger / 4, "kulea", ilk.bolok + 2)
+
+    ilk.ylc = "dtd/dis/" & TextLabel2.text & "/" & TextLabel1.text
+    eklem("dtdy", -2346, 9974 - f6 + eger / 2)  '  Yan kapalı DTD çiziliyor
+
+    ilk.ylc = "dtd/kulekiris.ulu"   ' yan kapalı kule kısmı
+    l8 = luzun - CFloat(TextBox60.Text) + 300
+    eklem("kule", -970, 230)
+    l8 = luzun - CFloat(TextBox60.Text)
+    dacy.buyut(f9, 500, 6500 - eger / 4, "kulea", ilk.bolok + 2)
+
+    wi = CFloat(eni.Text)
+    he = CFloat(boyi.Text)
+    cizem.bloku = "kule2"
+    cizem.renk = Color.Magenta
+    cizil(luzun - CFloat(TextBox60.Text) - 1500, 500 - f6 - 30, 20, 3000, Color.Magenta, "kule2") ' yan plakalar üstten
+    cizil(luzun - CFloat(TextBox60.Text) - 1500, 500 + wi - f6 + 10, 20, 3000, Color.Magenta, "kule2") ' yan plakalar üstten
+    cizem.cizgi(luzun - CFloat(TextBox60.Text) - 1500, 500 - f6 - 30, luzun - CFloat(TextBox60.Text) - 1500, 500 + wi - f6 + 10)
+    cizem.cizgi(luzun - CFloat(TextBox60.Text) + 1500, 500 - f6 - 30, luzun - CFloat(TextBox60.Text) + 1500, 500 + wi - f6 + 10)
+
+    cizil(- 1500, 500 - f6 - 30, 20, 3000, Color.Magenta, "kule2") ' yan plakalar üstten
+    cizil(- 1500, 500 + wi - f6 + 10, 20, 3000, Color.Magenta, "kule2") ' yan plakalar üstten
+    cizem.cizgi(- 1500, 500 - f6 - 30, -1500, 500 + wi - f6 + 10)
+    cizem.cizgi(1500, 500 - f6 - 30, 1500, 500 + wi - f6 + 10)
+
+    yazilar
+Catch
+	ilk.hatayaz("btn7clk " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Sub cizil(bs As Float, sn As Float, en As Float, boy As Float, rk As Integer, Optional blk As String)
+
+    ilk.bolok = ilk.bolok + 2
+    If blk = "" Then blk = ilk.bolok + 2
+    cizem.bloku = blk
+    cizem.renk = rk
+    cizem.cizgi(bs, sn, (bs + boy), sn)
+    cizem.cizgi(bs + boy, sn, bs + boy, sn + en)
+    cizem.cizgi(bs + boy, sn + en, bs, sn + en)
+    cizem.cizgi(bs, sn + en, bs, sn)
+    Return
+
+End
+
+Sub duzek(df As String)
+
+    If Not df Then Return
+    csp = New Csplit
+    csp.yazi = df
+    csp.virg()
+    If csp.sonuc2 <> ""
+        sonac = (csp.sonuc1) & "." & csp.sonuc2
+    Else
+        sonac = df
+    End If
+    Return
+
+End
+
+Public sonac As String
+Public anx As Float
+Public any As Float
+
+Public Sub eklem(ibl As String, esex As Float, esey As Float)
+
+    Dim ix1, iy1, ix2, iy2, irenk, ikal, isek, ikom, ir, iteta, iyar As Float
+    Dim ikt, bd As Integer
+    Dim myFile As File
+    Dim iyazi, myLine As String
+
+    ilk.olcum = 1
+    myFile = Open ilk.ylc For Read
+    If Lof(myFile) > 0 Then
+    Else
+        Return
+    End If
+    anx = -9999999
+    any = 9999999
+    ir = 9999999
+    iyar = -9999999
+    While Not Eof(myFile)
+        Line Input #myFile, myLine
+        duzek(myLine)
+        myLine = sonac
+        bd = bd + 1
+        If bd = ikt + 31 Then ix1 = CFloat(myLine)
+        If bd = ikt + 32 Then iy1 = CFloat(myLine)
+        If bd = ikt + 33 Then ix2 = CFloat(myLine)
+        If bd = ikt + 34 Then iy2 = CFloat(myLine)
+        If ix1 = 0 Then Goto atla
+        If ix2 = 0 Then Goto atla
+        If iy1 = 0 Then Goto atla
+        If iy2 = 0 Then Goto atla
+        If ix1 < ir Then ir = ix1
+        If ix2 < ir Then ir = ix2
+        If ix1 > anx Then anx = ix1
+        If ix2 > anx Then anx = ix2
+
+        If iy1 > iyar Then iyar = iy1
+        If iy2 > iyar Then iyar = iy2
+        If iy1 < any Then any = iy1
+        If iy2 < any Then any = iy2
+    atla:
+        If bd = (ikt + 42) Then ikt = ikt + 42
+    Wend
+    anx = anx - ir
+    any = iyar - any
+    esex = esex - ir
+    esey = esey - iyar
+    bd = 0
+    ikt = 0
+    Close myFile
+    myFile = Open ilk.ylc For Read
+    While Not Eof(myFile)
+        Line Input #myFile, myLine
+        duzek(myLine)
+        myLine = sonac
+        bd = bd + 1
+        If bd = ikt + 2 Then ikom = CFloat(myLine)
+        If bd = ikt + 3 Then ix1 = CFloat(myLine) + esex
+        If bd = ikt + 4 Then iy1 = CFloat(myLine) + esey
+        If bd = ikt + 5 Then ix2 = CFloat(myLine) + esex
+        If bd = ikt + 6 Then iy2 = CFloat(myLine) + esey
+        If ikom = 20 Or ikom = 25 Then
+            If bd = ikt + 9 Then ir = CFloat(myLine)
+            If bd = ikt + 13 Then iteta = CFloat(myLine)
+            If bd = ikt + 19 Then iyar = CFloat(myLine)
+        Endif
+        If bd = ikt + 20 Then isek = myLine
+        If bd = ikt + 21 Then irenk = myLine
+        If bd = ikt + 22 Then ikal = myLine
+        If bd = ikt + 25 Then iyazi = myLine
+        If bd = (ikt + 24) Then
+            cizem.renk = irenk
+            cizem.kalin = ikal
+            cizem.sekil = isek
+            cizem.bloku = ibl
+            If ikom = 1 Then cizem.cizgi(ix1 * ilk.olcum, iy1 * ilk.olcum, ix2 * ilk.olcum, iy2 * ilk.olcum)
+            If ikom = 25 Then cizem.cember(ix1 * ilk.olcum, iy1 * ilk.olcum, iyar * ilk.olcum)
+            If ikom = 20 Then cizem.yay(ix1 * ilk.olcum, iy1 * ilk.olcum, iyar * ilk.olcum, iteta, ir)
+            If ikom = 60 Then cizem.yaz(ix1 * ilk.olcum, iy1 * ilk.olcum, iyazi, 10)
+        Endif
+        If bd = (ikt + 42) Then ikt = ikt + 42
+    Wend
+
+    Close myFile
+    Return
+Catch
+	ilk.hatayaz("eklem " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub yazilar()
+
+    Dim nm As Integer
+
+    nm = 2500
+    cizem.yaz(-1500, nm - 20, TextBox61.Text, 50)
+    cizem.yaz(-1500, nm + 100, "Kanca Yuku(kgf)=" & TextBox18.Text, 40)
+    cizem.yaz(-1500, nm + 200, "SPAN=" & TextBox60.Text, 40)
+    cizem.yaz(-1500, nm + 300, "Tambur Vinci=" & TextBox57.Text, 40)
+    cizem.yaz(-1500, nm + 400, "DTD Momenti=" & TextBox21.Text, 40)
+
+    cizem.yaz(-1500, nm + 500, "Kaldirma Silindiri", 50)
+    cizem.yaz(-1500, nm + 600, "Kuvvet F(kN)=" & TextBox42.Text, 40)
+    cizem.yaz(-1500, nm + 700, "Silindir Capi(mm.)=" & TextBox44.Text, 40)
+    cizem.yaz(-1500, nm + 800, "Silindir adedi=" & TextBox36.Text, 40)
+    cizem.yaz(-1500, nm + 900, "Debi (lt/dk.)=" & TextBox47.Text, 40)
+    cizem.yaz(-1500, nm + 1000, "Guc (kW.)=" & TextBox49.Text, 40)
+
+    cizem.yaz(-1500, nm + 1200, "Kirma Silindiri", 50)
+    cizem.yaz(-1500, nm + 1300, "Kuvvet F(kN)=" & TextBox43.Text, 40)
+    cizem.yaz(-1500, nm + 1400, "Silindir Capi(mm.)=" & TextBox45.Text, 40)
+    cizem.yaz(-1500, nm + 1500, "Silindir adedi=" & TextBox58.Text, 40)
+    cizem.yaz(-1500, nm + 1600, "Debi (lt/dk.)=" & TextBox48.Text, 40)
+    cizem.yaz(-1500, nm + 1700, "Guc (kW.)=" & TextBox50.Text, 40)
+
+    cizem.yaz(-1500, nm + 1900, "Teleskopik Silindirler", 50)
+    cizem.yaz(-1500, nm + 2000, "Kuvvet F(kN)=" & TextBox35.Text, 40)
+    cizem.yaz(-1500, nm + 2100, "Silindir Capi(mm.)=" & TextBox46.Text, 40)
+    cizem.yaz(-1500, nm + 2200, "Silindir adedi=" & (tss - 1), 40)
+    cizem.yaz(-1500, nm + 2300, "Debi (lt/dk.)=" & (tss * CFloat(TextBox52.Text)), 40)
+    cizem.yaz(-1500, nm + 2400, "Guc (kW.)=" & TextBox54.Text, 40)
+
+    cizem.yaz(-1500, nm + 2600, "DTD ", 50)
+    cizem.yaz(-1500, nm + 2700, " D=" & TextLabel1.Text & " Kod = " & TextLabel2.Text, 40)
+    cizem.yaz(-1500, nm + 2800, "Red. Cikis momenti(Nm.)=" & TextBox51.Text, 40)
+
+    Return
+Catch
+	ilk.hatayaz("yazilar " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+

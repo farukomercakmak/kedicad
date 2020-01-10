@@ -1,0 +1,269 @@
+' Gambas class file
+
+Public idepo As New Float[]
+Public alty As Float
+Public altx As Float
+Public usty As Float
+Public ustx As Float
+Public bykx As Float
+Public idi As Float
+Public cazgi As Czm
+Public axs As Integer
+Public xaxs As Float
+Public yaxs As Float
+Public ti As Integer
+Public ki As Integer
+
+Public Sub Run() As Boolean
+
+    Return Not Me.ShowModal()
+
+End
+
+Public Sub btnOK_Click()
+
+    torna.Close(True)
+    Me.Close
+
+End
+
+Public Sub btnCancel_Click()
+
+    torna.Close
+    ilk.show
+
+End
+
+Public Sub Wizard1_Change()
+
+    Dim i As Integer
+
+    If Wizard1.Index = 1 Then             '  ! Eksen Seç
+        If ilk.depo1.Count <> 1 Then
+            message("Specify axis ", "OK")
+            Wizard1.Index = 0
+            ilk.calanilk.Refresh
+        Else
+            For Each cazgi In ilk.cezmi
+                If ilk.depo1.Exist(cazgi.id) Then
+                    axs = cazgi.id
+                    bykx = cazgi.x1
+                    xaxs = cazgi.x1
+                    If cazgi.y1 > cazgi.y2
+                        yaxs = cazgi.y2
+                    Else
+                        yaxs = cazgi.y1
+                    Endif
+                    bykx = bykx + CFloat(TextBox4.Text)    'malzeme çapı
+                    cazgi.sekil = 2
+                    cazgi.renk = Color.red
+                End If
+            Next
+            Label1.Text = axs
+            ilk.dolas
+            ilk.calanilk.Refresh
+        End If
+    End If
+    If Wizard1.Index = 2 Then             '  Çizimleri Seç
+        If ilk.depo1.Count < 2 Then
+            message("Specify drawings ", "OK")
+            Wizard1.Index = 1
+        Else
+            For Each cazgi In ilk.cezmi
+                If ilk.depo1.Exist(cazgi.id) Then listbox1.Add(cazgi.id)
+            Next
+        End If
+        ilk.calanilk.Refresh
+    End If
+    If Wizard1.Index = 3 Then   ' Değerler ve g-code üretimi
+        label7.Text = ilk.depo1.Count
+        ilk.mesgul = 1
+        For i = 0 To ilk.depo1.Count - 1
+            Button1_Click()
+        Next
+        gcod
+        ilk.mesgul = 0
+        ilk.calanilk.Refresh
+
+    End If
+
+End
+
+Sub gcod()
+
+    Dim ill, onx2, onx1, ony2, ony1 As Float
+
+    ill = 999999
+    ' G01 F2200 Z15
+    ListBox2.Add("g00 F" & TextBox6.text & " Z" & alty)
+    For Each cazgi In ilk.cezmi
+        If idepo.Exist(cazgi.id) Then
+            If cazgi.katman = "torna"
+                If cazgi.x1 < ill Then ill = cazgi.x2
+            Endif
+        Endif
+    Next
+    ListBox2.Add("g00 X" & ill)
+    For Each cazgi In ilk.cezmi
+        If idepo.Exist(cazgi.id) Then
+            If onx1 = 0 Then
+                onx1 = Round(cazgi.x1 - ilk.orix - 2)
+                onx2 = Round(cazgi.x2 - ilk.orix - 2)
+                ony1 = Round(-1 * cazgi.y1 + ilk.oriy - 2)
+                ony2 = Round(-1 * cazgi.y2 + ilk.oriy - 2)
+                Goto atl
+            Endif
+            ListBox2.Add("g01 F" & TextBox2.text & " X " & onx2)
+            ListBox2.Add("g01 F" & TextBox2.text & " X " & onx1)
+            ListBox2.Add("g01 F" & TextBox2.text & " Z " & Round(-1 * cazgi.y1 + ilk.oriy - 2))
+            ListBox2.Add("g01 F" & TextBox2.text & " Z " & Round(cazgi.x1 - ilk.orix - 2))
+        Endif
+    atl:
+    Next
+
+End
+
+Public Sub Button1_Click()
+
+    Dim i As Integer
+
+    label7.Text = ilk.depo1.Count
+    atama1            '  yuv ları tanımla
+    If ilk.yuvy1 = ilk.yuvy2 Then Goto atl
+    For i = usty To alty ' alty den usty ye kadar kesişimleri oluştur
+        atama2            ' .geç leri tanımla
+        burda              'g-codunu üret
+    Next
+atl:
+    ilk.depo1.Remove(ki)
+    ti = 0
+    ilk.calanilk.Refresh
+
+End
+
+Sub atama2()
+
+    ti = ti + 1
+    acimi.aci(bykx, (usty + ti), bykx - 5, (usty + ti))
+    ilk.komgec = 1
+    ilk.x1gec = bykx
+    ilk.y1gec = (usty + ti)
+    ilk.x2gec = bykx - 5
+    ilk.y2gec = (usty + ti)
+    ilk.eggec = acimi.ege
+    ilk.bgec = acimi.bb
+    ilk.idgec = 5000
+    ilk.tetagec = acimi.daci
+    Return
+
+End
+
+Sub atama1()
+
+    alty = -9999999999
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id)
+            If cazgi.y1 > alty Then
+                '             ki = ilk.depo1.key
+                alty = cazgi.y1
+                altx = cazgi.x1
+                usty = cazgi.y2
+                ustx = cazgi.x2
+                ilk.yuvkom = cazgi.komut
+                ilk.yuvx1 = cazgi.x1
+                ilk.yuvy1 = cazgi.y1
+                ilk.yuvx2 = cazgi.x2
+                ilk.yuvy2 = cazgi.y2
+                ilk.yuveg = cazgi.egim
+                ilk.yuvb = cazgi.b
+                ilk.yuvid = cazgi.id
+                ilk.yuvteta = cazgi.teta
+                ilk.yuvx3 = cazgi.x3
+                ilk.yuvy3 = cazgi.y3
+                ilk.yuvr = cazgi.r
+                ilk.yuvboy = cazgi.uzun
+                ilk.yuvyar = cazgi.yaricap
+            End If
+            If cazgi.y2 > alty Then
+                '             ki = ilk.depo1.key
+                alty = cazgi.y2
+                altx = cazgi.x2
+                usty = cazgi.y1
+                ustx = cazgi.x1
+                ilk.yuvkom = cazgi.komut
+                ilk.yuvx1 = cazgi.x1
+                ilk.yuvy1 = cazgi.y1
+                ilk.yuvx2 = cazgi.x2
+                ilk.yuvy2 = cazgi.y2
+                ilk.yuveg = cazgi.egim
+                ilk.yuvb = cazgi.b
+                ilk.yuvid = cazgi.id
+                ilk.yuvteta = cazgi.teta
+                ilk.yuvx3 = cazgi.x3
+                ilk.yuvy3 = cazgi.y3
+                ilk.yuvr = cazgi.r
+                ilk.yuvboy = cazgi.uzun
+                ilk.yuvyar = cazgi.yaricap
+            End If
+        End If
+    Next
+    Return
+
+End
+
+Public outputfile As File
+Public mnb As String
+Public sFileName As String
+Public sOutFileName As String
+
+Public Sub Button2_Click()
+
+    Dim im As Integer
+    Dim s As String
+
+    Dialog.Path = (System.User.Home)
+    If Dialog.SaveFile() Then Return
+    sFileName = Dialog.Path
+    If Left$(sFileName, -4) <> ".ngc"
+        sOutFileName = sFileName & ".ngc"
+    Else
+        sOutFileName = sFileName
+    End If
+    mnb = sOutFileName
+    outputfile = Open mnb For Create  ' ngc dosyasını oluşturma
+    For im = 0 To ListBox2.Count + 1
+        ListBox2.Index = im
+        s = ListBox2.Text
+        Print #outputfile, s
+    Next
+
+End
+
+Public Sub burda()
+
+    Dim tmx, tmy As Float
+
+    With ilk
+        acimi.aci(.yuvx1, .yuvy1, .yuvx2, .yuvy2)
+        .yuvb = acimi.bb
+        .yuveg = acimi.ege
+        acimi.tem(.yuvb, .bgec, .yuveg, .eggec)
+        tmx = acimi.tmx
+        tmy = acimi.tmy
+        cizem.katman = "torna"
+        cizem.kalin = .kalingec
+        cizem.sekil = .sekilgec
+        cizem.renk = .renkgec
+        cizem.cizgi(tmx * .olcum, tmy * .olcum, .x1gec * .olcum, .y1gec * .olcum)
+        idepo.Add(dacy.kyno - 1, dacy.kyno - 1)
+        .sil(.idgec)
+    End With
+    Return
+
+End
+
+Public Sub Label2_MouseDown()
+
+    
+
+End

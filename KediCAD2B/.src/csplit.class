@@ -1,0 +1,365 @@
+' Gambas class file
+
+Public sonuc As New String[]
+Public sonuc0 As String
+Public sonuc1 As String
+Public sonuc2 As String
+Public sonuc3 As String
+Public sonuc4 As String
+Public sonuc5 As String
+Public sonuc6 As String
+Public sonuc7 As String
+Public sonuc8 As String
+Public sonuc9 As String
+Public sonuc10 As String
+
+Public snc1 As Float
+Public snc2 As Float
+Public snc3 As Float
+Public stre As String
+Public m As String[]
+Public n As String[]
+Public yazi As String
+
+Sub temiz()
+
+    sonuc0 = ""
+    sonuc1 = ""
+    sonuc2 = ""
+    sonuc3 = ""
+    sonuc4 = ""
+    sonuc5 = ""
+    sonuc6 = ""
+    sonuc7 = ""
+    sonuc8 = ""
+    sonuc9 = ""
+    sonuc10 = ""
+    stre = ""
+
+End
+
+Public Sub takim()
+
+    Dim tx As Integer
+
+    temiz
+    m = Split(yazi, "   ")
+    For Each stre In m
+        If stre <> ""
+            If stre Like "+*" Then stre = Right$(stre, -1)
+            tx = tx + 1
+            If tx = 1 Then sonuc1 = Trim$(stre)
+            If tx = 2 Then sonuc2 = Trim$(stre)
+            If tx = 3 Then sonuc3 = Trim$(stre)
+        End If
+    Next
+    If sonuc2 = "0.0000000E+00" Then sonuc2 = ""
+    If sonuc3 = "0.0000000E+00" Then sonuc3 = ""
+    If sonuc2 = "-NAN" Then sonuc2 = ""
+    If sonuc3 = "-NAN" Then sonuc2 = ""
+    Return
+Catch
+ilk.hatayaz("takim " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub iks()
+
+    Dim tx As Integer
+    temiz
+    m = Split(yazi, "x")
+    For Each stre In m
+        tx = tx + 1
+        If tx = 1 Then sonuc1 = stre
+        If tx = 2 Then sonuc2 = stre
+    Next
+    Return
+Catch
+ilk.hatayaz("iks " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub kucuk()
+
+    Dim tx As Integer
+
+    temiz
+    m = Split(yazi, "<")
+    For Each stre In m
+        tx = tx + 1
+        If tx = 1 Then sonuc1 = stre
+        If tx = 2 Then sonuc2 = stre
+    Next
+    Return
+Catch
+ilk.hatayaz("kucuk " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub rkon()
+
+    m = Split(yazi, "\r")
+    For Each stre In m
+        sonuc1 = stre
+        Return
+    Next
+    Return
+Catch
+ilk.hatayaz("rkon " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub akm()
+
+    Dim tx As Integer
+
+    temiz
+    yazi = Trim(yazi)
+    m = Split(yazi, " ")
+    For Each stre In m
+        tx = tx + 1
+        If tx = 1 Then sonuc1 = Trim$(stre)
+        If tx = 2 Then sonuc2 = Trim$(stre)
+        If tx = 3 Then sonuc3 = Trim$(stre)
+        If tx = 4 Then sonuc4 = Trim$(stre)
+        If tx = 5 Then sonuc5 = Trim$(stre)
+        If tx = 6 Then sonuc6 = Trim$(stre)
+    Next
+    Return
+Catch
+ilk.hatayaz("akm " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub virg()
+
+    Dim tx As Integer
+
+    temiz
+    m = Split(yazi, ",")
+    For Each stre In m
+        tx = tx + 1
+        If tx = 1 Then sonuc1 = Trim$(stre)
+        If tx = 2 Then sonuc2 = Trim$(stre)
+        If tx = 3 Then sonuc3 = Trim$(stre)
+        If tx = 4 Then sonuc4 = Trim$(stre)
+        If tx = 5 Then sonuc5 = Trim$(stre)
+        If tx = 6 Then sonuc6 = Trim$(stre)
+        If tx = 7 Then sonuc7 = Trim$(stre)
+        If tx = 8 Then sonuc8 = Trim$(stre)
+        If tx = 9 Then sonuc9 = Trim$(stre)
+        If tx = 10 Then sonuc10 = Trim$(stre)
+    Next
+    Return
+Catch
+ilk.hatayaz("vrg " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub nokta()
+
+    Dim tx As Integer
+
+    temiz
+    m = Split(yazi, ".")
+    For Each stre In m
+        tx = tx + 1
+        If tx = 1 Then sonuc1 = Trim$(stre)
+        If tx = 2 Then sonuc2 = Trim$(stre)
+        If tx = 3 Then sonuc3 = Trim$(stre)
+        If tx = 4 Then sonuc4 = Trim$(stre)
+        If tx = 5 Then sonuc5 = Trim$(stre)
+        If tx = 6 Then sonuc6 = Trim$(stre)
+        If tx = 7 Then sonuc7 = Trim$(stre)
+        If tx = 8 Then sonuc8 = Trim$(stre)
+        If tx = 9 Then sonuc9 = Trim$(stre)
+        If tx = 10 Then sonuc10 = Trim$(stre)
+    Next
+    Return
+Catch
+ilk.hatayaz("nokta " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub nokvir()
+
+    Dim tx As Integer
+
+    temiz
+    m = Split(yazi, ";")
+    For Each stre In m
+        tx = tx + 1
+        If tx = 1 Then sonuc1 = stre
+        If tx = 2 Then sonuc2 = stre
+    Next
+    Return
+Catch
+ilk.hatayaz("nokvir " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub buyuk()
+
+    Dim tx As Integer
+
+    temiz
+    m = Split(yazi, ">")
+    For Each stre In m
+        tx = tx + 1
+        If tx = 1 Then sonuc1 = stre
+        If tx = 2 Then sonuc2 = stre
+    Next
+    Return
+Catch
+ilk.hatayaz("buyuk " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub tire()
+
+    Dim tx As Integer
+
+    temiz
+    m = Split(yazi, "-")
+    For Each stre In m
+        tx = tx + 1
+        If tx = 1 Then sonuc0 = Trim$(stre)
+        If tx = 2 Then sonuc1 = Trim$(stre)
+        If tx = 3 Then sonuc2 = Trim$(stre)
+        If tx = 4 Then sonuc3 = Trim$(stre)
+        If tx = 5 Then sonuc4 = Trim$(stre)
+        If tx = 6 Then sonuc5 = Trim$(stre)
+        If tx = 7 Then sonuc6 = Trim$(stre)
+    Next
+    Return
+Catch
+ilk.hatayaz("tire " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub arti()
+
+    Dim tx As Integer
+
+    temiz
+    m = Split(yazi, "+")
+    For Each stre In m
+        tx = tx + 1
+        If tx = 2 Then sonuc1 = Trim$(stre)
+        If tx = 3 Then sonuc2 = Trim$(stre)
+        If tx = 4 Then sonuc3 = Trim$(stre)
+        If tx = 5 Then sonuc4 = Trim$(stre)
+        If tx = 6 Then sonuc5 = Trim$(stre)
+        If tx = 7 Then sonuc6 = Trim$(stre)
+    Next
+    Return
+Catch
+ilk.hatayaz("arti " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub sla()
+
+    temiz
+    m = Split(yazi, ",")
+    For Each stre In m
+    Next
+    sonuc1 = stre
+    Return
+Catch
+ilk.hatayaz("sla " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub dsy()
+
+    Dim tx As Integer
+
+    temiz
+    m = Split(yazi, "/")
+    For Each stre In m
+        tx = tx + 1
+        If tx = 1 Then sonuc2 = Trim$(stre)
+        If tx = 2 Then sonuc3 = Trim$(stre)
+        If tx = 3 Then sonuc4 = Trim$(stre)
+        sonuc1 = Trim$(stre)
+    Next
+    Return
+Catch
+ilk.hatayaz("dsy " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub satir()
+
+    Dim tx As Integer
+
+    temiz
+    m = Split(yazi, "\"")
+    For Each stre In m
+        tx = tx + 1
+        If tx = 1 Then sonuc1 = Trim$(stre)
+        If tx = 2 Then sonuc2 = Trim$(stre)
+        If tx = 3 Then sonuc3 = Trim$(stre)
+        If tx = 4 Then sonuc4 = Trim$(stre)
+        If tx = 5 Then sonuc5 = Trim$(stre)
+        If tx = 6 Then sonuc6 = Trim$(stre)
+        If tx = 7 Then sonuc7 = Trim$(stre)
+        If tx = 8 Then sonuc8 = Trim$(stre)
+        If tx = 9 Then sonuc9 = Trim$(stre)
+        If tx = 10 Then sonuc10 = Trim$(stre)
+    Next
+    Return
+Catch
+ilk.hatayaz("satir " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub ss()
+
+    Dim tx, lx As Integer
+    Dim htr As String
+
+    temiz
+    m = Split(yazi, "\\S")
+    For Each stre In m
+        tx = tx + 1
+        If tx = 2
+            n = Split(yazi, "^")
+            For Each htr In n
+                lx = lx + 1
+                If lx = 1 Then sonuc1 = htr
+                If lx = 2 Then sonuc2 = htr
+            Next
+        Endif
+    Next
+    Return
+Catch
+ilk.hatayaz("ss " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub pp()
+
+    Dim tx As Integer
+
+    temiz
+    m = Split(yazi, "\\P")
+    For Each stre In m
+        tx = tx + 1
+        If tx = 1 Then sonuc1 = Trim$(stre)
+        If tx = 2 Then sonuc2 = Trim$(stre)
+        If tx = 3 Then sonuc3 = Trim$(stre)
+        If tx = 4 Then sonuc4 = Trim$(stre)
+        If tx = 5 Then sonuc5 = Trim$(stre)
+        If tx = 6 Then sonuc6 = Trim$(stre)
+        If tx = 7 Then sonuc7 = Trim$(stre)
+        If tx = 8 Then sonuc8 = Trim$(stre)
+        If tx = 9 Then sonuc9 = Trim$(stre)
+        If tx = 10 Then sonuc10 = Trim$(stre)
+    Next
+    Return
+Catch
+ilk.hatayaz("pp " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End

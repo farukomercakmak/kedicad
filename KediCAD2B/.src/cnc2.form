@@ -1,0 +1,48 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,56,21)
+  Icon = Picture["logo.png"]
+  Utility = True
+  { Label1 Label
+    MoveScaled(1,0,24,4)
+    Text = ("Material dimensions")
+  }
+  { PictureBox1 PictureBox
+    MoveScaled(25,0,31,17)
+    Picture = Picture["Resim/Image1.png"]
+    Stretch = True
+  }
+  { Label2 Label
+    MoveScaled(1,5,9,4)
+    Text = ("X (mm.)=")
+  }
+  { Label3 Label
+    MoveScaled(1,9,9,4)
+    Text = ("Y (mm.)=")
+  }
+  { Label4 Label
+    MoveScaled(1,12,9,5)
+    Text = ("Z (mm.)=")
+  }
+  { TextBox1 TextBox
+    MoveScaled(11,5,14,3)
+    Text = ("2100")
+  }
+  { TextBox2 TextBox
+    MoveScaled(11,9,14,3)
+    Text = ("2800")
+  }
+  { TextBox3 TextBox
+    MoveScaled(11,13,14,3)
+    Text = ("18.3")
+  }
+  { Button1 Button
+    MoveScaled(40,17,16,4)
+    Text = ("OK")
+  }
+  { Button2 Button
+    MoveScaled(1,17,16,4)
+    Text = ("CANCEL")
+  }
+}

@@ -1,0 +1,120 @@
+' Gambas module file
+
+Public cazgi As Czm
+Public tazgi As Czm
+Public nazgi As Tzm
+Public oblo As String
+
+Public Sub kuruntu()
+    For Each cazgi In ilk.cezmi
+        If ilk.cds.Exist(cazgi.id) Then
+            oblo = cazgi.blok
+            Goto cik
+        Endif
+    Next
+cik:
+    For Each cazgi In ilk.cezmi
+        If cazgi.id < 0 Then Goto atla
+        If cazgi.grup = ilk.ListBox11.Text
+            If cazgi.blok = oblo
+                tazgi = New Czm
+                tazgi.komut = cazgi.komut
+                tazgi.id = cazgi.id
+                tazgi.x1 = cazgi.x1
+                tazgi.y1 = cazgi.y1
+                tazgi.x2 = cazgi.x2
+                tazgi.y2 = cazgi.y2
+                tazgi.yazix = cazgi.yazix
+                tazgi.yaziy = cazgi.yazix
+                tazgi.x3 = cazgi.x3
+                tazgi.y3 = cazgi.y3
+                tazgi.x4 = cazgi.x4
+                tazgi.y4 = cazgi.y4
+                tazgi.x5 = cazgi.x5
+                tazgi.y5 = cazgi.y5
+                tazgi.x6 = cazgi.x6
+                tazgi.y6 = cazgi.y6
+                tazgi.egim = cazgi.egim
+                tazgi.katman = cazgi.katman
+                tazgi.b = cazgi.b
+                tazgi.r = cazgi.r
+                tazgi.teta = cazgi.teta
+                tazgi.sekil = cazgi.sekil
+                tazgi.renk = cazgi.renk
+                tazgi.kalinlik = cazgi.kalinlik
+                tazgi.katman = cazgi.katman
+                tazgi.grup = cazgi.grup
+                tazgi.xf = cazgi.xf
+                tazgi.yf = cazgi.yf
+                tazgi.aci = cazgi.aci
+                tazgi.kfx = cazgi.kfx
+                tazgi.blok = 0
+                tazgi.yaricap = cazgi.yaricap
+                ilk.kezmi.Add(tazgi, cazgi.id)
+            End If
+        End If
+    atla:
+    Next
+    ilk.ListBox7.Clear
+    For Each cazgi In ilk.cezmi
+        If cazgi.id > 0 Then
+            If cazgi.grup = ilk.ListBox11.Text
+                If cazgi.blok <> oblo Then
+                    If ilk.ListBox7.Find(cazgi.blok) = -1 Then ilk.ListBox7.Add(cazgi.blok)
+                Endif
+            Endif
+        Endif
+    Next
+    Return
+Catch
+    ilk.hatayaz("kuruntu " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub buruntu()
+    
+   For Each cazgi In ilk.cezmi
+        If cazgi.id < 0 Then Goto atla
+                nazgi = New Tzm
+                nazgi.komut = cazgi.komut
+                nazgi.id = cazgi.id
+                nazgi.x1 = cazgi.x1
+                nazgi.y1 = cazgi.y1
+                nazgi.x2 = cazgi.x2
+                nazgi.y2 = cazgi.y2
+                nazgi.yazix = cazgi.yazix
+                nazgi.yaziy = cazgi.yazix
+                nazgi.x3 = cazgi.x3
+                nazgi.y3 = cazgi.y3
+                nazgi.x4 = cazgi.x4
+                nazgi.y4 = cazgi.y4
+                nazgi.x5 = cazgi.x5
+                nazgi.y5 = cazgi.y5
+                nazgi.x6 = cazgi.x6
+                nazgi.y6 = cazgi.y6
+                nazgi.egim = cazgi.egim
+                nazgi.katman = cazgi.katman
+                nazgi.b = cazgi.b
+                nazgi.r = cazgi.r
+                nazgi.teta = cazgi.teta
+                nazgi.sekil = cazgi.sekil
+                nazgi.renk = cazgi.renk
+                nazgi.kalinlik = cazgi.kalinlik
+                nazgi.katman = cazgi.katman
+                nazgi.grup = "yeni"
+                nazgi.xf = cazgi.xf
+                nazgi.yf = cazgi.yf
+                nazgi.aci = cazgi.aci
+                nazgi.kfx = cazgi.kfx
+                nazgi.blok = "yeni"
+                nazgi.yaricap = cazgi.yaricap
+                ilk.kayno = ilk.kayno + 1
+                ilk.tezmi.Add(nazgi, ilk.kayno)
+        atla:
+        Next
+        
+    Return
+    Catch
+    ilk.hatayaz("buruntu " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End

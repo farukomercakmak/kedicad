@@ -1,0 +1,105 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,55,35)
+  Text = ("Lathe G-Code  ")
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  Arrangement = Arrange.Vertical
+  Spacing = True
+  Margin = True
+  { Wizard1 Wizard
+    MoveScaled(0,1,55,33)
+    Count = 4
+    Index = 0
+    Text = ("Select axis")
+    { Label2 Label
+      MoveScaled(2,12,18,6)
+      Font = Font["Bold,+5"]
+      Text = ("Select Axis")
+    }
+    { Label8 Label
+      MoveScaled(2,1,19,5)
+      Text = ("Material radius(mm)")
+    }
+    { TextBox4 TextBox
+      MoveScaled(22,1,20,4)
+      Text = ("250")
+    }
+    { Label9 Label
+      MoveScaled(2,7,18,3)
+      Text = ("Material length(mm)")
+    }
+    { TextBox5 TextBox
+      MoveScaled(22,6,19,4)
+      Text = ("150")
+    }
+    Index = 1
+    Text = ("Select Drawings")
+    { Label1 Label
+      MoveScaled(1,16,20,4)
+      Text = ("Label1")
+    }
+    { Label3 Label
+      MoveScaled(0,0,26,6)
+      Font = Font["Bold,+5"]
+      Text = ("Select Drawings")
+    }
+    Index = 2
+    Text = ("İnputs")
+    { ListBox1 ListBox
+      MoveScaled(36,0,18,22)
+    }
+    { TextBox1 TextBox
+      MoveScaled(22,0,11,5)
+      Text = ("1")
+    }
+    { TextBox2 TextBox
+      MoveScaled(22,6,11,4)
+      Text = ("100")
+    }
+    { TextBox3 TextBox
+      MoveScaled(22,11,11,4)
+      Text = ("50")
+    }
+    { Label4 Label
+      MoveScaled(0,1,16,4)
+      Text = ("Step (mm.)")
+    }
+    { Label5 Label
+      MoveScaled(0,7,22,4)
+      Text = ("Engraving speed(mm/min.)")
+    }
+    { Label6 Label
+      MoveScaled(0,13,18,3)
+      Text = ("Dalma Hızı(mm/min.)")
+    }
+    { Label10 Label
+      MoveScaled(0,17,18,3)
+      Text = ("Fly speed")
+    }
+    { TextBox6 TextBox
+      MoveScaled(22,16,11,4)
+      Text = ("200")
+    }
+    Index = 3
+    Text = ("Step #4")
+    { Button1 Button
+      MoveScaled(1,1,7,5)
+      Text = ("Button1")
+    }
+    { Label7 Label
+      MoveScaled(2,6,7,4)
+      Text = ("Label7")
+    }
+    { ListBox2 ListBox
+      MoveScaled(19,0,35,22)
+    }
+    { Button2 Button
+      MoveScaled(0,16,19,5)
+      Text = ("Save G-Code")
+    }
+    Index = 0
+  }
+}

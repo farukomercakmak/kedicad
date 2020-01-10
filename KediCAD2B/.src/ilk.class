@@ -1,0 +1,7324 @@
+' Gambas class file
+
+
+Public Sub calanilk_Draw()
+Dim i, k As Integer
+Dim hExt As PaintExtents
+Dim hPattern As Image
+Dim pht, lw, rkn, lx, ly As Float
+    If ddrt = 0 Then cizimci.eksen
+    If mesgul = 1 Then Return
+    If mesgul2 = 1 Then Return
+    Draw.FillStyle = Fill.None
+    Draw.LineStyle = 1
+    Draw.LineWidth = 1
+    draw.Foreground = apla
+    rkn = apla
+    prx = orix
+    pry = oriy
+    If resimgor = 1
+        If imj Then draw.Picture(imj, orix * olcum, oriy * olcum - (resimyuk * olcum), resimgen * olcum, resimyuk * olcum)
+    End If
+    Paint.Reset
+    Paint.MoveTo(mousex, mousey)
+    paint.Scale(olcum, olcum)
+    gtr.Clear
+    
+    
+    For Each cazgi In cezmi
+        If cazgi.id < 0 Then Goto gec
+        If cazgi.gor <> 0 Then Goto gec
+        If cazgi.id = idef
+            Paint.Brush = Paint.Color(Color.Red)
+            Paint.MoveTo(cazgi.x3, cazgi.y3)
+            Paint.LineTo(mousex / olcum, mousey / olcum)
+            idef = 0
+        Endif
+        lw = cazgi.kalinlik / olcum
+        rkn = cazgi.renk
+        If cazgi.renk = Color.Black Then rkn = Color.White
+        If cazgi.id = torba2.bdi Then rkn = color.red
+        If depot.Exist(cazgi.id) Then
+            rkn = Color.Orange ' önseçimde  çizim varsa
+            If komutsayi = 30 
+            Else If komutsayi = 33
+            Else If komutsayi = 35
+            Else If komutsayi = 37
+            Else 
+            lw = 4 / olcum
+            Endif
+        Endif
+        Draw.LineStyle = cazgi.sekil ' Paint.Dash = [2, 2]  Paint.Dash = Null 
+        px1 = cazgi.x1
+        py1 = cazgi.y1
+        px2 = cazgi.x2
+        py2 = cazgi.y2
+        px3 = cazgi.x3
+        py3 = cazgi.y3
+        If (lw) < 1 Then lw = 1 / olcum
+         Paint.LineWidth = lw
+        If depo1.Exist(cazgi.id) Then  ' depo1  de çizim varsa seçilmiş işaretli olarak çiz.
+            rkn = grd
+            Paint.Brush = Paint.Color(Color.yellow)
+            If konum.sira < 3 Then Paint.LineWidth = (cazgi.kalinlik + 1) / olcum
+            If cazgi.komut <> 20 Then Paint.Rectangle(px1 - 3 / olcum, py1 - 3 / olcum, 6 / olcum, 6 / olcum)
+            Paint.Rectangle(px3 - 3 / olcum, py3 - 3 / olcum, 6 / olcum, 6 / olcum)
+            If cazgi.komut <> 60
+                Paint.Rectangle(px3 - 3 / olcum, py3 - 3 / olcum, 6 / olcum, 6 / olcum)
+                Paint.Rectangle(px2 - 3 / olcum, py2 - 3 / olcum, 6 / olcum, 6 / olcum)
+            Else
+                Paint.Rectangle((px1 + px2) - 3 / olcum, (py1 + py2) - 3 / olcum, 6 / olcum, 6 / olcum)
+            Endif
+        Endif
+        Paint.Stroke
+        Paint.Brush = Paint.Color(rkn)
+        If (lw) < 1 Then lw = 1 / olcum
+         Paint.LineWidth = lw
+         
+        If cazgi.komut = 1 Then
+            Paint.MoveTo(px1, py1)
+            Paint.LineTo(px2, py2)
+            Goto gec
+        Endif
+        If cazgi.komut = 4 Then
+            Paint.Rectangle(px1, py1, px2, py2)
+            Goto gec
+        Endif
+        If cazgi.komut = 6 Then
+            Paint.MoveTo(cazgi.czx[0], cazgi.czy[0])
+            For i = 0 To cazgi.czx.Count - 3 Step 3
+                Paint.CurveTo(cazgi.czx[i], cazgi.czy[i], cazgi.czx[i + 1], cazgi.czy[i + 1], cazgi.czx[i + 2], cazgi.czy[i + 2])
+            Next
+             Goto gec
+        Endif
+        If cazgi.komut = 8 Then
+            acimi.aci(px1, py1, px2, py2)
+            cizx2 = px1 - 5000 * olcum * Cos(acimi.raci)
+            cizy2 = py1 + 5000 * olcum * Sin(acimi.raci)
+            lx = px2 + 5000 * olcum * Cos(acimi.raci)
+            ly = py2 - 5000 * olcum * Sin(acimi.raci)
+            Paint.MoveTo(cizx2, cizy2)
+            Paint.LineTo(lx, ly)
+            Goto gec
+        Endif
+        
+        hgc = cazgi.yaricap
+        If cazgi.komut = 20 Then
+            If cazgi.y7 <> 0 Then
+                Paint.Arc(px1, py1, hgc, cazgi.teta, cazgi.r - cazgi.teta)
+            Else
+                If cazgi.r < cazgi.teta Then cazgi.r = cazgi.r + 2 * Pi
+                Paint.Arc(px1, py1, hgc, - cazgi.teta, - cazgi.r + cazgi.teta)
+            Endif
+            Goto gec
+        Endif
+        If cazgi.komut = 25 Then
+            If cazgi.y7 <> 0 Then
+                Paint.Arc(px1, py1, hgc)
+            Else
+                Paint.Arc(px1, py1, hgc)
+            Endif
+            Goto gec
+        Endif
+        Draw.LineStyle = 1
+        If cazgi.komut = 60 Then
+             pht = cazgi.x6 
+            Paint.Font.Size = pht
+            Paint.Font.Name = cazgi.fnt
+            Paint.Font.Italic = cazgi.egim
+            Paint.Font.Bold = cazgi.y6
+            Paint.MoveTo(px1, py1 + cazgi.x6)
+            hExt = Paint.RichTextExtents(cazgi.yazi)
+            Paint.RichText(cazgi.yazi)
+'             Paint.Rectangle(hExt.X, hExt.Y, hExt.Width, hExt.Height)
+            Paint.MoveTo(px1, py1)
+            Paint.Translate(px1, py1)
+            Paint.Rotate(cazgi.y4)
+           If pht < 1 Then paint.Scale(pht, pht)
+             Paint.Translate(- px1, - py1)
+              Paint.Stroke
+             Paint.MoveTo(px1, py1)
+            Paint.Translate(px1, py1)
+            If pht < 1 Then paint.Scale(1 / pht, 1 / pht)
+            Paint.Rotate(- cazgi.y4)
+             Paint.Translate(- px1, - py1)
+             Paint.Stroke
+            Goto gec
+        End If
+        pht = cazgi.y6 * 2
+        py3 = cazgi.y3
+        px4 = cazgi.x4
+        py4 = cazgi.y4
+        px5 = cazgi.x5
+        py5 = cazgi.y5
+        If cazgi.komut = 29 Then   ' FEA için yüzey çizimi
+            Paint.LineWidth = 3
+            gtr.Add(px1) 'x1
+            gtr.Add(py1) 'y1
+            gtr.Add(px3) 'x2
+            gtr.Add(py3) 'y2
+            gtr.Add(cazgi.x8)
+            gtr.Add(cazgi.y8)
+             Paint.Polygon(gtr)
+'             Paint.Stroke(True)
+            
+            hPattern = Image.Load(cazgi.fnt)
+            Paint.Brush = Paint.Image(hPattern)
+            Paint.Fill
+            gtr.Clear
+            For i = 0 To 99999
+                
+            Next
+            Goto gec
+        End If
+        If cazgi.komut = 120  ' eğik ölçü
+            Paint.Font.Size = pht
+            pyzx = cazgi.yazix
+            pyzy = cazgi.yaziy
+            Paint.MoveTo(px2, py2)
+            Paint.LineTo(px5, py5)
+            Paint.LineTo(px4, py4)
+            Paint.LineTo(px1, py1)
+            Paint.Stroke
+            Paint.Text(Round(cazgi.yazi, - cazgi.sekil), pyzx + pht, pyzy + pht)
+            turn(pyzx, pyzy, cazgi.x6, pht)
+              ok(px4, py4, cazgi.x6, pht)
+            ok(px5, py5, cazgi.x6 + Pi, pht)
+            Goto gec
+        End If
+        If cazgi.komut = 100  ' |_|
+            Paint.Font.Size = pht
+            pyzx = cazgi.yazix
+            pyzy = cazgi.yaziy
+            Paint.MoveTo(px2, py2)
+            Paint.LineTo(px5, py5)
+            Paint.LineTo(px4, py4)
+            Paint.LineTo(px1, py1)
+            Paint.Text(Round(cazgi.yazi, - cazgi.sekil), pyzx - pht / 2, pyzy - pht)
+            ok(px4, py4, 0, pht)
+            ok(px5, py5, Pi, pht)
+            Goto gec
+        End If
+        If cazgi.komut = 105 ' =|
+            Paint.Font.Size = pht
+            pyzx = cazgi.yazix
+            pyzy = cazgi.yaziy
+            Paint.MoveTo(px2, py2)
+            Paint.LineTo(px5, py5)
+            Paint.LineTo(px4, py4)
+            Paint.LineTo(px1, py1)
+            Paint.Stroke
+            Paint.Text(Round(cazgi.yazi, - cazgi.sekil), pyzx - pht, pyzy)
+            turn(pyzx, pyzy, cazgi.x6, pht)
+             ok(px5, py5, Pi / 2, pht)
+               ok(px4, py4, 3 * Pi / 2, pht)
+            Goto gec
+        End If
+        
+        If cazgi.komut = 110 Then  ' açı ölçü
+            
+            Paint.Font.Size = pht
+            pyzx = cazgi.yazix
+            pyzy = cazgi.yaziy
+            If cazgi.teta < cazgi.r Then cazgi.teta = cazgi.teta + 2 * Pi
+            Paint.Arc(px1, py1, hgc, - cazgi.r, - cazgi.teta + cazgi.r)
+            Paint.Stroke
+            Paint.Text(Round(cazgi.yazi, - cazgi.sekil), pyzx, pyzy + pht)
+            turn(pyzx, pyzy, cazgi.x8, pht)
+             ok(px2, py2, cazgi.r + Pi / 2, pht)
+            ok(px3, py3, cazgi.teta - Pi / 2, pht)
+            Goto gec
+        End If
+         pht = cazgi.x6 * 2
+        If cazgi.komut = 190 Then  ' yarıçap ölçü
+        
+            Paint.Font.Size = pht
+            pyzx = cazgi.yazix
+            pyzy = cazgi.yaziy
+             Paint.MoveTo(px1, py1)
+             Paint.LineTo(px5, py5)
+             Paint.LineTo(pyzx, pyzy)
+             Paint.Stroke
+            Paint.Text("R= " & Round(cazgi.yazi, - cazgi.sekil), pyzx, pyzy + pht)
+            turn(pyzx, pyzy, cazgi.x8, pht)
+            acimi.aci(px1, py1, px5, py5)
+             ok(px5, py5, acimi.raci, pht)
+            Goto gec
+        End If
+        If cazgi.komut = 200 Then   ' çap ölçü
+            Paint.Font.Size = pht 
+            pyzx = cazgi.yazix
+            pyzy = cazgi.yaziy
+            Paint.MoveTo(px4, py4)
+             Paint.LineTo(px5, py5)
+             If cazgi.x6 = 1
+                    Paint.MoveTo(px4, py4)
+                    Paint.LineTo(pyzx, pyzy)
+             Else
+                    Paint.MoveTo(px5, py5)
+                    Paint.LineTo(pyzx, pyzy)
+            End If
+            Paint.Stroke
+            Paint.Text("D= " & Round(cazgi.yazi, - cazgi.sekil), pyzx, pyzy + pht)
+            acimi.aci(px4, py4, px5, py5)
+            turn(pyzx, pyzy, cazgi.x8, pht)
+             ok(px4, py4, acimi.raci + Pi, pht)
+             ok(px5, py5, acimi.raci, pht)
+             
+            Goto gec
+             
+        End If
+        If cazgi.komut = 238 Then   ' FEA için yüzey çizimi
+            gtr.Add(px1) 'x1
+            gtr.Add(py1) 'y1
+            gtr.Add(px3) 'x2
+            gtr.Add(py3) 'y2
+            gtr.Add(cazgi.x8)
+            gtr.Add(cazgi.y8)
+            k = 2
+            Goto gec
+        End If
+        If cazgi.komut = 242 Then  ' nokta çizimi
+            Paint.Arc(px1, py1, 1 / olcum)
+        End If
+    gec:
+    Paint.Stroke
+    Next
+    If k = 2 Then
+                k = 0
+                Paint.LineWidth = 2
+                Paint.Polygon(gtr)
+                Paint.FillRule = Paint.FillRuleWinding
+                Paint.Brush = Paint.Color(Color.RGB(0, 179, 0))
+                Paint.Fill(True)
+                Paint.Brush = Paint.Color(Color.White)
+                gtr.Clear
+    Endif
+    paint.Scale(1 / olcum, 1 / olcum)
+    Paint.Stroke
+'     Paint.Restore
+    Paint.Font.Size = 15
+   
+    
+    cizimci.yurru                 '/////////  YURU    ////////
+    Paint.Stroke
+'     If potx1 <> 0 Then Paint.Arc(potx1, poty1, 50)
+    If isaretx <> 0 Then cizimci.ucyq                '     //////  UÇ YAKALAMA çizimi ////
+    Paint.Stroke
+    Paint.LineWidth = 2
+    If komutsayi <> 0
+        If ilk.birx > 0 Then
+            Paint.MoveTo(birx, biry)
+            Paint.LineTo(mousex, mousey)
+            Paint.arc(torba2.tusx, ilk.biry, 4)
+            Paint.arc(ilk.birx, torba2.tusy, 4)
+            Paint.Stroke
+        End If
+    End If
+    
+    Paint.LineWidth = 2
+    If tw1 = 5 Then cizimci.ozel '///////// Özellik tablosu açık ise özellik tablosunda listeleni göster    /////////
+    If fea.grns <> 0 Then cizimci.fem                '/////////  YURU    ////////////
+    Paint.LineWidth = 1
+    If vex1 <> 0 Then cizimci.alan              ' //////  Seçim dörtgeni////
+    If tsayi = 215 Then
+        If umx1 <> 0 Then                    '//////  zoom alanı ÇİZİMİ  ////
+            Draw.LineStyle = 3
+            paint.LineWidth = 1
+            Paint.Rectangle(umx1, umy1, mousex - umx1, mousey - umy1)
+            Paint.Stroke
+        Endif
+    Endif
+    Paint.LineWidth = 1
+    If sdrt = 1 Then cizimci.cerceve                     '//////  çerçeve  ////
+    Paint.LineWidth = 2
+    If tzx1 <> 0 Then cizimci.scc             '//////////  sıcak nokta çizme cizme ////
+    If iza = 1 Then cizimci.izg             '//////////  Grid cizme ////
+    If isalan = 1 Then cizimci.camci                     '//////  cam  ////
+    If komutsayi <> 0 Then cizimci.takip    ' izleme çizimi
+    If torna.altx <> 0 Then   'torna malzemesi çiziliyor
+        draw.Line(torna.xaxs * olcum, torna.yaxs * olcum, torna.bykx * olcum, torna.yaxs * olcum)
+        draw.Line(torna.bykx * olcum, torna.yaxs, torna.bykx * olcum, torna.yaxs + (CFloat(torna.TextBox5.text)) * olcum)
+        draw.Line(torna.bykx * olcum, (torna.yaxs + CFloat(torna.TextBox5.text)) * olcum, torna.xaxs * olcum, (torna.yaxs + CFloat(torna.TextBox5.text)) * olcum)
+        draw.Line(torna.xaxs * olcum, (torna.yaxs + CFloat(torna.TextBox5.text)) * olcum, torna.xaxs * olcum, torna.yaxs * olcum)
+    Endif
+    If ucg.r2 <> 0
+        If kesitli.vg = 1 Then
+            draw.Circle(ucg.xus * olcum, ucg.yus * olcum, 10)
+            draw.Line(ucg.basx * olcum, ucg.yus * olcum, ucg.xus * olcum, ucg.yus * olcum)
+            draw.Line(ucg.xus * olcum, ucg.sony * olcum, ucg.xus * olcum, ucg.yus * olcum)
+            draw.Text("COG", ucg.xus * olcum, ucg.yus * olcum)
+        Endif
+    Endif
+
+    If cnc.goru <> 0 Then
+        Paint.MoveTo(orix * olcum, oriy * olcum)
+        Paint.LineTo(orix * olcum, oriy * olcum - cnc.mlzy * olcum)
+        Paint.LineTo(orix * olcum + cnc.mlzx * olcum, oriy * olcum - cnc.mlzy * olcum)
+        Paint.LineTo(orix * olcum + cnc.mlzx * olcum, oriy * olcum)
+        Paint.LineTo(orix * olcum, oriy * olcum)
+        Paint.Stroke
+    Endif
+    
+    Draw.Foreground = color.Red
+    If torba2.bcc = 1 Then
+        Paint.MoveTo(birx, biry)
+        Paint.LineTo(mousex, mousey)
+        Paint.Stroke
+    Endif
+    If torba2.bcc = 2 Then
+        Paint.MoveTo(x1gec, y1gec)
+        Paint.LineTo(mousex, mousey)
+        paint.arc(mousex, mousey, 15)
+        Paint.Stroke
+    Endif
+    draw.LineWidth = secis * 1.5
+    If frgc = 1 Then
+        paint.arc(x1oku * olcum, y1oku * olcum, secis)
+    Else If frgc = 2 Then
+        paint.arc(x2oku * olcum, y2oku * olcum, secis)
+    Else If frgc = 3 Then
+        paint.arc(ucxx, ucyy, secis)
+    End If
+    Paint.Stroke
+    If mnhe = 1 Then Draw.circle(msa, mse, 5)        '//////  dizi çizimi  ////
+    ' Draw.Foreground = color.White
+    ' draw.LineWidth = 1
+
+cik2:
+    draw.LineWidth = 4
+    Draw.Foreground = Color.Blue
+    If torbasecim.noksecx1 <> 0 Then paint.arc(torbasecim.noksecx1 / olcum, torbasecim.noksecy1 / olcum, 5)
+    Draw.Foreground = color.red
+    If noksecx3 <> 0 Then paint.arc(noksecx3 / olcum, noksecy3 / olcum, 5)
+    Paint.Stroke
+'     Paint.Restore
+    Paint.End
+Catch
+    Paint.End
+    hatayaz("calanilkdraw " & Error.Text, Error.Where & "--" & Error.code)
+End
+Public hatano As Integer
+
+Public Sub hatayaz(hata As String, bilgi As String)
+Dim myFile As File
+hatano = hatano + 1
+myFile = Open System.User.Home &/ ".KediCAD/Kayit/hatalar.txt" For Write
+Seek #myFile, Lof(myFile)
+Print #myFile, hatano & "- -HATA- " & hata & " -BİLGİ- " & bilgi
+Close myFile
+Return
+End
+
+Public baca As Integer
+Public noksecx3 As Float
+Public noksecy3 As Float
+Sub turn(xs As Float, ys As Float, aci As Float, sc As Float)
+        Paint.MoveTo(xs, ys)
+        Paint.Translate(xs, ys)
+        Paint.Rotate(aci)
+        If sc < 1 Then paint.Scale(sc, sc)
+        Paint.Translate(- xs, - ys)
+        Paint.Stroke
+        Paint.MoveTo(xs, ys)
+        Paint.Translate(xs, ys)
+        Paint.Rotate(- aci)
+        If sc < 1 Then paint.Scale(1 / sc, 1 / sc)
+        Paint.Translate(- xs, - ys)
+        Paint.Stroke
+Return
+Catch
+    Paint.Stroke
+    hatayaz("turn " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Sub ok(xa As Float, ya As Float, aci As Float, pht As Float)
+pht = pht / 15
+    Paint.Stroke
+    Paint.Translate(xa, ya)
+    Paint.Rotate(aci)
+'     paint.Scale(pht, pht)
+    Paint.LineTo(10 * pht, -2 * pht)
+    Paint.LineTo(10 * pht, 2 * pht)
+    Paint.LineTo(0, 0)
+    Paint.MoveTo(0, 0)
+    Paint.Stroke
+    Paint.Rotate(- aci)
+    Paint.Translate(- xa, - ya)
+    Paint.Stroke
+    Return
+    Catch
+    Paint.Stroke
+    hatayaz("ok " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub calanilk_MouseDown()
+
+    Dim penge, penye, l, l1, l2, l3, noksecx2, noksecy2 As Float
+
+    Panel15.Visible = False
+    Panel10.Visible = False
+    If mouse.Middle
+    If potx1 = 0
+        onol = olcum
+        potx1 = mousex 
+        poty1 = mousey 
+        scd = 2
+        tsayi = 0
+        torbasecim.diksec = 0
+        Goto cik2
+    End If
+    End If
+    If mouse.Right Then
+        scd = 0
+        tsayi = 0
+        torbasecim.diksec = 0
+        If komutsayi = 6 Then cizi.spline
+        If komutsayi = 0
+            If sagmenu = 2  '///// MENÜ YÖNETİMİ
+                torba8.penmenu
+            Else
+                torba8.limenu
+            End If
+        Else
+            If taga = 3 Then   ' seçim bitti
+                konum.sira = 5
+                If komutsayi = 230 Then birlestir_Click()
+                If komutsayi = 15 Then sildepo  ' Seçilenleri sil
+                If komutsayi = 295 Then fblok.Main ' Blok penceresini göster
+                If komutsayi = 321 Then ' Mukavemet momenti hesaplama
+                    komutsayi = 0
+                    kesitli.ozel
+                    kesitli.Show
+                End If
+                komyaz.Text = "Selection OK :"
+                taga = 0
+            Else '  If taga = 0 Then '
+                komutsayi = 0
+                If sagmenu = 2  '///// MENÜ YÖNETİMİ
+                    torba8.penmenu
+                Else
+                    torba8.limenu
+                End If
+            End If
+        End If
+        Goto cik2
+    Endif
+
+    If konum.sira > 3 Then
+        torba8.herc
+    Else
+        torba8.derc
+    End If
+
+    If tsayi = 215 Then
+        If umx1 = 0
+            umx1 = Mouse.x
+            umy1 = Mouse.y
+            derin = 1
+        Else
+            torba6.te
+            umx2 = mouse.x
+            umy2 = mouse.y
+            If umx1 > umx2 Then
+                abl = umx2
+                umx2 = umx1
+                umx1 = abl
+                abl = umy2
+                umy2 = umy1
+                umy1 = abl
+            Endif
+            abl = Min(umx1, umx2) / olcum
+            xds = Min(umy1, umy2) / olcum
+
+            penge = Abs(umx2 - umx1)
+            penye = Abs(umy2 - umy1)
+            If penge <> 0
+                If penye <> 0 Then olcum = (Min(Desktop.Width / penge, Desktop.Height / penye)) * olcum
+                If olcum < 0.00001 Then olcum = 0.00001 
+            End If
+            yarla
+            ScrollView1.Scroll(abl * olcum, xds * olcum)
+            umx1 = 0
+            umy1 = 0
+            tsayi = 0
+        End If
+        Goto cik2
+    End If
+
+    If konum.sira < 4
+        
+        If vex1 <> 0 Then Goto zip
+        If komutsayi = 3 Then Goto atll
+        If komutsayi = 1 Then Goto atll
+        If komutsayi = 20 Then Goto atll
+        If komutsayi = 25 Then Goto atll
+        If komutsayi = 162 Then Goto atll
+        If komutsayi = 100 Then Goto atll
+        If komutsayi = 105 Then Goto atll
+        If komutsayi = 110 Then Goto atll
+        If komutsayi = 120 Then Goto atll
+        If komutsayi = 135 Then Goto atll
+        If komutsayi = 190 Then Goto atll
+        If komutsayi = 200 Then Goto atll
+        If komutsayi = 331 Then
+            torbasecim.secim(mousex, mousey)
+            Goto zip
+        Endif
+        If komutsayi = 336 Then
+            torbasecim.secim(mousex, mousey)
+            Goto zip
+        Endif
+        If vex1 = 0
+            If idgec <> 0 Then
+                If blokgec = 0 Or blokgec = "" Then  ' gec  de aynı bloktakiler ekleniyor
+                    If konum.sira < 3 Then depo1.Add(idgec, idgec)
+                Else
+                    For Each sazgi In ilk.cezmi
+                        If sazgi.id > 0
+                            If sazgi.blok = blokgec Then ilk.depo1.add(sazgi.id, sazgi.id) '//////////////  blok halindekiler ekleniyor.
+                        End If
+                    Next
+                Endif
+                torbasecim.okg(idgec)
+            Endif
+        Endif
+    End If
+atll:
+zip:
+    If torbasecim.diksec = 1   ' eğer seçilen bir çizim yoksa
+        If vex1 = 0 Then
+            vex1 = mouseX             ' Dikdörtgen seçimin ilk noktası
+            vey1 = mouseY
+        Else
+            torba4.dikis(mouseX, mouseY)      ' Dikdörtgen seçimi yap
+        End If
+    End If
+    pasti = 0
+    
+    If ozellik.oze = 1 Then 
+        For Each cazgi In ilk.cezmi
+            If ilk.depo1.Exist(cazgi.id) Then torba.degisim(cazgi.id)
+        Next
+    Endif
+    If komutsayi = 331
+        canli.merk(mousex, mousey)
+        canli.Show
+    End If
+    If komutsayi = 334
+        canli.merk(mousex, mousey)
+        canli.Show
+    End If
+    If komutsayi = 336
+        canli.merk(mousex, mousey)
+        canli.Show
+    End If
+    If komutsayi = 337
+        canli.merk(mousex, mousey)
+        canli.Show
+    End If
+
+    If sbr = 1 Then
+        rulman.rulciz(mousex, mousey)
+        sbr = 0
+    End If
+    If kbr = 1 Then
+        kece.kecciz(mousex, mousey)
+        kbr = 0
+    End If
+    If cnc.czt = 1
+        If depo1.Count > 0 Then
+            cnc.dsyac
+        Endif
+    Endif
+    If fea.grns = 1 Then
+        fea.TextBox11.Text = Right$(yazigec, -2)
+        fea.TextBox5.Text = Right$(yazigec, -2)
+    End If
+        If mouse.Left
+        If torbasecim.noksecx1 <> 0
+            If depo1.Count = 1 
+                acimi.aci(x1gec, y1gec, mousex, mousey)
+                l1 = acimi.boy
+                acimi.aci(x2gec, y2gec, mousex, mousey)
+                l2 = acimi.boy
+                acimi.aci(x3gec, y3gec, mousex, mousey)
+                l3 = acimi.boy
+                l = Min(l1, l2)
+                l = Min(l, l3)
+                If l < (tasec / (2 * ilk.olcum)) * 3
+                    If l1 < l2 Then
+                        If l1 < l3 Then
+                            noksecx2 = x1gec
+                            noksecy2 = y1gec
+                        Else
+                            If l3 < l2 Then
+                                noksecx2 = x3gec
+                                noksecy2 = y3gec
+                            Else
+                                noksecx2 = x2gec
+                                noksecy2 = y2gec
+                            Endif
+                        Endif
+                    Endif
+                    If l2 < l1 Then
+                        If l2 < l3 Then
+                            noksecx2 = x2gec
+                            noksecy2 = y2gec
+                        Else
+                            If l3 < l1 Then
+                                noksecx2 = x3gec
+                                noksecy2 = y3gec
+                            Else
+                                noksecx2 = x1gec
+                                noksecy2 = y1gec
+                            Endif
+                        Endif
+                    Endif
+                Else
+                    noksecx2 = 0
+                    noksecy2 = 0
+                Endif
+                If noksecx2 = torbasecim.noksecx1
+                    If noksecy2 = torbasecim.noksecy1
+                        noksecx3 = noksecx2
+                        noksecy3 = noksecy2
+                        noksecx2 = 0
+                        noksecy2 = 0
+                    Else
+                        noksecx3 = 0
+                        noksecy3 = 0
+                    Endif
+                Endif
+
+                If tzx1 = 0
+                        torba4.bnok(mouseX, mouseY)
+                        If torba4.bnox <> 0
+                            komutsayi = 372
+                            torbasecim.secim(mouseX, mouseY)
+                            tzx1 = torba4.bnox
+                            tzy1 = torba4.bnoy
+                            torba2.yuvarla1
+                            torba4.bnox = 0
+                            Goto cik2
+                        Endif
+                Else
+                        konum.nok()
+                        tzx2 = konum.nokx
+                        tzy2 = konum.noky
+                        torba4.bossec2
+                        tzx2 = 0
+                        komutsayi = 0
+                        Goto cik2
+                Endif
+            Goto cik2
+            End If
+        Endif
+    Endif
+cik2:
+    If sece = 1 Then Panel26.Visible = True
+calanilk.Refresh
+Catch
+    hatayaz("mousedown " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public frx As Float
+Public fry As Float
+Public frgc As Integer
+Public idef As Integer
+Public Sub calanilk_DragMove()
+
+    
+
+End
+
+Public Sub calanilk_DragLeave()
+ 
+        scd = 0
+        potx1 = 0
+        poty1 = 0
+
+Catch
+	hatayaz("mouseup" & Error.Text, Error.Where & "--" & Error.code)
+    
+
+End
+
+Public Sub calanilk_Drag()
+
+    If potx1 = 0
+        onol = olcum
+        potx1 = mousex 
+        poty1 = mousey 
+        scd = 2
+        tsayi = 0
+    End If
+End
+Public Sub calanilk_MouseMove()
+    Dim el As Cursor
+Dim resi As Picture
+swx = ScrollView1.ScrollX
+    swy = ScrollView1.ScrollY
+    mousex = mouse.x
+    mousey = mouse.y
+    If mesgul = 1 Then Return
+    If mesgul2 = 1 Then Return
+    If potx1 <> 0 Then Return
+    If komutsayi = 29 Then idef = acimi.cizgiuzak(mousex, mousey)
+If scd = 1
+    resi = picture["res/kmt1.png"]
+        el = New Cursor(resi)
+        calanilk.Cursor = el
+Else
+     If imlec = 0 Then
+        resi = picture["res/kmt.png"]
+        el = New Cursor(resi)
+        calanilk.Cursor = el
+     Else
+            calanilk.Mouse = 1
+    Endif
+Endif
+        
+    komutcuk.SetFocus
+'     torba8.penmenu(1)
+    If hazim.Visible = True Then TextArea1.SetFocus
+    If fea.Visible = True Then torbasecim.secig(mousex, mousey)
+
+    label1.Text = "  olcum= " & Format$(olcum, "#.####") & "   X = " & Format$(mousex, "#.##") & "  Y = " & Format$(mousey, "#.##")
+    If vex1 = 0 Then torbasecim.secim(mousex, mousey)
+    If uca = 1
+        If scd = 0 Then 
+            If komutsayi <> 0 Then torba2.sucyakalama
+        End If
+    End If
+
+    If komutsayi = 0 Then
+        If secenekler.kayitara.Value = True Then yuru.yedek
+    Endif
+
+    If oniz = 1 Then yilk.Refresh
+    If Panel26.Visible = True Then
+        If RadioButton1.Value = True Then PictureBox34.Background = renkoku
+        If RadioButton2.Value = True Then Label31.Text = katmanoku
+        If RadioButton3.Value = True Then Label31.Text = sekiloku
+    Endif
+    calanilk.Refresh
+    Catch
+        hatayaz("mousemove " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub uzaklas_Click()
+    onol = olcum
+    umx1 = 0
+    derin = 0
+    tsayi = 215
+Catch
+End
+
+Public Sub umut2()
+
+    Dim penge, penye As Float
+
+    penge = Abs(umx2 - umx1)
+    penye = Abs(umy2 - umy1)
+
+    If panel12.Visible = True Then olcum = 1
+    Return
+Catch
+    hatayaz("umut2 " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+Public cen As Float
+Public cboy As Float
+Public Sub calanilk_MouseWheel()
+
+    Dim penge, penye As Float
+
+    If Panel12.Visible = True Then Return
+    birx = birx / olcum
+    biry = biry / olcum
+    ikix = ikix / olcum
+    ikiy = ikiy / olcum
+    vex1 = vex1 / olcum
+    vey1 = vey1 / olcum
+    If umx1 = 0
+    If mouse.Delta > 0  ' büyütme
+        umx1 = (mouse.x) - 250
+        umy1 = (mouse.y) + 200
+        umx2 = (mouse.x) + 250
+        umy2 = (mouse.y) - 200
+    Else                    ' küçültme
+        umx1 = (mouse.x) - 700
+        umy1 = (mouse.y) + 600
+        umx2 = (mouse.x) + 700
+        umy2 = (mouse.y) - 600
+    End If
+    End If
+    torba6.te
+
+    abl = (umx1) / olcum
+    xds = (Min(umy1, umy2) + 100) / olcum
+
+    penge = Abs(umx2 - umx1)
+    penye = Abs(umy2 - umy1)
+    If penge <> 0
+        If penye <> 0
+            olcum = (Min(Desktop.Width / penge, Desktop.Height / penye)) * olcum
+            If olcum < 0.00001 Then olcum = 0.00001 
+        End If
+    End If
+    yarla
+    ScrollView1.Scroll(abl * olcum, xds * olcum)
+    umx1 = 0
+    umy1 = 0
+    birx = birx * olcum
+    biry = biry * olcum
+    ikix = ikix * olcum
+    ikiy = ikiy * olcum
+    vex1 = vex1 * olcum
+    vey1 = vey1 * olcum
+    mesgul = 0
+
+atla:
+Catch
+    hatayaz("mousewheel " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public bnvc As Integer
+
+
+Public Sub tamekran_Click()
+
+    If cezmi.Count > 0
+        If bnvc = 0 Then
+            torba6.te
+            dusge
+            torba6.te
+            dusge2
+            torba6.te
+            dusge
+            torba6.te
+            dusge2
+            bnvc = 0
+        Endif
+    Else
+        ScrollView1.scroll(orix, oriy - 500)
+        Return
+    End If
+    If cezmi.Count > 0
+        umut
+    Endif
+    ScrollView1.Scroll(abl * olcum - 140, xds * olcum - 90)
+    gerde.zkayit("alan", ScrollView1.ScrollX, ScrollView1.Scrolly)
+    mesgul = 0
+Catch
+    hatayaz("tamekran_Click " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+
+Public xds As Integer
+Public abl As Integer
+
+Public Sub umut()
+
+    Dim penge, penye As Float
+
+    mesgul = 1
+    gerde.zkayit("alan", ScrollView1.ScrollX, ScrollView1.Scrolly)
+    onol = olcum
+    torba6.te
+    umx1 = torba6.basx * olcum
+    umy1 = torba6.basy * olcum
+    umx2 = torba6.sonx * olcum
+    umy2 = torba6.sony * olcum
+    abl = Min(umx1, umx2) / olcum
+    xds = Min(umy1, umy2) / olcum
+    penge = Abs(umx2 - umx1)
+    penye = Abs(umy2 - umy1)
+    If penge <> 0
+        If penye <> 0
+            olcum = (Min(Desktop.Width / penge, Desktop.Height / penye)) * olcum / 1.4
+            If olcum < 0.00001 Then olcum = 0.00001 
+        End If
+    End If
+    yarla
+
+    umx1 = 0
+    umy1 = 0
+    mesgul = 0
+    Return
+Catch
+    hatayaz("umut " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+Sub yarla()
+    
+    umx1 = torba6.basx * olcum
+    umy1 = torba6.basy * olcum
+    umx2 = torba6.sonx * olcum
+    umy2 = torba6.sony * olcum
+    genis = 2 * Max((umx2), (umx1)) 
+    yksk = 2 * Max((umy2), (umy1)) 
+    If (genis) > cen Then cen = genis
+    If (yksk) > cboy Then cboy = yksk
+    If cen > 2 * genis Then cen = genis
+    If cboy > 2 * yksk Then cboy = yksk
+    If cen < desktop.width Then cen = desktop.width
+    If cboy < desktop.Height Then cboy = desktop.Height  
+    calanilk.Width = cen
+    calanilk.Height = cboy
+    Return
+    Catch
+        hatayaz("yarla " & Error.Text, Error.Where & "--" & Error.code)
+        Return
+End
+
+Public Sub dusge()
+
+    torba6.te
+    rorix = (Max(torba6.basx, torba6.sonx) + (torba6.frkx / 4)) 
+    roriy = (Min(torba6.basy, torba6.sony) + (torba6.frky / 2))
+    For Each cazgi In cezmi
+        cazgi.x1 = cazgi.x1 + rorix
+        cazgi.y1 = cazgi.y1 + roriy
+        If cazgi.komut <> 60
+        cazgi.x2 = cazgi.x2 + rorix
+        cazgi.y2 = cazgi.y2 + roriy
+        Endif
+        If cazgi.x3 <> 0 Then cazgi.x3 = cazgi.x3 + rorix
+        If cazgi.y3 <> 0 Then cazgi.y3 = cazgi.y3 + roriy
+        If cazgi.x4 <> 0 Then cazgi.x4 = cazgi.x4 + rorix
+        If cazgi.y4 <> 0 Then cazgi.y4 = cazgi.y4 + roriy
+        If cazgi.x5 <> 0 Then cazgi.x5 = cazgi.x5 + rorix
+        If cazgi.y5 <> 0 Then cazgi.y5 = cazgi.y5 + roriy
+        If cazgi.x7 <> 0 Then cazgi.x7 = cazgi.x7 + rorix
+        If cazgi.y7 <> 0 Then cazgi.y7 = cazgi.y7 + roriy
+        If cazgi.x8 <> 0 Then cazgi.x8 = cazgi.x8 + rorix
+        If cazgi.y8 <> 0 Then cazgi.y8 = cazgi.y8 + roriy
+        If cazgi.x9 <> 0 Then cazgi.x9 = cazgi.x9 + rorix
+        If cazgi.y9 <> 0 Then cazgi.y9 = cazgi.y9 + roriy
+        If cazgi.yazix <> 0 Then cazgi.yazix = cazgi.yazix + rorix
+        If cazgi.yaziy <> 0 Then cazgi.yaziy = cazgi.yaziy + roriy
+        acimi.aci(cazgi.x1, cazgi.y1, cazgi.x2, cazgi.y2)
+        cazgi.egim = acimi.ege
+        cazgi.b = acimi.bb
+        If cazgi.id = 1 Then cazgi.teta = acimi.daci
+    Next
+    orix = orix + rorix
+    oriy = oriy + roriy
+    Return
+Catch
+    hatayaz("dusge " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub dusge2()
+torba6.te
+    rorix = (Min(torba6.basx, torba6.sonx) - (torba6.frkx / 4))
+    roriy = (Min(torba6.basy, torba6.sony) - (torba6.frky / 2))
+    For Each cazgi In cezmi
+        cazgi.x1 = cazgi.x1 - rorix
+        cazgi.y1 = cazgi.y1 - roriy
+        If cazgi.komut <> 60
+        cazgi.x2 = cazgi.x2 - rorix
+        cazgi.y2 = cazgi.y2 - roriy
+        Endif
+        If cazgi.x3 <> 0 Then cazgi.x3 = cazgi.x3 - rorix
+        If cazgi.y3 <> 0 Then cazgi.y3 = cazgi.y3 - roriy
+        If cazgi.x4 <> 0 Then cazgi.x4 = cazgi.x4 - rorix
+        If cazgi.y4 <> 0 Then cazgi.y4 = cazgi.y4 - roriy
+        If cazgi.x5 <> 0 Then cazgi.x5 = cazgi.x5 - rorix
+        If cazgi.y5 <> 0 Then cazgi.y5 = cazgi.y5 - roriy
+        If cazgi.x7 <> 0 Then cazgi.x7 = cazgi.x7 - rorix
+        If cazgi.y7 <> 0 Then cazgi.y7 = cazgi.y7 - roriy
+        If cazgi.x8 <> 0 Then cazgi.x8 = cazgi.x8 - rorix
+        If cazgi.y8 <> 0 Then cazgi.y8 = cazgi.y8 - roriy
+        If cazgi.x9 <> 0 Then cazgi.x9 = cazgi.x9 - rorix
+        If cazgi.y9 <> 0 Then cazgi.y9 = cazgi.y9 - roriy
+        If cazgi.yazix <> 0 Then cazgi.yazix = cazgi.yazix - rorix
+        If cazgi.yaziy <> 0 Then cazgi.yaziy = cazgi.yaziy - roriy
+        acimi.aci(cazgi.x1, cazgi.y1, cazgi.x2, cazgi.y2)
+        cazgi.egim = acimi.ege
+        cazgi.b = acimi.bb
+        If cazgi.id = 1 Then cazgi.teta = acimi.daci
+    Next
+    orix = orix - rorix
+    oriy = oriy - roriy
+    Return
+Catch
+    hatayaz("dusge2 " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub calanilk_MouseUp()
+
+    If mouse.Middle Then 
+        scd = 0
+        potx1 = 0
+        poty1 = 0
+     Endif
+Catch
+	hatayaz("mouseup" & Error.Text, Error.Where & "--" & Error.code)
+End
+Public frkz As Float
+Public Sub calanilk_MouseDrag()
+
+    Dim frkx, frky, aci As Float
+
+If mouse.Middle
+If frkx = 0
+        acimi.aci(potx1, poty1, mouse.x, mouse.y)
+        aci = acimi.raci
+        frkx = acimi.boy * Cos(aci)
+        frky = acimi.boy * Sin(aci)
+        ScrollView1.ScrollX = ScrollView1.scrollX - frkx
+         ScrollView1.ScrollY = ScrollView1.scrollY + frky
+End If
+End If
+
+Catch
+   	hatayaz("mousedrag" & Error.Text, Error.Where & "--" & Error.code) 
+End
+
+Public Sub calanilk_DblClick()
+
+    If mouse.Middle Then tamekran_Click
+    If mouse.Left
+        If komgec = 60 Then
+            hazim.Show
+            ikix = x1gec
+            ikiy = y1gec
+            onyaz = idgec
+            TextArea1.Text = yazigec
+            For Each cazgi In cezmi
+                If cazgi.id = idgec Then
+                    ColorButton2.Value = Color.green
+                    TextBox10.Text = cazgi.x6
+                    If cazgi.x4 Then TextArea1.Font.Underline = True
+                    If cazgi.y6 Then TextArea1.Font.Bold = True
+                    If cazgi.egim Then TextArea1.Font.Italic = True
+                Endif
+            Next
+        Else
+            If depo1.Count = 1
+                ozellik.Show
+                For Each cazgi In ilk.cezmi
+                    If ilk.depo1.Exist(cazgi.id) Then torba.degisim(cazgi.id)
+                Next
+            Endif
+        Endif
+    Endif
+Catch
+	hatayaz("dblclk" & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button104_Click()
+
+    If cezmi.Count > 0
+        gerde.zkayit("alan", ScrollView1.ScrollX, ScrollView1.Scrolly)
+        onol = olcum
+        umx1 = ((torba6.basx + torba6.sonx) * olcum / 2) - 550
+        umy2 = ((torba6.basy + torba6.sony) * olcum / 2) - 550
+        umx2 = ((torba6.basx + torba6.sonx) * olcum / 2) + 550
+        umy1 = ((torba6.basy + torba6.sony) * olcum / 2) + 550
+        abl = Min(umx1, umx2) / olcum
+        xds = Min(umy1, umy2) / olcum
+        umut2
+        ScrollView1.Scroll(abl * olcum - (Desktop.w / 10), xds * olcum - (Desktop.h / 10))
+    Endif
+Catch
+	hatayaz("buton104 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button5_Click()
+
+    If cezmi.Count > 0
+        gerde.zkayit("alan", ScrollView1.ScrollX, ScrollView1.Scrolly)
+        onol = olcum
+
+        umx1 = ((torba6.basx + torba6.sonx) * olcum / 2) - 350
+        umy2 = ((torba6.basy + torba6.sony) * olcum / 2) - 350
+        umx2 = ((torba6.basx + torba6.sonx) * olcum / 2) + 350
+        umy1 = ((torba6.basy + torba6.sony) * olcum / 2) + 350
+        abl = Min(umx1, umx2) / olcum
+        xds = Min(umy1, umy2) / olcum
+        umut2
+        ScrollView1.Scroll(abl * olcum - (Desktop.w / 10), xds * olcum - (Desktop.h / 10))
+    Endif
+Catch
+	hatayaz("buton5 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub komutcuk_Activate()
+
+    If komutsayi = 280
+        If kenar = 1
+            kosegen = CFloat(komutcuk.Text)
+            torba7.cokgen(kose, kosegen)
+            kenar = 0
+        End If
+    End If
+    If komutsayi = 280
+        If konum.sira > 0
+            If kenar = 0
+                If komutcuk.Text <> ""
+                    kose = CFloat(komutcuk.Text)
+                    komutcuk.Text = ""
+                    kenar = 1
+                    komyaz.Text = "Specify length of the polygon"
+                End If
+            End If
+        End If
+    End If
+    torba7.kmact(komutcuk.Text, komutsayi)
+    If komutsayi = 20 Then
+        If cmbr.ysira = 3 Then
+            cmbr.fian = hadi
+            cmbr.yayci2
+            cmbr.ysira = 0
+            konum.sira = 0
+        Endif
+        If cmbr.ysira = 2 Then
+            komyaz.Text = "Specify third point Or enter finish angle :"
+            cmbr.ysira = 3
+            cmbr.stan = hadi
+            konum.sira = 0
+        Endif
+        If konum.sira = 1 Then
+            komyaz.Text = "Specify second point Or enter start angle :"
+            cmbr.ysira = 2
+            yuru.yyari = hadi
+            konum.sira = 0
+        Endif
+    Endif
+Catch
+	hatayaz("komutcukactivate " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub komutcuk_KeyRelease()
+
+    If Key.code = key.Esc Then
+        Stop Event
+        If komutsayi <> 0
+            If key.Code = key.Enter Then
+                Stop Event
+            End If
+        End If
+        dolas
+    End If
+calanilk.Refresh
+Catch
+	hatayaz("komutcuk keyrelase " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub komutcuk_KeyPress()
+
+    Dim tx As Integer
+    Dim myFile As File
+    Dim myLine As String
+
+    If komutcuk.Text = "a" Or komutcuk.Text = "A" Then
+
+    Endif
+
+    If Key.Shift Then
+        depo1.remove(idgec)
+        calanilk.Refresh
+    Endif
+
+    If key.Code = key.Delete Then silme_Click
+    If key.Code = key.F1 Then ucyakala_Click()
+    If key.Code = key.F2 Then dogrultu_Click()
+    If key.Code = key.Esc Then
+        Stop Event
+        dolas
+    End If
+
+    If key.Code = key.Up Then
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/komu" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                tx = tx + 1
+                If tx = sati Then
+                    komutcuk.Text = ""
+                    komutcuk.Text = myLine
+                    sati = sati - 1
+                End If
+            Wend
+        End If
+        Close myFile
+    End If
+
+    If key.Code = key.Down Then
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/komu" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                tx = tx + 1
+                If tx = sati Then
+                    komutcuk.Text = ""
+                    komutcuk.Text = myLine
+                    sati = sati + 1
+                End If
+            Wend
+        End If
+        Close myFile
+    End If
+
+    If key.Code = key.F5 Then
+        pasti = 1
+    Else
+        pasti = 0
+    End If
+cik2:
+
+Catch
+	hatayaz("komutcukkeypress " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub tazele_Click()
+
+    dolas
+
+End
+
+Public Sub resam()
+
+    Dim reskayit As Picture
+    Dim sb As String
+
+    sb = kaci
+    If Exist(System.User.Home &/ ".KediCAD/Acilis/" & sb & ".jpeg")
+        Shell "rm " & System.User.Home &/ ".KediCAD/Acilis/" & sb & ".jpeg"
+    End If
+    If Exist(System.User.Home &/ ".KediCAD/Acilis/" & Left$(sb, -4) & ".jpeg")
+        Shell "rm " & System.User.Home &/ ".KediCAD/Acilis/" & Left$(sb, -4) & ".jpeg"
+    End If
+    Wait 1
+    sb = dosyami
+    reskayit = desktop.Screenshot(100, 100, ilk.w - 500, ilk.h - 150)
+    $Spath = System.User.Home &/ ".KediCAD/Acilis/" & Left$(sb, -4) & ".jpeg"
+    reskayit.Save($Spath, 3)
+    Return
+Catch
+	hatayaz("resam " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub kaydet_Click()
+
+    pdrl(0)
+
+
+End
+
+Public Sub kayit2_Click()
+
+    pdrl(5)
+
+
+End
+
+Public Sub fkayit_Click()
+
+    pdrl(5)
+
+
+End
+
+Public Sub kayit_Click()
+
+    pdrl(0)
+
+
+End
+
+Public Sub Menu27_Click()
+
+    If cezmi.Count > 0 Then
+        If israf = 0 Then
+            Select Message.Question("Kaydetmek İstermisiniz?", "İptal", "Evet", "Hayır")
+                Case 1
+                    pdrl(7)
+                Case 2
+                    pdrl(0)
+                Case 3
+                    Quit
+            End Select
+        End If
+    Else
+        Quit
+    Endif
+End
+
+Public Sub pdrl(bvcy As Integer)
+
+    onol = olcum
+    If bvcy = 0
+        If Me.Text = "KediCAD2B" Or Me.Text = "KediCAD2B Yeni Çizim" Or Me.Text = "New Drawing" Then
+            kacino = 0
+        Else
+            kacino = 57
+        Endif
+    Else If bvcy = 7
+        
+    Else
+        kacino = 0
+    Endif
+    If kacino = 0 Then
+        kayipci.Show
+    Else
+        dac.dxfkay(kaci)
+        resam
+    End If
+Catch
+	hatayaz("pdrl " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+
+
+Public Sub dolas()
+    taga = 0
+    depo1.Clear
+    komutsayi = 0
+    vex1 = 0
+    tsayi = 0
+    tem.temizlik
+    '     Wait 0.15
+    Return
+Catch
+	hatayaz("dolas " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub Form_Open()
+
+    Dim myFile As File
+    Dim bss As Integer
+    Dim myLine, sb As String
+    Dim el As Cursor
+    Dim resi As Picture
+
+    Dim numparms As Integer
+    Dim parm As String
+    
+    kedibas.Label2.Text = "% " & 30
+     Wait 0.5
+    numparms = Application.Args.Count
+    parm = Application.Args[1]
+    Menu115_Click
+    gff = 1
+    tarih = Now
+    If hiz < 49 Then pmax = 15
+    If hiz = 50 Then pmax = 13
+    If hiz = 60 Then pmax = 10
+    If hiz = 70 Then pmax = 8
+    If hiz = 80 Then pmax = 7
+    If hiz = 90 Then pmax = 6
+    If hiz > 90 Then pmax = 5
+    If pmax = 0 Then pmax = 8
+
+    mesgul2 = 1
+    cimar = False
+    If Not IsDir(System.User.Home &/ ".KediCAD") Then
+        dosyalar.dss
+    End If
+    dosyalar.dsyok
+    menu75.Text = "New Drawing"
+    onyukleme.yukleme
+    Me.Text = "KediCAD2B Yeni Çizim"
+    olcum = 1
+    komutcuk.SetFocus
+    If imlec = 0 Then
+        resi = picture["res/kmt.png"]
+        el = New Cursor(resi)
+        calanilk.Cursor = el
+    Else
+        calanilk.Mouse = 4
+    Endif
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/yer") Then
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/yer" For Read
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+        Wend
+        myLine = Trim$(myLine)
+        If myline = "1" Then yerle.yerlesim
+        If myline = "2" Then yerle.yerlesim2
+    Else
+        yerle.yerlesim2
+    Endif
+    kedibas.Label2.Text = "% " & 50
+     Wait 0.5
+    reka = orenk
+    selka = sekil.Text
+    kelka = kalin.Text
+    katmer.Index = katmer.Find("0")
+    sekil.Index = 0
+    kalin.Index = kalin.Find("ByLayer")
+    If calanilk.Background = color.Black
+        apla = color.White
+    Else
+        apla = color.Black
+    End If
+    mesgul2 = 0
+    If Exist(System.User.Home &/ ".tarayici/kedi")
+        myFile = Open System.User.Home &/ ".tarayici/kedi"
+        If Lof(myFile) > 0 Then
+            Line Input #myFile, myLine
+            kaci = myLine
+            dacy.dxf
+        End If
+        Close myFile
+        myFile = Open System.User.Home &/ ".tarayici/kedi" For Create
+        Close myFile
+    End If
+    myFile = Open System.User.Home &/ ".KediCAD/ac.dxf" For Create
+    Close myFile
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/komu" For Create
+    Close myFile
+    olcum = 1
+    ' ScrollView1.Tracking = True
+    calanilk.Tracking = True
+    tamekran_Click
+    kedibas.Label2.Text = "% " & 70
+     Wait 0.3
+    
+    $sPath = System.User.Home &/ ".KediCAD/macroy/"
+    For Each sb In Dir($sPath)
+        If bss = 0 Then Menu22.Text = sb
+        If bss = 1 Then Menu94.Text = sb
+        If bss = 2 Then Menu95.Text = sb
+        If bss = 3 Then Menu96.Text = sb
+        If bss = 4 Then Menu97.Text = sb
+        If bss = 5 Then Menu98.Text = sb
+        If bss = 6 Then Menu99.Text = sb
+        If bss = 7 Then Menu100.Text = sb
+        If bss = 8 Then Menu101.Text = sb
+        bss = bss + 1
+    Next
+    komutsayi = 0
+    konum.sira = 0
+
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/izge") Then
+        iza = 1
+        izgara.Background = Color.blue
+    Else
+        izgara.Background = Color.Cyan
+        iza = 0
+    Endif
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/orto") Then
+        button74.Background = Color.blue
+        orto = 1
+    Else
+        button74.Background = Color.Cyan
+        orto = 0
+    Endif
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/dogu") Then
+        dogrultu.Background = Color.blue
+        doga = 1
+    Else
+        dogrultu.Background = Color.Cyan
+        doga = 0
+    Endif
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/ucy") Then
+        uca = 1
+        ucyakala.Background = Color.blue
+    Else
+        uca = 0
+        ucyakala.Background = Color.Cyan
+    Endif
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/ileri") Then Shell "rm " & System.User.Home &/ ".KediCAD/Kayit/ileri"
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/geri") Then Shell "rm " & System.User.Home &/ ".KediCAD/Kayit/geri"
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/ygeri") Then Shell "rm " & System.User.Home &/ ".KediCAD/Kayit/ygeri"
+    dolas
+    If parm Then
+        ilk.kaci = parm
+        dacy.dxf
+    Else
+        ilk.kaci = System.User.Home &/ ".KediCAD/ac.dxf"
+        dacy.dxf
+    Endif
+    dacy.baskatman
+    kedibas.Label2.Text = "% " & 90
+    Wait 0.5
+    kedibas.Close
+    
+    Catch
+    	hatayaz("formopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub yenidosya_Click()
+
+    dacy.bgh = 0
+    olcum = 1
+    cimar = False
+    dacy.kyno = 1
+    calanilk.Clear
+    dacy.kyno = 1
+
+    Me.Text = "Kedi CAD " & " / "
+    dolas
+ck:
+
+Catch
+	hatayaz("yenidosya " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public Sub yapistir_Click()
+
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/cankay.ulu")
+        ylc = System.User.Home &/ ".KediCAD/Kayit/cankay.ulu"
+        komutsayi = 144
+        komyaz.Text = "Specify First point"
+    Endif
+Catch
+	hatayaz("yapistirclick " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button11_Click()
+
+    lir = 1
+    ylc = System.User.Home &/ ".KediCAD/Kayit/yankay.ulu"
+    komutsayi = 144
+    komyaz.Text = "Specify First point"
+
+Catch
+	hatayaz("buton11" & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public Sub yakistir()
+
+    lir = 1
+    ylc = tkaci
+    komutsayi = 144
+    komyaz.Text = "Specify First point"
+    Return
+Catch
+	hatayaz("yakistir " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public debi As Float
+Public mgucu As Float
+Public mdevir As Float
+Public silcap As Float
+Public strok As Float
+Public milcap As Float
+Public ssilcap As Float
+Public sstrok As Float
+Public smilcap As Float
+Public ebasinc As Float
+Public dga As Integer
+Public dug As Button
+Public dug2 As TextArea
+Public dug3 As PictureBox
+Public valve As Integer
+Public yne As Integer
+Public dugmead1 As String
+Public dugmead2 As String
+Public dugtag1 As String
+Public dugtag2 As String
+Public dugsr As Integer
+Public dugno As Integer
+Public dugx1 As Float
+Public dugy1 As Float
+Public dugx2 As Float
+Public dugy2 As Float
+
+Public Sub Menu118_Click()
+
+    Dim myFile As File
+    Dim myline, vb As String
+    Dim doza As Integer
+
+    Shell "rm  " & System.User.Home &/ ".KediCAD/hidro/*"
+    Wait 0.5
+    myFile = Open System.User.Home &/ ".KediCAD/hidro/hidrolik" For Create
+    ewq = 1
+    ListView1.Clear
+    iza = 1
+    For Each myline In Dir("standart/hidrolik2")
+        If Right$(myline, 3) = "blk" Then
+            vb = "standart/hidrolik2/" & Left$(myline, -4) & ".png"
+            ListView1.Add(doza, myline, picture[vb])
+        End If
+        doza = doza + 1
+    Next
+    ListView1.Sorted = True
+    Panel12.Visible = True
+Catch
+	hatayaz("menu118 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public tir As String
+
+Public Sub ListView1_Click()
+
+    lir = 1
+    ylc = "standart/hidrolik2/" & ListView1.Item.Text
+    komutsayi = 144
+    komyaz.Text = "Specify First point"
+    tir = ListView1.Item.Text
+
+Catch
+	hatayaz("listview1 " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Sub gzl()
+
+    Label22.text = ""
+    Label23.text = ""
+    Label27.text = ""
+    TextBox6.Text = ""
+    TextBox7.Text = ""
+    TextBox8.Text = ""
+    TextBox9.Text = ""
+    Label22.Visible = False
+    Label23.Visible = False
+    Label27.Visible = False
+    Label28.Visible = False
+    TextBox6.Visible = False
+    TextBox7.Visible = False
+    TextBox8.Visible = False
+    TextBox9.Visible = False
+    Return
+Catch
+	hatayaz("gzl " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public ynm As Integer
+Public hnm As Integer
+Public yukf As Float
+Public trt As String
+Public elekvar As Integer
+Public hepsi As New Object[]
+Public hepsi2 As New Object[]
+Public snm As Integer
+
+Sub resimekle(xyer As Float, yyer As Float, i As Float)
+
+    dug3 = New PictureBox(calanilk) As "yeniresim"
+    With dug3
+        .Move(xyer + 5, yyer, 70, 37)
+        .Background = Color.White
+        .Stretch = True
+        .Tag = tir & "." & bolok & "." & i
+        .picture = Picture["hdd/tes.png"]
+        .Visible = True
+        hepsi2.Add(dug3)
+    End With
+    Return
+Catch
+	hatayaz("resimekle " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Sub yaziekle(xyer As Float, yyer As Float, i As Float)
+
+    dug2 = New TextArea(calanilk) As "yeniyazi"
+    With dug2
+        .Move(xyer - 10, yyer + 50, 190, 25)
+        .Tag = tir & "." & bolok & "." & i
+        .text = tir & "." & bolok & "." & i
+        .Visible = True
+        hepsi.Add(dug2)
+    End With
+    Return
+Catch
+	hatayaz("yaziekle " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Sub dugmeekle(xyer As Float, yyer As Float, i As Float)
+
+    dug = New Button(calanilk) As "dugme"
+    With dug
+        .Move(xyer - 40, yyer - 50, 30, 30)
+        .Tag = tir & i
+        .text = tir & "." & bolok & "." & i
+        .Visible = True
+    End With
+    Return
+Catch
+	hatayaz("dugmeekle " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public silx As New Integer[]
+Public sily As New Integer[]
+Public cbb As Integer
+Public kbb As Integer
+
+Public Sub yeniyazi(vbc As String, yon As String)
+
+    Dim nesne As Object
+    Dim gyh, i As Integer
+
+    snm = 0
+    If cbb = 0
+        For Each nesne In hepsi
+            silx.Add(hepsi[gyh].x, gyh)
+            sily.Add(hepsi[gyh].y - 48, gyh)
+            gyh = gyh + 1
+        Next
+        cbb = 1
+    Endif
+    gyh = 0
+    For Each nesne In hepsi
+        If hepsi[gyh].Tag = vbc Then
+            If yon Like "so*"
+                If silx[gyh] < (hepsi[gyh].x + 90) Then
+                    Message("alt sınır")
+                    snm = 1
+                    Return
+                Endif
+            Else
+                If silx[gyh] > (hepsi[gyh].x + 90) Then
+                    Message("üst sınır")
+                    snm = 1
+                    Return
+                Endif
+            Endif
+            hepsi[gyh].Clear
+            hepsi[gyh].visible = True
+            hepsi[gyh].text = trt
+            hepsi[gyh].width = 200
+            hepsi[gyh].height = 250
+            If lrf = 2 Then
+                For i = silx[gyh] To silx[gyh] + 100 Step 10
+                    hepsi2[gyh].Move(i, sily[gyh])
+                    Wait 0.3
+                Next
+            Else If lrf = 1 Then
+                For i = silx[gyh] To silx[gyh] - 100 Step -10
+                    hepsi2[gyh].Move(i, sily[gyh])
+                    Wait 0.3
+                Next
+            Endif
+            silx[gyh] = i
+        Endif
+        gyh = gyh + 1
+    Next
+    Return
+Catch
+	hatayaz("yeniyazi " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public lrf As Integer
+
+Public Sub dugme_Click()
+
+    Dim trf As Integer
+    Dim myFile, sfile As File
+    Dim myLine, sline, dosyam, vgt, dadi As String
+
+    trt = ""
+    If dugsr = 0
+        csp = New Csplit
+        gzl
+        csp.yazi = Last.text
+        csp.nokta()
+        myLine = (csp.sonuc1) & "." & (csp.sonuc2) & (csp.sonuc3)
+        For Each dosyam In Dir(System.User.Home &/ ".KediCAD/hidro")
+            If dosyam Like "a*" Then
+                sfile = Open System.User.Home &/ ".KediCAD/hidro" &/ dosyam For Read
+                While Not Eof(sfile)
+                    Line Input #sfile, sline
+                    sline = Left$(sline, -1) & 4
+                    If sline = Last.text Then
+                        lrf = 1
+                        vgt = dosyam
+                    Endif
+                    sline = Left$(sline, -1) & 5
+                    If sline = Last.text Then
+                        lrf = 2
+                        vgt = dosyam
+                    Endif
+                Wend
+            Endif
+        Next
+        For Each dosyam In Dir(System.User.Home &/ ".KediCAD/hidro")
+            If dosyam = vgt Then
+                sfile = Open System.User.Home &/ ".KediCAD/hidro" &/ dosyam For Read
+                While Not Eof(sfile)
+                    Line Input #sfile, sline
+                    If sline Like "doubl*" Then
+                        dadi = sline
+                        dadi = Left$(sline, -1) & 0
+                    Endif
+                Wend
+            Endif
+        Next
+
+        If lrf = 2 Then
+            vgt = "saga" & Right$(vgt)
+        Else If lrf = 1 Then
+            vgt = "sola" & Right$(vgt)
+        Endif
+        For Each dosyam In Dir(System.User.Home &/ ".KediCAD/hidro")
+            If dosyam = vgt Then
+                sfile = Open System.User.Home &/ ".KediCAD/hidro" &/ dosyam For Read
+                While Not Eof(sfile)
+                    Line Input #sfile, sline
+                    trt = trt & sline & Chr$(10)
+                Wend
+            Endif
+        Next
+
+        If trt <> "" Then yeniyazi(dadi, vgt)
+        If snm = 1 Then Return
+        If Last.text Like ("valv*") Then
+            For Each cazgi In cezmi
+                If cazgi.id < 0 Then Goto gec
+                trf = trf + 1
+                If cazgi.blok = myline Then depo1.Add(cazgi.id, trf)
+            gec:
+            Next
+            komutsayi = 51
+            If Right$(Last.text) = 4
+                If hnm = 0 Or hnm = 2 Then
+                    If hnm = 2 Then
+                        hnm = 0
+                        If kbb = 0
+                            ikix = - 30
+                            kbb = 1
+                        Else
+                            ikix = - 60
+                        Endif
+                        ynm = 0
+                        If Exist(System.User.Home &/ ".KediCAD/hidro/sol" & Left$(Last.text, -1) & 0) Then Shell "rm  " & System.User.Home &/ ".KediCAD/hidro/sol" & (Left$(Last.text, -1) & 0)
+                        If Exist(System.User.Home &/ ".KediCAD/hidro/sag" & Left$(Last.text, -1) & 0) Then Shell "rm  " & System.User.Home &/ ".KediCAD/hidro/sag" & (Left$(Last.text, -1) & 0)
+                    Else
+                        hnm = 1
+                        myFile = Open System.User.Home &/ ".KediCAD/hidro/sag" & (Left$(Last.text, -1) & 0) For Create
+                        Print #myFile, "sag"
+                        Close myFile
+                        If Exist(System.User.Home &/ ".KediCAD/hidro/sol" & Left$(Last.text, -1) & 0) Then Shell "rm  " & System.User.Home &/ ".KediCAD/hidro/sol" & (Left$(Last.text, -1) & 0)
+                        If kbb = 0
+                            ikix = - 30
+                            kbb = 1
+                        Else
+                            ikix = - 60
+                        Endif
+                        ynm = 1
+                        dsyno = 0
+                        hspl()
+                    Endif
+                Endif
+            Else If Right$(Last.text) = 5 Then
+                If hnm = 0 Or hnm = 1 Then
+                    If hnm = 1 Then
+                        hnm = 0
+                        If Exist(System.User.Home &/ ".KediCAD/hidro/sol" & Left$(Last.text, -1) & 0) Then Shell "rm  " & System.User.Home &/ ".KediCAD/hidro/sol" & (Left$(Last.text, -1) & 0)
+                        If Exist(System.User.Home &/ ".KediCAD/hidro/sag" & Left$(Last.text, -1) & 0) Then Shell "rm  " & System.User.Home &/ ".KediCAD/hidro/sag" & (Left$(Last.text, -1) & 0)
+                        If kbb = 0
+                            ikix = 30
+                            kbb = 1
+                        Else
+                            ikix = 60
+                        Endif
+                        ynm = 0
+                    Else
+                        hnm = 2
+                        myFile = Open System.User.Home &/ ".KediCAD/hidro/sol" & (Left$(Last.text, -1) & 0) For Create
+                        Print #myFile, "sol"
+                        Close myFile
+                        If Exist(System.User.Home &/ ".KediCAD/hidro/sag" & Left$(Last.text, -1) & 0) Then Shell "rm  " & System.User.Home &/ ".KediCAD/hidro/sag" & (Left$(Last.text, -1) & 0)
+                        If kbb = 0
+                            ikix = 30
+                            kbb = 1
+                        Else
+                            ikix = 60
+                        Endif
+                        ynm = 2
+                        dsyno = 0
+                        hspl()
+                    Endif
+                End If
+            Endif
+            birx = 0
+            biry = 0
+            ikiy = 0
+            tasima.tasir
+        Endif
+        If Right$(Last.text) = 0
+            If Last.text Like ("pumpsing*") Then
+                dugmead1 = Last.text
+                Label22.Visible = True
+                TextBox6.Visible = True
+                Label22.text = "Debi(lt/dk)"
+                If debi <> 0
+                    TextBox6.Text = debi
+                Else
+                    TextBox6.Text = "5"
+                Endif
+                dga = 1
+            Else If Last.text Like ("elecmo*") Then
+                dugmead1 = Last.text
+                Label22.Visible = True
+                TextBox6.Visible = True
+                Label22.text = "Motor gücü(kW)"
+                If mgucu <> 0
+                    TextBox6.Text = mgucu
+                Else
+                    TextBox6.Text = "3"
+                Endif
+                dga = 2
+            Else If Last.text Like ("pressu*") Then
+                dugmead1 = Last.text
+                Label22.Visible = True
+                TextBox6.Visible = True
+                Label22.text = "Denetim basıncı(bar)"
+                If ebasinc <> 0
+                    TextBox6.Text = ebasinc
+                Else
+                    TextBox6.Text = "200"
+                Endif
+                dga = 3
+            Else If Last.text Like ("do*") Then
+                dugmead1 = Last.text
+                Label22.Visible = True
+                TextBox6.Visible = True
+                Label23.Visible = True
+                TextBox7.Visible = True
+                Label27.Visible = True
+                TextBox8.Visible = True
+                Label28.Visible = True
+                Label22.text = "Cyl.Dia(mm)"
+                Label23.text = "Axle Dia=(mm)"
+                Label27.text = "Stroke=(mm)"
+                Label28.text = "Load=(kgf)"
+                TextBox9.Visible = True
+                If silcap <> 0
+                    TextBox6.Text = silcap
+                Else
+                    TextBox6.Text = "80"
+                Endif
+                If milcap <> 0
+                    TextBox7.Text = milcap
+                Else
+                    TextBox7.Text = "30"
+                Endif
+                If strok <> 0
+                    TextBox8.Text = strok
+                Else
+                    TextBox8.Text = "400"
+                Endif
+                If strok <> 0
+                    TextBox9.Text = yukf
+                Else
+                    TextBox9.Text = "12000"
+                Endif
+                dga = 4
+            Else If Last.text Like ("valv*") Then
+                dugmead1 = Last.text
+                Label22.Visible = True
+                If valve = 0 Then
+                    yne = 0
+                    Label22.text = "output"
+                    valve = 1
+                Else
+                    yne = 1
+                    Label22.text = "input"
+                    valve = 0
+                Endif
+            Else If Last.text Like ("line*") Then
+                dugmead1 = Last.text
+                dga = 5
+            Endif
+            panel24.Visible = True
+        Endif
+    Else
+        dga = 0
+        If dugno = 0 Then
+            dugmead1 = Last.text
+            dugtag1 = Last.tag
+            If dugmead1 Like ("pumpsing*") Then
+                dugx1 = Last.x + 50
+                dugy1 = Last.y + 40
+            Else If dugmead1 Like ("elecmo*") Then
+                dugx1 = Last.x + 50
+                dugy1 = Last.y + 38
+            Else If dugmead1 Like ("pressu*") Then
+                dugx1 = Last.x + 52
+                dugy1 = Last.y + 38
+                If Right$(dugmead1) = 1
+                    dugx1 = Last.x + 15
+                    dugy1 = Last.y + 38
+                Endif
+            Else If dugmead1 Like ("doub*") Then
+                dugx1 = Last.x + 52
+                dugy1 = Last.y + 38
+                If Right$(dugmead1) = 1
+                    dugx1 = Last.x + 39
+                    dugy1 = Last.y + 38
+                Endif
+            Else If dugmead1 Like ("valv*") Then
+                If Right$(dugmead1) = 0
+                    dugx1 = Last.x + 76
+                    dugy1 = Last.y + 24
+                Else If Right$(dugmead1) = 1
+                    dugx1 = Last.x - 14
+                    dugy1 = Last.y + 24
+                Else If Right$(dugmead1) = 2
+                    dugx1 = Last.x + 76
+                    dugy1 = Last.y + 3
+                Else If Right$(dugmead1) = 3
+                    dugx1 = Last.x - 15
+                    dugy1 = Last.y + 2
+                Else
+                    Message("bu düğme kullanılmıyor")
+                    Return
+                Endif
+            Else If dugmead1 Like ("line*") Then
+                dugx1 = Last.x + 52
+                dugy1 = Last.y + 38
+            Else
+                dugx1 = Last.x + 52
+                dugy1 = Last.y + 38
+            Endif
+            dugno = 1
+        Else
+            dugno = 0
+            dugmead2 = Last.text
+            dugtag2 = Last.tag
+            If dugmead2 Like ("pumpsing*") Then
+                dugx2 = Last.x + 50
+                dugy2 = Last.y + 40
+            Else If dugmead2 Like ("elecmo*") Then
+                dugx2 = Last.x + 50
+                dugy2 = Last.y + 38
+            Else If dugmead2 Like ("pressu*") Then
+                dugx2 = Last.x + 52
+                dugy2 = Last.y + 38
+                If Right$(dugmead2) = 1
+                    dugx2 = Last.x + 15
+                    dugy2 = Last.y + 38
+                Endif
+            Else If dugmead2 Like ("doub*") Then
+                dugx2 = Last.x + 52
+                dugy2 = Last.y + 38
+                If Right$(dugmead2) = 1
+                    dugx2 = Last.x + 39
+                    dugy2 = Last.y + 38
+                Endif
+            Else If dugmead2 Like ("valv*") Then
+                If Right$(dugmead2) = 0
+                    dugx2 = Last.x + 76
+                    dugy2 = Last.y + 24
+                Else If Right$(dugmead2) = 1
+                    dugx2 = Last.x - 14
+                    dugy2 = Last.y + 24
+                Else If Right$(dugmead2) = 2
+                    dugx2 = Last.x + 76
+                    dugy2 = Last.y + 3
+                Else If Right$(dugmead2) = 3
+                    dugx2 = Last.x - 15
+                    dugy2 = Last.y + 2
+                Else
+                    Message("bu pinler kullanılmıyor")
+                    Return
+                Endif
+            Else If dugmead2 Like ("line*") Then
+                dugx2 = Last.x + 52
+                dugy2 = Last.y + 38
+            Else
+                dugx2 = Last.x + 52
+                dugy2 = Last.y + 38
+            Endif
+            cizem.renk = color.yellow
+            cizem.kalin = 2
+            cizem.sekil = 1
+            cizem.bloku = 0
+            cizem.cizgi(dugx1, dugy1, dugx2, dugy2)
+            If Exist(System.User.Home &/ ".KediCAD/hidro/hidrolik") Then
+                myFile = Open System.User.Home &/ ".KediCAD/hidro/hidrolik" For Write
+            Else
+                myFile = Open System.User.Home &/ ".KediCAD/hidro/hidrolik" For Create
+            End If
+            Seek #myFile, Lof(myFile)
+            Print #myFile, dugmead1 & " - " & dugmead2
+            Close myFile
+        End If
+    Endif
+Catch
+	hatayaz("dugmeclik " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button35_Click()
+
+    Dim basinc, kuvve, borucap, ttf, mtrgc, salani2, hcm2, emoto As Float
+    Dim myFile, ados As File
+    Dim myline, myline2, dosyam, sl1 As String
+    Dim yonu As New String[]
+    Dim smilcapm As New Float[]
+    Dim ssilcapm As New Float[]
+    Dim yukfm As New Float[]
+    Dim sstrokm As New Float[]
+    Dim doza, i, j As Integer
+
+    hspl()
+    If Button48.Text <> "Value" Then Button48_Click
+    For Each dosyam In Dir(System.User.Home &/ ".KediCAD/hidro")
+        i = 0
+        yonu.Clear
+        smilcapm.Clear
+        ssilcapm.Clear
+        yukfm.Clear
+        sstrokm.Clear
+        debi = 0
+        ebasinc = 0
+        ssilcap = 0
+        sstrok = 0
+        yukf = 0
+        If dosyam Like "a*" Then
+            myFile = Open System.User.Home &/ ".KediCAD/hidro" &/ dosyam For Read
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                myLine = Left$(myLine, -1) & 0
+                If myLine Like ("pumpsing*") Then
+                    If Not Exist(System.User.Home &/ ".KediCAD/hidro" &/ myline) Then
+                        Message("Pompa debisi belirtilmemiş..", "Tamam")
+                        Return
+                    Endif
+                    ados = Open System.User.Home &/ ".KediCAD/hidro" &/ myline For Read
+                    Line Input #ados, myLine2
+                    debi = CInt(myLine2)
+                    Close ados
+                Else If myLine Like ("pressu*") Then
+                    If Not Exist(System.User.Home &/ ".KediCAD/hidro" &/ myline) Then
+                        Message("Emniyetli basınç değeri belirtilmemiş..", "Tamam")
+                        Return
+                    Endif
+                    ados = Open System.User.Home &/ ".KediCAD/hidro" &/ myline For Read
+                    Line Input #ados, myLine2
+                    ebasinc = CInt(myLine2)
+                    Close ados
+                Else If myLine Like ("elecmotor*") Then
+                    If Not Exist(System.User.Home &/ ".KediCAD/hidro" &/ myline) Then
+                        Message("Motor gücü  belirtilmemiş..", "Tamam")
+                        Return
+                    Endif
+                    ados = Open System.User.Home &/ ".KediCAD/hidro" &/ myline For Read
+                    Line Input #ados, myLine2
+                    emoto = CInt(myLine2)
+                    Close ados
+                Else If myLine Like ("do*") Then
+                    If Not Exist(System.User.Home &/ ".KediCAD/hidro" &/ myline) Then
+                        Message("Silindir özellikleri  belirtilmemiş..", "Tamam")
+                        Return
+                    Endif
+                    If yonu.Exist(myLine) Then Goto atl
+                    yonu.Add(myLine)
+                    ados = Open System.User.Home &/ ".KediCAD/hidro" &/ myline For Read
+                    sl1 = myline
+                    doza = 0
+                    While Not Eof(ados)
+                        Line Input #ados, myLine2
+                        doza = doza + 1
+                        If doza = 1 Then ssilcapm.Add(CInt(myLine2))
+                        If doza = 2 Then smilcapm.Add(CInt(myLine2))
+                        If doza = 3 Then sstrokm.Add(CInt(myLine2))
+                        If doza = 4 Then yukfm.Add(CInt(myLine2))
+                        If doza = 1 Then ssilcap = CInt(myLine2)
+                        If doza = 2 Then smilcap = CInt(myLine2)
+                        If doza = 3 Then sstrok = CInt(myLine2)
+                        If doza = 4 Then yukf = CInt(myLine2)
+                    Wend
+                    i = i + 1
+                    Close ados
+                atl:
+                Endif
+            Wend
+            Close myFile
+            salani2 = 0
+            hcm2 = 0
+            mgucu = 0
+            borucap = 0
+            ttf = 0
+            mgucu = 0
+            mtrgc = 0
+            kuvve = 0
+            borucap = 0
+            If i <> 1 Then yukf = 0
+            If i = 1
+                salani2 = ((ssilcap ^ 2 * Pi / 4) / 100)
+                hcm2 = (((ssilcap ^ 2 * Pi / 4) * sstrok) / 1000000)
+                basinc = yukf / salani2
+                ' basinc = 540 * mgucu / (debi * 0.9)
+                If ebasinc <> 0 Then
+                    If basinc > ebasinc Then basinc = ebasinc
+                Endif
+                mgucu = basinc * (debi * 0.9) / 540
+                kuvve = basinc * salani2
+                borucap = Sqr(21.22 * debi / 4)
+                ttf = ((hcm2 / debi) * 60)
+            Else
+                For j = 0 To ssilcapm.Count - 1
+                    salani2 = salani2 + ((ssilcapm[j] ^ 2 * Pi / 4) / 100)
+                    hcm2 = hcm2 + (((ssilcapm[j] ^ 2 * Pi / 4) * sstrokm[j]) / 1000000)
+                    yukf = yukf + yukfm[j]
+                Next
+                basinc = yukf / salani2
+                If ebasinc <> 0 Then
+                    If basinc > ebasinc Then basinc = ebasinc
+                Endif
+                mgucu = mgucu + basinc * (debi * 0.9) / 540
+                kuvve = basinc * salani2
+                borucap = Sqr(21.22 * debi / 4)
+                ttf = (hcm2 / (i * debi) * 60)
+            Endif
+            If mgucu > emoto Then Message(" Dikkat Motor gücü yetersiz!!!.", "Tamam")
+            If kuvve < yukf Then Message(" Dikkat  bu silindir çapında ve basınçla toplam  " & yukf & "kgf.  uygulanamaz.!!!.")
+            myFile = Open System.User.Home &/ ".KediCAD/hidro/sag" & dosyam For Create
+            Print #myFile, " ---------------------"
+            Print #myFile, dosyam & "sağa silindir "
+            Print #myFile, Format$(debi, "#.#") & "= debi(lt/dk.) "
+            Print #myFile, Format$(basinc, "#.#") & "= basınc(bar)"
+            Print #myFile, Format$(kuvve, "#.#") & "= max. kuvvet(kgf.) "
+            Print #myFile, Format$(hcm2, "#.#") & "= hacmi(lt) "
+            Print #myFile, Format$(ttf, "#") & "= süre(sn) "
+            Print #myFile, Format$(mgucu, "#.#") & "= Kullanılan Güç(kW.) "
+            Print #myFile, Format$(borucap, "#.#") & "= boru çapı(mm.) "
+            Print #myFile, i & "= silindir sayısı "
+            For j = 0 To (i - 1)
+                Print #myFile, Format$(yukfm[j], "#.#") & " = " & (J + 1) & ".silindir kuvveti(kgf.) "
+            Next
+            If kuvve < yukf Then Print #myFile, " Dikkat  bu silindir çapında ve basınçla toplam  " & yukf & "kgf.  uygulanamaz.!!!."
+            If mgucu > emoto Then Print #myFile, " Dikkat Motor gücü yetersiz!!!."
+            Print #myFile, mgucu
+            Print #myFile, emoto
+            Print #myFile, " ---------------------"
+            salani2 = 0
+            hcm2 = 0
+            mgucu = 0
+            borucap = 0
+            ttf = 0
+            mgucu = 0
+            mtrgc = 0
+            kuvve = 0
+            borucap = 0
+
+            If i = 1
+                salani2 = (((ssilcap ^ 2 - smilcap ^ 2) * Pi / 4) / 100)
+                hcm2 = ((((ssilcap ^ 2 - smilcap ^ 2) * Pi / 4) * sstrok) / 1000000)
+                basinc = yukf / salani2
+                ' basinc = 540 * mgucu / (debi * 0.9)
+                If ebasinc <> 0 Then
+                    If basinc > ebasinc Then basinc = ebasinc
+                Endif
+                mgucu = basinc * (debi * 0.9) / 540
+                kuvve = basinc * salani2
+                borucap = Sqr(21.22 * debi / 4)
+                ttf = ((hcm2 / debi) * 60)
+            Else
+                For j = 0 To ssilcapm.Count - 1
+                    salani2 = salani2 + (((ssilcapm[j] ^ 2 - smilcapm[j] ^ 2) * Pi / 4) / 100)
+                    hcm2 = hcm2 + ((((ssilcapm[j] ^ 2 - smilcapm[j] ^ 2) * Pi / 4) * sstrokm[j]) / 1000000)
+                    yukf = yukf + yukfm[j]
+                Next
+                basinc = yukf / salani2
+                If ebasinc <> 0 Then
+                    If basinc > ebasinc Then basinc = ebasinc
+                Endif
+                mgucu = mgucu + basinc * (debi * 0.9) / 540
+                kuvve = basinc * salani2
+                borucap = Sqr(21.22 * debi / 4)
+                ttf = ((hcm2 / debi) * 60)
+            Endif
+            If mgucu > emoto Then Message(" Dikkat Motor gücü yetersiz!!!.", "Tamam")
+            If kuvve < yukf Then Message(" Dikkat  bu silindir çapında ve basınçla toplam  " & yukf & "kgf.  uygulanamaz.!!!.")
+            myFile = Open System.User.Home &/ ".KediCAD/hidro/sol" & dosyam For Create
+            Print #myFile, " ---------------------"
+            Print #myFile, dosyam & " sola silindir"
+            Print #myFile, Format$(debi, "#.#") & "= debi(lt/dk.) "
+            Print #myFile, Format$(basinc, "#.#") & "= basınc(bar)"
+            Print #myFile, Format$(kuvve, "#.#") & "= max.  kuvvet(kgf.) "
+            Print #myFile, Format$(hcm2, "#.#") & "= hacmi(lt) "
+            Print #myFile, Format$(ttf, "#") & "= süre(sn) "
+            Print #myFile, Format$(mgucu, "#.#") & "= Güç(kW.) "
+            Print #myFile, Format$(borucap, "#.#") & "= boru çapı(mm.) "
+            Print #myFile, i & "= silindir sayısı "
+            For j = 0 To (i - 1)
+                Print #myFile, Format$(yukfm[j], "#.#") & " = " & (J + 1) & ".silindir kuvveti(kgf.) "
+            Next
+            If kuvve < yukf Then Print #myFile, " Dikkat  bu silindir çapında ve basınçla toplam  " & yukf & "kgf.  uygulanamaz.!!!."
+            If mgucu > emoto Then Print #myFile, " Dikkat Motor gücü yetersiz!!!."
+            Print #myFile, mgucu
+            Print #myFile, emoto
+            Print #myFile, " ---------------------"
+        Endif
+    Next
+Catch
+    	hatayaz("buton35 " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public Sub Button48_Click()
+
+    If dugsr = 1
+        dugsr = 0
+        Button48.Text = "Value"
+    Else
+        dugsr = 1
+        Button48.Text = "Line"
+    Endif
+Catch
+	hatayaz("buton48 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public dosya2 As File
+Public dsyno As Integer
+Public anayazi As String
+Public altyazi As String
+
+Public Sub altdsy(yza As String)
+
+    Dim dosyam As File
+    Dim myline, myline2, stra As String
+
+    csp = New Csplit
+    dosyam = Open System.User.Home &/ ".KediCAD/hidro/hidrolik" For Read
+    While Not Eof(dosyam)
+        Line Input #dosyam, stra
+        csp.yazi = stra
+        csp.tire()
+        myLine = (csp.sonuc0)
+        myLine2 = (csp.sonuc1)
+        If myline2 = (yza) Then
+            Print #dosya2, myLine2
+            Print #dosya2, myLine
+            anayazi = myLine
+        Endif
+        If myline = (yza) Then
+            Print #dosya2, myLine2
+            Print #dosya2, myLine
+            anayazi = myLine2
+        Endif
+    Wend
+    Close #dosyam
+    Return
+Catch
+	hatayaz("altdsy " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Sub aral()
+
+    Dim i As Integer
+
+    For i = 0 To 5
+        If anayazi Like "valve*" Then
+            If Right$(anayazi) = 1 Then
+                anayazi = Left$(anayazi, -1) & 3
+            Else If Right$(anayazi) = 2 Then
+                anayazi = Left$(anayazi, -1) & 0
+            Endif
+        Endif
+        If anayazi Like "pressu*" Then
+            If Right$(anayazi) = 1 Then anayazi = Left$(anayazi, -1) & 0
+        Endif
+        If anayazi Like "double*" Then
+            If Right$(anayazi) = 1 Then anayazi = Left$(anayazi, -1) & 0
+        Endif
+        altdsy(anayazi)
+    Next
+    Return
+Catch
+	hatayaz("aral " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub hspl()
+
+    Dim myFile As File
+    Dim myline, myline2 As String
+    Dim i As Integer
+
+    csp = New Csplit
+    myFile = Open System.User.Home &/ ".KediCAD/hidro/hidrolik" For Read
+    While Not Eof(myFile)
+        Line Input #myFile, myLine
+        csp.yazi = myLine
+        csp.tire()
+        myLine = (csp.sonuc0)
+        myLine2 = (csp.sonuc1)
+        If (csp.sonuc1) Like ("lineto*") Then
+            dosya2 = Open System.User.Home &/ ".KediCAD/hidro/a" & dsyno For Create
+            altdsy(csp.sonuc1)
+            aral
+            dsyno = dsyno + 1
+            Close #dosya2
+        Endif
+        If (csp.sonuc0) Like ("lineto*") Then
+            dosya2 = Open System.User.Home &/ ".KediCAD/hidro/a" & dsyno For Create
+            altdsy((csp.sonuc0))
+            aral
+            dsyno = dsyno + 1
+            Close #dosya2
+        Endif
+    Wend
+
+    For i = (dsyno - 1) To 0 Step -1
+        gnladr = System.User.Home &/ ".KediCAD/hidro/a" & i
+        myFile = Open gnladr For Read
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            If myLine Like ("valv*") Then
+                If Exist(System.User.Home &/ ".KediCAD/hidro/sag" & myline) Then coze
+                If Exist(System.User.Home &/ ".KediCAD/hidro/sol" & myline) Then coze
+            Endif
+        Wend
+    Next
+    Return
+Catch
+	hatayaz("hspl " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public gnladr As String
+
+Sub coze()
+
+    Dim myFile As File
+    Dim myline As String
+    Dim yonu As New String[]
+
+    myFile = Open gnladr For Read
+    While Not Eof(myFile)
+        Line Input #myFile, myLine
+        If Right$(myLine) = 0 Then
+            If myLine Like ("valv*") Then
+                If Exist(System.User.Home &/ ".KediCAD/hidro/sag" & myline)
+                    yonu.Add("sag")
+                Else
+                    yonu.Add("sol")
+                Endif
+            Endif
+        Endif
+    Wend
+    Close myFile
+    Return
+Catch
+	hatayaz("coze " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub Button34_Click()
+
+    Dim myFile As File
+
+    panel24.Visible = False
+    If dga = 1 Then
+        debi = TextBox6.Text
+        myFile = Open System.User.Home &/ ".KediCAD/hidro" &/ dugmead1 For Create
+        Print #myFile, debi
+        Close myFile
+    Else If dga = 2 Then
+        mgucu = TextBox6.Text
+        myFile = Open System.User.Home &/ ".KediCAD/hidro" &/ dugmead1 For Create
+        Print #myFile, mgucu
+        Close myFile
+    Else If dga = 3 Then
+        ebasinc = TextBox6.Text
+        myFile = Open System.User.Home &/ ".KediCAD/hidro" &/ dugmead1 For Create
+        Print #myFile, ebasinc
+        Close myFile
+    Else If dga = 4 Then
+        silcap = TextBox6.Text
+        milcap = TextBox7.Text
+        strok = TextBox8.Text
+        yukf = TextBox9.Text
+        myFile = Open System.User.Home &/ ".KediCAD/hidro" &/ dugmead1 For Create
+        Print #myFile, silcap
+        Print #myFile, milcap
+        Print #myFile, strok
+        Print #myFile, yukf
+        Close myFile
+    Else If dga = 5 Then
+        myFile = Open System.User.Home &/ ".KediCAD/hidro" &/ dugmead1 For Create
+        Print #myFile, ebasinc
+        Close myFile
+    Endif
+    Return
+Catch
+	hatayaz("buton34 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public sonac As Float
+
+Sub duzek(myLine As String)
+
+    If Not myLine Then Return
+    If myLine = "--" Then Return
+    csp = New Csplit
+    csp.yazi = myLine
+    csp.virg()
+    If csp.sonuc2 <> ""
+        sonac = (csp.sonuc1) & "." & csp.sonuc2
+    Else
+        sonac = (csp.sonuc1)
+    End If
+    Return
+Catch
+	hatayaz("duzek " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public ibl As String
+
+Public Sub yapisir()
+
+    Dim esex, esey, ix1, iy1, ix2, iy2, irenk, ikal, isek, ir, iteta, iyar, yyer, xyer, ialti As Float
+    Dim ikt, i, cc As Integer
+    Dim dsy As File
+    Dim iyazi, iblok, ikom As String
+
+    bolok = bolok + 2
+    If esex = 0
+        listbox10.Index = 2
+        duzek(listbox10.Text)
+        If sonac <> 0 Then esex = (sonac - birx / olcum)
+        listbox10.Index = 3
+        duzek(listbox10.Text)
+        If sonac <> 0 Then esey = (sonac - biry / olcum)
+    End If
+    If lir = 1 Then
+             ibl = CStr(bolok) & "ig" & Rnd(10, 20)
+             cc = 5
+    Endif
+    For ikt = 0 To listbox10.Count - 1 Step 42
+        If cc <> 5 Then ibl = ""
+
+        listbox10.Index = ikt + 1
+        ikom = listbox10.Text
+        listbox10.Index = ikt + 2
+        duzek(listbox10.Text)
+        ix1 = sonac - esex
+        xf = ix1
+        listbox10.Index = ikt + 3
+        duzek(listbox10.Text)
+        iy1 = sonac - esey
+        yf = iy1
+        listbox10.Index = ikt + 4
+        duzek(listbox10.Text)
+        ix2 = sonac - esex
+        listbox10.Index = ikt + 5
+        duzek(listbox10.Text)
+        iy2 = sonac - esey
+        listbox10.Index = ikt + 8
+        duzek(listbox10.Text)
+        ir = sonac
+        listbox10.Index = ikt + 12
+        duzek(listbox10.Text)
+        iteta = sonac
+        listbox10.Index = ikt + 13
+        duzek(listbox10.Text)
+        ialti = sonac
+        listbox10.Index = ikt + 17
+        iblok = listbox10.Text
+        listbox10.Index = ikt + 18
+        duzek(listbox10.Text)
+        iyar = sonac
+        listbox10.Index = ikt + 19
+        isek = Round(listbox10.Text)
+        listbox10.Index = ikt + 20
+        irenk = Round(listbox10.Text)
+        listbox10.Index = ikt + 21
+        ikal = CFloat(listbox10.Text)
+        listbox10.Index = ikt + 22
+        If panel12.Visible = True Then
+            If xyer = 0 Then
+                xyer = ix1
+                yyer = iy1
+            Endif
+            ibl = tir & bolok
+            If i = 0 Then
+                If ewq = 1 Then
+                    If tir Like "elecm*"
+                        If elekvar = 0
+                            elekvar = 1
+                        Else
+                            Message("only 1 motor add", "OK")
+                            Return
+                        Endif
+                    Endif
+                    dugmeekle(xyer, yyer, 0)
+                    If tir Like "double*" Then dugmeekle(xyer + 140, yyer, 1)
+                    If tir Like "double*" Then yaziekle(xyer, yyer, 0)
+                    If tir Like "double*" Then resimekle(xyer, yyer, 0)
+                    If tir Like "valve*" Then dugmeekle(xyer + 110, yyer, 1)
+                    If tir Like "valve*" Then dugmeekle(xyer, yyer + 80, 2)
+                    If tir Like "valve*" Then dugmeekle(xyer + 110, yyer + 80, 3)
+                    If tir Like "valve*" Then dugmeekle(xyer - 25, yyer + 50, 4)
+                    If tir Like "valve*" Then dugmeekle(xyer + 160, yyer + 50, 5)
+                    If tir Like ("pressu*") Then dugmeekle(xyer + 120, yyer, 1)
+                Endif
+                i = i + 1
+            Endif
+        End If
+        listbox10.Index = ikt + 25
+        iyazi = (listbox10.Text)
+        cizem.renk = irenk
+        cizem.sekil = isek
+        cizem.kalin = ikal
+        If ibl = "" Then
+             cizem.bloku = iblok & bolok
+        Else
+            cizem.bloku = ibl
+        Endif
+        If ikom = 1 Then cizem.cizgi(ix1 * olcum, iy1 * olcum, ix2 * olcum, iy2 * olcum)
+        If ikom = 25 Then cizem.cember(ix1 * olcum, iy1 * olcum, iyar)
+        If ikom = 20
+            If profile.drme = 1
+                cizem.yay(ix1 * olcum, iy1 * olcum, iyar, ir, iteta)
+            Else
+                cizem.yay(ix1 * olcum, iy1 * olcum, iyar, iteta, ir)
+            Endif
+        Endif
+        If ikom = 60
+            If iyazi <> ""
+                If ialti
+                    cizem.yaz(ix1 * olcum, iy1 * olcum, iyazi, ialti)
+                Else
+                    cizem.yaz(ix1 * olcum, iy1 * olcum, iyazi, 10)
+                Endif
+            Endif
+        Endif
+    Next
+    If ewq = 1 Then
+        If Exist(System.User.Home &/ ".KediCAD/hidro/blk")
+            dsy = Open System.User.Home &/ ".KediCAD/hidro/blk" For Write
+        Else
+            dsy = Open System.User.Home &/ ".KediCAD/hidro/blk" For Create
+        Endif
+        Seek #dsy, Lof(dsy)
+        Print #dsy, ibl
+        Close dsy
+    Endif
+    komutcuk.Text = ""
+    gerde.zkayit("blok al")
+    If fea.faa = 1 Then
+        fea.Show
+        fea.faa = 0
+    Endif
+    profile.drme = 0
+    dolas
+    dolas
+    dolas
+    Return
+Catch
+	hatayaz("yapisir " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+Public Sub yeniac_Click()
+
+    dosyaac_Click
+    Return
+
+End
+
+Public gecen As Integer
+
+Public Sub dosyaac_Click()
+
+    bnvc = 0
+    kaci = ""
+    calanilk.Clear
+    dolas
+    olcum = 1
+    dosac.Show
+    ilk.dolas
+ck:
+Catch
+	hatayaz("dosyaac " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub yen_Click()
+
+    dosyaac_Click
+    Return
+End
+
+Public Sub Form_Resize()
+
+    Dim myfile As File
+    Dim myline As String
+
+    Me.center
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/yer") Then
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/yer" For Read
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+        Wend
+        myLine = Trim$(myLine)
+        If myline = "1" Then yerle.yerlesim
+        If myline = "2" Then yerle.yerlesim2
+    Else
+        yerle.yerlesim2
+    Endif
+    tamekran_Click
+Catch
+	hatayaz("formresize " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button47_Click()
+
+    Select Message.Question("Do you want to save?", "Yes", "No")
+        Case 1
+            kayit_Click()
+        Case 2
+    End Select
+    olcum = 1
+    calanilk.Clear
+    If vfr = 0
+        cezmi0.Clear
+        bezmi0.Clear
+    Else If vfr = 1
+        Menu76.Text = ""
+        cezmi1.Clear
+        bezmi1.Clear
+    Else If vfr = 2
+        cezmi2.Clear
+        bezmi2.Clear
+        Menu77.Text = ""
+    Else If vfr = 3
+        cezmi3.Clear
+        bezmi3.Clear
+        Menu78.Text = ""
+    Else If vfr = 4
+        cezmi4.Clear
+        bezmi4.Clear
+        Menu79.Text = ""
+    Else If vfr = 5
+        cezmi5.Clear
+        bezmi5.Clear
+        Menu80.Text = ""
+    Else If vfr = 6
+        cezmi6.Clear
+        bezmi6.Clear
+        Menu81.Text = ""
+    Else If vfr = 7
+        cezmi7.Clear
+        bezmi7.Clear
+        Menu82.Text = ""
+    Else If vfr = 8
+        cezmi9.Clear
+        bezmi9.Clear
+        Menu83.Text = ""
+    Else If vfr = 9
+        cezmi8.Clear
+        bezmi8.Clear
+        Menu84.Text = ""
+    Else If vfr = 10
+        cezmi10.Clear
+        bezmi10.Clear
+        Menu85.Text = ""
+    End If
+    If vfr = 0
+        Me.Text = "New Drawing"
+        Menu75.Text = "New Drawing"
+        kaci = Menu75.Text
+        Return
+    End If
+    vfr = 0
+    Me.Text = Menu75.Text
+    kaci = Menu75.Text
+    cezmi = cezmi0
+    bezmi = bezmi0
+    tamekran_Click
+cik2:
+
+Catch
+	hatayaz("buton47 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub cik_Click()
+        If israf = 0 Then
+            Select Message.Question("Kaydetmek İstermisiniz?", "İptal", "Evet", "Hayır")
+                Case 1
+                    pdrl(7)
+                Case 2
+                    pdrl(0)
+                Case 3
+                    Quit
+            End Select
+        End If
+        Catch
+        	hatayaz("cikclick " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Form_Close()
+
+    If cezmi.Count > 0 Then
+        If israf = 0 Then
+            Select Message.Question("Kaydetmek İstermisiniz?", "İptal", "Evet", "Hayır")
+                Case 1
+                    pdrl(7)
+                Case 2
+                    pdrl(0)
+                Case 3
+                    Quit
+            End Select
+        End If
+    End If
+Catch
+	hatayaz("formclose " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub kayidet_Click()
+
+    Dim reskayit As Picture
+    Dim myFile As File
+
+    cazgi = New Czm
+    If kacino = 0 Then kacino = 1
+    myFile = Open kaci For Create
+    For Each cazgi In cezmi
+        If cazgi.id > 0
+            Print #myFile, cazgi.id
+            Print #myFile, cazgi.komut
+            Print #myFile, cazgi.x1
+            Print #myFile, cazgi.y1
+            Print #myFile, cazgi.x2
+            Print #myFile, cazgi.y2
+            Print #myFile, cazgi.yazix
+            Print #myFile, cazgi.yaziy
+            Print #myFile, cazgi.r
+            Print #myFile, cazgi.b
+            Print #myFile, cazgi.egim
+            Print #myFile, ""
+            Print #myFile, cazgi.teta
+            Print #myFile, ""
+            Print #myFile, cazgi.merx1
+            Print #myFile, cazgi.mery1
+            Print #myFile, cazgi.merx2
+            Print #myFile, cazgi.mery2
+            Print #myFile, cazgi.yaricap
+            Print #myFile, cazgi.sekil
+            Print #myFile, cazgi.renk
+            Print #myFile, cazgi.kalinlik
+            Print #myFile, cazgi.blok
+            Print #myFile, cazgi.katman
+            Print #myFile, cazgi.cizimno
+            Print #myFile, cazgi.yazi
+            Print #myFile, cazgi.parca
+            Print #myFile, cazgi.duzlem
+            Print #myFile, ""
+            Print #myFile, ""
+            Print #myFile, cazgi.birx
+            Print #myFile, cazgi.biry
+            Print #myFile, cazgi.ikix
+            Print #myFile, cazgi.ikiy
+            Print #myFile, cazgi.x3
+            Print #myFile, cazgi.y3
+            Print #myFile, cazgi.x4
+            Print #myFile, cazgi.y4
+            Print #myFile, cazgi.x5
+            Print #myFile, cazgi.y5
+            Print #myFile, cazgi.x6
+            Print #myFile, cazgi.y6
+        End If
+    Next
+    Close myFile
+    reskayit = desktop.Screenshot(0, 200, Me.Width, Me.Height - 250)
+    reskayit.Save(System.User.Home &/ ".KediCAD/Acilis" &/ dosyami & ".png")
+    Me.Text = "Kedi CAD " & " / " & kaci
+    myFile = Open System.User.Home &/ ".KediCAD/Acilis/dosya.ulu" For Write
+    Seek #myFile, Lof(myFile)
+    Print #myFile, kaci
+    Close myFile
+Catch
+	hatayaz("kayidet " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Menu1_Click()
+
+    dolas
+    Return
+
+End
+
+Public Sub cizik_Click()
+
+    cizgia_Click
+    Return
+
+End
+
+Public Sub Menu39_Click()
+
+    cizgi2_Click
+    Return
+
+End
+
+Public Sub Menu53_Click()
+
+    zir = 1
+    yerle.yankayit
+    sildepo
+    dolas
+    Return
+
+End
+
+Public Sub Menu54_Click()
+
+    yapistir_Click
+
+End
+
+Public Sub Menu55_Click()
+
+    lir = 1
+    yapistir_Click
+    Return
+
+End
+
+Public Sub Menu56_Click()
+
+    torba6.te
+    canli.show
+    Return
+
+End
+
+Public Sub dikdortgenci_Click()
+
+    dikdort_Click
+    Return
+
+End
+
+Public Sub cemberlik_Click()
+
+    cember_Click
+    Return
+
+End
+
+Public Sub silim_Click()
+
+    silme_Click
+    Return
+
+End
+
+Public Sub donem_Click()
+
+    Button6_Click
+    Return
+
+End
+
+Public Sub ayine_Click()
+
+    ayna_Click
+    Return
+
+End
+
+Public Sub iceru_Click()
+
+    icerle_Click
+
+End
+
+Public Sub buda_Click()
+
+    budama_Click
+    Return
+
+End
+
+Public Sub kesim_Click()
+
+    kesis_Click
+    Return
+
+End
+
+Public Sub pahkirma_Click()
+
+    pah_Click
+    Return
+
+End
+
+Public Sub Menu4_Click()
+
+    yuvarlama_Click
+
+End
+
+Public Sub Menu5_Click()
+
+    cember_Click
+    Return
+
+End
+
+Public Sub hgdfgd_Click()
+
+    c2_Click
+    Return
+
+End
+
+Public Sub Menu3_Click()
+
+    tasi_Click
+    Return
+
+End
+
+Public Sub kopyalama_Click()
+
+    kopya_Click
+    Return
+
+End
+
+Public Sub hidro_Click()
+
+    hidrof.Main
+    Return
+
+End
+
+Public Sub konveyor_Click()
+
+    konvoy.show
+    Return
+
+End
+
+Public Sub bNormal_Click()
+
+    disci.show
+    Return
+
+End
+
+Public Sub disli_Click()
+
+    tekdis.Show
+    Return
+
+End
+
+Public Sub mukavemet_Click()
+
+    mukavemetli.Show
+    Return
+
+End
+
+Public Sub atalet_Click()
+
+    kesitli.show
+    Return
+
+End
+
+Public Sub aciklam_Click()
+
+    aciklama.Show
+    Return
+
+End
+
+Public Sub Button4_Click()
+
+    ilk.mesgul = 1
+    gerde.vergi
+    Return
+
+End
+
+Public Sub gerin_Click()
+
+    ilk.mesgul = 1
+    gerde.gergi
+    Return
+
+End
+
+Public Sub hmak_Click()
+
+    hesapmak.Main
+    Return
+
+End
+
+Public Sub Button3_Click()
+
+    secenekler.Show
+    Return
+
+End
+
+Public Sub hmakine_Click()
+
+    hesapmak.Show
+    Return
+
+End
+
+Public Sub olcumu_Click()
+
+    dolas
+    komutsayi = 10
+    Return
+
+End
+
+Public Sub Button9_Click()
+
+    vira = 1
+    sonkom = "Dimensional D."
+    dolas
+    komyaz.Text = "Select a Circle :"
+    komutsayi = 200
+    scd = 1
+    Return
+
+End
+
+Public Sub Button10_Click()
+
+    vira = 1
+    sonkom = "Radius D."
+    dolas
+    komyaz.Text = "Select an Arc :"
+    komutsayi = 190
+    scd = 1
+    Return
+
+End
+
+Public blnno As Integer
+Public frr As Integer
+Public bln As Integer
+Public p4x As Float
+Public p4y As Float
+Public p5x As Float
+Public p5y As Float
+Public p6x As Float
+Public p6y As Float
+Public paci As Float
+
+Public Sub blon_Click()
+
+    bln = 1
+    cizgi2_Click()
+    komyaz.Text = "Specify First point"
+    Return
+
+End
+
+Public Sub dikolcu3_Click()
+
+    bln = 2
+    cizgi2_Click()
+    komyaz.Text = "Specify First point"
+    Return
+
+End
+
+Public Sub dikolcu_Click()
+
+    vira = 1
+    sonkom = "Linear D."
+    dolas
+    komutsayi = 100
+    If uca = 0 Then
+        uca = 1
+        eski = 0
+    Else
+        eski = 1
+    End If
+    Return
+
+End
+
+Public Sub egikolcu_Click()
+
+    vira = 1
+    sonkom = "Aligned D."
+    dolas
+    komutsayi = 120
+    If uca = 0 Then
+        uca = 1
+        eski = 0
+    Else
+        eski = 1
+    End If
+    Return
+
+End
+
+Public Sub Menu6_Click()
+Panel3.Visible = False
+Panel23.Visible = False
+    panel7.Visible = False
+    panel1.Visible = False
+    panel8.Visible = False
+    panel14.Visible = False
+    panel11.Visible = False
+    pblok.Visible = False
+    Panel9.Visible = False
+    Panel13.Visible = False
+    Panel6.Visible = False
+    Panel16.Visible = False
+    ScrollView1.Move(Me.ClientX, Me.ClientY - 24, Me.ClientWidth, Me.Height - 63)
+Catch
+	hatayaz("menu6 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Menu15_Click()
+Panel3.Visible = True
+Panel23.Visible = True
+    panel7.Visible = True
+    panel1.Visible = True
+    panel8.Visible = True
+    panel14.Visible = True
+    panel11.Visible = True
+    pblok.Visible = True
+    Panel9.Visible = True
+    Panel13.Visible = True
+    Panel6.Visible = True
+    Panel16.Visible = True
+    Form_Resize()
+Catch
+	hatayaz("menu15 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub cizci_Click()
+
+    cizgia_Click
+    Return
+
+End
+
+Public Sub Menu38_Click()
+
+    cizgi2_Click
+    Return
+
+End
+
+Public Sub cemci_Click()
+
+    cember_Click
+    Return
+
+End
+
+Public Sub yaycu_Click()
+
+    yay_Click
+
+End
+
+Public Sub yatayol_Click()
+
+    dikolcu_Click
+    Return
+
+End
+
+Public Sub Button39_Click()
+
+    Menu16_Click
+    Return
+
+End
+
+Public Sub Button31_Click()
+
+    Menu49_Click
+    Return
+
+End
+
+Public Sub Button2_Click()
+
+    Menu41_Click
+    Return
+
+End
+
+Public Sub Menu41_Click()    ' Noktanın Koordinatları
+
+    sonkom = "Inquiry (Points)"
+    dolas
+    komutsayi = 340
+    If uca = 0 Then
+        uca = 1
+        eski = 0
+    Else
+        eski = 1
+    End If
+    Return
+
+End
+
+Public Sub Menu49_Click()
+
+    sonkom = "Inquiry (Angular)"
+    dolas
+    komutsayi = 325
+    If uca = 0 Then
+        uca = 1
+        eski = 0
+    Else
+        eski = 1
+    End If
+    scd = 1
+Catch
+	hatayaz("menu49 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Menu16_Click()
+
+    sonkom = "Inquiry (Distance)"
+    dolas
+    komutsayi = 320
+    If uca = 0 Then
+        uca = 1
+        eski = 0
+    Else
+        eski = 1
+    End If
+Catch
+	hatayaz("menu16 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub egikol_Click()
+
+    egikolcu_Click
+
+End
+
+Public Sub Menu71_Click()
+
+    Button9_Click
+    Return
+
+End
+
+Public Sub Menu86_Click()
+
+    Button10_Click
+    Return
+
+End
+
+Public Sub Menu87_Click()
+
+    Button1_Click
+    Return
+
+End
+
+Public Sub Menu10_Click()
+
+    secenekler.Show
+
+End
+
+Public Sub Menu20_Click()
+
+    depo1.Clear
+    dolas
+
+End
+
+Public Sub Menu8_Click()
+
+    kopya_Click
+    Return
+
+End
+
+Public Sub Menu9_Click()
+
+    tasi_Click
+    Return
+
+End
+
+Public Sub dndr_Click()
+
+    Button6_Click
+
+End
+
+Public Sub ayina_Click()
+
+    ayna_Click
+    Return
+
+End
+
+Public Sub Menu40_Click()
+
+    dizi_Click
+    Return
+
+End
+
+Public Sub Menu37_Click()
+
+    osec = 1
+    sonkom = "birles"
+    birlestir_Click
+    Return
+
+End
+
+Public Sub Menu17_Click()
+
+    sonkom = "Erase"
+    gerde.zkayit("sil")
+    sildepo
+    dolas
+Catch
+	hatayaz("menu17 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Menu26_Click()
+
+    If x1gec > 0
+        If y1gec > 0 Then
+            torba.degisim
+        Else
+            torbasecim.secim(mousex, mousey)
+        End If
+    End If
+Catch
+	hatayaz("menu26 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Menu50_Click()
+
+    If depo1.Count Then
+        torba.degisim
+        ozellik.Show
+
+        tw1 = 5
+    End If
+    Return
+
+End
+
+Public Sub secenek_Click()
+
+    secenekler.Show
+    Return
+
+End
+
+Public Sub sonkomut_Click()
+
+    Menu20_Click
+    Return
+
+End
+
+Public Sub Button1_Click()
+
+    vira = 1
+    sonkom = "Angular D."
+    dolas
+    komutsayi = 110
+    scd = 1
+Catch
+	hatayaz("buton1 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub katmer_Click()
+
+    For Each bazgi In bezmi
+        If katmer.Find(bazgi.ad) = -1 Then katmer.Add(bazgi.ad)
+    Next
+    If depo1.Count > 0
+        For Each cazgi In cezmi
+            If depo1.Exist(cazgi.id)
+                cazgi.katman = katmer.Text
+                For Each bazgi In bezmi
+                    If bazgi.ad = katmer.Text Then
+                        cazgi.renk = bazgi.renk
+                        cazgi.sekil = bazgi.tip
+                        cazgi.kalinlik = bazgi.kal
+                        cazgi.gor = bazgi.gor
+                        cazgi.kilit = bazgi.kilit
+                    Endif
+                Next
+            End If
+        Next
+    Else
+        reka = katmer.Index
+    End If
+    katmer.Index = reka
+Catch
+	hatayaz("katmer " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub kalin_Click()
+
+    If depo1.Count > 0
+        For Each cazgi In cezmi
+            If depo1.Exist(cazgi.id)
+                If IsFloat(kalin.Text)
+                    cazgi.kalinlik = kalin.Text
+                Else
+                    cazgi.kalinlik = 1
+                Endif
+            End If
+        Next
+    Else
+        kelka = kalin.Text
+    End If
+    kalin.Text = kelka
+    dolas
+    komutcuk.SetFocus
+Catch
+	hatayaz("kalin " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub sekil_Click()
+
+    If depo1.Count > 0
+        For Each cazgi In cezmi
+            If depo1.Exist(cazgi.id)
+                cazgi.sekil = sekil.index + 1
+            End If
+        Next
+    Else
+        selka = sekil.Text
+    End If
+    sekil.Text = selka
+    dolas
+    komutcuk.SetFocus
+Catch
+	hatayaz("sekil " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ColorBox1_Change()
+
+    If depo1.Count > 0
+        For Each cazgi In cezmi
+            If depo1.Exist(cazgi.id)
+                cazgi.renk = ColorBox1.Color
+            End If
+        Next
+    Else
+        orenk = ColorBox1.Value
+        reka = ColorBox1.Value
+        Button41.Background = ColorBox1.Color
+    End If
+    ColorBox1.Value = reka
+    dolas
+    komutcuk.SetFocus
+Catch
+	hatayaz("colorbox1change " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button6_Click()
+
+    sonkom = "Rotate"
+    ppp = 2
+    If depo1.count <> 0 Then
+        komutsayi = 128
+        konum.sira = 5
+        osec = 1
+        komyaz.Text = "Specify center point():"
+    Else
+        dolas
+        komutsayi = 130
+        komyaz.Text = "Select drawings :"
+        scd = 1
+    End If
+Catch
+	hatayaz("buton6 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub icerle_Click()
+
+    sonkom = "Offset"
+    
+        dolas
+        komutsayi = 160
+        komyaz.Text = "Write the distance. :"
+        scd = 1
+
+Catch
+	hatayaz("icerle " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ayna_Click()
+
+    sonkom = "Mirror"
+    If depo1.count <> 0 Then
+        komutsayi = 152
+        konum.sira = 5
+        osec = 1
+        komyaz.Text = "Specify first point :"
+    Else
+        dolas
+        komutsayi = 150
+        komyaz.Text = "Select drawings :"
+        scd = 1
+    End If
+Catch
+	hatayaz("aynaclick " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Menu58_Click()
+
+    komyaz.Text = " Specify first point:():"
+    komutsayi = 252
+
+End
+
+Public Sub Menu70_Click()
+
+    olsek2_Click
+    Return
+
+End
+
+Public Sub Menu57_Click()
+
+    olsek_Click
+    Return
+
+End
+
+Public Sub icme_Click()
+
+    icerle_Click
+    Return
+
+End
+
+Public Sub ucyak_Click()
+
+    ucyakala_Click()
+
+End
+
+Public Sub izgi_Click()
+
+    izgara_Click()
+
+End
+
+Public Sub dogu_Click()
+
+    dogrultu_Click()
+
+End
+
+Public Sub izgara_Click()
+
+    Dim myFile As File
+
+    If iza = 0 Then
+        iza = 1
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/izge" For Create
+        Print #myFile, "ac"
+        Close #myFile
+        izgara.Background = Color.blue
+    Else
+        iza = 0
+        Shell "rm " & System.User.Home &/ ".KediCAD/Kayit/izge"
+        izgara.Background = Color.Cyan
+    End If
+Catch
+	hatayaz("izgara " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ucyakala_Click()
+
+    Dim myFile As File
+
+    If uca = 0 Then
+        uca = 1
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/ucy" For Create
+        Print #myFile, "ac"
+        Close #myFile
+        ucyakala.Background = Color.blue
+    Else
+        uca = 0
+        Shell "rm " & System.User.Home &/ ".KediCAD/Kayit/ucy"
+        ucyakala.Background = Color.Cyan
+    End If
+Catch
+	hatayaz("ucyakalaclick " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public doga As Integer
+Public uca As Integer
+Public iza As Integer
+Public orto As Integer
+Public Sub Button74_Click()
+    Dim myFile As File
+
+    If orto = 0 Then
+        orto = 1
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/orto" For Create
+        Print #myFile, "ac"
+        Close #myFile
+         Button74.Background = Color.blue
+    Else
+        orto = 0
+        Shell "rm " & System.User.Home &/ ".KediCAD/Kayit/orto"
+        Button74.Background = Color.Cyan
+    End If
+Catch
+	hatayaz("ortoclick " & Error.Text, Error.Where & "--" & Error.code)
+End
+Public Sub dogrultu_Click()
+
+    Dim myFile As File
+
+    If doga = 0 Then
+        doga = 1
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/dogu" For Create
+        Print #myFile, "ac"
+        Close #myFile
+        dogrultu.Background = Color.blue
+    Else
+        doga = 0
+        Shell "rm " & System.User.Home &/ ".KediCAD/Kayit/dogu"
+        dogrultu.Background = Color.Cyan
+    End If
+Catch
+	hatayaz("dogrultuclick " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub benzet_Click()
+
+    dolas
+    komyaz.Text = "Specify source drawing :"
+    komutsayi = 240
+    scd = 1
+End
+
+Public Sub budama2_Click()
+
+    sonkom = "Extend"
+    dolas
+    komyaz.Text = "Select a line :"
+    komutsayi = 33
+    vira = 0
+    scd = 1
+
+End
+
+Public Sub budama_Click()
+
+    sonkom = "Trim"
+    dolas
+    komyaz.Text = "Select target line :"
+    komutsayi = 30
+    vira = 0
+    scd = 1
+
+End
+
+Public Sub dortcu_Click()
+
+    budama_Click
+
+End
+
+Public Sub kesis_Click()
+
+    sonkom = "Intersection"
+    dolas
+    komutsayi = 35
+    komyaz.Text = "Select drawings :"
+    vira = 0
+    scd = 1
+
+End
+
+Public Sub pah_Click()
+
+    sonkom = "Chamfer"
+    dolas
+    komyaz.Text = "Select first line :"
+    komutsayi = 37
+    scd = 1
+
+End
+
+Public Sub Menu18_Click()
+
+    dikolcu_Click
+
+End
+
+Public Sub Menu19_Click()
+
+    egikolcu_Click
+
+End
+
+Public Sub Menu25_Click()
+
+    Button1_Click
+
+End
+
+Public Sub Menu88_Click()
+
+    Button10_Click
+
+End
+
+Public Sub Diameter_Click()
+
+    Button9_Click
+
+End
+
+Public Sub Menu89_Click()
+
+    blon_Click
+
+End
+
+Public Sub Menu90_Click()
+
+    dikolcu3_Click
+
+End
+
+Public Sub yazili_Click()
+
+    yazim_Click
+
+End
+
+Public Sub yayili_Click()
+
+    yay_Click
+End
+
+Public Sub donuf_Click()
+
+    donus.Main
+
+End
+
+Public Sub macro_Click()
+
+    mikro.Show
+
+End
+
+Public Sub grs_Click()
+
+    gorsel.Show
+
+End
+
+Public Sub yazdirici_Click()
+
+    yazicim.Show
+
+End
+
+Public Sub ihrac_Click()
+
+    Dim reskayit As Picture
+    Dim sbt As String
+
+    reskayit = desktop.Screenshot(0, 200, Me.Width, Me.Height - 250)
+    Dialog.Filter = FileFilter()
+    If Dialog.SaveFile() Then Return
+    If Exist(Dialog.Path) Then
+        If Message.Warning(" \n\n\t" & Dialog.Path & "\n\n file. Overwrite?", "Yes", "Cancel") > 1 Then
+            Return
+        End If
+    End If
+    sbt = File.Dir(Dialog.Path) &/ File.Name(Dialog.Path)
+    reskayit.Save(sbt, 1)
+    Return
+Catch
+	hatayaz("ihracclick " & Error.Text, Error.Where & "--" & Error.code)
+    Message.Warning("File not save\n\n\t" & Dialog.Path & "\n\n" & ERROR.Text)
+    Return
+
+End
+
+Private Function FileFilter() As String[]
+
+    Dim filter As New String[]
+
+    filter.Add("*.dxf")
+    filter.Add("*.DXF")
+    Return filter
+
+End
+
+Public Sub uzalasi_Click()
+ olcum = 1
+    dolas
+    calanilk.Refresh
+    
+End
+
+Public Sub uzaklas2_Click()
+
+    olcum = onol
+    If panel12.Visible = True Then olcum = 1
+    ScrollView1.ScrollX = swx
+    ScrollView1.Scrolly = swy
+
+End
+
+Public Sub Menu23_Click()
+
+    uzaklas_Click
+
+End
+
+Public Sub Menu93_Click()
+
+    uzaklas_Click
+
+End
+
+Public Sub kaydir_Click()
+
+    komutsayi = 140
+
+End
+
+Public Sub tamsayima_Click()
+
+    tamekran_Click()
+
+End
+
+Public Sub basuc_Click()
+
+    torba5.yanpa
+    torba2.c1 = 1
+    torba2.enyakin = 1
+End
+
+Public Sub ortauc_Click()
+
+    torba5.yanpa
+    torba2.c2 = 1
+    torba2.enyakin = 1
+
+End
+
+Public Sub meruc_Click()
+
+    torba5.yanpa
+    torba2.c3 = 1
+    torba2.enyakin = 1
+
+End
+
+Public Sub tegetuc_Click()
+
+    torba5.yanpa
+    torba2.c7 = 1
+    torba2.enyakin = 1
+
+End
+
+Public Sub yakin_Click()
+
+    torba5.yanpa
+    torba2.c4 = 1
+    torba2.enyakin = 1
+
+End
+
+Public Sub dikuc_Click()
+
+    torba5.yanpa
+    torba2.c5 = 1
+    torba2.enyakin = 1
+End
+
+Public Sub meruc2_Click()
+
+    Dim myFile As File
+    Dim myline As String
+    Dim doza As Integer
+
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/uccu")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/uccu" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                doza = doza + 1
+                If doza = 1 Then torba2.c1 = CInt(myLine)
+                If doza = 2 Then torba2.c2 = CInt(myLine)
+                If doza = 3 Then torba2.c3 = CInt(myLine)
+                If doza = 4 Then torba2.c4 = CInt(myLine)
+                If doza = 5 Then torba2.c5 = CInt(myLine)
+                If doza = 6 Then torba2.c6 = CInt(myLine)
+                If doza = 7 Then torba2.c7 = CInt(myLine)
+                If doza = 8 Then torba2.c8 = CInt(myLine)
+                If doza = 9 Then
+                    If myline Then ayar.izgam = Val(myLine)
+                End If
+            Wend
+        End If
+        Close myFile
+    End If
+Catch
+	hatayaz("meruc2 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub hepsi_Click()
+
+    For Each cazgi In cezmi
+        If cazgi.id > 0
+            depo1.add(cazgi.blok, cazgi.id)
+            depot.Add(cazgi.id, deposay)
+            deposay = deposay + 1
+        End If
+    Next
+
+End
+
+Public Sub aciliyay_Click()
+
+    yay_Click
+
+End
+
+Public Sub ucnota_Click()
+
+    yay3_Click
+
+End
+
+Public Sub ucnok_Click()
+
+    cember3_Click
+
+End
+
+Public Sub ucyakala_Menu()
+
+    saglik.Popup
+
+End
+
+Public Sub dogrultu_Menu()
+
+    saglik.Popup
+
+End
+
+Public Sub izgara_Menu()
+
+    saglik.Popup
+
+End
+
+Public Sub Acem_Click()
+
+    doga = 1
+    uca = 1
+
+End
+
+Public Sub kapa_Click()
+
+    uca = 0
+
+End
+
+Public Sub dxf_Click()
+
+    dosac.Main
+
+End
+
+Public Sub yanic_Click()
+
+    yay_Click
+
+End
+
+Public Sub bsd_Click()
+
+    yay3_Click
+
+End
+
+Public Sub Button25_Click()
+
+    sonkom = "Polygon"
+    dolas
+    komutsayi = 280
+    kenar = 0
+    komyaz.Text = "Specify first point ():"
+    bolok = bolok + Rnd(2, 6)
+
+End
+
+
+
+Public Sub yazdir_Click()
+
+    yazdirici_Click
+
+End
+
+Public Sub deddd_Click()
+
+    canta_Click
+
+End
+
+Public Sub canita_Click()
+
+    yapistir_Click
+
+End
+
+Public Sub benz_Click()
+
+    benzet_Click
+
+End
+
+Public Sub Menu68_Click()
+
+    Menu55_Click
+
+End
+
+Public tw1 As Float
+
+Public Sub Menu69_Click()
+' ScrollView1.Move(Me.ClientX, Me.ClientY - 24, Me.ClientWidth, Me.Height - 63)
+    ozellik.Show
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then torba.degisim(cazgi.id)
+    Next
+    
+    tw1 = 5
+
+End
+
+Public Sub Menu24_Click()
+
+    PictureBox22_MouseDown
+End
+
+Public Sub cemaa_Click()
+
+    cember_Click
+
+End
+
+Public Sub ikinokaa_Click()
+
+    c2_Click
+
+End
+
+Public Sub ucn_Click()
+
+    cember3_Click
+
+End
+
+Public Sub yazici_Click()
+
+    yazim_Click
+
+End
+
+Public Sub cokg_Click()
+
+    Button25_Click
+
+End
+
+Public Sub sil(ide As Integer)
+
+    For Each sazgi In cezmi
+        If ide = sazgi.id
+            If sazgi.id > 0 Then sazgi.id = - sazgi.id
+        End If
+    Next
+Return
+End
+
+Public Sub sildepo()
+
+    For Each sazgi In cezmi
+        If depo1.Exist(sazgi.id)
+            If sazgi.id > 0 Then sazgi.id = - sazgi.id
+        Endif
+    Next
+    dolas
+    Return
+
+End
+
+Public koyno As Integer
+
+Public Sub sildepo2()
+
+    For Each cazgi In cezmi
+        If cazgi.id < 0
+            scazgi = New Czm
+            scazgi.id = koyno
+            scazgi.x1 = cazgi.x1
+            scazgi.y1 = cazgi.y1
+            scazgi.x2 = cazgi.x2
+            scazgi.y2 = cazgi.y2
+            scazgi.yazix = cazgi.yazix
+            scazgi.yaziy = cazgi.yaziy
+            scazgi.r = cazgi.r
+            scazgi.b = cazgi.b
+            scazgi.egim = cazgi.egim
+            scazgi.teta = cazgi.teta
+            scazgi.yaricap = cazgi.yaricap
+            scazgi.sekil = cazgi.sekil
+            scazgi.renk = cazgi.renk
+            scazgi.kalinlik = cazgi.kalinlik
+            scazgi.blok = cazgi.blok
+            scazgi.katman = cazgi.katman
+            scazgi.yazi = cazgi.yazi
+            scazgi.x3 = cazgi.x3
+            scazgi.y3 = cazgi.y3
+            scazgi.x4 = cazgi.x4
+            scazgi.y4 = cazgi.y4
+            scazgi.x5 = cazgi.x5
+            scazgi.y5 = cazgi.y5
+            scazgi.x6 = cazgi.x6
+            scazgi.y6 = cazgi.y6
+            scazgi.komut = cazgi.komut
+            scezmi.Add(scazgi, koyno)
+            koyno = koyno + 1
+            cezmi.Remove(cazgi.id)
+        End If
+    Next
+    Return
+Catch
+	hatayaz("sildepo " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub kaydedici_Click()
+ Dim myFile As File
+Dim myline As String
+myFile = Open System.User.Home &/ ".KediCAD/Kayit/hatalar.txt" For 
+If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                If pen.liste3.find(myLine) = -1 Then pen.liste3.Add(myLine)
+            Wend
+            pen.Show
+Else
+    Message("Hata kaydı yok", "Tamam")
+End If
+Close myFile
+End
+Private omenu As Menu
+
+Public Sub bmenuekle(mnv As String)
+
+    omenu = New Menu(ilk.sondosya) As "_bmenu"
+    omenu.Name = mnv
+    omenu.Text = mnv
+    omenu.Enabled = True
+    omenu.Tag = mnv
+    Return
+Catch
+		hatayaz("bmenuekle " & Error.Text, Error.Where & "--" & Error.code)
+		Return
+End
+Public Sub _bmenu_Click()
+    If Exist(Last.text)
+        torba5.mng(Last.text)  
+    Else
+        Message("Dosya bulunamadı..!!")
+    Endif
+
+End
+' Public Sub Menu36_Click()
+' 
+'     torba5.mng(Menu36.Text)
+'     Return
+' 
+' End
+
+Public Sub Menu42_Click()
+
+    rulman.Main
+
+End
+
+Public Sub Menu43_Click()
+
+    kece.Main
+
+End
+
+Public Sub Menu45_Click()
+
+    kama.Show
+
+End
+
+Public Sub Menu63_Click()
+
+    If isalanx <> 0
+        If isalan = 1 Then
+            isalan = 0
+        Else
+            isalan = 1
+        End If
+    Else
+        panel19.Visible = True
+    End If
+
+End
+
+Public Sub Menu44_Click()
+
+    isalan = 1
+
+
+End
+
+Public Sub Menu72_Click()
+
+    If sdrt = 1 Then
+        sdrt = 0
+    Else
+        sdrt = 1
+    End If
+
+End
+
+Public Sub Menu52_Click()
+
+    If ddrt = 1 Then
+        ddrt = 0
+    Else
+        ddrt = 1
+    End If
+
+End
+
+Public Sub Menu48_Click()
+
+    olcum = 1
+    dolas
+
+End
+
+Public Sub Menu46_Click()
+
+    vinc.Show
+
+End
+
+Public Sub PictureBox19_MouseDown()
+
+    Panel10.Visible = False
+    tasi_Click
+
+End
+
+Public Sub PictureBox18_MouseDown()
+
+    Panel10.Visible = False
+    kopya_Click
+
+End
+
+Public Sub PictureBox23_MouseDown()
+
+    Panel10.Visible = False
+    Button6_Click
+
+End
+
+Public ppp As Integer
+
+Public Sub PictureBox28_MouseDown()
+
+    ppp = 1
+    Panel25.Visible = False
+    komutsayi = 22
+    konum.sira = 1
+
+End
+
+Public Sub PictureBox29_MouseDown()
+
+    Panel25.Visible = False
+    ppp = 1
+    komutsayi = 3
+    konum.sira = 1
+
+End
+
+Public Sub PictureBox31_MouseDown()
+
+    Panel25.Visible = False
+    bolok = bolok + 2
+    ppp = 0
+    Menu111_Click()
+
+End
+
+Public Sub PictureBox32_MouseDown()
+
+    Panel25.Visible = False
+    ppp = 0
+    dolas
+    For Each cazgi In cezmi
+        If cazgi.id < 0 Then Goto gec
+        If cazgi.blok = bolok Then sil(cazgi.id)
+    gec:
+    Next
+    bolok = bolok + 2
+
+End
+
+Public Sub PictureBox24_MouseDown()
+
+    Panel10.Visible = False
+    silme_Click
+
+End
+
+Public Sub PictureBox21_MouseDown()
+
+    Panel10.Visible = False
+    ayna_Click
+
+End
+
+Public Sub PictureBox17_MouseDown()
+
+    Panel15.Visible = False
+    ppp = 0
+    cizgia_Click
+
+End
+
+Public Sub PictureBox13_MouseDown()
+
+    Panel10.Visible = False
+    Menu20_Click
+
+End
+
+Public Sub PictureBox15_MouseDown()
+
+    Panel15.Visible = False
+    Menu20_Click
+
+End
+
+Public Sub PictureBox16_MouseDown()
+
+    Panel15.Visible = False
+    budama_Click
+
+End
+
+Public Sub PictureBox25_MouseDown()
+
+    Panel15.Visible = False
+    cember_Click
+End
+
+Public Sub olsek2_Click()
+
+    If depo1.Count < 1 Then
+        dolas
+        komyaz.Text = "Select drawings ():"
+        komutsayi = 252
+        scd = 1
+    Else
+        komyaz.Text = "Specify first point:"
+        komutsayi = 251
+    End If
+    sonkom = "Stretch"
+
+
+End
+
+Public Sub PictureBox20_MouseDown()
+
+    Panel10.Visible = False
+    PictureBox22_MouseDown
+End
+
+Public Sub PictureBox22_MouseDown()
+
+    Panel15.Visible = False
+    If sonkom = "Line"
+        cizgia_Click
+    Else If sonkom = "Polyline"
+        cizgi2_Click
+    Else If sonkom = "Polygon"
+        Button25_Click
+    Else If sonkom = "Rectangle"
+        dikdort_Click
+    Else If sonkom = "Circle"
+        cember_Click
+    Else If sonkom = "Circle 2 Points"
+        c2_Click
+    Else If sonkom = "Circle 3 Points"
+        cember3_Click
+    Else If sonkom = "Arc"
+        yay_Click
+    Else If sonkom = "Arc 3 Points"
+        yay3_Click
+    Else If sonkom = "Axis"
+        eksen_Click
+    Else If sonkom = "Linear D."
+        dikolcu_Click
+    Else If sonkom = "Aligned D."
+        egikolcu_Click
+    Else If sonkom = "Angular D."
+        Button1_Click
+    Else If sonkom = "Baloon"
+        blon_Click
+    Else If sonkom = "Welding"
+        dikolcu3_Click
+    Else If sonkom = "Dimensional D."
+        Button9_Click
+    Else If sonkom = "Radius D."
+        Button10_Click
+    Else If sonkom = "birles"
+        birlestir_Click
+    Else If sonkom = "Make Block"
+        blokyap_Click
+    Else If sonkom = "Block Insert"
+        blokal_Click
+    Else If sonkom = "Explode"
+        pat_Click
+    Else If sonkom = "Extend"
+        budama2_Click
+    Else If sonkom = "Block Edit"
+        birlestir2_Click
+    Else If sonkom = "Profiles"
+        profil_Click
+    Else If sonkom = "Inquiry (Points)"
+        Menu41_Click
+    Else If sonkom = "Inquiry (Distance)"
+        Menu16_Click
+    Else If sonkom = "Inquiry (Angular)"
+        Menu49_Click
+    Else If sonkom = "Trim"
+        budama_Click
+    Else If sonkom = "Intersection"
+        kesis_Click
+    Else If sonkom = "Fillet"
+        yuvarlama_Click
+    Else If sonkom = "Chamfer"
+        pah_Click
+    Else If sonkom = "Move"
+        tasi_Click
+    Else If sonkom = "Copy"
+        kopya_Click
+    Else If sonkom = "Rotate"
+        Button6_Click
+    Else If sonkom = "Mirror"
+        ayna_Click
+    Else If sonkom = "Offset"
+        icerle_Click
+    Else If sonkom = "Array"
+        dizi_Click
+    Else If sonkom = "Scale"
+        olsek_Click
+    Else If sonkom = "Stretch"
+        olsek2_Click
+    Else If sonkom = "Paste"
+        yapistir_Click
+    Else If sonkom = "Erase"
+        silme_Click
+    End If
+Catch
+		hatayaz("picture22mousedown " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+
+Public Sub PictureBox27_MouseDown()
+
+    Panel15.Visible = False
+    tamekran_Click
+
+End
+
+Public Sub PictureBox26_MouseDown()
+
+    Panel15.Visible = False
+    cizgi2_Click()
+End
+
+Public Sub Menu62_Click()
+
+    TextBox2.Move(mousex, mousey, 70, 55)
+    TextBox2.Show
+    TextBox2.text = fsde.text
+    dolas
+
+End
+
+Public Sub Menu59_Click()
+
+    fsde.Visible = False
+    dolas
+
+End
+
+Public Sub istan_Click()
+
+    Dim myFile As File
+
+    If TextBox3.Text <> ""
+        If TextBox4.Text <> ""
+            isalanx = CFloat(TextBox3.Text)
+            isalany = CFloat(TextBox4.Text)
+            myFile = Open System.User.Home &/ ".KediCAD/Kayit/isalan" For Create
+            Print #myFile, isalanx
+            Print #myFile, isalany
+            Close #myFile
+            isalan = 1
+        End If
+    End If
+    panel19.Visible = False
+Catch
+		hatayaz("istan " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Menu64_Click()
+
+    panel19.Visible = True
+
+End
+
+Public Sub Menu65_Click()
+
+    pase.Main
+
+End
+
+Public yazgi As Czm
+
+Public Sub fean_Click()
+
+    Dim xon As Float
+
+    ilk.cezmiyedek = ilk.cezmi ' çizimi yedekleme
+    For Each cazgi In ilk.cezmi  ' çizimdeki aynı çizgileri temizleme
+        If ilk.depo1.Exist(cazgi.id)
+            If cazgi.id < 0 Then Goto gec
+            For Each yazgi In ilk.cezmiyedek
+                If yazgi.id < 0 Then Goto gec1
+                If cazgi.id <> yazgi.id Then
+                    If cazgi.x1 = yazgi.x1
+                        If cazgi.y1 = yazgi.y1
+                            If cazgi.x2 = yazgi.x2
+                                If cazgi.y2 = yazgi.y2
+                                    ilk.sil(cazgi.id)
+                                    ilk.depo1.Remove(cazgi.id)
+                                Endif
+                            Endif
+                        Endif
+                    Endif
+                Endif
+            gec1:
+            Next
+        Endif
+    gec:
+    Next
+    duz.duzen
+    If depo1.Count > 0
+        ucgen.ax1.Clear
+        ucgen.ay1.Clear
+        If depo1.count <> 0 Then
+            osec = 1
+            komutsayi = 238
+            xon = 0
+            For Each cazgi In cezmi
+                If depo1.Exist(cazgi.id)
+                    If cazgi.komut = 1
+                        ucgen.ax1.Add(cazgi.x1 * olcum)
+                        ucgen.ay1.Add(cazgi.y1 * olcum)
+                        ucgen.ax1.Add(cazgi.x1 * olcum)
+                        ucgen.ay1.Add(cazgi.y1 * olcum)
+                        ucgen.axid.Add(cazgi.id)
+                        ucgen.axid.Add(cazgi.id)
+                    Else If cazgi.komut = 20
+                        bol(cazgi.teta, cazgi.r, cazgi.yaricap, cazgi.x1, cazgi.y1)
+                    End If
+                End If
+            Next
+
+            bezmiyedek = bezmi
+            cezmiyedek = cezmi
+            kezmi.Clear
+            kazma.kuruntu
+            cezmi = kezmi
+            If ucgen.ket = 0 Then
+                fea.Show
+            Else
+                cezmi = cezmiyedek
+                bezmi = bezmiyedek
+            End If
+        Else
+            dolas
+            komyaz.Text = "Select drawings ():"
+            komutsayi = 141
+        End If
+    Else
+        fea.Show
+    End If
+Catch
+		hatayaz("feanclick " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button46_Click()
+
+    panel19.Visible = False
+
+End
+
+Public Sub Menu66_Click()
+
+    birlestir_Click
+
+End
+
+Public Sub Menu67_Click()
+
+    pat_Click
+
+End
+
+Public Sub Button27_Click()
+
+    hazim.Visible = False
+    dolas
+
+End
+
+Public Sub Button17_Click()
+
+    Dim aya, ita, bol3 As Integer
+    hazim.Visible = False
+    TextArea1.Font.Size = TextBox10.Text
+    If TextArea1.Font.Bold = True Then bol3 = 1
+    If TextArea1.Font.Underline = True Then aya = 1
+    If TextArea1.Font.Italic = True Then ita = 1
+    If onyaz <> 0 Then
+        sil(onyaz)
+        onyaz = 0
+    Endif
+    cizem.altyazi = aya
+    cizem.italik = ita
+    cizem.font = TextArea1.Font.Name
+    cizem.renk = ColorButton2.Value
+    cizem.yaz(ikix, ikiy, TextArea1.Text, TextBox10.Text, Rad(TextBox11.Text))
+    gerde.zkayit("yazi", (dacy.kyno - 1))
+    dolas
+Catch
+		hatayaz("buton17clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public onyaz As Integer
+
+Public Sub Menu73_Click()
+
+    cizliste.Show
+
+End
+
+Public Sub ayarci_Click()
+
+    ayar.show
+
+End
+
+Public Sub Menu75_Click()
+
+    Me.Text = Menu75.Text
+    kaci = Menu75.Text
+    cezmi = cezmi0
+    bezmi = bezmi0
+    tamekran_Click
+    vfr = 0
+    katyeni
+
+End
+
+Public Sub Menu76_Click()
+
+    Me.Text = Menu76.Text
+    kaci = Menu76.Text
+    cezmi = cezmi1
+    bezmi = bezmi1
+    tamekran_Click
+    vfr = 1
+    katyeni
+
+End
+
+Public Sub Menu77_Click()
+
+    Me.Text = Menu77.Text
+    kaci = Menu77.Text
+    cezmi = cezmi2
+    bezmi = bezmi2
+    tamekran_Click
+    vfr = 2
+    katyeni
+
+End
+
+Public Sub Menu78_Click()
+
+    Me.Text = Menu78.Text
+    kaci = Menu78.Text
+    cezmi = cezmi3
+    bezmi = bezmi3
+    tamekran_Click
+    vfr = 3
+    katyeni
+
+End
+
+Public Sub Menu79_Click()
+
+    Me.Text = Menu79.Text
+    kaci = Menu79.Text
+    cezmi = cezmi4
+    bezmi = bezmi4
+    tamekran_Click
+    vfr = 4
+    katyeni
+
+End
+
+Public Sub Menu80_Click()
+
+    Me.Text = Menu80.Text
+    kaci = Menu80.Text
+    cezmi = cezmi5
+    bezmi = bezmi5
+    katyeni
+    tamekran_Click
+    vfr = 5
+
+End
+
+Public Sub Menu81_Click()
+
+    Me.Text = Menu81.Text
+    kaci = Menu81.Text
+    cezmi = cezmi6
+    bezmi = bezmi6
+    katyeni
+    tamekran_Click
+
+End
+
+Public Sub Menu82_Click()
+
+    Me.Text = Menu82.Text
+    kaci = Menu82.Text
+    cezmi = cezmi7
+    bezmi = bezmi7
+    katyeni
+    tamekran_Click
+    vfr = 6
+
+End
+
+Public Sub Menu83_Click()
+
+    Me.Text = Menu83.Text
+    kaci = Menu83.Text
+    cezmi = cezmi8
+    bezmi = bezmi8
+    katyeni
+    tamekran_Click
+    vfr = 7
+
+End
+
+Public Sub Menu84_Click()
+
+    Me.Text = Menu84.Text
+    kaci = Menu84.Text
+    cezmi = cezmi9
+    bezmi = bezmi9
+    tamekran_Click
+    vfr = 8
+    katyeni
+
+End
+
+Public Sub Menu85_Click()
+
+    Me.Text = Menu85.Text
+    kaci = Menu85.Text
+    cezmi = cezmi10
+    bezmi = bezmi10
+    tamekran_Click
+    vfr = 9
+    katyeni
+
+End
+
+Public Sub katyeni()
+If Me.Text = "New Drawing" Then
+    kaci = ""
+Endif
+    katmer.Clear
+    For Each bazgi In bezmi
+        katmer.Add(bazgi.ad)
+    Next
+    Return
+
+End
+
+Public Sub birlestir2_Click()
+    sonkom = "Block Edit"
+    cezmiyedek = cezmi
+    bezmiyedek = bezmi
+    panel2.Visible = True
+    ListBox11.Clear
+    For Each nazgi In tezmi
+            If nazgi.x8 = 111
+                If ListBox11.Find(nazgi.blok) = -1 Then ListBox11.Add(nazgi.blok)
+            End If
+    Next
+Catch
+		hatayaz("birlestir2clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ListBox11_KeyRelease()
+
+    ListBox11_Click()
+
+End
+
+Public Sub Button29_Click()
+
+    Panel22.Visible = False
+    Label33.Text = "BLOCK EDITION"
+
+End
+
+Public Sub Button19_Click()
+Panel22.Visible = False
+Label33.Text = "BLOCK MODIFY"
+kazma.buruntu
+cezmi = cezmiyedek
+For Each cazgi In cezmi
+        If cazgi.id > 0 Then
+            If ListBox7.Find(cazgi.blok) = -1
+            Else
+                   dacy.olecek("yeni", cazgi.kfx, (cazgi.xf + orix) * olcum, (cazgi.yf - oriy) * olcum, cazgi.aci)
+                   Goto cik2
+            End If
+        End If
+Next
+cik2:
+For Each cazgi In cezmi
+        If cds.Exist(cazgi.id) Then
+            If cazgi.id > 0 Then cazgi.id = - cazgi.id
+        Endif
+Next
+Catch
+		hatayaz("buton19clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ListBox7_Click()
+
+    Label34.Text = ""
+    Label35.Text = ""
+    Label36.Text = ""
+    Label37.Text = ""
+    For Each cazgi In ilk.cezmiyedek
+        If cazgi.id > 0 Then
+            If cazgi.blok = ListBox7.Text
+                Label34.Text = "x = " & Format(cazgi.xf, "#.#")
+                Label35.Text = "y = " & Format(cazgi.yf, "#.#")
+                Label36.Text = "angle = " & Format(cazgi.aci, "#.#")
+                Label37.Text = "scale = " & Format(cazgi.kfx, "#.#")
+                Label39.Text = cazgi.grup
+            End If
+        End If
+    Next
+Catch
+		hatayaz("listbox17clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ListBox11_DblClick()
+
+    Panel22.Move(Panel2.w - Panel22.w, Panel2.h - Panel22.h)
+    Panel22.Visible = True
+    Label33.Text = ListBox11.Text & " MODIFY"
+
+End
+Public nazgi As Tzm
+Public olcm As Float
+Public Sub DrawingArea1_Draw()
+Dim snx, sny, bsx, bsy, penge, penye As Float
+Dim i As Integer
+    bsx = 10000000
+    bsy = 10000000
+    snx = -10000000
+    sny = -10000000
+For Each nazgi In tezmi
+        If nazgi.id < 0 Then Goto gec1
+        If nazgi.gor <> 0 Then Goto gec1
+        If nazgi.grup <> ilk.ListBox11.Text Then Goto gec1
+        If nazgi.id = 60 Then Goto gec1
+'         If nazgi.id = 20 Then Goto gec1
+             bsx = Min(bsx, nazgi.x1)
+             bsy = Min(bsy, nazgi.y1)
+             snx = Max(snx, nazgi.x1)
+             sny = Max(sny, nazgi.y1)
+             bsx = Min(bsx, nazgi.x2)
+             bsy = Min(bsy, nazgi.y2)
+             snx = Max(snx, nazgi.x2)
+             sny = Max(sny, nazgi.y2)
+             i = i + 1
+        gec1:
+Next
+penge = (snx - bsx) * 1.2
+penye = (sny - bsy) * 1.2
+ If penye = 0 Then Return
+ olcm = Min(DrawingArea1.Width / penge, DrawingArea1.height / penye)
+ draw.scale(olcm, olcm)
+ draw.translate(- bsx, - bsy)
+For Each nazgi In tezmi
+        If nazgi.id < 0 Then Goto gec
+        If nazgi.gor <> 0 Then Goto gec
+        If nazgi.grup <> ListBox11.Text Then Goto gec
+        Draw.Foreground = nazgi.renk
+        Draw.LineWidth = nazgi.kalinlik
+        Label38.Text = nazgi.xf & "/" & nazgi.yf
+        Label40.Text = nazgi.kfx & "/" & nazgi.aci
+        px1 = nazgi.x1 
+        py1 = nazgi.y1
+        px2 = nazgi.x2
+        py2 = nazgi.y2 
+        hgc = nazgi.yaricap 
+        If nazgi.komut = 1 Then Draw.Line(px1, py1, px2, py2)
+        If nazgi.komut = 25 Then Draw.Circle(px1, py1, hgc)
+        If nazgi.komut = 20 Then
+            hgc = nazgi.yaricap 
+            px1 = nazgi.x1 
+            py1 = nazgi.y1
+            If nazgi.r < nazgi.teta Then nazgi.r = nazgi.r + 2 * Pi
+            Paint.Arc(px1, py1, hgc, - nazgi.teta, - nazgi.r + nazgi.teta)
+        Endif
+        If nazgi.komut = 60 Then draw.Text(nazgi.yazi, px1, py1, nazgi.y7 * olcm, nazgi.x7 * olcm)
+        Paint.Stroke
+    gec:
+Next
+
+Catch
+		hatayaz("drwarea1draw " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+Public Sub ListBox11_Click()
+DrawingArea1.Refresh
+    ' cds.Clear
+    ' kezmi.Clear
+    ' cezmi = cezmiyedek
+    ' For Each cazgi In cezmi
+    '     If cazgi.grup = ListBox11.Text
+    '         cds.Add(cazgi.id)
+    '     End If
+    ' Next
+    ' cezmiyedek = cezmi
+    ' kazma.kuruntu
+    ' cezmi = kezmi
+    ' tamekran_Click
+    ' ScrollView1.ScrollX = ScrollView1.ScrollX - 200
+
+End
+Public Sub Button44_Click()
+    panel2.Visible = False
+    cezmi = cezmiyedek
+    bezmi = bezmiyedek
+    tamekran_Click
+
+End
+Public Sub Button41_MouseDown()
+    If Panel20.Visible = False
+        Panel20.Visible = True
+    Else
+        Panel20.Visible = False
+    End If
+
+End
+Public orenk As Integer
+Sub rede(yegen As Integer)
+    Button41.Text = ""
+    If depo1.Count > 0
+        For Each cazgi In cezmi
+            If depo1.Exist(cazgi.id)
+                cazgi.renk = yegen
+            End If
+        Next
+    Else
+        reka = yegen
+        orenk = yegen
+        Button41.Background = yegen
+    End If
+    dolas
+    Return
+    Catch
+		hatayaz("orenk " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+Public Sub PictureBox2_MouseDown()
+    rede(color.red)
+End
+Public Sub PictureBox3_MouseDown()
+    rede(color.Pink)
+
+End
+Public Sub PictureBox4_MouseDown()
+    rede(color.Violet)
+
+End
+Public Sub PictureBox5_MouseDown()
+    rede(color.Blue)
+
+End
+Public Sub PictureBox9_MouseDown()
+    rede(color.Cyan)
+End
+Public Sub PictureBox8_MouseDown()
+    rede(color.Green)
+End
+
+Public Sub PictureBox7_MouseDown()
+    rede(color.DarkGreen)
+
+End
+
+Public Sub PictureBox6_MouseDown()
+
+    rede(color.Yellow)
+
+
+End
+
+Public Sub PictureBox12_MouseDown()
+
+    rede(color.Orange)
+
+
+End
+
+Public Sub PictureBox11_MouseDown()
+
+    rede(11162880)
+
+
+End
+
+Public Sub PictureBox14_MouseDown()
+
+    rede(color.Gray)
+
+
+End
+
+Public Sub PictureBox10_MouseDown()
+
+    If calanilk.Background = color.Black
+        rede(color.white)
+    Else
+        rede(color.Black)
+    Endif
+
+
+End
+
+Public Sub Label2_MouseDown()
+
+    Button41.Background = color.White
+    rede(color.white)
+    Button41.Text = "ByLayer"
+    dolas
+    komutcuk.SetFocus
+
+
+End
+
+Public Sub cizgi2_Click()
+
+    dolas
+    bolok = bolok + Rnd(2, 6)
+    sonkom = "Polyline"
+    komutsayi = 3
+    ppp = 1
+    komyaz.Text = "Specify first point ():"
+
+
+End
+
+Public Sub Button45_Click()
+
+    sonkom = "spLine"
+    dolas
+    komutsayi = 6
+    komyaz.Text = "Specify first point ():"
+
+
+End
+Public Sub cizgia_Click()
+
+    sonkom = "Line"
+    dolas
+    komutsayi = 1
+    komyaz.Text = "Specify first point ():"
+
+
+End
+
+Public Sub dikdort_Click()
+
+    sonkom = "Rectangle"
+    dolas
+    komutsayi = 5
+    komyaz.Text = "Specify first point() :"
+    bolok = bolok + Rnd(2, 6)
+
+End
+
+Public Sub yay3_Click()
+
+    sonkom = "Arc 3 Points"
+    komutsayi = 22
+    komyaz.Text = "Specify first point() :"
+
+
+End
+
+Public Sub yay_Click()
+
+    sonkom = "Arc"
+    komutsayi = 20
+    komyaz.Text = "Specify center point() :"
+
+
+End
+
+Public Sub cember3_Click()
+
+    sonkom = "Circle 3 Points"
+    dolas
+    komutsayi = 26
+    komyaz.Text = "İlk noktasıyı belirleyin ():"
+
+
+End
+
+Public Sub c2_Click()
+
+    sonkom = "Circle 2 Points"
+    dolas
+    komutsayi = 170
+    komyaz.Text = "Specify first point ():"
+
+
+End
+
+Public Sub tara_Click()
+panel4.Visible = True
+End
+
+Public Sub eksen_Click()
+    If depo1.Count > 0 Then
+        eksenci.eks
+    Else
+        sonkom = "Axis"
+        dolas
+        scd = 1
+        komutsayi = 28
+        komyaz.Text = "Specify circle for axes() :"
+    End If
+
+
+End
+
+Public Sub cember2_Click()
+
+
+End
+
+Public Sub cember_Click()
+
+    sonkom = "Circle"
+    dolas
+    komutsayi = 25
+    komyaz.Text = "Specify center point() :"
+
+
+End
+Public Sub birlestir_Click()
+
+    sonkom = "birles"
+    bolok = bolok + Rnd(2, 6)
+    If depo1.count <= 0 Then
+        dolas
+        komyaz.Text = "Select drawings () :"
+        komutsayi = 230
+    Else
+        duz.duzen
+        komutsayi = 230
+         ' ide = acimi.cizgiuzak(ilk.orix, ilk.oriy)
+         ' fsira.deposira(ide)
+        For Each cazgi In cezmi
+            If depo1.Exist(cazgi.id)
+                cazgi.blok = bolok
+            End If
+        Next
+        dolas
+    End If
+
+Catch
+		hatayaz("birlestirclck " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public Sub birle()
+
+    bolok = bolok + Rnd(2, 6)
+    For Each cazgi In cezmi
+        If depo1.Exist(cazgi.id)
+            cazgi.blok = bolok
+        End If
+    Next
+    dolas
+    Return
+
+End
+
+Public Sub profil_Click()
+
+    If Exist(System.User.Home &/ ".KediCAD/cizim")
+        sonkom = "Profiles"
+        profile.Show
+    Else
+        Message("Standart parçalar sisteminizde kurulu değil.Standart parçalar indirilecek. Bu işlem yaklaşık 1 dakika sürer.. 1 dk. sonra kullanabilirsiniz.", "TAMAM")
+        Shell "cd " & System.User.Home &/ ".KediCAD/"
+        Shell "wget https://dl.dropboxusercontent.com/u/25166061/cizim.tar.gz --no-check-certificate"
+        Wait 35
+        Shell "tar xvf " & System.User.Home &/ "cizim.tar.gz"
+        Wait 5
+        Shell "cp -R $HOME/cizim $HOME/.KediCAD/"
+    End If
+
+Catch
+		hatayaz("profilclck " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public Sub pat_Click()
+
+    sonkom = "Explode"
+    If depo1.count <= 0 Then
+        dolas
+        komyaz.Text = "Select blocks() :"
+        komutsayi = 290
+    Else
+        For Each cazgi In cezmi
+            If depo1.Exist(cazgi.id)
+                cazgi.blok = 0
+            End If
+        Next
+        gerde.zkayit("pat")
+        dolas
+    End If
+
+Catch
+		hatayaz("patclck " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public Sub patla()
+
+    For Each cazgi In cezmi
+        If depo1.Exist(cazgi.id)
+            cazgi.blok = 0
+        End If
+    Next
+    dolas
+
+
+End
+
+Public Sub blokal_Click()
+
+    sonkom = "Block Insert"
+    fblokal.Main
+ 
+
+End
+
+Public Sub blokyap_Click()
+
+    sonkom = "Make Block"
+    If depo1.count <= 0 Then
+        dolas
+        komyaz.Text = "Select drawings() :"
+        komutsayi = 295
+    Else
+        komutsayi = 295
+        fblok.Show
+    End If
+Catch
+		hatayaz("blokyapclck " & Error.Text, Error.Where & "--" & Error.code)
+
+
+End
+
+Public Sub Menu21_Click()
+
+    ppp = 1
+    Panel25.Visible = False
+    komutsayi = 22
+    konum.sira = 1
+
+End
+
+Public Sub canta_Click()
+
+    If depo1.count = 0 Then
+        dolas
+        komyaz.Text = "Select drawings() :"
+        komutsayi = 330
+    Else
+        yerle.yankayit
+        dolas
+    End If
+Catch
+		hatayaz("cantaclck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub silme_Click()
+
+    sonkom = "Erase"
+    If depo1.count <= 0 Then
+        dolas
+        komyaz.Text = "Select drawings() :"
+        komutsayi = 15
+    Else
+        For Each cazgi In ilk.cezmi
+            If ilk.depo1.Exist(cazgi.id)
+                tasima.drl.Add(cazgi.id)
+            End If
+        Next
+        gerde.zkayit("sil")
+        sildepo
+        dolas
+    End If
+Catch
+		hatayaz("silmeclck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub tamsil_Click()
+
+    For Each cazgi In cezmi
+        If cazgi.id > 0 Then cazgi.id = - cazgi.id
+    Next
+
+End
+
+Public Sub yuvarlama_Click()
+
+    sonkom = "Fillet"
+    If depo1.count <= 1 Then
+        dolas
+        komyaz.Text = "Select first line() :"
+        komutsayi = 40
+        scd = 1
+    Else
+        komyaz.Text = "Specify radius() :"
+        komutsayi = 41
+    Endif
+End
+
+Public Sub Button7_Click()
+    For Each cazgi In cezmi
+        If cazgi.id > 0 Then depo1.Add(cazgi.id, cazgi.id)
+    Next
+End
+
+Public scd As Integer
+Public sece As Integer
+
+Public Sub RadioButton1_Click()
+    Panel26.Visible = False
+    sece = 1
+End
+
+Public Sub RadioButton2_Click()
+    Panel26.Visible = False
+    sece = 1
+End
+
+Public Sub RadioButton3_Click()
+    Panel26.Visible = False
+    sece = 1
+End
+
+Public Sub Menu121_Click()
+
+    komyaz.Text = "Specify source drawing :"
+    RadioButton4.Value = True
+    Label31.Text = ""
+    PictureBox34.Background = Color.Background
+    Panel26.Visible = True
+    TextBox12.Visible = False
+    RadioButton10.Visible = True
+End
+Public Sub RadioButton10_Click()
+TextBox12.Visible = True
+RadioButton10.Visible = False
+End
+Public Sub TextBox12_Change()
+depo1.Clear
+If TextBox12.Text = "" Then Return
+ For Each cazgi In cezmi
+         If cazgi.yazi Like TextBox12.Text & "*" Then
+             depo1.Add(cazgi.id, cazgi.id)
+         Endif
+ Next
+ calanilk.Refresh
+End
+Public Sub Button49_Click()
+    PictureBox34.Background = renkoku
+    If RadioButton11.Value = True
+        duz.aynicizim
+        Goto gec2
+    Endif
+    For Each cazgi In cezmi
+        If cazgi.id < 0 Then Goto gec
+        If RadioButton1.Value = True
+            If cazgi.renk = renkoku Then
+                depo1.Add(cazgi.id, cazgi.id)
+            Endif
+        Endif
+        If RadioButton2.Value = True
+            If cazgi.katman = katmanoku Then
+                depo1.Add(cazgi.id, cazgi.id)
+            Endif
+        Endif
+        If RadioButton3.Value = True
+            If cazgi.sekil = sekiloku Then
+                depo1.Add(cazgi.id, cazgi.id)
+            Endif
+        Endif
+        If RadioButton4.Value = True
+            If cazgi.komut = 1 Then
+                depo1.Add(cazgi.id, cazgi.id)
+            Endif
+        Endif
+        If RadioButton5.Value = True
+            If cazgi.blok = blokoku Then
+                depo1.Add(cazgi.id, cazgi.id)
+            Endif
+        Endif
+        If RadioButton6.Value = True
+            If cazgi.komut = 25 Then
+                depo1.Add(cazgi.id, cazgi.id)
+            Endif
+        Endif
+        If RadioButton7.Value = True
+            If cazgi.komut = 20 Then
+                depo1.Add(cazgi.id, cazgi.id)
+            Endif
+        Endif
+        If RadioButton8.Value = True
+            If cazgi.komut = 60 Then
+                depo1.Add(cazgi.id, cazgi.id)
+            Endif
+        Endif
+        If RadioButton9.Value = True
+            If cazgi.komut > 80 Then
+                If cazgi.komut < 130 Then
+                    depo1.Add(cazgi.id, cazgi.id)
+                Endif
+            Endif
+        Endif
+        
+    gec:
+    Next
+    gec2:
+    sece = 0
+    Panel26.Visible = False
+    Catch
+		hatayaz("buton49clck " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub Button50_Click()
+
+    Panel26.Visible = False
+    sece = 0
+
+End
+
+Public Sub tasi_Click()
+
+    sonkom = "Move"
+    If depo1.count <> 0 Then
+        osec = 1
+        konum.sira = 5
+        komutsayi = 52
+        komyaz.Text = "Specify first point():"
+    Else
+        dolas
+        komyaz.Text = "Select drawings ():"
+        komutsayi = 51
+        scd = 1
+    End If
+
+End
+
+Public Sub olsek_Click()
+
+    sonkom = "Scale"
+    If depo1.count <> 0 Then
+        konum.sira = 5
+        komyaz.Text = "Specify base point :"
+        komutsayi = 237
+    Else
+        dolas
+        komutsayi = 235
+        komyaz.Text = "Select drawings ():"
+        scd = 1
+    Endif
+
+
+End
+
+Public Sub dizi_Click()
+
+    sonkom = "Array"
+    komutsayi = 220
+    If depo1.count <> 0 Then
+        osec = 1
+        dizim.show
+    Else
+        komyaz.Text = "Select drawings ():"
+        scd = 1
+    End If
+
+
+End
+
+Public Sub kopya_Click()
+
+    sonkom = "Copy"
+    If depo1.count <> 0 Then
+        osec = 1
+        komutsayi = 56
+        konum.sira = 5
+        komyaz.Text = "Specify first point():"
+    Else
+        dolas
+        komyaz.Text = "Select drawings ():"
+        komutsayi = 55
+        scd = 1
+    End If
+
+
+End
+
+Public Sub snkom2_Click()
+
+    yazim_Click
+    Panel15.Visible = False
+
+End
+
+Public Sub yazim_Click()
+
+    komutsayi = 60
+    komyaz.Text = "Specify text point() :"
+
+End
+Public Sub Menu111_Click()
+Dim okb As Float
+    cizem.bloku = bolok
+    If bln = 1 Then
+        blnno = blnno + 1
+        okb = okbuyuk / olcum
+        cizem.cember(birx + 4 * okb, biry, 3 * okb)
+        cizem.yaz((birx + 2 * okb), (biry - 3 * okb), blnno, 3 * okb, 0)
+        bln = 0
+        frr = 0
+    Else If bln = 2 Then
+        For Each cazgi In cezmi
+            If cazgi.id < 0 Then Goto gec
+            p4x = cazgi.x3 * olcum
+            p4y = cazgi.y3 * olcum
+            p5x = cazgi.x1 * olcum
+            p5y = cazgi.y1 * olcum
+            p6x = cazgi.x2 * olcum
+            p6y = cazgi.y2 * olcum
+        gec:
+        Next
+        cizem.cizgi(p4x, p4y + (5 * okbuyuk), p4x, p4y - (5 * okbuyuk))
+        cizem.cizgi(p4x, p4y + (5 * okbuyuk), p4x + (3 * okbuyuk), p4y)
+        cizem.cizgi(p4x + (3 * okbuyuk), p4y, p4x, p4y - (5 * okbuyuk))
+        cizem.cizgi(p5x, p5y + okbuyuk, p6x, p6y + okbuyuk)
+        bln = 0
+        frr = 0
+    Endif
+    depo1.Clear
+    dolas
+Catch
+		hatayaz("menu111clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Menu22_Click()
+
+    Shell System.User.Home &/ ".KediCAD/macroy" &/ Menu22.text
+
+
+End
+
+Public Sub Menu94_Click()
+
+    Shell System.User.Home &/ ".KediCAD/macroy" &/ Menu94.text
+
+
+End
+
+Public Sub Menu95_Click()
+
+    Shell System.User.Home &/ ".KediCAD/macroy" &/ Menu95.text
+
+
+End
+
+Public Sub Menu96_Click()
+
+    Shell System.User.Home &/ ".KediCAD/macroy" &/ Menu96.text
+
+
+End
+
+Public Sub Menu97_Click()
+
+    Shell System.User.Home &/ ".KediCAD/macroy" &/ Menu97.text
+
+
+End
+
+Public Sub Menu98_Click()
+
+    Shell System.User.Home &/ ".KediCAD/macroy" &/ Menu98.text
+
+
+End
+
+Public Sub Menu99_Click()
+
+    Shell System.User.Home &/ ".KediCAD/macroy" &/ Menu99.text
+
+
+End
+
+Public Sub Menu100_Click()
+
+    Shell System.User.Home &/ ".KediCAD/macroy" &/ Menu100.text
+
+
+End
+
+Public Sub Menu101_Click()
+
+    Shell System.User.Home &/ ".KediCAD/macroy" &/ Menu101.text
+
+
+End
+
+Public ewq As Integer
+
+Public Sub Menu47_Click()
+
+    Dim myline, vb As String
+    Dim doza As Integer
+
+    For Each myline In Dir("standart/hidrolik")
+        If Right$(myline, 3) = "blk" Then
+            vb = "standart/hidrolik/" & Left$(myline, -4) & ".png"
+            If Exist(vb)
+                ListView1.Add(doza, myline, picture[vb])
+            Else
+                ListView1.Add(doza, myline)
+            End If
+        End If
+        doza = doza + 1
+    Next
+    ListView1.Sorted = True
+    Panel12.visible = True
+Catch
+		hatayaz("menu47clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button12_Click()
+
+    ewq = 0
+    Panel12.Visible = False
+
+End
+
+Public Sub Button13_Click()
+
+    gorsel.Show
+
+
+End
+
+Public Sub hmak2_Click()
+
+    mikro.Show
+
+
+End
+
+Public bbx As Integer
+Public bby As Integer
+
+Public Sub yilk_MouseDrag()
+
+    If gff = 2 Then Return
+    bbx = mouseX - 20
+    bby = mousey - 10
+    torba6.te
+    yilk.Refresh
+    umx1 = ((bbx) / yiolc) * olcum + torba6.basx * olcum
+    umy1 = ((bby) / yiolc) * olcum + torba6.basy * olcum
+    umx2 = ((bbx + 40) / yiolc) * olcum + torba6.basx * olcum
+    umy2 = ((bby + 20) / yiolc) * olcum + torba6.basy * olcum
+    umut
+    genis = ((Desktop.Width - Abs(umx2 - umx1)) / 10)
+    dogrum = ((Desktop.Height - Abs(umy2 - umy1)) / 8)
+    ScrollView1.Scroll(abl * olcum - genis, xds * olcum + dogrum)
+    umx1 = 0
+    umy1 = 0
+    tsayi = 0
+
+Catch
+		hatayaz("yilkdrag " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public yiolc As Float
+Public mnm As Float
+
+Public Sub yilk_Draw()
+
+    Dim penge, penye, it, iy, ix As Float
+
+    draw.Foreground = color.Violet
+    Draw.LineWidth = 3
+    draw.line(bbx, bby, bbx + 40, bby)
+    draw.line(bbx + 40, bby, bbx + 40, bby + 20)
+    draw.line(bbx + 40, bby + 20, bbx, bby + 20)
+    draw.line(bbx, bby + 20, bbx, bby)
+    draw.Foreground = color.White
+    torba6.te
+    penge = (torba6.sonx - torba6.basx) * 1.2
+    penye = (torba6.sony - torba6.basy) * 1.2
+    If penye = 0 Then Return
+    If gff = 1
+        mnm = Min(yilk.Width / penge, yilk.height / penye)
+        draw.scale(mnm, mnm)
+        draw.translate(- 1 * (torba6.basx), -1 * (torba6.basy))
+    Else
+        mnm = olcum * 4
+        draw.scale(mnm, mnm)
+        draw.translate(- 1 * (mousex / olcum), -1 * (mousey / olcum))
+        draw.translate(50 / (4 * olcum), 50 / (4 * olcum))
+    End If
+    yiolc = mnm
+    For Each cazgi In cezmi
+        If cazgi.id <= 0 Then Goto gec
+        Draw.LineStyle = cazgi.sekil
+        Draw.LineWidth = cazgi.kalinlik
+        draw.Foreground = cazgi.renk
+        If cazgi.komut = 1 Then
+            Draw.Line(cazgi.x1, cazgi.y1, cazgi.x2, cazgi.y2)
+        Else If cazgi.komut = 25 Then
+            hgc = cazgi.yaricap
+            Draw.Circle(cazgi.x1, cazgi.y1, hgc)
+        Else If cazgi.komut = 20 Then
+            hgc = cazgi.yaricap
+            For it = cazgi.r To cazgi.teta Step (1 / hgc)
+                ix = cazgi.x1 + hgc * Cos(it)
+                iy = cazgi.y1 - hgc * Sin(it)
+                Draw.Point(ix, iy)
+            Next
+            ' draw.Arc(cazgi.x1 - hgc, cazgi.y1 - hgc, hgc * 2, hgc * 2, cazgi.r, cazgi.teta)
+        Else If cazgi.komut = 60 Then
+            draw.Font.Size = Abs(cazgi.x6) * mnm
+            draw.Text(cazgi.yazi, cazgi.x1, cazgi.y1)
+        End If
+    gec:
+    Next
+cik2:
+
+Catch
+		hatayaz("yilkdrw " & Error.Text, Error.Where & "--" & Error.code)
+
+
+End
+
+Public oniz As Integer
+
+Public Sub Menu7_Click()
+
+    Dim myFile As File
+
+    If oniz = 1
+        oniz = 0
+        yilk.Visible = False
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/oniz" For Create
+        Print #myFile, "0"
+        Close myFile
+    Else
+        oniz = 1
+        yilk.Visible = True
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/oniz" For Create
+        Print #myFile, "1"
+        Close myFile
+    End If
+
+
+End
+
+Public gff As Integer
+
+Public Sub Button14_Click()
+
+    Button14.Foreground = color.Red
+    Button15.Foreground = Color.Default
+    gff = 1
+    yilk.Refresh
+
+
+End
+
+Public Sub Button15_Click()
+
+    Button15.Foreground = color.Red
+    Button14.Foreground = Color.Default
+    gff = 2
+    yilk.Refresh
+
+
+End
+
+Public Sub Menu104_Click()
+
+    cnc2.cncgor = 1
+    cnc2.Show
+
+End
+
+Public Sub Menu105_Click()
+
+    If Me.Opacity = 100
+        Me.Opacity = 60
+    Else
+        Me.Opacity = 100
+    End If
+
+End
+
+Public Sub Menu108_Click()
+
+    takimata.show
+
+End
+
+Public Sub Menu109_Click()
+
+    toolldefine.Show
+
+End
+
+Public Sub Menu110_Click()
+
+    toolplace.show
+
+End
+
+Public Sub Button16_Click()
+
+    If depo1.count <> 0 Then
+        For Each cazgi In cezmi
+            If depo1.Exist(cazgi.id)
+                If cazgi.komut = 1
+                    cizem.aktar(cazgi.id)
+                    cizem.cizgi(cazgi.x1, cazgi.y1, cazgi.x2, cazgi.y1)
+                    sil(cazgi.id)
+                Endif
+            Endif
+        Next
+    Endif
+
+End
+
+Public Sub Button18_Click()
+
+    If depo1.count <> 0 Then
+        For Each cazgi In cezmi
+            If depo1.Exist(cazgi.id)
+                If cazgi.komut = 1
+                    cizem.aktar(cazgi.id)
+                    cizem.cizgi(cazgi.x1, cazgi.y1, cazgi.x1, cazgi.y2)
+                    sil(cazgi.id)
+                Endif
+            Endif
+        Next
+    Endif
+
+End
+
+Public Sub Button28_Click()
+
+    komutsayi = 32
+    If depo1.count <> 0 Then
+        konum.tuda()
+    Endif
+
+End
+
+Public Sub Button20_Click()
+
+    Dim a, bc As Float
+
+    If noksecx3 <> 0
+        For Each cazgi In cezmi
+            If cazgi.komut = 1
+                If torbasecim.nokid1 = cazgi.id Then
+                    acimi.aci(noksecx3, noksecy3, cazgi.x1, cazgi.y1)
+                    a = acimi.boy
+                    acimi.aci(noksecx3, noksecy3, cazgi.x2, cazgi.y2)
+                    bc = acimi.boy
+                    cizem.aktar(cazgi.id)
+                    If a > bc
+                        cizem.cizgi(noksecx3, noksecy3, cazgi.x1, cazgi.y1)
+                    Else
+                        cizem.cizgi(noksecx3, noksecy3, cazgi.x2, cazgi.y2)
+                    Endif
+                    sil(cazgi.id)
+                End If
+            End If
+        Next
+    End If
+Catch
+		hatayaz("buton20clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button23_Click()
+
+    Panel18.Visible = False
+
+End
+
+Public Sub Button22_Click()
+
+    If TextBox1.Text = "" Then TextBox1.Text = 0
+    If TextBox5.Text = "" Then TextBox5.Text = 0
+    For Each cazgi In cezmi
+        If depo1.Exist(cazgi.id) Then
+            cazgi.z = CFloat(TextBox1.Text)
+            cazgi.z1 = CFloat(TextBox5.Text)
+        Endif
+    Next
+    Panel18.Visible = False
+
+End
+
+Public Sub Menu12_Click()
+
+    Panel18.Visible = True
+
+End
+
+Public Sub Menu112_Click()
+
+    Dim myFile As File
+
+    If ilk.depo1.Count < 2 Then
+        Message("Select closed drawing please", "OK")
+        Return
+    Endif
+    Menu113_Click()
+    Wait 1.5
+    If Dialog.SaveFile() Then Return
+    $sPath = File.Dir(Dialog.Path)
+    myFile = Open $sPath &/ File.Name(Dialog.Path) & ".stl" For Create
+    Print #myFile, "solid " & File.BaseName(Dialog.Path)
+    For Each cazgi In cezmi
+        If cazgi.id > 0
+            If cazgi.uzun = 0
+                If cazgi.komut = 238
+                    cazgi.uzun = 1
+                    Print #myFile, "  facet normal 1.0 1.0 0.0"
+                    Print #myFile, "    outer Loop"
+                    Print #myFile, "      vertex " & Round(cazgi.x1 - orix, -2) & " " & Round(-1 * cazgi.y1 + oriy, -2) & " " & cazgi.z
+                    Print #myFile, "      vertex " & Round(cazgi.x3 - orix, -2) & " " & Round(-1 * cazgi.y3 + oriy, -2) & " " & cazgi.z
+                    Print #myFile, "      vertex " & Round(cazgi.x1 - orix, -2) & " " & Round(-1 * cazgi.y1 + oriy, -2) & " " & cazgi.z1
+                    Print #myFile, "    endloop"
+                    Print #myFile, "  endfacet"
+                    Print #myFile, "  facet normal 1.0 1.0 0.0"
+                    Print #myFile, "    outer Loop"
+                    Print #myFile, "      vertex " & Round(cazgi.x3 - orix, -2) & " " & Round(-1 * cazgi.y3 + oriy, -2) & " " & cazgi.z1
+                    Print #myFile, "      vertex " & Round(cazgi.x1 - orix, -2) & " " & Round(-1 * cazgi.y1 + oriy, -2) & " " & cazgi.z1
+                    Print #myFile, "      vertex " & Round(cazgi.x3 - orix, -2) & " " & Round(-1 * cazgi.y3 + oriy, -2) & " " & cazgi.z
+                    Print #myFile, "    endloop"
+                    Print #myFile, "  endfacet"
+                    Print #myFile, "  facet normal 1.0 1.0 0.0"
+                    Print #myFile, "    outer Loop"
+                    Print #myFile, "      vertex " & Round(cazgi.x8 - orix, -2) & " " & Round(-1 * cazgi.y8 + oriy, -2) & " " & cazgi.z1
+                    Print #myFile, "      vertex " & Round(cazgi.x3 - orix, -2) & " " & Round(-1 * cazgi.y3 + oriy, -2) & " " & cazgi.z1
+                    Print #myFile, "      vertex " & Round(cazgi.x8 - orix, -2) & " " & Round(-1 * cazgi.y8 + oriy, -2) & " " & cazgi.z
+                    Print #myFile, "    endloop"
+                    Print #myFile, "  endfacet"
+                    Print #myFile, "  facet normal 1.0 1.0 0.0"
+                    Print #myFile, "    outer Loop"
+                    Print #myFile, "      vertex " & Round(cazgi.x3 - orix, -2) & " " & Round(-1 * cazgi.y3 + oriy, -2) & " " & cazgi.z
+                    Print #myFile, "      vertex " & Round(cazgi.x8 - orix, -2) & " " & Round(-1 * cazgi.y8 + oriy, -2) & " " & cazgi.z
+                    Print #myFile, "      vertex " & Round(cazgi.x3 - orix, -2) & " " & Round(-1 * cazgi.y3 + oriy, -2) & " " & cazgi.z1
+                    Print #myFile, "    endloop"
+                    Print #myFile, "  endfacet"
+                    Print #myFile, "  facet normal 1.0 1.0 0.0"
+                    Print #myFile, "    outer Loop"
+                    Print #myFile, "      vertex " & Round(cazgi.x1 - orix, -2) & " " & Round(-1 * cazgi.y1 + oriy, -2) & " " & cazgi.z1
+                    Print #myFile, "      vertex " & Round(cazgi.x8 - orix, -2) & " " & Round(-1 * cazgi.y8 + oriy, -2) & " " & cazgi.z1
+                    Print #myFile, "      vertex " & Round(cazgi.x1 - orix, -2) & " " & Round(-1 * cazgi.y1 + oriy, -2) & " " & cazgi.z
+                    Print #myFile, "    endloop"
+                    Print #myFile, "  endfacet"
+                    Print #myFile, "  facet normal 1.0 1.0 0.0"
+                    Print #myFile, "    outer Loop"
+                    Print #myFile, "      vertex " & Round(cazgi.x8 - orix, -2) & " " & Round(-1 * cazgi.y8 + oriy, -2) & " " & cazgi.z
+                    Print #myFile, "      vertex " & Round(cazgi.x1 - orix, -2) & " " & Round(-1 * cazgi.y1 + oriy, -2) & " " & cazgi.z
+                    Print #myFile, "      vertex " & Round(cazgi.x8 - orix, -2) & " " & Round(-1 * cazgi.y8 + oriy, -2) & " " & cazgi.z1
+                    Print #myFile, "    endloop"
+                    Print #myFile, "  endfacet"
+                    Print #myFile, "  facet normal 0.0 1.0 -1.0"
+                    Print #myFile, "    outer Loop"
+                    Print #myFile, "      vertex " & Round(cazgi.x1 - orix, -2) & " " & Round(-1 * cazgi.y1 + oriy, -2) & " " & cazgi.z1
+                    Print #myFile, "      vertex " & Round(cazgi.x3 - orix, -2) & " " & Round(-1 * cazgi.y3 + oriy, -2) & " " & cazgi.z1
+                    Print #myFile, "      vertex " & Round(cazgi.x8 - orix, -2) & " " & Round(-1 * cazgi.y8 + oriy, -2) & " " & cazgi.z1
+                    Print #myFile, "    endloop"
+                    Print #myFile, "  endfacet"
+                    Print #myFile, "  facet normal 0.0 1.0 1.0"
+                    Print #myFile, "    outer Loop"
+                    Print #myFile, "      vertex " & Round(cazgi.x1 - orix, -2) & " " & Round(-1 * cazgi.y1 + oriy, -2) & " " & cazgi.z
+                    Print #myFile, "      vertex " & Round(cazgi.x3 - orix, -2) & " " & Round(-1 * cazgi.y3 + oriy, -2) & " " & cazgi.z
+                    Print #myFile, "      vertex " & Round(cazgi.x8 - orix, -2) & " " & Round(-1 * cazgi.y8 + oriy, -2) & " " & cazgi.z
+                    Print #myFile, "    endloop"
+                    Print #myFile, "  endfacet"
+                Endif
+            Endif
+        Endif
+    Next
+    Print #myFile, "endsolid " & File.BaseName(Dialog.Path)
+Catch
+		hatayaz("menu112clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public dcf As New Collection
+
+Public Sub duzenle()
+
+    Dim ct, ilx, ily As Float
+    Dim fsb As Integer
+
+    ct = 999999
+    depot.Clear
+    dcf.Clear
+    For Each cazgi In cezmi
+        If depo1.Exist(cazgi.id) Then
+            If ct > (cazgi.id) Then
+                ct = cazgi.id
+                ilx = cazgi.x1
+                ily = cazgi.y1
+            Endif
+        Endif
+    Next
+    For ct = 0 To 10
+        For Each cazgi In cezmi
+            If depo1.Exist(cazgi.id)
+                If cazgi.x1 = ilx
+                    If cazgi.y1 = ily Then
+                        ilx = cazgi.x2
+                        ily = cazgi.y2
+                        dcf.Add(cazgi.id, fsb)
+                        fsb = fsb + 1
+                        depo1.Remove(cazgi.id)
+                        If depo1.Count = 0 Then Return
+                    Endif
+                Endif
+                If cazgi.x2 = ilx
+                    If cazgi.y2 = ily Then
+                        ilx = cazgi.x1
+                        ily = cazgi.y1
+                        dcf.Add(cazgi.id, fsb)
+                        fsb = fsb + 1
+                        depo1.Remove(cazgi.id)
+                        If depo1.Count = 0 Then Return
+                    Endif
+                Endif
+            Endif
+        Next
+    Next
+    depo1.Clear
+    depo1 = dcf
+    Return
+Catch
+		hatayaz("duzenle " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub Menu113_Click()
+
+    Wait 0.1
+    If ilk.depo1.Count < 2 Then
+        Message("Select closed drawing please", "OK")
+        Return
+    Endif
+    If depo1.count <> 0 Then
+        osec = 1
+        komutsayi = 238
+    Else
+        dolas
+    End If
+
+    ucg.bas
+End
+
+Public Sub bol2(r2 As Float, t As Float, y As Float, x3 As Float, y3 As Float)
+
+    Dim yar, tx, intx, inty, xon, yon As Float
+
+    yar = 50 / (y + 0.0001)
+    For tx = r2 To t Step yar
+        intx = x3 + y * Cos(tx)
+        inty = y3 - y * Sin(tx)
+        If xon <> 0 Then
+            ucg.ax1.Add(Round(xon, 0))
+            ucg.ay1.Add(Round(yon, 0))
+            ucg.ax2.Add(Round(intx, 0))
+            ucg.ay2.Add(Round(inty, 0))
+            ucg.az1.Add(cazgi.z)
+            ucg.az2.Add(cazgi.z1)
+        End If
+        xon = intx
+        yon = inty
+    Next
+    intx = x3 + y * Cos(t)
+    inty = y3 - y * Sin(t)
+    ucg.ax1.Add(Round(xon, 0))
+    ucg.ay1.Add(Round(yon, 0))
+    ucg.ax2.Add(Round(intx, 0))
+    ucg.ay2.Add(Round(inty, 0))
+    ucg.az1.Add(cazgi.z)
+    ucg.az2.Add(cazgi.z1)
+    Return
+Catch
+		hatayaz("bol2 " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub bol(r2 As Float, t As Float, y As Float, x3 As Float, y3 As Float)
+
+    Dim yar, tx, intx, inty, xon, yon As Float
+
+    yar = 50 / (y + 0.0001)
+    For tx = r2 To t Step yar
+        intx = x3 + y * Cos(tx)
+        inty = y3 - y * Sin(tx)
+        If xon <> 0 Then
+            ucgen.ax1.Add(Round(xon, 0))
+            ucgen.ay1.Add(Round(yon, 0))
+            ucgen.ax2.Add(Round(intx, 0))
+            ucgen.ay2.Add(Round(inty, 0))
+        End If
+        xon = intx
+        yon = inty
+    Next
+    intx = x3 + y * Cos(t)
+    inty = y3 - y * Sin(t)
+    ucgen.ax1.Add(Round(xon, 0))
+    ucgen.ay1.Add(Round(yon, 0))
+    ucgen.ax2.Add(Round(intx, 0))
+    ucgen.ay2.Add(Round(inty, 0))
+    Return
+Catch
+		hatayaz("bol " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public st As Float
+Public kgg As New Float[]
+Public bgg As New Float[]
+Public sgs As New Float[]
+
+Public resimyol As String
+Public resimgor As Integer
+Public resimgen As Integer
+Public resimyuk As Integer
+
+Public Sub Menu114_Click()
+
+    If Dialog.OpenFile() Then Return
+    resimyol = Dialog.Path
+    imj = Picture[resimyol]
+    resimgor = 1
+    resimgen = imj.Width
+    resimyuk = imj.Height
+
+End
+
+Public Sub Menu115_Click()
+
+    If Menu115.Value = True Then
+        resimgor = 0
+        Menu115.Text = "Resmi göster"
+    Else
+        resimgor = 1
+        Menu115.Text = "Resmi gösterme"
+    Endif
+
+End
+
+Public Sub Button24_Click()
+
+    Dialog.Font = TextArea1.Font
+    If Dialog.SelectFont() Then Return
+    TextArea1.Font = Dialog.Font
+
+End
+
+Public Sub Menu116_Click()
+
+    pdfkayit.Show
+
+End
+
+Public Sub Menu117_Click()
+
+    cnc2.Show
+
+End
+
+Public Sub Menu119_Click()
+
+    torna.Show
+
+End
+
+Public Sub _new()
+kedibas.Show
+ kedibas.Label2.Text = "% " & 10
+     Wait 0.2
+    cimar = False
+    dacy.kyno = 1
+    csp = New Csplit
+    kezmi = New Collection
+    scezmi = New Collection
+    bezmiyedek = New Collection
+    bezmi = New Collection
+    bezmi1 = New Collection
+    bezmi2 = New Collection
+    bezmi3 = New Collection
+    bezmi4 = New Collection
+    bezmi5 = New Collection
+    bezmi6 = New Collection
+    bezmi7 = New Collection
+    bezmi8 = New Collection
+    bezmi9 = New Collection
+    bezmi10 = New Collection
+    bezmi0 = New Collection
+    cezmiyedek = New Collection
+    cezmi = New Collection
+    cezmi1 = New Collection
+    cezmi2 = New Collection
+    cezmi3 = New Collection
+    cezmi4 = New Collection
+    cezmi5 = New Collection
+    cezmi6 = New Collection
+    cezmi7 = New Collection
+    cezmi8 = New Collection
+    cezmi9 = New Collection
+    cezmi10 = New Collection
+    cezmi0 = New Collection
+    dept1 = New Collection
+    dept2 = New Collection
+    cezmi = cezmi0
+    bezmi = bezmi0
+    calanilk.Width = desktop.Width
+    calanilk.Height = desktop.Height
+    orix = (150)
+    oriy = Desktop.Height / 2
+    oyuk = oyabu
+Catch
+		hatayaz("new  " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+
+
+Public Sub Button36_Click()  ' Cnc router g kode
+
+    Menu104_Click()
+
+End
+
+Public Sub Button37_Click()   ' Torna g code
+
+    torna.Show
+
+End
+
+Public Sub Button38_Click()  ' cam alanı
+
+    panel19.Move(300, 300)
+    panel19.Visible = True
+
+End
+
+Public Sub Button40_Click() ' takim seç
+
+    takimata.show
+
+End
+
+Public Sub Button42_Click()
+
+    toolldefine.Show
+
+End
+
+Public Sub Button43_Click()
+
+    toolplace.show
+
+End
+
+Public Sub duzen_Click()
+
+End
+
+Public Sub Menu122_Click()
+
+    Panel25.Visible = False
+    ppp = 1
+    komutsayi = 3
+    konum.sira = 1
+
+End
+Public Sub Button21_Click()
+olcudeg.Show
+End
+
+Public Sub Button51_Click()
+
+    komutsayi = 135
+
+End
+
+Public Sub Menu123_Click()
+
+    bolok = bolok + 2
+    ppp = 0
+    Menu111_Click()
+
+End
+
+Public Sub Menu124_Click()
+
+    ppp = 0
+    dolas
+    For Each cazgi In cezmi
+        If cazgi.id < 0 Then Goto gec
+        If cazgi.blok = bolok Then sil(cazgi.id)
+    gec:
+    Next
+    bolok = bolok + 2
+
+End
+
+Public Sub Menu125_Click()
+
+    komutsayi = 129
+    konum.sira = 2
+
+End
+
+Public Sub Menu126_Click()
+
+    ppp = 0
+    dolas
+
+End
+
+Public Sub Menu127_Click()
+
+    umx1 = 0
+    tsayi = 215
+
+End
+
+Public Sub PictureBox33_MouseDown()
+
+    Menu125_Click()
+    Panel27.Visible = False
+
+End
+
+Public Sub PictureBox37_MouseDown()
+
+    ppp = 0
+    dolas
+
+    Panel27.Visible = False
+
+End
+
+Public Sub kesti_Click()
+
+    zir = 1
+    yerle.yankayit
+    sildepo
+    dolas
+
+End
+
+
+
+Public Sub cizgi3_Click()
+
+    dolas
+    sonkom = "xLine"
+    komutsayi = 8
+    komyaz.Text = "Specify first point ():"
+
+End
+Public Sub Menu120_Click()
+    yuru.duzen
+End
+Public Sub Menu128_Click()
+    kapi.Show
+End
+
+Public Sub Button26_Click()
+
+    If katiman.shw = 0 Then katiman.Show
+
+End
+Public Sub Menu129_Click()
+    kapak.Show
+End
+
+Public Sub Button30_Click()
+Panel29.Visible = False
+End
+Public Sub grup_Click()
+ilk.ListBox6.Clear
+panel29.Move(Me.Width - panel29.Width, 50)
+For Each nazgi In ilk.tezmi
+    If ListBox6.Find(nazgi.blok) = -1 Then ListBox6.Add(nazgi.blok) 
+Next
+panel29.Visible = True
+End
+Public Sub DrawingArea2_Draw()
+Dim hgc1, ax, ay, ux, uy, orx, ory, fx, fy As Float
+ax = -9999
+ay = -9999
+ux = 9999
+uy = 9999
+For Each nazgi In ilk.tezmi
+    If nazgi.blok = ListBox6.Text
+    If nazgi.komut = 1 Or nazgi.komut = 20 Or nazgi.komut = 25
+        If nazgi.x1 > ax Then ax = nazgi.x1
+        If nazgi.x1 < ux Then ux = nazgi.x1
+        If nazgi.y1 > ay Then ay = nazgi.y1
+        If nazgi.y1 < uy Then uy = nazgi.y1
+        If nazgi.x2 > ax Then ax = nazgi.x2
+        If nazgi.x2 < ux Then ux = nazgi.x2
+        If nazgi.y2 > ay Then ay = nazgi.y2
+        If nazgi.y2 < uy Then uy = nazgi.y2
+    Endif
+    Endif
+Next
+
+fx = Abs(Max(ux, ax) - Min(ux, ax))
+fy = Abs(Max(uy, ay) - Min(uy, ay))
+'  olcum = (Min(Desktop.Width / penge, Desktop.Height / penye)) * olcum / 1.4
+orx = DrawingArea2.Width / fx / 1.2
+ory = DrawingArea2.Height / fy / 1.2
+For Each nazgi In ilk.tezmi
+    If nazgi.blok = ListBox6.Text
+    If nazgi.komut = 1 Or nazgi.komut = 20 Or nazgi.komut = 25
+        nazgi.x1 = nazgi.x1 - ux + 1 * orx
+        nazgi.y1 = nazgi.y1 - Min(uy, ay) + 1 * ory 
+        nazgi.x2 = nazgi.x2 - ux + 1 * orx 
+        nazgi.y2 = nazgi.y2 - Min(uy, ay) + 1 * ory 
+    Endif
+    Endif
+Next
+Label42.Text = Round(orx, - 5) & " / " & Round(ory, -5)
+Label43.Text = fx
+Label44.Text = fy
+Paint.save
+paint.MoveTo(Min(ux, ax), Min(uy, ay))
+paint.Scale(orx, ory)
+For Each nazgi In ilk.tezmi
+    If nazgi.blok = ListBox6.Text 
+         Paint.Brush = Paint.Color(nazgi.renk)
+         Paint.LineWidth = 3 / orx
+         If nazgi.komut = 1 Then
+                     ' Paint.MoveTo(0, 0)
+                     '  Paint.LineTo(nazgi.x2, nazgi.y2)
+                     Paint.MoveTo(nazgi.x1, nazgi.y1)
+                     Paint.LineTo(nazgi.x2, nazgi.y2)
+                     Goto atla
+         Endif
+         hgc1 = nazgi.yaricap
+         If cazgi.komut = 20 Then
+                     If nazgi.r < nazgi.teta Then nazgi.r = nazgi.r + 2 * Pi
+                     Paint.Arc(nazgi.x1, nazgi.y1, hgc1, - nazgi.teta, - nazgi.r + nazgi.teta)
+                      Goto atla
+         Endif
+         If cazgi.komut = 25 Then Paint.Arc(nazgi.x1, nazgi.y1, hgc1)
+         atla:
+         Paint.Stroke
+     Endif
+Next
+    
+paint.Scale(1 / orx, 1 / ory)
+    Paint.Stroke
+    Paint.Restore
+Catch
+	Paint.Stroke
+    Paint.Restore
+		hatayaz("dwgarea2draw " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public Sub ListBox6_Click()
+DrawingArea2.Refresh
+End
+
+Public Sub Button32_Click()
+panel29.Visible = False
+komutsayi = 145
+komyaz.Text = "Specify First point"
+End
+Public Sub blkal()
+Dim zz1, zya, zz2, zyb, zz3, zy3 As Float
+bolok = bolok + 1
+For Each nazgi In ilk.tezmi
+    If nazgi.blok = ListBox6.Text
+        cizem.bloku = bolok
+        cizem.renk = nazgi.renk
+        zz1 = nazgi.x1 * ilk.olcum + birx 
+        zya = nazgi.y1 * olcum + biry 
+        zz2 = zz1 + (nazgi.x2 - nazgi.x1) * olcum
+        zyb = zya + (nazgi.y2 - nazgi.y1) * olcum
+        zz3 = nazgi.x3 * olcum + birx 
+        zy3 = nazgi.y3 * olcum + biry 
+        If nazgi.komut = 20 Then
+                cizem.yay(zz1, zya, nazgi.yaricap, nazgi.teta, nazgi.r)
+        Else If nazgi.komut = 25 Then
+                cizem.cember(zz1, zya, nazgi.yaricap)
+        Else If nazgi.komut = 60 Then
+                cizem.altyazi = nazgi.x4
+                cizem.italik = nazgi.egim
+                cizem.bold = nazgi.y6
+                cizem.font = nazgi.fnt
+                cizem.yaz(zz1, zya, nazgi.yazi, nazgi.x6, nazgi.y4)
+        Else If nazgi.komut = 100
+                zz3 = nazgi.yazix * ilk.olcum
+                zy3 = nazgi.yaziy * ilk.olcum 
+                olcucur.olcudegis(nazgi.komut, zz1, zya, zz2, zyb, zz3, zy3, nazgi.teta, nazgi.yazi, nazgi.y6)
+        Else If nazgi.komut = 105
+                olcucur.olcudegis(cazgi.komut, zz1, zya, zz2, zyb, zz3, zy3, nazgi.teta, nazgi.yazi, nazgi.y6)
+        Else If nazgi.komut = 90
+                olcucur.olcudegis(cazgi.komut, zz1, zya, zz2, zyb, zz3, zy3, nazgi.teta, nazgi.yazi, nazgi.y6)
+        Else If nazgi.komut = 110
+                zz2 = nazgi.yazix * ilk.olcum 
+                zyb = nazgi.yaziy * ilk.olcum 
+                olcucur.acikma3(zz1, zya, nazgi.yaricap, nazgi.teta, nazgi.r, zz2, zyb, nazgi.yazi, nazgi.kalinlik, bolok)
+        Else If nazgi.komut = 190
+                zz2 = nazgi.yazix * ilk.olcum 
+                zyb = nazgi.yaziy * ilk.olcum 
+                olcucur.rolc(nazgi.komut, zz1, zya, zz2, zyb, nazgi.yaricap, nazgi.yazi, zz3, zy3, nazgi.teta, bolok)
+        Else If nazgi.komut = 200
+                zz2 = nazgi.yazix * ilk.olcum 
+                zyb = nazgi.yaziy * ilk.olcum 
+                olcucur.rolc(nazgi.komut, zz1, zya, zz2, zyb, nazgi.yaricap, nazgi.yazi, zz3, zy3, nazgi.teta, bolok)
+        Else If nazgi.komut = 1
+                cizem.cizgi(zz1, zya, zz2, zyb)
+        Endif
+    Endif
+Next
+dolas
+Catch
+		hatayaz("btn32clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+
+Public mrx As Integer
+Public mry As Integer
+Public Sub Form_MouseMove()
+    
+mrx = Mouse.x
+mry = Mouse.y
+End
+Public oyuk As Integer
+Public dp As New Variant[]
+Private csp As Csplit
+Public kbr As Integer
+Public sbr As Integer
+Public sabd As String
+Public grd As Integer
+Public hess As Integer
+Public secis As Integer
+Public poly As New Integer[]
+Public msa As Integer
+Public mse As Integer
+Public msad As Integer
+Public mnhe As Integer
+Public oyabu As Float
+Public oyare As Integer
+Public olre As Integer
+Public okbuyuk As Integer
+Public apla As Integer
+Public mesgul As Integer
+Public mesgul2 As Integer
+Private $sPath As String
+Public onsec As Integer
+Public gkay As Integer
+Public deposay As Integer
+Public hiz As Integer
+Public fsde As Object
+Public tasec As Float
+Public isalanx As Integer
+Public isalany As Integer
+Public isalan As Integer
+Public imlec As Integer
+Public sagmenu As Integer
+Public mnt As Integer
+Public zir As Integer
+Public lir As Integer
+Public tarih As Date
+Public sati As Integer
+Public pasti As Integer
+Public oyna As String
+Public tmx As Float
+Public tmy As Float
+Public mousex As Float
+Public mousey As Float
+Public ddrt As Integer
+Public orix As Float
+Public oriy As Float
+Public potx1 As Integer
+Public poty1 As Integer
+Public kenar As Integer
+Public isr As Integer
+Public bolok As Integer
+Public reka As Integer
+Public keka As String
+Public selka As String
+Public kelka As String
+Public kose As Integer
+Public sonkom As String
+Public yomutu As Float
+Public kosegen As Float
+Public eski As Integer
+Public kare As Integer
+Public idi As Boolean
+Public cimar As Boolean
+Public ducu As Integer
+Public israf As Integer
+Public kacino As Integer
+Public kaci As String
+Public tkaci As String
+Public uccu As Boolean
+Public x1 As Float
+Public y1 As Float
+Public acig1 As Float
+Public derin As Float
+Public isaretx As Float
+Public isarety As Float
+Public onisaretx As Float
+Public onisarety As Float
+Public yuteta As Float
+Public ek As Float
+Public ppx1 As Float
+Public ppy1 As Float
+Public ppx2 As Float
+Public ppy2 As Float
+Public umx1 As Float
+Public umy1 As Float
+Public umx2 As Float
+Public umy2 As Float
+Public vex1 As Float
+Public vey1 As Float
+Public x2 As Float
+Public y2 As Float
+Public b As Float
+Public tzx1 As Float
+Public tzy1 As Float
+Public tzx2 As Float
+Public tzy2 As Float
+Public bos As Integer
+Public sapta As Integer
+Public zx1 As Float
+Public zy1 As Float
+Public zx2 As Float
+Public zy2 As Float
+Public xf As Float
+Public yf As Float
+Public r As Float
+Public teta As Float
+
+Public vira As Integer
+Public gidis As Integer
+Public olcum As Float
+Public komutsayi As Integer
+Public tsayi As Integer
+Public komut As Integer
+Public ucum As Integer
+Public depo1 As New Collection
+Public depog As New Collection
+Public depot As New Collection
+Public x1ucu As Float
+Public x2ucu As Float
+Public y1ucu As Float
+Public y2ucu As Float
+Public gkomutu As Integer
+Public gx1oku As Float
+Public gx2oku As Float
+Public gy1oku As Float
+Public gy2oku As Float
+Public gx3oku As Float
+Public gy3oku As Float
+Public gidoku As Integer
+Public gegimoku As Float
+Public gboku As Float
+Public gtetaoku As Float
+Public gyarioku As Float
+Public duzlemoku As Float
+Public x1oku As Float
+Public x2oku As Float
+Public y1oku As Float
+Public y2oku As Float
+Public idoku As Float
+Public cizx2 As Float
+Public cizy2 As Float
+Public yarioku As Float
+Public boku As Float
+Public blokoku As String
+Public yazioku As String
+Public yazixoku As Float
+Public yaziyoku As Float
+Public egim As Float
+Public egimoku As Float
+Public roku As Float
+Public tetaoku As Float
+Public tetagoku As Float
+Public sekiloku As Float
+Public katmanoku As String
+Public renkoku As Float
+Public kalinlikoku As Float
+Public dosyami As String
+Public tuvid As Float
+Public tuvx1 As Float
+Public tuvy1 As Float
+Public tuvx2 As Float
+Public tuvy2 As Float
+Public tuveg As Float
+Public tuvteta As Float
+Public tuvb As Float
+Public yuvid As Float
+Public yuvx1 As Float
+Public yuvkom As Integer
+Public yuvy1 As Float
+Public yuvx2 As Float
+Public yuvy2 As Float
+Public yuvx3 As Float
+Public yuvy3 As Float
+Public yuveg As Float
+Public yuvteta As Float
+Public yuvb As Float
+Public yuvr As Float
+Public yuvboy As Float
+Public yuvyar As Float
+Public tira As Integer
+Public komutu As Integer
+Public yaricap As Float
+Public renk As String
+Public kalinlik As Integer
+Public katman As String
+Public blok As String
+Public hadi As Float
+Public ucxx As Float
+Public ucyy As Float
+Public dortxx As Float
+Public dortyy As Float
+Public besxx As Float
+Public besyy As Float
+Public altixx As Float
+Public altiyy As Float
+Public bazi As Float
+Public mex1 As Float
+Public mey1 As Float
+Public mex2 As Float
+Public mey2 As Float
+Public sazgi As Czm
+Public hiv As Integer
+Public x1gec As Float
+Public y1gec As Float
+Public x2gec As Float
+Public y2gec As Float
+Public x3gec As Float
+Public y3gec As Float
+Public x4gec As Float
+Public y4gec As Float
+Public x5gec As Float
+Public y5gec As Float
+Public yargec As Float
+Public rgec As Float
+Public bgec As Float
+Public tetagec As Float
+Public renkgec As Integer
+Public sekilgec As Integer
+Public kalingec As Integer
+Public blokgec As String
+Public komgec As Integer
+Public eggec As Float
+Public boygec As Float
+Public idgec As Integer
+Public katgec As String
+Public yazigec As String
+Public x6gec As Float
+Public y6gec As Float
+Public x7gec As Float
+Public merxgec As Float
+Public merygec As Float
+Public lwgec As Integer
+Public ltgec As Integer
+Public kezmi As Collection
+Public bazgi As Cvb
+Public bezmiyedek As Collection
+Public bezmi As Collection
+Public bezmi1 As Collection
+Public bezmi2 As Collection
+Public bezmi3 As Collection
+Public bezmi4 As Collection
+Public bezmi5 As Collection
+Public bezmi6 As Collection
+Public bezmi7 As Collection
+Public bezmi8 As Collection
+Public bezmi9 As Collection
+Public bezmi10 As Collection
+Public bezmi0 As Collection
+Public kayno As Integer
+Public scazgi As Czm
+Public scezmi As Collection
+Public tezmi As New Collection
+Public cazgi As Czm
+Public cezmiyedek As Collection
+Public cezmi0 As Collection
+Public cezmi As Collection
+Public cezmi1 As Collection
+Public cezmi2 As Collection
+Public cezmi3 As Collection
+Public cezmi4 As Collection
+Public cezmi5 As Collection
+Public cezmi6 As Collection
+Public cezmi7 As Collection
+Public cezmi8 As Collection
+Public cezmi9 As Collection
+Public cezmi10 As Collection
+Public yksk As Float
+Public genis As Float
+Public dogrum As Float
+Public obix As Float
+Public obiy As Float
+Public osec As Integer
+Public pmax As Integer
+Public ucrenk As Integer
+Public swx As Float
+Public swy As Float
+Public onol As Float
+Public rorix As Float
+Public roriy As Float
+Public isx As Float
+Public isy As Float
+Public asx As Float
+Public asy As Float
+Public sdrt As Integer
+Public yurux1 As Float
+Public yuruy1 As Float
+Public yurux2 As Float
+Public yuruy2 As Float
+Public cds As New Integer[]
+Public vfr As Integer
+Public birx As Float
+Public biry As Float
+Public ikix As Float
+Public ikiy As Float
+Public ucx As Float
+Public ucy As Float
+Public taga As Integer
+Public grx As Float
+Public gry As Float
+Public grx2 As Float
+Public gry2 As Float
+Public pagir As Float
+Public ylc As String
+Public iso As Integer
+Public ange As Float
+Public dept2 As Collection
+Public dept1 As Collection
+Public px1 As Float
+Public py1 As Float
+Public px2 As Float
+Public py2 As Float
+Public px3 As Float
+Public py3 As Float
+Public px4 As Float
+Public py4 As Float
+Public px5 As Float
+Public py5 As Float
+Public pyzx As Float
+Public pyzy As Float
+Public hgc As Float
+Public ml As Float
+Public gtr As New Float[]
+Public prx As Float
+Public pry As Float
+Public imj As Picture
+Public isrx As Float
+Public isry As Float
+
+
+Public Sub PictureBox35_MouseDown()
+ panel4.Visible = False
+    
+
+End
+Public Sub Button33_Click()
+dolas
+ panel4.Visible = False
+End
+
+Public Sub Button54_Click()
+    If ilk.depo1.Count < 2 Then
+        Message("Select closed drawing please", "OK")
+        Return
+    Endif
+    osec = 1
+    komutsayi = 27
+    ucg.bas
+    dolas
+
+ panel4.Visible = False
+  taraid = 0
+End
+Public Sub Button52_Click()
+dolas
+komyaz.Text = "Specify a point() :"
+
+    komutsayi = 29
+
+ panel4.Visible = False
+    taraid = 0
+
+End
+Public taraid As Integer
+
+Public Sub Button53_Click()
+taraid = 8
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button55_Click()
+taraid = 9
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button56_Click()
+taraid = 11
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button57_Click()
+taraid = 12
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button58_Click()
+taraid = 10
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button59_Click()
+taraid = 13
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button60_Click()
+taraid = 5
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button61_Click()
+taraid = 2
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button62_Click()
+taraid = 3
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button63_Click()
+taraid = 1
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button64_Click()
+taraid = 7
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button65_Click()
+taraid = 4
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button66_Click()
+taraid = 6
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button67_Click()
+taraid = 20
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button68_Click()
+taraid = 18
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button69_Click()
+taraid = 14
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button70_Click()
+taraid = 19
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button71_Click()
+taraid = 16
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button72_Click()
+taraid = 17
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+Public Sub Button73_Click()
+taraid = 15
+Button52.Enabled = True
+Button54.Enabled = True
+End
+
+
+Public Sub uzaklasi_Click()
+Button104_Click()
+    
+
+End
+
+Public Sub yaklas_Click()
+Button5_Click()
+    
+
+End
+
+
+
+
+

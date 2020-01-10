@@ -1,0 +1,103 @@
+' Gambas module file
+
+Public bazgi As Cvb
+Public cazgi As Czm
+Public basx As Float
+Public basy As Float
+Public sonx As Float
+Public sony As Float
+Public frkx As Float
+Public frky As Float
+Public yy As Float
+
+
+Public Sub te()
+Dim ydk As Float
+    ilk.mesgul = 1
+    basx = 10000000
+    basy = 10000000
+    sonx = -10000000
+    sony = -10000000
+    For Each cazgi In ilk.cezmi
+        If cazgi.id < 0 Then Goto gecgit
+        If cazgi.komut = 242 Then Goto gecgit
+        If cazgi.komut = 60 Then Goto gecgit
+        If cazgi.gor <> 0 Then Goto gecgit
+        If cazgi.komut = 20 Then Goto gecgit2
+        basx = Min(basx, cazgi.x1)
+        basy = Min(basy, cazgi.y1)
+        sonx = Max(sonx, cazgi.x1)
+        sony = Max(sony, cazgi.y1)
+    gecgit2:
+        basx = Min(basx, cazgi.x2)
+        basy = Min(basy, cazgi.y2)
+        sonx = Max(sonx, cazgi.x2)
+        sony = Max(sony, cazgi.y2)
+    gecgit:
+    Next
+
+    If basy = 0 Then basy = 500
+    If ilk.imj Then
+        If sonx < ilk.resimgen * ilk.olcum Then sonx = ilk.resimgen * ilk.olcum
+        If sony < ilk.resimyuk * ilk.olcum Then sony = ilk.resimyuk * ilk.olcum
+    Endif
+    ydk = basx
+    basx = Min(basx, sonx)
+    sonx = Max(ydk, sonx)
+    ydk = basy
+    basy = Min(basy, sony)
+    sony = Max(ydk, sony)
+    frkx = Abs(sonx - basx)
+    frky = Abs(sony - basy)
+    ilk.mesgul = 0
+    Return
+   Catch
+	ilk.hatayaz("te " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub tef()  ' sadece seçili olanlara göre basx sonx bulunuyor.
+
+    ilk.mesgul = 1
+    basx = 100000
+    basy = 100000
+    sonx = -100000
+    sony = -100000
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id)
+            If cazgi.komut = 110 Then Goto gecgit
+            If cazgi.id < 0 Then Goto gecgit
+            If cazgi.gor <> 0 Then Goto gecgit
+            If cazgi.kilit <> 0 Then Goto gecgit
+            basx = Min(basx, cazgi.x1)
+            basy = Min(basy, cazgi.y1)
+            sonx = Max(sonx, cazgi.x1)
+            sony = Max(sony, cazgi.y1)
+            basx = Min(basx, cazgi.x2)
+            basy = Min(basy, cazgi.y2)
+            sonx = Max(sonx, cazgi.x2)
+            sony = Max(sony, cazgi.y2)
+            If cazgi.komut = 1 Then Goto gecgit
+            If cazgi.komut = 238 Then Goto gecgit
+            If cazgi.komut = 100 Then Goto gecgit
+            If cazgi.x3 <> 0 Then basx = Min(basx, cazgi.x3)
+            If cazgi.y3 <> 0 Then basy = Min(basy, cazgi.y3)
+            If cazgi.x3 <> 0 Then sonx = Max(sonx, cazgi.x3)
+            If cazgi.y3 <> 0 Then sony = Max(sony, cazgi.y3)
+            If cazgi.x4 <> 0 Then basx = Min(basx, cazgi.x4)
+            If cazgi.y4 <> 0 Then basy = Min(basy, cazgi.y4)
+            If cazgi.x4 <> 0 Then sonx = Max(sonx, cazgi.x4)
+            If cazgi.y4 <> 0 Then sony = Max(sony, cazgi.y4)
+            If cazgi.x5 <> 0 Then basx = Min(basx, cazgi.x5)
+            If cazgi.y5 <> 0 Then basy = Min(basy, cazgi.y5)
+            If cazgi.x5 <> 0 Then sonx = Max(sonx, cazgi.x5)
+            If cazgi.y5 <> 0 Then sony = Max(sony, cazgi.y5)
+        gecgit:
+        End If
+    Next
+    ilk.mesgul = 0
+    Return
+       Catch
+	ilk.hatayaz("tef " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

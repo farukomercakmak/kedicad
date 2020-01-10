@@ -1,0 +1,482 @@
+' Gambas class file
+
+Public cazgi As Czm
+Public bazgi As Cvb
+
+Public Sub Form_Open()
+
+    Dim msFile As String
+
+    Me.Move(0, 0, 580, 400)
+    Me.Center
+    bazgi = New Cvb
+    bazgi.ad = "kapi"
+    bazgi.tip = 1
+    bazgi.renk = Color.Orange
+    bazgi.kal = 2
+    bazgi.kilit = 0
+    bazgi.id = 1
+    ilk.bezmi.Add(bazgi, dacy.byno)
+    dacy.byno = dacy.byno + 1
+    bazgi = New Cvb
+    bazgi.ad = "kilit"
+    bazgi.tip = 2
+    bazgi.renk = Color.DarkGreen
+    bazgi.kal = 1
+    bazgi.kilit = 0
+    bazgi.id = 1
+    ilk.bezmi.Add(bazgi, dacy.byno)
+    dacy.byno = dacy.byno + 1
+    bazgi = New Cvb
+    bazgi.ad = "mentese"
+    bazgi.tip = 2
+    bazgi.renk = Color.DarkGreen
+    bazgi.kal = 1
+    bazgi.kilit = 0
+    bazgi.id = 1
+    ilk.bezmi.Add(bazgi, dacy.byno)
+    dacy.byno = dacy.byno + 1
+    bazgi = New Cvb
+    bazgi.ad = "desen"
+    bazgi.tip = 1
+    bazgi.renk = Color.Blue
+    bazgi.kal = 1
+    bazgi.kilit = 0
+    bazgi.id = 1
+    ilk.bezmi.Add(bazgi, dacy.byno)
+    dacy.byno = dacy.byno + 1
+
+    Panel1.Move(0, 0, 580, 400)
+    Panel2.Move(0, 0, 580, 400)
+    Panel3.Move(0, 0, 580, 400)
+    ComboBox1.Add("Nope")
+    ComboBox1.Add("Type1")
+    ComboBox1.Add("Type2")
+    ComboBox1.Add("Type3")
+    ComboBox1.Add("Type4")
+    ComboBox2.Add("Nope")
+    ComboBox2.Add("2")
+    ComboBox2.Add("3")
+    ComboBox2.Add("4")
+    ComboBox3.Add("Nope")
+    ComboBox3.Add("1")
+    ComboBox3.Add("2")
+    ComboBox3.Add("3")
+    ComboBox3_Change()
+    listed.Add("")
+    For Each msFile In Dir(system.User.Home &/ ".KediCAD/desen")
+        If msFile Like ("*png") Then listed.Add(msFile)
+    Next
+    listed.Sorted = True
+        Catch
+	ilk.hatayaz("fopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button5_Click()
+
+    ' If (CFloat(TextBox9.Text) + CFloat(TextBox13.Text)) > CFloat(TextBox1.Text) Then
+    '     Panel4.Visible = True
+    ' Else
+    kapicizim
+    '     Endif
+    Me.Close
+        Catch
+	ilk.hatayaz("btn5clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Sub kapicizim()
+
+    Dim en, boy, basx, basy, kfx, kfy, a, b, c, d, e, f As Float
+
+    ilk.bolok = ilk.bolok + 2
+    ilk.olcum = 1
+    en = ilk.orix + CFloat(TextBox2.Text)
+    boy = ilk.oriy - CFloat(TextBox1.Text)
+    basx = ilk.orix
+    basy = ilk.oriy
+    '/////////// KAPI ÇERÇEVE ÇİZİMİ ///////////////
+    cizem.katman = "kapi"
+    cizem.bloku = "kapi1" & ilk.bolok
+    cizem.cizgi(basx, basy, en, basy)
+    cizem.cizgi(en, basy, en, boy)
+    cizem.cizgi(en, boy, basx, boy)
+    cizem.cizgi(basx, boy, basx, basy)
+    ' PENCERE  ÇİZİLMESİ
+    a = CFloat(TextBox14.Text)
+    b = ilk.oriy - CFloat(TextBox13.Text)
+    c = CFloat(TextBox15.Text)
+    d = CFloat(TextBox16.Text)
+    e = basx + (CFloat(TextBox2.Text) - c) / 2
+    f = basx + (CFloat(TextBox2.Text) - (2 * c + d)) / 2
+    If ComboBox3.Text = 1 Then
+        cizem.cizgi(e, b, e + c, b)
+        cizem.cizgi(e + c, b, e + c, b - a)
+        cizem.cizgi(e + c, b - a, e, b - a)
+        cizem.cizgi(e, b - a, e, b)
+    Else If ComboBox3.Text = 2 Then
+        cizem.cizgi(f, b, f + c, b)
+        cizem.cizgi(f + c, b, f + c, b - a)
+        cizem.cizgi(f + c, b - a, f, b - a)
+        cizem.cizgi(f, b - a, f, b)
+        e = f + c + d
+        cizem.cizgi(e, b, e + c, b)
+        cizem.cizgi(e + c, b, e + c, b - a)
+        cizem.cizgi(e + c, b - a, e, b - a)
+        cizem.cizgi(e, b - a, e, b)
+    Else If ComboBox3.Text = 3 Then
+        cizem.cizgi(e, b, e + c, b)
+        cizem.cizgi(e + c, b, e + c, b - a)
+        cizem.yay(e + c / 2, b - a, c / 2, 0, Pi)
+        cizem.cizgi(e, b - a, e, b)
+    Endif
+    ilk.bolok = ilk.bolok + 2
+    kilitciz
+    ilk.bolok = ilk.bolok + 2
+    '/////////// MENTEŞE ÇİZİMİ ///////////////
+    cizem.katman = "mentese"
+    cizem.bloku = "kapi1" & ilk.bolok
+    If ComboBox2.Text <> "Nope"
+        cizem.cizgi(en, basy - 250, en - 5, basy - 250)
+        cizem.cizgi(en - 5, basy - 250, en - 5, basy - 400)
+        cizem.cizgi(en - 5, basy - 400, en, basy - 400)
+        cizem.cizgi(en, boy + 250, en - 5, boy + 250)
+        cizem.cizgi(en - 5, boy + 250, en - 5, boy + 400)
+        cizem.cizgi(en - 5, boy + 400, en, boy + 400)
+    Endif
+    If ComboBox2.Text = 3
+        f = basy + (boy / 2)
+        cizem.cizgi(en, f - 250, en - 5, f - 250)
+        cizem.cizgi(en - 5, f - 250, en - 5, f - 400)
+        cizem.cizgi(en - 5, f - 400, en, f - 400)
+    Else If ComboBox2.Text = 4
+        f = basy + (boy / 3)
+        cizem.cizgi(en, f - 250, en - 5, f - 250)
+        cizem.cizgi(en - 5, f - 250, en - 5, f - 400)
+        cizem.cizgi(en - 5, f - 400, en, f - 400)
+        f = basy + 2 * (boy / 3)
+        cizem.cizgi(en, f - 250, en - 5, f - 250)
+        cizem.cizgi(en - 5, f - 250, en - 5, f - 400)
+        cizem.cizgi(en - 5, f - 400, en, f - 400)
+    Endif
+    '  DESEN ALAN ÇERÇEVESİ
+    cizem.katman = "desen"
+    cizem.bloku = "kapi1" & ilk.bolok
+    If CheckBox1.Value = True
+        ilk.bolok = ilk.bolok + 2
+        cizem.cizgi(dznx, dzny, dznx + enx, dzny)
+        cizem.cizgi(dznx + enx, dzny, dznx + enx, dzny - boyy)
+        cizem.cizgi(dznx + enx, dzny - boyy, dznx, dzny - boyy)
+        cizem.cizgi(dznx, dzny - boyy, dznx, dzny)
+    Endif
+    ' DESEN ÇİZİMİ
+    If Label20.Text Then
+        ilk.bolok = ilk.bolok + 2
+        ilk.ylc = Label20.Text
+        vinc.eklem("kapi1" & ilk.bolok, dznx, dzny)
+        For Each cazgi In ilk.cezmi
+            If (cazgi.blok) = "kapi1" & ilk.bolok Then cazgi.gor = 2
+        Next
+        kfx = enx / vinc.anx
+        kfy = boyy / vinc.any
+        buyut(kfx, kfy, dznx, dzny, "kapi1" & ilk.bolok, "kapi1" & (ilk.bolok + 2))
+    Endif
+    ilk.tamekran_Click
+    Return
+        Catch
+	ilk.hatayaz("kapicizim " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub buyut(kfx As Float, kfy As Float, ax As Float, ay As Float, blke As String, ablke As String)
+
+    Dim ax1, ay1, ax2, ay2 As Float
+
+    cizem.temiz
+    cizem.katman = "desen"
+    For Each cazgi In ilk.cezmi
+        If cazgi.blok = blke
+            cizem.renk = Color.Blue
+            cizem.bloku = ablke
+            ax1 = cazgi.x1 * kfx + ax * (1 - kfx)
+            ay1 = cazgi.y1 * kfy + ay * (1 - kfy)
+            If cazgi.komut = 1
+                ax2 = cazgi.x2 * kfx + ax * (1 - kfx)
+                ay2 = cazgi.y2 * kfy + ay * (1 - kfy)
+                cizem.cizgi(ax1, ay1, ax2, ay2)
+            Endif
+            If cazgi.komut = 25
+                ax2 = cazgi.yaricap * kfx
+                cizem.cember(ax1, ay1, ax2)
+            Endif
+            If cazgi.komut = 20
+                ax2 = cazgi.yaricap * kfx
+                cizem.yay(ax1, ay1, ax2, cazgi.teta, cazgi.r)
+            Endif
+            If cazgi.komut = 60
+                ax2 = (cazgi.x6) * kfx
+                cizem.yaz(ax1, ay1, cazgi.yazi, ax2, cazgi.y4)
+            End If
+        End If
+
+    Next
+    Return
+        Catch
+	ilk.hatayaz("buyut " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub kilitciz()
+
+    Dim basx, basy, kpyk, kilcp, dlkyk, kckcp, klty, kltx As Float
+
+    basx = ilk.orix
+    basy = ilk.oriy
+    kpyk = ilk.oriy - CFloat(TextBox7.Text)
+    kilcp = CFloat(TextBox4.Text)
+    dlkyk = CFloat(TextBox5.Text)
+    kckcp = CFloat(TextBox6.Text) / 2
+    klty = CFloat(TextBox7.Text)
+    kltx = CFloat(TextBox8.Text)
+    cizem.katman = "kilit"
+    cizem.bloku = "kapi1" & ilk.bolok
+    '  ////// KİLİT   ÇİZİMİ ////////////////////////
+    If ComboBox1.Index = 1 Then  ' TextBox7=e  TextBox8=d
+        cizem.cizgi(basx + 40 - kckcp, kpyk + 6, basx + 40 - (kckcp), kpyk + 6 + dlkyk)
+        cizem.cizgi(basx + 40 - kckcp, kpyk + 6 + dlkyk, basx + 40 + (kckcp), kpyk + 6 + dlkyk)
+        cizem.cizgi(basx + 40 + kckcp, kpyk + 6 + dlkyk, basx + 40 + (kckcp), kpyk + 6)
+        cizem.yay(basx + 40, kpyk, kilcp / 2, Rad(312), Rad(228))
+    Endif
+    If ComboBox1.Index = 2 Then  '
+        cizem.yay(basx + 40, kpyk, (kilcp / 2), 0, Pi)
+        cizem.cizgi(basx + 40 - (kilcp / 2), kpyk, basx + 40 - (kilcp / 2), kpyk + dlkyk)
+        cizem.cizgi(basx + 40 - (kilcp / 2), kpyk + dlkyk, basx + 40 + (kilcp / 2), kpyk + dlkyk)
+        cizem.cizgi(basx + 40 + (kilcp / 2), kpyk + dlkyk, basx + 40 + (kilcp / 2), kpyk)
+    Endif
+
+    If ComboBox1.Index = 3 Then  ' TextBox7=e  TextBox8=d
+        cizem.cember(basx + 40, kpyk, (kilcp / 2))
+    Endif
+    If ComboBox1.Index = 4 Then  ' TextBox7=e  TextBox8=d
+        cizem.yay(basx + 40, kpyk, (kilcp / 2), 0, Pi)
+        cizem.cizgi(basx + 40 - (kilcp / 2), kpyk, basx + 40 - (kilcp / 2), kpyk + dlkyk)
+        cizem.cizgi(basx + 40 + (kilcp / 2), kpyk + dlkyk, basx + 40 + (kilcp / 2), kpyk)
+        cizem.yay(basx + 40, kpyk + dlkyk, (kilcp / 2), Pi, 0)
+    Endif
+    cizem.cizgi(basx, kpyk + 88, basx + 3, kpyk + 88)
+    cizem.cizgi(basx + 3, kpyk + 88, basx + 3, kpyk - 152)
+    cizem.cizgi(basx + 3, kpyk - 152, basx, kpyk - 152)
+    cizem.cizgi(basx, kpyk + 56, basx + 66, kpyk + 56)
+    cizem.cizgi(basx + 66, kpyk + 56, basx + 66, kpyk - 120)
+    cizem.cizgi(basx + 66, kpyk - 120, basx, kpyk - 120)
+    cizem.cember(basx + 40, kpyk - 90, 10)
+        Catch
+	ilk.hatayaz("kilitciz " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub ComboBox1_Change()
+
+    Label8.Visible = False
+    Label9.Visible = False
+    Label10.Visible = False
+    textbox4.Visible = False
+    textbox5.Visible = False
+    textbox6.Visible = False
+    Label12.Visible = False
+    Label11.Visible = False
+    textbox7.Visible = False
+    textbox8.Visible = False
+    If ComboBox1.Index = 0 Then
+        PictureBox2.Picture = Picture[""]
+        Button2.Text = "Nope"
+        PictureBox3.Visible = False
+    Else
+        Label12.Visible = True
+        Label11.Visible = True
+        textbox7.Visible = True
+        textbox8.Visible = True
+        PictureBox3.Visible = True
+    Endif
+    If ComboBox1.Index = 1 Then
+        PictureBox2.Picture = Picture["kapi/key1.png"]
+        Label8.Visible = True
+        Label9.Visible = True
+        Label10.Visible = True
+        textbox4.Visible = True
+        textbox5.Visible = True
+        textbox6.Visible = True
+        Button2.Text = "key1"
+    Endif
+    If ComboBox1.Index = 2 Then
+        PictureBox2.Picture = Picture["kapi/key2.png"]
+        Label8.Visible = True
+        Label9.Visible = True
+        textbox4.Visible = True
+        textbox5.Visible = True
+        Button2.Text = "key2"
+    Endif
+
+    If ComboBox1.Index = 3 Then
+        PictureBox2.Picture = Picture["kapi/key4.png"]
+        Label8.Visible = True
+        textbox4.Visible = True
+        Button2.Text = "key3"
+    Endif
+    If ComboBox1.Index = 4 Then
+        PictureBox2.Picture = Picture["kapi/key5.png"]
+        Label8.Visible = True
+        Label9.Visible = True
+        textbox4.Visible = True
+        textbox5.Visible = True
+        Button2.Text = "key4"
+    Endif
+        Catch
+	ilk.hatayaz("cmbbxchange " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button2_Click()
+
+    Panel1.Visible = True
+
+End
+
+Public Sub Button6_Click()
+
+    Panel1.Visible = False
+
+End
+
+Public Sub Button1_Click()
+
+    desenolcu
+    Panel2.Visible = True
+
+End
+
+Public dznx As Float
+Public dzny As Float
+Public enx As Float
+Public boyy As Float
+
+Public Sub listed_Click()
+
+    PictureBox5.Picture = Picture[System.User.Home &/ ".KediCAD/desen" &/ listed.Text]
+    Label20.Text = System.User.Home &/ ".KediCAD/desen" &/ Left(listed.Text, -3) & "blk"
+    '     Message(System.User.Home &/ listed.Text & ".png")
+
+End
+
+Public Sub Button3_Click()
+
+    Panel2.Visible = False
+
+End
+
+Public Sub Button4_Click()
+
+    Panel3.Visible = True
+
+End
+
+Public Sub ComboBox3_Change()
+
+    PictureBox6.Picture = Picture["kapi/kapipencere" & ComboBox3.Index & ".png"]
+    If ComboBox3.Index = 0 Then
+        textbox13.Visible = False
+        label22.Visible = False
+        textbox14.Visible = False
+        label23.Visible = False
+        textbox15.Visible = False
+        label24.Visible = False
+        textbox16.Visible = False
+        label25.Visible = False
+    Else
+        textbox13.Visible = True
+        label22.Visible = True
+        textbox14.Visible = True
+        label23.Visible = True
+        textbox15.Visible = True
+        label24.Visible = True
+        textbox16.Visible = True
+        label25.Visible = True
+
+    Endif
+    If ComboBox3.Index = 2 Then
+        textbox16.Visible = True
+        label25.Visible = True
+    Else
+        textbox16.Visible = False
+        label25.Visible = False
+    Endif
+        Catch
+	ilk.hatayaz("cmbbx3chang " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button7_Click()
+
+    Panel3.Visible = False
+    Button4.Text = "Type" & ComboBox3.Text
+
+End
+
+Sub desenolcu()
+
+    Dim a, b, c, d As Float
+
+    a = CFloat(TextBox9.Text)
+    b = CFloat(TextBox10.Text)
+    c = CFloat(TextBox11.Text)
+    d = CFloat(TextBox12.Text)
+    enx = CFloat(TextBox2.Text) - (b + c)
+    boyy = CFloat(TextBox1.Text) - (a + d)
+    dznx = ilk.orix + b
+    dzny = ilk.oriy - d
+    label17.Text = "Pattern Area :"
+    label18.Text = "width=" & enx
+    label19.Text = "height=" & boyy
+    Return
+        Catch
+	ilk.hatayaz("desenolcu " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub TextBox9_Change()
+
+    desenolcu
+
+End
+
+Public Sub TextBox10_Change()
+
+    desenolcu
+
+End
+
+Public Sub TextBox11_Change()
+
+    desenolcu
+
+End
+
+Public Sub TextBox12_Change()
+
+    desenolcu
+
+End
+
+Public Sub Button9_Click()
+
+    kapicizim
+    Panel4.Visible = False
+
+End
+
+Public Sub Button8_Click()
+
+    Panel4.Visible = False
+
+End
+
+Public Sub Panel2_MouseDown()
+
+End

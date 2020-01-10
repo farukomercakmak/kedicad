@@ -1,0 +1,314 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,66,67)
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  SkipTaskbar = True
+  AutoResize = True
+  { Wizard1 Wizard
+    MoveScaled(0,0,65,39)
+    Expand = True
+    Count = 7
+    Index = 0
+    Text = ("Agreement")
+    { TextArea1 TextArea
+      MoveScaled(0,0,64,24)
+    }
+    { Button1 Button
+      MoveScaled(1,25,16,4)
+      Text = ("Show GPL")
+    }
+    { CheckBox2 CheckBox
+      MoveScaled(23,24,30,5)
+      Text = ("I read Legal_disclaimer.\nI read  GPL. I agree both.")
+    }
+    Index = 1
+    Text = ("Material ")
+    { Panel1 Panel
+      MoveScaled(0,11,51,8)
+      Visible = False
+      { Label11 Label
+        MoveScaled(1,1,18,2)
+        Text = ("Elastisity Modules")
+      }
+      { Label12 Label
+        MoveScaled(1,5,16,2)
+        Text = ("Poison Ratio")
+      }
+      { TextBox4 TextBox
+        MoveScaled(32,4,18,4)
+        Alignment = Align.Right
+      }
+      { TextBox3 TextBox
+        MoveScaled(32,0,18,4)
+        Alignment = Align.Right
+      }
+    }
+    { ComboBox2 ComboBox
+      MoveScaled(20,0,30,4)
+    }
+    { Label1 Label
+      MoveScaled(1,0,16,3)
+      Text = ("Specify Material")
+    }
+    { TextBox13 TextBox
+      MoveScaled(35,5,15,4)
+      Text = ("3")
+      Alignment = Align.Right
+    }
+    { Label14 Label
+      MoveScaled(0,5,22,4)
+      Text = ("Material Thickness (mm.):")
+    }
+    { Button24 Button
+      MoveScaled(39,24,13,5)
+      Text = ("SE MESH")
+    }
+    { CheckBox1 CheckBox
+      MoveScaled(0,9,18,3)
+      Text = ("Other Material")
+    }
+    { ComboBox3 ComboBox
+      MoveScaled(25,19,13,4)
+    }
+    { Label15 Label
+      MoveScaled(0,20,25,8)
+      Text = ("Mesh Size :(İf your comp. is  \ngood then specify> 5\nElse specify  < 5                      )\n")
+    }
+    Index = 2
+    Text = ("LOADS")
+    { Frame3 Frame
+      MoveScaled(0,0,64,30)
+      Background = &H8B909F&
+      { Button4 Button
+        MoveScaled(1,24,27,5)
+        Text = ("Specify Load Point (Kgf.)")
+      }
+      { TextBox2 TextBox
+        MoveScaled(28,24,8,5)
+        Text = ("3000")
+        Alignment = Align.Right
+      }
+      { Label3 Label
+        MoveScaled(49,0,14,3)
+        Text = ("Selected Points")
+      }
+      { RadioButton1 RadioButton
+        MoveScaled(1,1,12,2)
+        Text = ("X axis")
+        Value = True
+      }
+      { RadioButton4 RadioButton
+        MoveScaled(1,3,10,3)
+        Text = ("Y axis")
+      }
+      { RadioButton5 RadioButton
+        MoveScaled(1,6,10,3)
+        Text = ("Degree")
+      }
+      { TextBox12 TextBox
+        MoveScaled(11,5,6,4)
+        Visible = False
+        Text = ("45")
+        Alignment = Align.Right
+      }
+      { DrawingArea1 DrawingArea
+        MoveScaled(22,2,19,19)
+        Visible = False
+        Background = Color.SelectedForeground
+        Border = Border.Plain
+      }
+      { ListBox2 ListBox
+        MoveScaled(42,8,21,22)
+      }
+      { TextBox11 TextBox
+        MoveScaled(48,3,15,4)
+      }
+      { Frame4 Frame
+        MoveScaled(0,15,16,6)
+        { RadioButton6 RadioButton
+          MoveScaled(0,0,16,2)
+          Text = ("UP")
+          Value = True
+        }
+        { RadioButton7 RadioButton
+          MoveScaled(0,3,15,2)
+          Text = ("DOWN")
+        }
+      }
+    }
+    { PictureBox1 PictureBox
+      MoveScaled(22,2,19,19)
+      Stretch = True
+    }
+    Index = 3
+    Text = ("BOUNDARY CONDITIONS")
+    { Frame1 Frame
+      MoveScaled(0,19,63,11)
+      Background = &H8B909F&
+      Text = ("Choose a calculation type")
+      { RadioButton2 RadioButton
+        MoveScaled(2,3,31,3)
+        Text = ("Finite element (Normal)")
+        Value = True
+      }
+      { RadioButton3 RadioButton
+        MoveScaled(2,6,21,3)
+        Text = ("Beam")
+      }
+    }
+    { Frame2 Frame
+      MoveScaled(0,0,62,18)
+      Background = &H8B909F&
+      { Button5 Button
+        MoveScaled(1,5,12,5)
+        Text = ("X FIXED")
+      }
+      { Button6 Button
+        MoveScaled(14,5,12,5)
+        Text = ("Y FIXED")
+      }
+      { Button7 Button
+        MoveScaled(27,5,12,5)
+        Text = ("X-Y FIXED")
+      }
+      { Label4 Label
+        MoveScaled(16,0,13,3)
+        Text = ("Selected Point")
+      }
+      { TextBox5 TextBox
+        MoveScaled(29,0,10,4)
+        ReadOnly = True
+      }
+      { ListBox3 ListBox
+        MoveScaled(41,0,21,18)
+      }
+      { Button25 Button
+        MoveScaled(24,13,13,4)
+        Visible = False
+      }
+    }
+    Index = 4
+    Text = ("Z88 SOLVER")
+    { Label10 Label
+      MoveScaled(0,0,20,5)
+      Text = ("Choice of the reduced\n stress hypothesis     :")
+    }
+    { ComboBox1 ComboBox
+      MoveScaled(21,0,31,5)
+    }
+    { Button11 Button
+      MoveScaled(16,21,25,7)
+      Text = ("RUN Z88 SOLVER")
+      Picture = Picture["standart/accessories-calculator.png"]
+    }
+    { Label5 Label
+      MoveScaled(0,6,63,14)
+      Font = Font["+1"]
+      Background = &H7EFFFF&
+      Foreground = &HFF0000&
+      Text = ("Z88 Developed by : Prof. Dr.-Ing. Frank Rieg, Chair of \nEngineering Design and CAD, University of Bayreuth, \nGermany\n\nhttp://www.z88.uni-bayreuth.de/english.html")
+    }
+    Index = 5
+    Text = ("RESULTS")
+    { Button8 Button
+      MoveScaled(0,14,27,4)
+      Text = ("DEFORMED X  POINTS")
+    }
+    { Button9 Button
+      MoveScaled(0,18,27,4)
+      Text = ("DEFORMED Y POINTS")
+    }
+    { Button10 Button
+      MoveScaled(38,9,25,5)
+      Text = ("SHOW MESH")
+    }
+    { Button2 Button
+      MoveScaled(0,22,27,4)
+      Text = ("DEFORMED  POINTS")
+    }
+    { Button16 Button
+      MoveScaled(0,0,27,4)
+      Text = ("X Deformed Shape")
+    }
+    { Button17 Button
+      MoveScaled(0,4,27,4)
+      Text = ("Y Deformed Shape")
+    }
+    { Button18 Button
+      MoveScaled(0,8,27,5)
+      Text = ("SHOW DEFORMED\nSHAPE")
+    }
+    { Button20 Button
+      MoveScaled(37,23,26,6)
+      Text = ("SHOW \nALL")
+    }
+    { Button21 Button
+      MoveScaled(38,0,25,4)
+      Text = ("SHOW POINTS")
+    }
+    { Button22 Button
+      MoveScaled(38,4,25,5)
+      Text = ("SHOW ELEMENTS\nNUMBER")
+    }
+    Index = 6
+    Text = ("Step #7")
+    { TextBox8 TextBox
+      MoveScaled(40,1,12,4)
+    }
+    { ListBox1 ListBox
+      MoveScaled(0,0,15,29)
+    }
+    { TextBox9 TextBox
+      MoveScaled(40,6,12,4)
+    }
+    { TextBox10 TextBox
+      MoveScaled(40,11,12,4)
+    }
+    { TextBox6 TextBox
+      MoveScaled(31,7,8,5)
+    }
+    { TextBox7 TextBox
+      MoveScaled(30,1,8,5)
+    }
+    { Button13 Button
+      MoveScaled(15,1,15,5)
+      Text = ("Select Line")
+    }
+    { Button12 Button
+      MoveScaled(15,7,16,5)
+      Text = ("Select Element")
+    }
+    { Button14 Button
+      MoveScaled(35,24,24,5)
+      Text = ("Specify Presure\n      Point")
+    }
+    { TextBox1 TextBox
+      MoveScaled(40,18,11,4)
+      Text = ("500")
+      Alignment = Align.Right
+    }
+    { Label2 Label
+      MoveScaled(19,18,19,4)
+      Text = ("Presure(kgf./cm^2))")
+    }
+    Index = 0
+  }
+  { txtConsole TextArea
+    MoveScaled(0,46,66,20)
+    Font = Font["Monospace,10"]
+    Expand = True
+    ReadOnly = True
+  }
+  { txtCommand TextBox
+    MoveScaled(0,42,44,4)
+    Font = Font["Monospace,10"]
+    Expand = True
+  }
+  { Button15 Button
+    MoveScaled(45,42,9,4)
+    Picture = Picture["standart/gtk-clear.png"]
+  }
+}

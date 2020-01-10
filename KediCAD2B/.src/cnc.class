@@ -1,0 +1,1140 @@
+' Gambas class file
+
+Public yazgi As Czm
+
+Public Sub Button2_Click()  ' canlandırma çalıştır
+
+    Dim itm As Integer
+
+    For Each gazgi In gezmi
+        itm = itm + 1
+        ListBox1.Index = itm
+        If ListBox1.Text Like "G00*" Then
+            itm = itm + 2
+            listBox1.Index = itm
+        Endif
+        If ListBox1.Text Like "M*" Then
+            itm = itm + 2
+            listBox1.Index = itm
+        Endif
+        If ListBox1.Text Like "G01 F*"
+            If Len(ListBox1.Text) < 13 Then
+                itm = itm + 1
+                listBox1.Index = itm
+            Endif
+        Endif
+        If gazgi.komut = 1
+            yuru(gazgi.x1, gazgi.y1, gazgi.x2, gazgi.y2, gazgi.komut)
+            Wait hizk
+        Else If gazgi.komut = 2
+            yuru(gazgi.x1, gazgi.y1, gazgi.x2, gazgi.y2, gazgi.komut)
+            Wait hizk
+        Else
+            yuru(bx, by, gazgi.x1 + gazgi.yaricap * Cos(gazgi.r), gazgi.y1 - gazgi.yaricap * Sin(gazgi.r), 1)
+            If gazgi.cm = 1 Then
+                yayyuru(0, 2 * Pi, gazgi.yaricap, gazgi.x1, gazgi.y1)
+            Else
+                yayyuru(gazgi.r, gazgi.teta, gazgi.yaricap, gazgi.x1, gazgi.y1)
+            Endif
+        Endif
+    Next
+Catch
+ilk.hatayaz("btn2clck " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Sub yayyuru(r As Float, t As Float, yari As Float, x1 As Float, y1 As Float)  ' yay için nokta konumu
+
+    Dim tx, intx, inty, xon As Float
+
+    For tx = Min(t, r) To Max(t, r) Step (0.05)
+        intx = x1 + yari * Cos(tx)
+        inty = y1 - yari * Sin(tx)
+        If xon <> 0 Then
+            kz = 0
+            kx = intx
+            ky = inty
+            DrawingArea1.Refresh
+        End If
+        xon = 1
+        Wait 0.03
+    Next
+    kz = 1
+    Return
+Catch
+ilk.hatayaz("yayyuru " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub yuru(xk As Float, yk As Float, xk3 As Float, yk3 As Float, zs As Float)  ' Çizgi için nokta konumu
+
+    Dim im As Integer
+    Dim sy, hy, hx As Float
+
+    acimi.aci(xk, yk, xk3, yk3)
+    sy = acimi.boy + 0.01
+    If xk3 = xk Then sy = Abs(yk3 - yk)
+    If yk3 = yk Then sy = Abs(xk3 - xk)
+    hx = ((xk3 - xk) / sy)
+    hy = ((yk3 - yk) / sy)
+    kz = zs
+    
+    For im = 0 To sy
+            kx = xk + im * hx
+            ky = yk + im * hy
+            Wait 0.01
+            DrawingArea1.Refresh
+            If cz = 1 Then Goto cik
+     Next
+cik:
+    bx = kx
+    by = ky
+    Return
+Catch
+ilk.hatayaz("yuru " & Error.Text, Error.Where & "--" & Error.code)
+
+    Return
+
+End
+Public yollar As Integer
+Public Sub RadioButton1_Click()
+If RadioButton1.Value = True Then yollar = 1
+If RadioButton1.Value = False Then yollar = 0
+DrawingArea1.Refresh
+End
+
+Public Sub DrawingArea1_Draw()
+
+    Dim ac, ix, iy, it As Float
+    Dim penge, penye, mnm As Float
+    draw.Foreground = color.White
+    te
+    penge = Abs(Abs(sonx) - Abs(basx))
+    penye = Abs(Abs(sony) - Abs(basy))
+    If penye = 0 Or penge = 0 Then Return
+    mnm = 0.7 * (Min(DrawingArea1.Width / penge, DrawingArea1.height / penye))
+    draw.scale(mnm, mnm)
+     draw.translate(- basx, - basy + 50)
+
+    ac = Pi / 4
+    For Each gazgi In gezmi
+        
+        If gazgi.komut = 1 Then
+            draw.Foreground = Color.Violet
+            If yollar = 1 Then Goto atla
+            Draw.LineWidth = 3
+        Else
+            draw.Foreground = Color.Orange
+            Draw.LineWidth = 1
+        Endif
+        If gazgi.komut = 1 Then Draw.Line(gazgi.x1 + 20, gazgi.y1 - 20, gazgi.x2 + 20, gazgi.y2 - 20)
+        If gazgi.komut = 2 Then Draw.Line(gazgi.x1 + 20, gazgi.y1 - 20, gazgi.x2 + 20, gazgi.y2 - 20)
+        If gazgi.komut = 20 Then
+            If gazgi.cm = 0
+                For it = Min(gazgi.r, gazgi.teta) To Max(gazgi.r, gazgi.teta) Step (1 / gazgi.yaricap)
+                    ix = gazgi.x1 + 20 + gazgi.yaricap * Cos(it)
+                    iy = gazgi.y1 - 20 - gazgi.yaricap * Sin(it)
+                    Draw.Point(ix, iy)
+                Next
+            Else
+                For it = 0 To (2 * Pi) Step (1 / gazgi.yaricap + 0.000001)
+                    ix = gazgi.x1 + 20 + gazgi.yaricap * Cos(it)
+                    iy = gazgi.y1 - 20 - gazgi.yaricap * Sin(it)
+                    Draw.Point(ix, iy)
+                Next
+            Endif
+        Endif
+        atla:
+    Next
+    If xs1 <> 0 Then Draw.Line(xs1 + 20, ys1 - 20, xs2 + 20, ys2 - 20)
+    If kx <> 0 Then
+        If kz = 1 Then
+            draw.Foreground = Color.Yellow
+        Else
+            draw.Foreground = Color.Green
+        Endif
+         Draw.LineWidth = 5
+        draw.Circle(kx + 20, ky - 20, 5 / mnm)
+    Endif
+    If kz = 1 Then
+        PictureBox1.Move(360, 320)
+    Else
+        PictureBox1.Move(360, 550)
+    Endif
+Catch
+ilk.hatayaz("dwgare1draw " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Private $sPath As String
+
+Public Sub Button6_Click()  ' G code üret
+
+    Dim dfil As File
+    Dim il As Integer
+    gezmi.Clear
+    ListBox1.Clear
+    $sPath = System.User.Home &/ ".KediCAD/cnckay/"
+    For il = 0 To listbox2.Count - 1
+        listbox2.Index = il
+        dfil = Open System.User.Home &/ ".KediCAD/cnckay/" & listbox2.Text For Read
+        If Lof(dfil) > 0 Then
+            While Not Eof(dfil)
+                Line Input #dfil, myLine
+                ListBox1.Add(myLine)
+            Wend
+        End If
+    Next
+    '   uç yukarı
+    ListBox1.Add("G0 Z" & ucusyukseklik)
+    ListBox1.Add("G00 X0 Y0 Z" & ucusyukseklik)
+    ListBox1.Add("M2")
+    
+    ciz
+    zaman  ' zaman hesabı
+    DrawingArea1.Refresh
+   Catch
+ilk.hatayaz("btn6clk " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+Public Sub Button11_Click()
+Dim ucushiz, islemehiz As Integer
+Dim ide, zisleme, zadim, altx, alty As Float
+Dim i As Integer
+altx = 9999999
+alty = -9999999
+zisleme = CFloat(TextBox1.Text)
+zadim = CFloat(TextBox6.Text)
+ucushiz = CFloat(TextBox5.Text)
+islemehiz = CFloat(TextBox3.Text)
+ilerlemehiz = CFloat(TextBox3.Text)
+ucusyukseklik = CFloat(TextBox2.Text)
+dalmahizi = CFloat(TextBox4.Text)
+ide = acimi.cizgiuzak(ilk.orix, ilk.oriy)
+fsira.deposira(ide)
+dosyano = dosyano + 1
+dosyaadi = System.User.Home &/ ".KediCAD/cnckay/" & dosyano & ".ngc"
+listbox2.Add(dosyano & ".ngc")
+sOutFileName = dosyaadi
+mnb = sOutFileName
+listbox4.Clear
+myFile = Open System.User.Home &/ "bb" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                If listbox4.Find(myLine) = -1 Then listbox4.Add(myLine)
+            Wend
+        End If
+Close myFile
+dosyayaz = Open mnb For Create  ' ngc dosyasını oluşturma
+gcodesatir = "G01 F" & dalmahizi & " Z-" & ucusyukseklik  '    uç yukarı
+Print #dosyayaz, gcodesatir
+For i = 0 To listbox4.Count - 1
+        listbox4.Index = i
+        For Each cazgi In ilk.cezmi
+            If cazgi.id = listbox4.Text Then
+                If cazgi.x1 < altx Then altx = cazgi.x1
+                If cazgi.y1 > alty Then alty = cazgi.y1
+                If cazgi.x2 < altx Then altx = cazgi.x2
+                If cazgi.y2 > alty Then alty = cazgi.y2
+            Endif
+        Next
+Next
+    While islemederinlik < zisleme
+        islemederinlik = zadim + islemederinlik
+        If takim <> ("T" & ComboBox1.Text) Then
+                 Print #dosyayaz, "M6T" & ComboBox1.Text
+                 Print #dosyayaz, "G49T" & ComboBox1.Text
+                 takim = "T" & ComboBox1.Text
+        Endif
+        For i = 0 To listbox4.Count - 1
+            listbox4.Index = i
+            For Each cazgi In ilk.cezmi
+                If cazgi.id = listbox4.Text Then
+                    If islemederinlik > zisleme Then islemederinlik = zisleme
+                     If cazgi.komut = 1 Then
+                         Lineg(Round(cazgi.x1 - altx - 2), Round(-1 * cazgi.y1 + alty - 2), Round(cazgi.x2 - altx - 2), Round(-1 * cazgi.y2 + alty - 2))
+                     Else If cazgi.komut = 25 Then
+                         If cazgi.yazix = 1
+                             Arc2(Round(cazgi.x1 - altx - 2), Round(-1 * cazgi.y1 + alty - 2), Round(cazgi.yaricap - 2), 0, 2 * Pi, 1)
+                         Else
+                             Arc2(Round(cazgi.x1 - altx - 2), Round(-1 * cazgi.y1 + alty - 2), Round(cazgi.yaricap - 2), 0, 2 * Pi)
+                         Endif
+                     Else If cazgi.komut = 20 Then
+                         Arc2((cazgi.x1 - altx), (- cazgi.y1 + alty), cazgi.yaricap, cazgi.teta, cazgi.r)
+                     Endif
+                Endif
+            Next
+        Next
+    Wend
+
+Close dosyayaz
+   Catch
+ilk.hatayaz("btn11clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+
+Public Sub Button10_Click()  ' çizim ekle
+
+    Dim zadim, zisleme, onzisleme, dnx, dny, dnt As Float
+    Dim osat, osat2 As String
+    If CFloat(TextBox1.Text) > (mlzz + 1) Then
+        Message("CAUTION: Processing depth greater than the thickness of the material.", "OK")
+    Endif
+    If ilk.depo1.Count <= 0 Then Return
+    osat = "gf"
+    avn = 0
+    syaz = ""
+    soncex2 = ""
+    soncey2 = ""
+    islemederinlik = 0
+    zisleme = CFloat(TextBox1.Text)
+    ucusyukseklik = CFloat(TextBox2.Text)
+    ilerlemehiz = CFloat(TextBox3.Text)
+    dalmahizi = CFloat(TextBox4.Text)
+    zadim = CFloat(TextBox6.Text)
+    dosyano = dosyano + 1
+    dosyaadi = System.User.Home &/ ".KediCAD/cnckay/" & dosyano & ".ngc"
+    listbox2.Add(dosyano & ".ngc")
+    sOutFileName = dosyaadi
+    mnb = sOutFileName
+    dosyayaz = Open mnb For Create  ' ngc dosyasını oluşturma
+    ListBox3.Clear
+    dny = DrawingArea1.Height
+    For Each cazgi In ilk.cezmi
+            If ilk.depo1.Exist(cazgi.id)
+                acimi.aci(cazgi.x1, cazgi.y1, dnx, dny)
+                dnt = Abs(acimi.boy)
+                acimi.aci(cazgi.x2, cazgi.y2, dnx, dny)
+                dny = Abs(acimi.boy)
+                dnx = dnt
+                dnt = Min(dnx, dny)
+                ListBox3.Add(Round(dnt) & ";" & cazgi.id)
+                If dnx > dny Then
+                    dnx = cazgi.x1
+                    dny = cazgi.y1
+                Else
+                    dnx = cazgi.x2
+                    dny = cazgi.y2
+                Endif
+            Endif
+    Next
+    ListBox3.Sorted = True
+    While zadim < zisleme            ' işleme yapılıyor.................
+        islemederinlik = zadim
+        For Each cazgi In ilk.cezmi
+            If ilk.depo1.Exist(cazgi.id)
+                    If cazgi.renk <> 62058
+                        osat2 = cazgi.x1 & cazgi.y1 & cazgi.x2 & cazgi.y2 & islemederinlik
+                        If osat = osat2 Then Goto dwm
+                        If takim <> ("T" & ComboBox1.Text) Then
+                            Print #dosyayaz, "M6T" & ComboBox1.Text
+                            Print #dosyayaz, "G49T" & ComboBox1.Text
+                            takim = "T" & ComboBox1.Text
+                        Endif
+                        If islemederinlik <> onzisleme Then
+                            gcodesatir = "G01 F" & dalmahizi & " Z-" & islemederinlik  '    uç yukarı
+                            onzisleme = islemederinlik
+                            Print #dosyayaz, gcodesatir
+                        Endif
+                        dnt = 1
+                        If cazgi.komut = 1 Then
+                            Lineg(Round(cazgi.x1 - ilk.orix - 2), Round(-1 * cazgi.y1 + ilk.oriy - 2), Round(cazgi.x2 - ilk.orix - 2), Round(-1 * cazgi.y2 + ilk.oriy - 2))
+                        Else If cazgi.komut = 25 Then
+                            If cazgi.yazix = 1
+                                Arc2(Round(cazgi.x1 - ilk.orix - 2), Round(-1 * cazgi.y1 + ilk.oriy - 2), Round(cazgi.yaricap - 2), 0, 2 * Pi, 1)
+                            Else
+                                Arc2(Round(cazgi.x1 - ilk.orix - 2), Round(-1 * cazgi.y1 + ilk.oriy - 2), Round(cazgi.yaricap - 2), 0, 2 * Pi)
+                            Endif
+                        Else If cazgi.komut = 20 Then
+                            Arc2((cazgi.x1 - ilk.orix), (- cazgi.y1 + ilk.oriy), cazgi.yaricap, cazgi.teta, cazgi.r)
+                        Endif
+                    Endif
+            End If
+            osat = cazgi.x1 & cazgi.y1 & cazgi.x2 & cazgi.y2 & islemederinlik
+            dwm:
+        Next
+        zadim = zadim + CFloat(TextBox6.Text)
+    Wend
+    osat = "gf" 
+    zadim = zadim - CFloat(TextBox6.Text)
+    If zisleme > zadim        ' havada ilerleme.................
+        islemederinlik = zisleme
+        For Each cazgi In ilk.cezmi
+            If ilk.depo1.Exist(cazgi.id)
+                If cazgi.id > -1
+                     osat2 = cazgi.x1 & cazgi.y1 & cazgi.x2 & cazgi.y2 & islemederinlik
+                     If osat = osat2 Then Goto dwm2
+                    If takim <> ("T" & ComboBox1.Text) Then
+                        Print #dosyayaz, "M6T" & ComboBox1.Text
+                        Print #dosyayaz, "G49T" & ComboBox1.Text
+                        takim = "T" & ComboBox1.Text
+                    Endif
+                    '                      If dnt = 0
+                    If islemederinlik <> onzisleme Then
+                        gcodesatir = "G01 F" & dalmahizi & " Z-" & islemederinlik  '    uç yukarı
+                        onzisleme = islemederinlik
+                        Print #dosyayaz, gcodesatir
+                    Endif
+                    '                      Endif
+                    dnt = 1
+                    If cazgi.komut = 1 Then
+                        Lineg(Round(cazgi.x1 - ilk.orix - 2), Round(-1 * cazgi.y1 + ilk.oriy - 2), Round(cazgi.x2 - ilk.orix - 2), Round(-1 * cazgi.y2 + ilk.oriy - 2))
+                    Else If cazgi.komut = 25 Then
+                        If cazgi.yazix = 1
+                            Arc2(Round(cazgi.x1 - ilk.orix - 2), Round(-1 * cazgi.y1 + ilk.oriy - 2), Round(cazgi.yaricap - 2), 0, 2 * Pi, 1)
+                        Else
+                            Arc2(Round(cazgi.x1 - ilk.orix - 2), Round(-1 * cazgi.y1 + ilk.oriy - 2), Round(cazgi.yaricap - 2), 0, 2 * Pi)
+                        Endif
+                    Else If cazgi.komut = 20 Then
+                        Arc2((cazgi.x1 - ilk.orix), (- cazgi.y1 + ilk.oriy), cazgi.yaricap, cazgi.teta, cazgi.r)
+                    Endif
+                End If
+            End If
+            osat = cazgi.x1 & cazgi.y1 & cazgi.x2 & cazgi.y2 & islemederinlik
+            dwm2:
+        Next
+    Endif
+    Close dosyayaz
+    ilk.dolas
+    ilk.calanilk.Refresh
+cik:
+   Catch
+ilk.hatayaz("btn10clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+Public stre As String
+Public m As String[]
+Sub cevir()
+Dim tx As Integer
+Dim ts1, ts2 As String
+    m = Split(csp.sonuc1, ".")
+    For Each stre In m
+        If tx = 0 Then ts1 = stre
+        If tx = 1 Then ts2 = stre
+        tx = tx + 1
+    Next
+    If ts2 <> "" Then csp.sonuc1 = ts1 
+    ts2 = ""
+    tx = 0
+    m = Split(csp.sonuc2, ".")
+    For Each stre In m
+        If tx = 0 Then ts1 = stre
+        If tx = 1 Then ts2 = stre
+        tx = tx + 1
+    Next
+    If ts2 <> "" Then csp.sonuc2 = ts1 
+    ts2 = ""
+    tx = 0
+        m = Split(csp.sonuc3, ".")
+    For Each stre In m
+        If tx = 0 Then ts1 = stre
+        If tx = 1 Then ts2 = stre
+        tx = tx + 1
+    Next
+    If ts2 <> "" Then csp.sonuc3 = ts1 
+    ts2 = ""
+    tx = 0
+        m = Split(csp.sonuc4, ".")
+    For Each stre In m
+        If tx = 0 Then ts1 = stre
+        If tx = 1 Then ts2 = stre
+        tx = tx + 1
+    Next
+    If ts2 <> "" Then csp.sonuc4 = ts1 
+    ts2 = ""
+    tx = 0
+        m = Split(csp.sonuc5, ".")
+    For Each stre In m
+        If tx = 0 Then ts1 = stre
+        If tx = 1 Then ts2 = stre
+        tx = tx + 1
+    Next
+    If ts2 <> "" Then csp.sonuc5 = ts1
+    ts2 = ""
+    tx = 0
+        m = Split(csp.sonuc6, ".")
+    For Each stre In m
+        If tx = 0 Then ts1 = stre
+        If tx = 1 Then ts2 = stre
+        tx = tx + 1
+    Next
+    If ts2 <> "" Then csp.sonuc6 = ts1
+    Return
+       Catch
+ilk.hatayaz("cevir " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub ciz()
+
+    Dim im, fhiz, dh As Integer
+    Dim tx, ty, z, I, j As Float
+    Dim s As String
+    tx = -5
+    csp = New Csplit
+    kyno = kyno + 1
+    dh = DrawingArea1.Height
+    onx = 0
+    ony = dh
+    For im = 0 To ListBox1.Count
+        ListBox1.Index = im
+        s = ListBox1.Text
+        csp.yazi = s
+        csp.akm()
+        cevir()
+        
+        If Left$(csp.sonuc1) = "F" Then fhiz = Right$(csp.sonuc1, -1)
+        If Left$(csp.sonuc2) = "F" Then fhiz = Right$(csp.sonuc2, -1)
+        If Left$(csp.sonuc3) = "F" Then fhiz = Right$(csp.sonuc3, -1)
+        If Left$(csp.sonuc4) = "F" Then fhiz = Right$(csp.sonuc4, -1)
+        If Left$(csp.sonuc5) = "F" Then fhiz = Right$(csp.sonuc5, -1)
+        If Left$(csp.sonuc6) = "F" Then fhiz = Right$(csp.sonuc6, -1)
+
+        If Left$(csp.sonuc2) = "X" Then tx = Right$(csp.sonuc2, -1)
+        If Left$(csp.sonuc3) = "X" Then tx = Right$(csp.sonuc3, -1)
+        If Left$(csp.sonuc4) = "X" Then tx = Right$(csp.sonuc4, -1)
+
+        If Left$(csp.sonuc2) = "Y" Then ty = Right$(csp.sonuc2, -1)
+        If Left$(csp.sonuc3) = "Y" Then ty = Right$(csp.sonuc3, -1)
+        If Left$(csp.sonuc4) = "Y" Then ty = Right$(csp.sonuc4, -1)
+        If Left$(csp.sonuc5) = "Y" Then ty = Right$(csp.sonuc5, -1)
+
+        If Left$(csp.sonuc2) = "Z" Then z = Right$(csp.sonuc2, -1)
+        If Left$(csp.sonuc3) = "Z" Then z = Right$(csp.sonuc3, -1)
+        If Left$(csp.sonuc4) = "Z" Then z = Right$(csp.sonuc4, -1)
+        If Left$(csp.sonuc5) = "Z" Then z = Right$(csp.sonuc5, -1)
+        If Left$(csp.sonuc6) = "Z" Then z = Right$(csp.sonuc6, -1)
+        If csp.sonuc4 Then
+            
+        Endif
+        If Left$(csp.sonuc4) = "I" Then i = Right$(csp.sonuc4, -1)
+        If Left$(csp.sonuc5) = "I" Then i = Right$(csp.sonuc5, -1)
+        If Left$(csp.sonuc6) = "I" Then i = Right$(csp.sonuc6, -1)
+
+        If Left$(csp.sonuc4) = "J" Then j = Right$(csp.sonuc4, -1)
+        If Left$(csp.sonuc5) = "J" Then j = Right$(csp.sonuc5, -1)
+        If Left$(csp.sonuc6) = "J" Then j = Right$(csp.sonuc6, -1)
+        If tx <> -5
+             If ty <> -5
+                If csp.sonuc1 = "G00" Or csp.sonuc1 = "G01" Then
+                    gazgi = New Gczm
+                    gazgi.id = kyno
+                    acimi.aci(onx, ony, tx, dh - ty)
+                    If csp.sonuc1 = "G00"
+                        gazgi.komut = 1
+                        g00.Add(Abs(acimi.boy))
+                    Else
+                        gazgi.komut = 2
+                        g01.Add(Abs(acimi.boy))
+                        f1.Add(fhiz)
+                    Endif
+                    zz1.add(Abs(onz - z))
+                    gazgi.tid = ListBox1.Index
+                    gazgi.x1 = onx
+                    gazgi.y1 = ony
+                    gazgi.z1 = onz
+                    gazgi.x2 = tx
+                    gazgi.y2 = dh - ty
+                    gazgi.z2 = z
+                    gezmi.Add(gazgi, kyno)
+                    kyno = kyno + 1
+                    onx = gazgi.x2
+                    ony = gazgi.y2
+                    onz = gazgi.z2
+                Else
+                    yay2(onx + i, ony - j, tx, DrawingArea1.Height - ty, onx, ony, z)
+                Endif
+            Endif
+        Endif
+        tx = -5
+        ty = -5
+        DrawingArea1.Refresh
+    Next
+    Return
+   Catch
+ilk.hatayaz("ciz " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub yay2(cx As Float, cy As Float, dx As Float, dy As Float, bxa As Float, bya As Float, zn As Float)
+
+    acimi.aci(cx, cy, bxa, bya)
+    yaricap = acimi.boy
+    aci1 = acimi.raci
+    acimi.aci(cx, cy, dx, dy)
+    aci2 = acimi.raci
+    yaykay(cx, cy, yaricap, aci1, aci2, zn)
+    ' cizem.yay(cmx, cmy, yaricap / ilk.olcum, aci1, aci2)
+    Return
+   Catch
+ilk.hatayaz("yay2 " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub yaykay(cxa As Float, cya As Float, yarim As Float, r As Float, teta As Float, zn As Float)
+
+    Dim ilknx, ilkny, ikinx, ikiny As Float
+
+    aci1 = r
+    aci2 = teta
+    While aci1 < 0
+        aci1 = aci1 + (2 * Pi)
+    Wend
+    While aci1 > (2 * Pi)
+        aci1 = aci1 - (2 * Pi)
+    Wend
+    While aci2 < 0
+        aci2 = aci2 + (2 * Pi)
+    Wend
+    While aci2 > (2 * Pi)
+        aci2 = aci2 - (2 * Pi)
+    Wend
+    If aci1 > aci2 Then
+        ilknx = aci1
+        aci1 = aci2
+        aci2 = ilknx
+    Endif
+    ilknx = (cxa) + yarim * Cos(aci1)
+    ilkny = (cya) - yarim * Sin(aci1)
+    ikinx = (cxa) + yarim * Cos(aci2)
+    ikiny = (cya) - yarim * Sin(aci2)
+    gazgi = New Gczm
+    gazgi.id = kyno
+    gazgi.komut = 20
+    If aci1 = 0
+        If aci2 = 0 Then
+            gazgi.cm = 1
+        Else
+            gazgi.cm = 0
+        End If
+    End If
+    gazgi.x1 = cxa
+    gazgi.y1 = cya
+    gazgi.r = aci1
+    gazgi.teta = aci2
+    gazgi.yaricap = yarim
+    gezmi.Add(gazgi, kyno)
+    kyno = kyno + 1
+    onx = ikinx
+    ony = ikiny
+    onz = zn
+    Return
+   Catch
+ilk.hatayaz("yaykay " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub dsyac()
+
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then
+            If cazgi.uc <> 0 Then
+                ComboBox1.Index = ComboBox1.Find(cazgi.uc)
+            Endif
+        Endif
+    Next
+
+End
+
+Public czt As Integer
+
+Public Sub Form_Open()
+
+    Dim s As String
+
+    TextBox1.Text = mlzz
+    tem.kontrol
+    czt = 1
+    Me.Width = 1000
+    Me.Height = 600
+    Me.Move(ilk.Width - Me.Width, 0)
+    
+    hizk = 0.02
+    ComboBox1.Add(0)
+    For Each s In Dir(System.User.Home &/ ".KediCAD/CNC")
+        ComboBox1.Add(s)
+    Next
+    ComboBox1.Sorted = True
+    ComboBox1.Index = 0
+    cnc2.Show
+    If Not IsDir(System.User.Home &/ ".KediCAD/cnckay") Then Mkdir System.User.Home &/ ".KediCAD/cnckay"
+    Shell "rm " & System.User.Home &/ ".KediCAD/cnckay/*"
+    takim = "T0"
+   Catch
+ilk.hatayaz("formopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public cz As Integer
+
+Public Sub Button4_Click()
+
+    cz = 1
+
+End
+
+Public Sub Arc2(sx As Float, sy As Float, sra As Float, st As Float, sn As Float, Optional lkh As Integer)
+    ' Arc((cazgi.x1 - ilk.orix), (- cazgi.y1 + ilk.oriy), cazgi.yaricap, cazgi.r, cazgi.teta)
+
+    Dim fyedek As Float
+
+    If lkh = 1 Then   ' delik delme
+        gcodesatir = "G00 Z" & ucusyukseklik   '    '     yukarı
+        Print #dosyayaz, gcodesatir
+        gcodesatir = "G00 X" & sx & " Y" & sy & " Z" & ucusyukseklik    '     çember merkezine git
+        Print #dosyayaz, gcodesatir
+        gcodesatir = "G01 F" & dalmahizi & " X" & sx & " Y" & sy & " Z-" & islemederinlik     'aşağı
+        Print #dosyayaz, gcodesatir
+    Else
+        fyayx = sx  ' çember / yay  x merkezi
+        fyayy = sy ' çember / yay   y merkezi
+        fyaycap = sra   ' çember / yay  yarıçapı
+        fbasaci = st ' yay  başl. açısı
+        fsonaci = sn ' yay  bitiş. açısı
+
+        If Rad(fbasaci) > Rad(fsonaci) Then     ' başlangıç   bitişten sonra ise değiştir
+            fyedek = fbasaci
+            fbasaci = fsonaci
+            fsonaci = fyedek
+        Endif
+        fdXs = fyaycap * Cos(fbasaci)  '
+        fdYs = fyaycap * Sin(fbasaci)
+        '   bitiş noktaları
+        fdXf = fyaycap * Cos(fsonaci)
+        fdYf = fyaycap * Sin(fsonaci)
+        '  başlangıç pozisyonu
+        fX1 = Round(fyayx + fdXs, -2) '  çember merkezi + yarıçap cos(başla. açısı)
+        fY1 = Round(fyayy + fdYs, -2) '  çember merkezi + yarıçap sin(başla. açısı)
+        '      uç son konumu-
+        fX2 = Round(fyayx + fdXf, -2) '  çember merkezi + yarıçap cos(bitiş. açısı)
+        fY2 = Round(fyayy + fdYf, -2) '  çember merkezi + yarıçap sin(bitiş. açısı)
+        gcodesatir = "G00 Z" & ucusyukseklik   '    '     uç yukarı
+        Print #dosyayaz, gcodesatir
+        gcodesatir = "G00 X" & fX1 & " Y" & fY1 & " Z" & ucusyukseklik '     başlangıç noktasına git
+        Print #dosyayaz, gcodesatir
+        gcodesatir = "G01 F" & dalmahizi & " X" & fX1 & " Y" & fY1 & " Z-" & islemederinlik  '     uç aşağı
+        Print #dosyayaz, gcodesatir
+        gcodesatir = "G01 F" & ilerlemehiz '     hız tanımla
+        Print #dosyayaz, gcodesatir
+        gcodesatir = "G02" & " X" & fX2 & " Y" & fY2 & " Z-" & islemederinlik & " I" & Round(- fdXs, -2) & " J" & Round(- fdYs, -2) '     yayı çiz
+        Print #dosyayaz, gcodesatir
+        ' foncex2 = fX2
+        ' foncey2 = fY2
+    Endif
+    Return
+   Catch
+ilk.hatayaz("Arc2 " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+Public vvb As Integer
+Public Sub Lineg(gsx1 As Float, gsy1 As Float, gsx2 As Float, gsy2 As Float)
+
+    Dim boy1, boy2 As Float
+    vvb = vvb + 1
+    If (foncex2 = (gsx2) And foncey2 = (gsy2)) Then '               x y de hareket yok
+        If foncez2 <> islemederinlik Then
+            gcodesatir = "G01 F" & dalmahizi & " Z-" & islemederinlik         ' uç aşağı
+            Print #dosyayaz, gcodesatir
+        Endif
+        gcodesatir = "G01 F" & ilerlemehiz & " X" & gsx1 & " Y" & gsy1       
+        Print #dosyayaz, gcodesatir
+        foncex2 = (gsx1)
+        foncey2 = (gsy1)
+        foncez2 = islemederinlik
+    Else If (foncex2 = (gsx1) And foncey2 = (gsy1)) Then '        
+        If foncez2 <> islemederinlik Then
+            gcodesatir = "G01 F" & dalmahizi & " Z-" & islemederinlik         ' uç aşağı
+            Print #dosyayaz, gcodesatir
+        Endif
+        gcodesatir = "G01 F" & ilerlemehiz & " X" & gsx2 & " Y" & gsy2 
+        Print #dosyayaz, gcodesatir
+        foncex2 = (gsx2)
+        foncey2 = (gsy2)
+        foncez2 = islemederinlik
+    Else
+        gcodesatir = "G01 F" & dalmahizi & " Z" & ucusyukseklik '    uç yukarı
+        Print #dosyayaz, gcodesatir
+        boy1 = Abs(Hyp((gsx1 - foncex2), (gsy1 - foncey2)))  
+        boy2 = Abs(Hyp((gsx2 - foncex2), (gsy2 - foncey2)))  
+        If boy1 < boy2 Then
+            gcodesatir = "G00" & " X" & gsx1 & " Y" & gsy1 & " Z" & ucusyukseklik  '  kesim başlangıç noktasına git
+            Print #dosyayaz, gcodesatir
+            gcodesatir = "G01 F" & dalmahizi & " X" & gsx1 & " Y" & gsy1 & " Z-" & islemederinlik         ' uç aşağı
+            Print #dosyayaz, gcodesatir
+             gcodesatir = "G01 F" & ilerlemehiz & " X" & gsx2 & " Y" & gsy2 & " Z-" & islemederinlik ' çizgiyi çiz uç aşağıda
+            Print #dosyayaz, gcodesatir
+            foncex2 = (gsx2)
+            foncey2 = (gsy2)
+            foncez2 = islemederinlik
+        Else
+            gcodesatir = "G00" & " X" & gsx2 & " Y" & gsy2 & " Z" & ucusyukseklik  '  kesim başlangıç noktasına git
+            Print #dosyayaz, gcodesatir
+            gcodesatir = "G01 F" & dalmahizi & " X" & gsx2 & " Y" & gsy2 & " Z-" & islemederinlik         ' uç aşağı
+            Print #dosyayaz, gcodesatir
+             gcodesatir = "G01 F" & ilerlemehiz & " X" & gsx1 & " Y" & gsy1 & " Z-" & islemederinlik ' çizgiyi çiz uç aşağıda
+            Print #dosyayaz, gcodesatir
+            foncex2 = (gsx1)
+            foncey2 = (gsy1)
+            foncez2 = islemederinlik
+        Endif
+        
+        
+    Endif
+
+    Return
+   Catch
+ilk.hatayaz("lineg " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub Form_Activate()
+
+    ListBox1.Show
+
+End
+
+Public Sub Button1_Click()
+
+    Dim im As Integer
+    Dim s As String
+
+    If ListBox1.Count > 4
+        If Dialog.SaveFile() Then Return
+        dosyaadi = Dialog.Path
+        If Left$(dosyaadi, 4) <> ".ngc"
+            sOutFileName = dosyaadi & ".ngc"
+        Else
+            sOutFileName = dosyaadi
+        End If
+        mnb = sOutFileName
+        dosyayaz = Open mnb For Create  ' ngc dosyasını oluşturma
+        For im = 0 To ListBox1.Count + 1
+            ListBox1.Index = im
+            s = ListBox1.Text
+            Print #dosyayaz, s
+        Next
+    Else
+        Message("First press - Generate Code -  button", "OK")
+    Endif
+   Catch
+ilk.hatayaz("btn1clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub DrawingArea1_DblClick()
+
+End
+
+Public Sub Button8_Click()
+
+    Dim nh As String
+
+    sr = ListBox2.Index
+    nh = ListBox2[sr + 1].Text
+    ListBox2.Remove(sr + 1)
+    ListBox2.add(nh, sr)
+
+End
+
+Public sr As Integer
+
+Public Sub Button7_Click()
+
+    Dim nh As String
+
+    sr = ListBox2.Index
+    nh = ListBox2[sr - 1].Text
+    ListBox2.Remove(sr - 1)
+    ListBox2.add(nh, sr)
+
+End
+
+Public Sub Button9_Click()
+
+    Dim nh As String
+
+    sr = ListBox2.Index
+    nh = ListBox2[sr].Text
+    Shell "rm " & System.User.Home &/ ".KediCAD/cnckay/" & listbox2.Text
+    ListBox2.Remove(sr)
+    Button6_Click()
+
+End
+
+Public bazgi As Cvb
+Public basx As Float
+Public basy As Float
+Public sonx As Float
+Public sony As Float
+Public yy As Float
+
+Public Sub te()
+
+    basx = 100000000000
+    basy = 100000000000
+    sonx = -100000000000
+    sony = -100000000000
+    For Each gazgi In gezmi
+        If gazgi.id > 0 Then
+            basx = Min(basx, gazgi.x1)
+            basy = Min(basy, gazgi.y1)
+            sonx = Max(sonx, gazgi.x1)
+            sony = Max(sony, gazgi.y1)
+            basx = Min(basx, gazgi.x2)
+            basy = Min(basy, gazgi.y2)
+            sonx = Max(sonx, gazgi.x2)
+            sony = Max(sony, gazgi.y2)
+        End If
+    Next
+    Return
+   Catch
+ilk.hatayaz("te " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub Form_Close()
+
+    cnc.goru = 0
+    czt = 0
+
+End
+
+Public Sub ComboBox1_Change()
+
+    Dim doza As Integer
+
+    textbox3.Clear
+    textbox4.Clear
+    myFile = Open System.User.Home &/ ".KediCAD/CNC" &/ ComboBox1.Text For Read
+    If Lof(myFile) > 0 Then
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            doza = doza + 1
+            ' myLine = Right$(myLine, -1)
+            If doza = 5 Then textbox3.Text = CInt(myLine)
+            If doza = 6 Then textbox4.Text = CInt(myLine)
+            If doza = 7 Then textbox6.Text = CInt(myLine)
+        Wend
+    End If
+    Close myFile
+   Catch
+ilk.hatayaz("cmbbx1chnge " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button5_Click()
+
+    Dim im, fhiz, dh As Integer
+    Dim tx, ty, z, I, j As Float
+    Dim s As String
+
+    For im = 0 To ListBox1.Count - 1
+        ListBox1.Index = im
+        s = ListBox1.Text
+        csp.yazi = s
+        csp.akm()
+        If Left$(csp.sonuc1) = "F" Then fhiz = Right$(csp.sonuc1, -1)
+        If Left$(csp.sonuc2) = "F" Then fhiz = Right$(csp.sonuc2, -1)
+        If Left$(csp.sonuc3) = "F" Then fhiz = Right$(csp.sonuc3, -1)
+        If Left$(csp.sonuc4) = "F" Then fhiz = Right$(csp.sonuc4, -1)
+        If Left$(csp.sonuc5) = "F" Then fhiz = Right$(csp.sonuc5, -1)
+        If Left$(csp.sonuc6) = "F" Then fhiz = Right$(csp.sonuc6, -1)
+
+        If Left$(csp.sonuc2) = "X" Then tx = Right$(csp.sonuc2, -1)
+        If Left$(csp.sonuc3) = "X" Then tx = Right$(csp.sonuc3, -1)
+        If Left$(csp.sonuc4) = "X" Then tx = Right$(csp.sonuc4, -1)
+
+        If Left$(csp.sonuc2) = "Y" Then ty = Right$(csp.sonuc2, -1)
+        If Left$(csp.sonuc3) = "Y" Then ty = Right$(csp.sonuc3, -1)
+        If Left$(csp.sonuc4) = "Y" Then ty = Right$(csp.sonuc4, -1)
+        If Left$(csp.sonuc5) = "Y" Then ty = Right$(csp.sonuc5, -1)
+
+        If Left$(csp.sonuc2) = "Z" Then z = Right$(csp.sonuc2, -1)
+        If Left$(csp.sonuc3) = "Z" Then z = Right$(csp.sonuc3, -1)
+        If Left$(csp.sonuc4) = "Z" Then z = Right$(csp.sonuc4, -1)
+        If Left$(csp.sonuc5) = "Z" Then z = Right$(csp.sonuc5, -1)
+        If Left$(csp.sonuc6) = "Z" Then z = Right$(csp.sonuc6, -1)
+
+        If Left$(csp.sonuc4) = "I" Then i = Right$(csp.sonuc4, -1)
+        If Left$(csp.sonuc5) = "I" Then i = Right$(csp.sonuc5, -1)
+        If Left$(csp.sonuc6) = "I" Then i = Right$(csp.sonuc6, -1)
+
+        If Left$(csp.sonuc4) = "J" Then j = Right$(csp.sonuc4, -1)
+        If Left$(csp.sonuc5) = "J" Then j = Right$(csp.sonuc5, -1)
+        If Left$(csp.sonuc6) = "J" Then j = Right$(csp.sonuc6, -1)
+        If csp.sonuc1 = "G00" Then j = 1
+        If csp.sonuc1 = "G00" Then j = 2
+        If tx <> -5
+            If ty <> -5
+                yuru(onx, ony, tx, ty, j)
+                onx = tx
+                ony = dh - ty
+                onz = z
+            Endif
+        Endif
+        tx = -5
+        ty = -5
+    Next
+   Catch
+ilk.hatayaz("btn5clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public hizk As Float
+
+Public Sub Slider1_Change()
+
+    hizk = Slider1.Value / 500
+    label4.text = hizk
+
+End
+
+Public Sub Button3_Click()  ' gcode dosyası aç
+Me.Stacking = Window.Normal
+    gezmi.Clear
+    ListBox1.Clear
+    csp = New Csplit
+    If Dialog.OpenFile() Then Return
+    dosyaadi = Dialog.Path
+    myFile = Open dosyaadi For Read
+    While Not Eof(myFile)
+        Line Input #myFile, myLine
+        If myLine Like "(*" Then
+        Else
+            ListBox1.Add(myLine)
+        Endif
+    Wend
+    Wait 1
+    ciz
+    zaman
+    DrawingArea1.Refresh
+Me.Stacking = Window.Above
+   Catch
+ilk.hatayaz("btn3clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public dosya As String
+
+Sub zaman()
+
+    Dim im As Integer
+
+    Dim hgc As Float
+
+    For im = 0 To g00.Count - 1
+        g00.Index = im
+        hgc = hgc + (g00.Text / CFloat(TextBox5.Text))
+    Next
+    For im = 0 To g01.Count - 1
+        g01.Index = im
+        f1.Index = im
+        If f1.Text <> 0
+            If g01.Text <> 0
+                hgc = hgc + (g01.Text / f1.Text)
+            Endif
+        Endif
+    Next
+    For im = 0 To zz1.Count - 1
+        zz1.Index = im
+        If zz1.Text <> 0
+            hgc = hgc + (zz1.Text / TextBox4.Text)
+        Endif
+    Next
+    hgc = hgc * 10
+    Label2.Text = ("tahmini işlem süresi" & Format$(hgc, "0.0") & " dakikadır")
+    Return
+   Catch
+ilk.hatayaz("zaman " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public cazgi As Czm
+Private csp As Csplit
+Private gazgi As GCzm
+Public gezmi As New Collection
+Public DxfFile As File
+Public dosyayaz As File
+Public satir As String
+Public sNextLine As String
+Public syaz As String
+Public satirno As Integer
+Public dummy As String
+Public gcodesatir As String
+Public dosyaadi As String
+Public sOutFileName As String
+Public sX1 As String
+Public sX2 As String
+Public sY1 As String
+Public sY2 As String
+Public sZ1 As String
+Public sZ2 As String
+Public fX1 As Float
+Public fX2 As Float
+Public fY1 As Float
+Public fY2 As Float
+Public fZ1 As Float
+Public fZ2 As Float
+Public mlzx As Float
+Public mlzy As Float
+Public mlzz As Float
+
+Public soncex2 As String
+Public soncey2 As String
+Public foncex2 As Float
+Public foncey2 As Float
+Public foncez2 As Float
+
+Public fyayx As Float
+Public fyayy As Float
+Public fyaycap As Float
+Public fbasaci As Float
+Public fsonaci As Float
+
+Public islemederinlik As Float
+Public ucusyukseklik As Float
+Public ilerlemehiz As Float
+Public dalmahizi As Float
+Public goru As Integer
+Public fdXs As Float
+Public fdYs As Float
+Public takim As String
+Public mnb As String
+Public mnby As String
+Public fdXf As Float
+Public fdYf As Float
+Public kyno As Integer
+Public onx As Float
+Public ony As Float
+Public onz As Float
+Public bvv As New Integer[]
+Public avn As Integer
+Public ax As Float
+Public ay As Float
+Public xs1 As Float
+Public ys1 As Float
+Public xs2 As Float
+Public ys2 As Float
+
+Public kx As Float
+Public ky As Float
+Public kz As Float
+Public zm As Float
+Public bx As Float
+Public by As Float
+Public cmx As Float
+Public cmy As Float
+Public yaricap As Float
+Public aci1 As Float
+Public aci2 As Float
+Public cx1 As Float
+Public cy1 As Float
+Public dosyano As Integer
+Public myFile As File
+Public myLine As String
+
+Public Sub Form_Resize()
+
+    DrawingArea1.Move(385, 0, Me.w - 350, Me.h)
+    ListBox1.Move(0, 340, 360, Me.h - 345)
+    Separator4.Move(360, 340, 20, Me.h - 345)
+    Separator3.Move(360, Separator4.y + (Separator4.h / 2), 20, 20)
+End
+
+
+

@@ -1,0 +1,35 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(854,0,280,248)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  SkipTaskbar = True
+  { blokad TextBox
+    Move(160,184,120,32)
+  }
+  { Button1 Button
+    Move(203,217,77,35)
+    Text = ("OK")
+    Picture = Picture["standart/ok.png"]
+  }
+  { Label1 Label
+    Move(0,184,161,28)
+    Text = ("Write a name for block:")
+  }
+  { Button2 Button
+    Move(0,217,91,35)
+    Text = ("CANCEL")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+  { Label2 Label
+    Move(105,224,105,21)
+    Text = ("Label2")
+  }
+  { ala DrawingArea
+    Move(0,0,280,184)
+    Background = &HFFFFFF&
+  }
+}

@@ -1,0 +1,198 @@
+' Gambas class file
+
+Private $sPath As String
+Public suzan As String
+Public kuzan As String
+Private csp As Csplit
+Public fsdd As String
+
+
+Public Sub Form_Open()
+
+    Dim myLine As String
+    Dim myFile As File
+    'DirChooser1.Filter = ["*.dxf;*.DXF", "Drawing files"]
+    myFile = Open System.User.Home &/ ".KediCAD/Acilis/sondosya.ulu" For Read
+    While Not Eof(myFile)
+        Line Input #myFile, myLine
+        If myLine = "" Then
+            $sPath = System.User.Home
+        Else
+            $sPath = myLine
+        End If
+    Wend
+    DirChooser1.dir = $sPath
+    Me.center
+    Me.text = "KediCAD 2B OPEN FILE   " & DirChooser1.dir
+        Catch
+	ilk.hatayaz("fopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub DirChooser1_Change()
+
+    Dim yol As String
+
+    csp = New Csplit
+    csp.yazi = DirChooser1.Value
+    csp.dsy()
+    kuzan = csp.sonuc1
+    yol = System.User.Home &/ ".KediCAD/Acilis"
+    If Exist(yol &/ kuzan & ".jpeg")
+        PictureBox1.Picture = picture[yol &/ kuzan & ".jpeg"]
+    Else If Exist(yol &/ Left$(kuzan, -4) & ".jpeg")
+        PictureBox1.Picture = picture[yol &/ Left$(kuzan, -4) & ".jpeg"]
+    Else
+        PictureBox1.Picture = picture["res/bos.png"]
+    End If
+    suzan = Right$(DirChooser1.Value, 3)
+    $sPath = DirChooser1.dir
+    ilk.kaci = $sPath &/ kuzan
+    TextArea1.Text = ""
+    If Not IsDir($sPath &/ kuzan)
+        With Stat($sPath &/ kuzan)
+            TextArea1.Text = kuzan & Chr$(10)
+            TextArea1.Text = TextArea1.Text & "Size= " & Round(.Size / 1024) & " KB." & Chr$(10)
+            TextArea1.Text = TextArea1.Text & "LastModified=" & .LastModified & Chr$(10)
+            TextArea1.Text = TextArea1.Text & "User=" & .User & Chr$(10)
+        End With
+    End If
+    DirChooser1.Refresh
+    Me.text = "KediCAD 2B OPEN FILE   " & DirChooser1.dir
+Catch
+End
+
+Public Sub DirChooser1_Activate()
+
+    suzan = Right$(DirChooser1.Value, 3)
+    $sPath = DirChooser1.dir
+    ilk.kaci = $sPath &/ kuzan
+    Button1_Click
+
+End
+
+Public Sub Button1_Click()
+
+    Dim myFile As File
+
+    Me.Hide
+
+    ilk.Show
+    If ilk.ListBox11.Find(ilk.kaci) = -1
+        If suzan = "dxf" Or suzan = "DXF" Then dacy.dxf
+        '         If suzan = "dxf" Or suzan = "DXF" Then dacy.dxf
+    Else
+        ilk.ListBox11.Index = ilk.ListBox11.Find(ilk.kaci)
+        ilk.Text = ilk.kaci
+        ilk.kaci = ilk.kaci
+        If ilk.ListBox11.Index = 1 Then
+            ilk.cezmi = ilk.cezmi1
+            ilk.bezmi = ilk.bezmi1
+        End If
+        If ilk.ListBox11.Index = 2 Then
+            ilk.cezmi = ilk.cezmi2
+            ilk.bezmi = ilk.bezmi2
+        End If
+        If ilk.ListBox11.Index = 3 Then
+            ilk.cezmi = ilk.cezmi3
+            ilk.bezmi = ilk.bezmi3
+        End If
+        If ilk.ListBox11.Index = 4 Then
+            ilk.cezmi = ilk.cezmi4
+            ilk.bezmi = ilk.bezmi4
+        End If
+        If ilk.ListBox11.Index = 5 Then
+            ilk.cezmi = ilk.cezmi5
+            ilk.bezmi = ilk.bezmi5
+        End If
+        If ilk.ListBox11.Index = 6 Then
+            ilk.cezmi = ilk.cezmi6
+            ilk.bezmi = ilk.bezmi6
+        End If
+        If ilk.ListBox11.Index = 7 Then
+            ilk.cezmi = ilk.cezmi7
+            ilk.bezmi = ilk.bezmi7
+        End If
+        If ilk.ListBox11.Index = 8 Then
+            ilk.cezmi = ilk.cezmi8
+            ilk.bezmi = ilk.bezmi8
+        End If
+        If ilk.ListBox11.Index = 9 Then
+            ilk.cezmi = ilk.cezmi9
+            ilk.bezmi = ilk.bezmi9
+        End If
+        If ilk.ListBox11.Index = 10 Then
+            ilk.cezmi = ilk.cezmi10
+            ilk.bezmi = ilk.bezmi10
+        End If
+        ilk.katyeni
+        ilk.tamekran_Click
+    End If
+
+    myFile = Open System.User.Home &/ ".KediCAD/Acilis/sondosya.ulu" For Create
+    Print #myFile, $sPath
+    Close myFile
+    ilk.kaci = $sPath & "/" & kuzan
+    ilk.dosyami = kuzan
+
+        Catch
+	ilk.hatayaz("btn1clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button2_Click()
+
+    Me.Close
+
+End
+
+Public Sub Form_Resize()
+
+    DirChooser1.Move(0, -28, Me.Width - PictureBox1.Width, Me.Height + 28)
+    PictureBox1.Move(Me.Width - PictureBox1.Width, 0)
+    TextArea1.Move(Me.Width - TextArea1.Width, PictureBox1.Height + 10)
+    Button2.Move(Me.Width - 150, PictureBox1.Height + TextArea1.Height + 20)
+    Button1.Move(Me.Width - 150, Me.Height - 50)
+
+End
+
+Public Sub Button4_Click()
+
+    If IsDir(System.User.Home &/ "Masaüstü") Then
+        $sPath = System.User.Home &/ "Masaüstü"
+    Else
+        $sPath = System.User.Home &/ "Desktop"
+    Endif
+    DirChooser1.dir = $sPath
+    DirChooser1.Refresh
+Me.text = "KediCAD 2B OPEN FILE   " & DirChooser1.dir
+        Catch
+	ilk.hatayaz("btn4clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button3_Click()
+
+    $sPath = System.User.Home
+    DirChooser1.dir = $sPath
+    DirChooser1.Refresh
+Me.text = "KediCAD 2B OPEN FILE   " & DirChooser1.dir
+        Catch
+	ilk.hatayaz("btn3clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button5_Click()
+
+    If Exist("/media/" & System.User.Name & "/")
+        $sPath = "/media/" & System.User.Name & "/"
+    Else
+        $sPath = "/run/media/" & System.User.Name & "/"
+    Endif
+
+    DirChooser1.dir = $sPath
+    DirChooser1.Refresh
+Me.text = "KediCAD 2B OPEN FILE   " & DirChooser1.dir
+        Catch
+	ilk.hatayaz("btn5clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub DirChooser1_MouseDown()
+Me.text = "KediCAD 2B OPEN FILE   " & DirChooser1.dir
+End

@@ -1,0 +1,898 @@
+' Gambas class file
+
+Public cazgi As Czm
+Public tazgi As Ckm
+Public olcum As Float
+Public umx1 As Float
+Public umy1 As Float
+Public umx2 As Float
+Public umy2 As Float
+Public egim As Float
+Public b As Float
+Public kezmi As New Collection
+
+	
+Public Sub Form_Open()
+    ' 
+    ' Me.Move(0, 0, 800, 600)
+    Me.Maximized = True
+    DateBox1.Value = Now
+    label6.Text = DateBox1.Value
+    DrawingArea1.Background = Color.White
+    combobox1.Add("A4")
+    combobox1.Add("A3")
+    combobox1.Add("A5")
+    combobox1.Add("B5")
+    ScrollView1.Move(250, 30, Desktop.width - 260, Desktop.Height - 70)
+    te
+    olcum = 1
+    kezmi.Clear
+    For Each cazgi In ilk.cezmi
+        tazgi = New Ckm
+        If cazgi.id < 0 Then Goto atl
+        If cazgi.gor <> 0 Then Goto atl
+        tazgi.komut = cazgi.komut
+        tazgi.id = cazgi.id
+        tazgi.x1 = cazgi.x1
+        tazgi.y1 = cazgi.y1
+        tazgi.x2 = cazgi.x2
+        tazgi.y2 = cazgi.y2
+        tazgi.yazi = cazgi.yazi
+        tazgi.yazix = cazgi.yazix
+        tazgi.yaziy = cazgi.yaziy
+        tazgi.x3 = cazgi.x3
+        tazgi.y3 = cazgi.y3
+        tazgi.x4 = cazgi.x4
+        tazgi.y4 = cazgi.y4
+        tazgi.x5 = cazgi.x5
+        tazgi.y5 = cazgi.y5
+        tazgi.x6 = cazgi.x6
+        tazgi.y6 = cazgi.y6
+        tazgi.x7 = cazgi.x7
+        tazgi.y7 = cazgi.y7
+        tazgi.x8 = cazgi.x8
+        tazgi.y8 = cazgi.y8
+        tazgi.egim = cazgi.egim
+        tazgi.katman = cazgi.katman
+        tazgi.b = cazgi.b
+        tazgi.r = cazgi.r
+        tazgi.teta = cazgi.teta
+        tazgi.sekil = cazgi.sekil
+        tazgi.renk = cazgi.renk
+        tazgi.kalinlik = 1
+        tazgi.katman = cazgi.katman
+        tazgi.blok = cazgi.blok
+        tazgi.yaricap = cazgi.yaricap
+        tazgi.gor = cazgi.gor
+        kezmi.Add(tazgi, cazgi.id)
+    atl:
+    Next
+    CheckBox2.Value = True
+    CheckBox1.Value = True
+    CheckBox3.Value = True
+    ComboBox1.Index = 1
+    dusge
+    dusge2
+    dusge
+    dusge2
+    umut
+
+    DrawingArea1.Refresh
+    Catch
+	ilk.hatayaz("fopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public fdgx As Float
+Public fdgy As Float
+Public rorix As Float
+Public roriy As Float
+Public orix As Float
+Public oriy As Float
+
+Public Sub umut()
+    Dim penge, penye As Float
+
+    te
+    umx1 = basx
+    umy1 = basy
+    umx2 = sonx
+    umy2 = sony
+    penge = Abs(umx2 - umx1)
+    penye = Abs(umy2 - umy1)
+    olcum = (Min(DrawingArea1.Width / penge, DrawingArea1.Height / penye)) 
+    Label1.Text = olcum
+    Return
+        Catch
+	ilk.hatayaz("umut " & Error.Text, Error.Where & "--" & Error.code)
+End
+Public Sub dusge2()
+te
+    rorix = Max(basx, sonx) + 50
+    roriy = Min(basy, sony) 
+
+    For Each tazgi In kezmi
+            tazgi.x1 = tazgi.x1 + rorix
+            tazgi.y1 = tazgi.y1 + roriy
+            tazgi.x2 = tazgi.x2 + rorix
+            tazgi.y2 = tazgi.y2 + roriy
+            If tazgi.x3 <> 0 Then tazgi.x3 = tazgi.x3 + rorix
+            If tazgi.y3 <> 0 Then tazgi.y3 = tazgi.y3 + roriy
+            If tazgi.x4 <> 0 Then tazgi.x4 = tazgi.x4 + rorix
+            If tazgi.y4 <> 0 Then tazgi.y4 = tazgi.y4 + roriy
+            If tazgi.x5 <> 0 Then tazgi.x5 = tazgi.x5 + rorix
+            If tazgi.y5 <> 0 Then tazgi.y5 = tazgi.y5 + roriy
+            If tazgi.yazix <> 0 Then tazgi.yazix = tazgi.yazix + rorix
+            If tazgi.yaziy <> 0 Then tazgi.yaziy = tazgi.yaziy + roriy
+    Next
+    Return
+    Catch
+	ilk.hatayaz("dusge2 " & Error.Text, Error.Where & "--" & Error.code)
+End
+'
+
+Public Sub dusge()
+te
+    rorix = basx - Abs(sonx - basx) / 10
+    roriy = basy - Abs(sony - basy) / 10
+    rorix = Min(basx, sonx) - 50
+    roriy = Min(basy, sony) 
+    For Each tazgi In kezmi
+            tazgi.x1 = tazgi.x1 - rorix
+            tazgi.y1 = tazgi.y1 - roriy
+            tazgi.x2 = tazgi.x2 - rorix
+            tazgi.y2 = tazgi.y2 - roriy
+            If tazgi.x3 <> 0 Then tazgi.x3 = tazgi.x3 - rorix
+            If tazgi.y3 <> 0 Then tazgi.y3 = tazgi.y3 - roriy
+            If tazgi.x4 <> 0 Then tazgi.x4 = tazgi.x4 - rorix
+            If tazgi.y4 <> 0 Then tazgi.y4 = tazgi.y4 - roriy
+            If tazgi.x5 <> 0 Then tazgi.x5 = tazgi.x5 - rorix
+            If tazgi.y5 <> 0 Then tazgi.y5 = tazgi.y5 - roriy
+            If tazgi.yazix <> 0 Then tazgi.yazix = tazgi.yazix - rorix
+            If tazgi.yaziy <> 0 Then tazgi.yaziy = tazgi.yaziy - roriy
+    Next
+    Return
+    Catch
+	ilk.hatayaz("dusge " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public px1 As Float
+Public py1 As Float
+Public px2 As Float
+Public py2 As Float
+Public px3 As Float
+Public py3 As Float
+Public px4 As Float
+Public py4 As Float
+Public px5 As Float
+Public py5 As Float
+Public pyzx As Float
+Public pyzy As Float
+Public hgc As Float
+Public ml As Float
+Public gtr As New Float[]
+Public prx As Float
+Public pry As Float
+Public imj As Picture
+
+Public Sub DrawingArea1_Draw()
+
+    Dim hess As String
+    Dim enc, boyc, cizx2, cizy2, lx, ly, pht As Float
+Dim rkn, lw, i As Integer
+    If sht = 1
+        Draw.Scale(47, 47)
+        enc = en
+        boyc = boy
+    Else
+        enc = en
+        boyc = boy
+    Endif
+    Draw.LineWidth = 1
+    If CheckBox3.Value = False
+        Draw.line(5, 5, enc - 5, 5)
+        Draw.line(enc - 5, 5, enc - 5, boyc - 5)
+        Draw.line(enc - 5, boyc - 5, 5, boyc - 5)
+        Draw.line(5, boyc - 5, 5, 5)
+        If CheckBox2.Value = False 'portrait
+            Draw.line(5, boyc - 45, enc - 5, boyc - 45)
+            Draw.line(enc / 2, boyc - 25, enc - 5, boyc - 25)
+            Draw.line(5, boyc - 15, enc - 5, boyc - 15)
+            Draw.line(enc / 2, boyc - 35, enc - 5, boyc - 35)
+            Draw.line(enc / 2, boyc - 45, enc / 2, boyc - 5)
+            Draw.line(3 * enc / 4, boyc - 45, 3 * enc / 4, boyc - 5)
+        Else  'landscape
+            Draw.line(enc / 2, boyc - 45, enc - 5, boyc - 45)
+            Draw.line(enc / 2, boyc - 15, enc - 5, boyc - 15)
+            Draw.line(3 * enc / 4, boyc - 35, enc - 5, boyc - 35)
+            Draw.line(enc / 2, boyc - 45, enc / 2, boyc - 5)
+            Draw.line(3 * enc / 4, boyc - 45, 3 * enc / 4, boyc - 5)
+            Draw.line(7 * enc / 8, boyc - 45, 7 * enc / 8, boyc - 5)
+        Endif
+    Endif
+    If sht = 1 Then
+        Draw.Font.Size = 0.5
+    Else
+        Draw.Font.Size = 5
+    Endif
+    If CheckBox3.Value = False
+    If CheckBox2.Value = False
+        
+        Draw.Text("çizim", enc / 2 + 1, boyc - 46)
+        Draw.Text("Mühendis", enc / 2 + 1, boyc - 36)
+        Draw.Text("Onay", enc / 2 + 1, boyc - 26)
+    Else
+        Draw.Text("çizim", 3 * enc / 4 + 1, boyc - 46)
+        Draw.Text("Mühendis", 3 * enc / 4 + 1, boyc - 36)
+        Draw.Text("Onay", 3 * enc / 4 + 1, boyc - 26)
+    Endif
+    Endif
+    If sht = 1 Then
+        Draw.Font.Size = 0.7
+        If CheckBox3.Value = False
+            If label3.Text <> "" Then Draw.Text(label3.Text, label3.x, label3.y)
+        Endif
+        Draw.Font.Size = 0.5
+        If CheckBox3.Value = False
+            If label6.Text <> "" Then Draw.Text(label6.Text, label6.x, label6.y)
+            If label7.Text <> "" Then Draw.Text(label7.Text, label7.x, label7.y)
+            If label8.Text <> "" Then Draw.Text(label8.Text, label8.x, label8.y)
+            If label9.Text <> "" Then Draw.Text(label9.Text, label9.x, label9.y)
+            If label13.Text <> "" Then Draw.Text(label13.Text, label13.x, label13.y)
+            If label14.Text <> "" Then Draw.Text(label14.Text, label14.x, label14.y)
+        Endif
+    Endif
+Paint.save
+ml = 3
+ hess = secenekler.ondalik.Text
+    draw.Translate(- basx * olcum + fag, - Min(basy * olcum, sony * olcum) - fuk)
+'     paint.Scale(olcum, olcum)
+    For Each tazgi In kezmi
+        If tazgi.id < 0 Then Goto gec
+        If tazgi.gor <> 0 Then Goto gec
+        lw = tazgi.kalinlik * olcum
+        If CheckBox1.Value = False
+            rkn = tazgi.renk
+        Else
+            rkn = Color.Black
+        Endif
+
+        Draw.LineStyle = tazgi.sekil
+        
+        Paint.Brush = Paint.Color(rkn)
+        If (lw) < 1 Then lw = 1 
+        
+         Paint.LineWidth = 1
+        px1 = tazgi.x1 * olcum
+        py1 = tazgi.y1 * olcum
+        px2 = tazgi.x2 * olcum
+        py2 = tazgi.y2 * olcum
+        If tazgi.komut = 1 Then
+            Paint.MoveTo(px1, py1)
+            Paint.LineTo(px2, py2)
+            Goto gec
+        Endif
+        If tazgi.komut = 4 Then
+            Paint.Rectangle(px1, py1, px2, py2)
+            Goto gec
+        Endif
+        If tazgi.komut = 6 Then
+            Paint.MoveTo(tazgi.czx[0], tazgi.czy[0])
+            For i = 0 To tazgi.czx.Count - 3 Step 2
+                Paint.CurveTo(tazgi.czx[i], tazgi.czy[i], tazgi.czx[i + 1], tazgi.czy[i + 1], tazgi.czx[i + 2], tazgi.czy[i + 2])
+            Next
+             Goto gec
+        Endif
+        If tazgi.komut = 8 Then
+            acimi.aci(px1, py1, px2, py2)
+            cizx2 = px1 - 5000 * ilk.olcum * Cos(acimi.raci)
+            cizy2 = py1 + 5000 * ilk.olcum * Sin(acimi.raci)
+            lx = px2 + 5000 * ilk.olcum * Cos(acimi.raci)
+            ly = py2 - 5000 * ilk.olcum * Sin(acimi.raci)
+            Paint.MoveTo(cizx2, cizy2)
+            Paint.LineTo(lx, ly)
+            Goto gec
+        Endif
+        
+        hgc = tazgi.yaricap * olcum
+        If tazgi.komut = 20 Then
+            If tazgi.r < tazgi.teta Then tazgi.r = tazgi.r + 2 * Pi
+            Paint.Arc(px1, py1, hgc, - tazgi.teta, - tazgi.r + tazgi.teta)
+            Paint.Stroke
+            Goto gec
+        Endif
+        If tazgi.komut = 25 Then
+            Paint.Arc(px1, py1, hgc)
+            Goto gec
+        Endif
+        Draw.LineStyle = 1
+        If tazgi.komut = 60 Then
+             pht = tazgi.x6 * olcum / 6
+            Paint.Font.Size = pht
+            Paint.Font.Name = tazgi.fnt
+            Paint.Font.Italic = tazgi.egim
+            Paint.Font.Bold = tazgi.y6
+            Draw.Foreground = tazgi.renk
+            Paint.MoveTo(px1, py1)
+            Paint.Translate(px1, py1)
+            Paint.Text(tazgi.yazi, px1, py1 + tazgi.x6)
+            Paint.Rotate(tazgi.y4)
+           If pht < 1 Then paint.Scale(pht, pht)
+             Paint.Translate(- px1, - py1)
+              Paint.Stroke
+             Paint.MoveTo(px1, py1)
+            Paint.Translate(px1, py1)
+            If pht < 1 Then paint.Scale(1 / pht, 1 / pht)
+            Paint.Rotate(- tazgi.y4)
+             Paint.Translate(- px1, - py1)
+            Goto gec
+        End If
+        pht = tazgi.y6 * olcum / 6
+        py3 = tazgi.y3 * olcum
+        px4 = tazgi.x4 * olcum
+        py4 = tazgi.y4 * olcum
+        px5 = tazgi.x5 * olcum
+        py5 = tazgi.y5 * olcum
+        pyzx = tazgi.yazix * olcum
+        pyzy = tazgi.yaziy * olcum
+        If tazgi.komut = 90 Or tazgi.komut = 120  ' eğik ölçü
+            Paint.Font.Size = pht
+            Paint.MoveTo(px2, py2)
+            Paint.LineTo(px5, py5)
+            Paint.LineTo(px4, py4)
+            Paint.LineTo(px1, py1)
+            Paint.Arc(px4, py4, 3 / olcum)
+            Paint.Arc(px5, py5, 3 / olcum)
+            Paint.Stroke
+            Paint.MoveTo(pyzx, pyzy)
+            Paint.Translate(pyzx, pyzy)
+            Paint.Text(Round(tazgi.yazi, - tazgi.sekil), pyzx + pht, pyzy + pht)
+            Paint.Rotate(tazgi.x6)
+            If pht < 1 Then paint.Scale(pht, pht)
+             Paint.Translate(- pyzx, - pyzy)
+              Paint.Stroke
+             Paint.MoveTo(pyzx, pyzy)
+            Paint.Translate(pyzx, pyzy)
+            Paint.Rotate(- tazgi.x6)
+            If pht < 1 Then paint.Scale(1 / pht, 1 / pht)
+             Paint.Translate(- pyzx, - pyzy)
+            Goto gec
+        End If
+        If tazgi.komut = 100  ' |_|
+            Paint.Font.Size = pht
+            Paint.MoveTo(px2, py2)
+            Paint.LineTo(px5, py5)
+            Paint.LineTo(px4, py4)
+            Paint.LineTo(px1, py1)
+            Paint.Arc(px4, py4, 3 / olcum)
+            Paint.Arc(px5, py5, 3 / olcum)
+            Paint.Text(Round(tazgi.yazi, - tazgi.sekil), pyzx - pht / 2, pyzy - pht)
+            Goto gec
+        End If
+        If tazgi.komut = 105 ' =|
+            Paint.Font.Size = pht
+            Paint.MoveTo(px2, py2)
+            Paint.LineTo(px5, py5)
+            Paint.LineTo(px4, py4)
+            Paint.LineTo(px1, py1)
+            Paint.Arc(px4, py4, 3 / olcum)
+            Paint.Arc(px5, py5, 3 / olcum)
+            Paint.Stroke
+            Paint.MoveTo(pyzx, pyzy)
+            Paint.Translate(pyzx, pyzy)
+            Paint.Text(Round(tazgi.yazi, - tazgi.sekil), pyzx - pht, pyzy)
+            Paint.Rotate(tazgi.x6)
+            If pht < 1 Then paint.Scale(pht, pht)
+             Paint.Translate(- pyzx, - pyzy)
+              Paint.Stroke
+             Paint.MoveTo(pyzx, pyzy)
+            Paint.Translate(pyzx, pyzy)
+            Paint.Rotate(- tazgi.x6)
+            If pht < 1 Then paint.Scale(1 / pht, 1 / pht)
+             Paint.Translate(- pyzx, - pyzy)
+            Goto gec
+        End If
+        
+        If tazgi.komut = 110 Then  ' açı ölçü
+            Paint.Font.Size = pht
+            If tazgi.teta < tazgi.r Then tazgi.teta = tazgi.teta + 2 * Pi
+            Paint.Arc(px1, py1, hgc, - tazgi.r, - tazgi.teta + tazgi.r)
+            Paint.Stroke
+            Paint.MoveTo(pyzx, pyzy)
+            Paint.Translate(pyzx, pyzy)
+            Paint.Text(Round(tazgi.yazi, - tazgi.sekil), pyzx, pyzy + pht)
+            Paint.Rotate(tazgi.x8)
+            If pht < 1 Then paint.Scale(pht, pht)
+             Paint.Translate(- pyzx, - pyzy)
+              Paint.Stroke
+             Paint.MoveTo(pyzx, pyzy)
+            Paint.Translate(pyzx, pyzy)
+            Paint.Rotate(- tazgi.x8)
+            If pht < 1 Then paint.Scale(1 / pht, 1 / pht)
+             Paint.Translate(- pyzx, - pyzy)
+            Goto gec
+        End If
+         pht = tazgi.x6 / 6
+        If tazgi.komut = 190 Then  ' yarıçap ölçü
+            Paint.Font.Size = pht
+             Paint.MoveTo(px1, py1)
+             Paint.LineTo(pyzx, pyzy)
+             Paint.Arc(px5, py5, 3 / olcum)
+             Paint.Arc(px1, py1, 3 / olcum)
+             Paint.Stroke
+            Paint.MoveTo(pyzx, pyzy)
+            Paint.Translate(pyzx, pyzy)
+            Paint.Text("R= " & Round(tazgi.yazi, - tazgi.sekil), pyzx, pyzy + pht)
+            
+            Paint.Rotate(tazgi.x6)
+            If pht < 1 Then paint.Scale(pht, pht)
+             Paint.Translate(- pyzx, - pyzy)
+              Paint.Stroke
+             Paint.MoveTo(pyzx, pyzy)
+            Paint.Translate(pyzx, pyzy)
+            Paint.Rotate(- tazgi.x6)
+            If pht < 1 Then paint.Scale(1 / pht, 1 / pht)
+             Paint.Translate(- pyzx, - pyzy)
+            Goto gec
+        End If
+        If tazgi.komut = 200 Then   ' çap ölçü
+            Paint.Font.Size = pht 
+            Paint.MoveTo(px4, py4)
+             Paint.LineTo(px5, py5)
+             Paint.Arc(px5, py5, 3 / olcum)
+             Paint.Arc(px4, py4, 3 / olcum)
+             If tazgi.y6 = 3
+                If tazgi.x6 = 1
+                    Paint.MoveTo(px4, py4)
+                    Paint.LineTo(pyzx, pyzy)
+                Else
+                    Paint.MoveTo(px5, py5)
+                    Paint.LineTo(pyzx, pyzy)
+                End If
+            End If
+            
+            Paint.Stroke
+            Paint.MoveTo(pyzx, pyzy)
+            Paint.Translate(pyzx, pyzy)
+            Paint.Text("D= " & Round(tazgi.yazi, - tazgi.sekil), pyzx, pyzy + pht)
+            Paint.Rotate(tazgi.x8)
+            If pht < 1 Then paint.Scale(pht, pht)
+             Paint.Translate(- pyzx, - pyzy)
+              Paint.Stroke
+             Paint.MoveTo(pyzx, pyzy)
+            Paint.Translate(pyzx, pyzy)
+            Paint.Rotate(- tazgi.x8)
+            If pht < 1 Then paint.Scale(1 / pht, 1 / pht)
+             Paint.Translate(- pyzx, - pyzy)
+            Goto gec
+        End If
+
+        If tazgi.komut = 242 Then  ' nokta çizimi
+            Paint.Arc(px1, py1, 1 / olcum)
+        End If
+    gec:
+    Paint.Stroke
+    Next
+' paint.Scale(1 / olcum, 1 / olcum)
+    Paint.Stroke
+    Paint.Restore
+    Catch
+	ilk.hatayaz("DrawingArea1_Draw " & Error.Text, Error.Where & "--" & Error.code)
+	Paint.Stroke
+    Paint.Restore
+End
+
+Public fag As Integer
+Public fuk As Integer
+Public tt As Integer
+Public en As Integer
+Public boy As Integer
+Public buyuk As Integer
+
+
+Public Sub CheckBox2_Click()
+
+    ComboBox1_Change
+
+End
+
+Public yuk As Integer
+Public sag As Integer
+
+Public Sub Button4_Click()
+
+    fag = fag + 10
+    DrawingArea1.Refresh
+
+End
+
+Public Sub Button5_Click()
+
+    fag = fag - 10
+
+    DrawingArea1.Refresh
+
+End
+
+Public Sub Button6_Click()
+
+    fuk = fuk - 10
+    DrawingArea1.Refresh
+
+End
+
+Public Sub Button7_Click()
+
+    fuk = fuk + 10
+    DrawingArea1.Refresh
+
+End
+
+Public onx As Integer
+Public ony As Integer
+
+Public Sub Button9_Click()
+
+    olcum = olcum * 1.05
+    DrawingArea1.Refresh
+    Label1.Text = Round(olcum, -2)
+
+End
+
+Public Sub Button8_Click()
+
+    olcum = olcum / 1.05
+    DrawingArea1.Refresh
+    Label1.Text = Round(olcum, -2)
+
+End
+
+Public Sub DrawingArea1_MouseMove()
+
+    DrawingArea1.Refresh
+
+End
+
+Public Sub CheckBox1_Click()
+
+    DrawingArea1.Refresh
+
+End
+
+Public Sub Button3_Click()
+
+    Me.Close
+
+End
+
+Public CurrentPage As Integer
+Public ax As Float
+Public ay As Float
+Public cx As Float
+Public cy As Float
+
+Public Sub a4(boya As Float, ena As Float, Optional scl As Float)
+
+    Dim bx, by, dx, dy As Float
+
+    If scl Then
+    Else
+        scl = 1
+    Endif
+    ax = ((boya - boya) / 2 + sag) * scl
+    ay = ((ena - ena) / 2 + en + yuk) * scl
+    bx = ax * scl
+    by = (ay - ena) * scl
+    cx = (ax + boya) * scl
+    cy = by * scl
+    dx = cx * scl
+    dy = ay * scl
+    Draw.Line(ax, ay, bx, by)
+    Draw.Line(bx, by, cx, cy)
+    Draw.Line(cx, cy, dx, dy)
+    Draw.Line(ax, ay, dx, dy)
+    Draw.Line(ax + 10, ay - 10, bx + 10, by + 10)
+    Draw.Line(bx + 10, by + 10, cx - 10, cy + 10)
+    Draw.Line(cx - 10, cy + 10, dx - 10, dy - 10)
+    Draw.Line(ax + 10, ay - 10, dx - 10, dy - 10)
+    ' Draw.Text("bas", ax, ay)
+    ' Draw.Text("son", cx, cy)
+    If boya > ena
+        cx = ax + boya - ena
+    Else
+        cx = ax + 10
+    Endif
+    cy = dy - 50
+    Draw.Line(cx, dy - 20, cx + 100, dy - 20)
+    Draw.Line(cx, dy - 30, cx + 100, dy - 30)
+    Draw.Line(cx, dy - 40, dx - 10, dy - 40)
+    Draw.Line(cx, dy - 50, dx - 10, dy - 50)
+    Draw.Line(cx, cy, cx, dy - 10)
+    Draw.Line(cx + 60, cy, cx + 60, cy + 40)
+    Draw.Line(cx + 100, cy, cx + 100, cy + 40)
+    Draw.Line(cx + 150, cy, cx + 150, cy + 10)
+
+    Return
+    Catch
+	ilk.hatayaz("a4 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Printer1_Begin()
+
+    Printer1.Resolution = 1200
+    ' Set the number of pages
+    Printer1.Count = 1
+
+End
+
+Public Sub Printer1_Draw()
+
+    DrawingArea1_Draw()
+
+End
+
+Public Sub CheckBox3_Click()
+
+    DrawingArea1.Refresh
+    If CheckBox3.Value = True
+        label3.Visible = False
+        label4.Visible = False
+        label5.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label8.Visible = False
+        label9.Visible = False
+
+        label13.Visible = False
+        label14.Visible = False
+    Else
+        label3.Visible = True
+        label4.Visible = True
+        label5.Visible = True
+        label6.Visible = True
+        label7.Visible = True
+        label8.Visible = True
+        label9.Visible = True
+
+        label13.Visible = True
+        label14.Visible = True
+    Endif
+    Catch
+	ilk.hatayaz("chckbx3clkc " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public sht As Integer
+
+Public Sub Button2_Click()
+
+    sht = 1
+    If Printer1.Configure() Then Return
+
+    Printer1.Print
+    Me.Close
+
+End
+
+
+Public basx As Float
+Public basy As Float
+Public sonx As Float
+Public sony As Float
+
+Public Sub te()
+
+    ilk.mesgul = 1
+    basx = 10000000
+    basy = 10000000
+    sonx = -10000000
+    sony = -10000000
+    For Each tazgi In kezmi
+        If tazgi.id < 0 Then Goto gecgit
+        If tazgi.komut = 242 Then Goto gecgit
+        If tazgi.komut = 60 Then Goto gecgit
+        If tazgi.gor <> 0 Then Goto gecgit
+        If tazgi.komut = 20 Then Goto gecgit2
+        basx = Min(basx, tazgi.x1)
+        basy = Min(basy, tazgi.y1)
+        sonx = Max(sonx, tazgi.x1)
+        sony = Max(sony, tazgi.y1)
+    gecgit2:
+        basx = Min(basx, tazgi.x2)
+        basy = (Min(basy, tazgi.y2))
+        sonx = Max(sonx, tazgi.x2)
+        sony = (Max(sony, tazgi.y2))
+    gecgit:
+    Next
+
+    ilk.mesgul = 0
+    Return
+    Catch
+	ilk.hatayaz("te " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ComboBox1_Change()
+
+    Dim df, dr, dt, ds As Integer
+    'Printer1.Paper =3 =>A5
+    'Printer1.Paper =2=>A4
+    'Printer1.Paper =1=>A3
+    'Printer1.Paper =0=>A4
+    'Printer1.Paper =4=>B5
+    'Printer1.Paper =5=>letter
+    ' Printer1.Orientation = 1   => landscape
+    ' Printer1.Orientation = 0  => portrait
+    ' combobox1.Add("A4")
+    ' combobox1.Add("A3")
+    ' combobox1.Add("A5")
+    ' combobox1.Add("B5")
+
+    If combobox1.index = 0
+        Printer1.Paper = 2
+        If CheckBox2.Value = False
+            en = 210
+            boy = 297
+            Printer1.Orientation = 0
+
+        Else
+            en = 297
+            boy = 210
+            Printer1.Orientation = 1
+        Endif
+    Else If combobox1.index = 1
+        Printer1.Paper = 1
+        If CheckBox2.Value = False
+            en = 297
+            boy = 420
+            Printer1.Orientation = 0
+
+        Else
+            en = 420
+            boy = 297
+            Printer1.Orientation = 1
+        Endif
+    Else If combobox1.index = 2
+        Printer1.Paper = 3
+        If CheckBox2.Value = False
+            en = 148
+            boy = 210
+            Printer1.Orientation = 0
+        Else
+            en = 210
+            boy = 148
+            Printer1.Orientation = 1
+        Endif
+    Else
+        Printer1.Paper = 5
+        If CheckBox2.Value = False
+            en = 182
+            boy = 257
+            Printer1.Orientation = 0
+        Else
+            en = 257
+            boy = 182
+            Printer1.Orientation = 1
+        Endif
+    Endif
+    ' en = en * 2
+    ' boy = boy * 2
+    If CheckBox2.Value = False
+        label3.Move(6, boy - 46, 98, 28)
+        label6.Move(6, boy - 17)
+        label7.Move(3 * en / 4 + 1, boy - 46)
+        label8.Move(3 * en / 4 + 1, boy - 36)
+        label9.Move(3 * en / 4 + 1, boy - 26)
+
+        label13.Move(en / 2 + 1, boy - 16)
+        label14.Move(3 * en / 4 + 1, boy - 16)
+    Else
+        label3.Move(en / 2 + 1, boy - 46, 78, 28)
+        label6.Move(en / 2 + 1, boy - 17)
+        label7.Move(7 * en / 8 + 1, boy - 46)
+        label8.Move(7 * en / 8 + 1, boy - 36)
+        label9.Move(7 * en / 8 + 1, boy - 26)
+
+        label13.Move(3 * en / 4 + 1, boy - 16)
+        label14.Move(7 * en / 8 + 1, boy - 16)
+    Endif
+    df = Max(en, boy)
+    dr = Min(en, boy)
+    dt = Abs(sonx - basx)
+    ds = Abs(sony - basy)
+    olcum = Abs(Min(df / dt, dr / ds))
+    If tt = 0
+        dusge
+        tt = 1
+    End If
+    DrawingArea1.Move((ScrollView1.W / 2) - (en / 2), (ScrollView1.h / 2) - (boy / 2), en, boy)
+    DrawingArea1.Refresh
+    Catch
+	ilk.hatayaz("cmbbxchnge " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Label3_DblClick()
+
+    label3.Text = "Project \n" & InputBox("Project Name", "KediCAD", "Crane 3x10 MT")
+
+End
+
+Public Sub Label6_DblClick()
+
+    label6.Text = InputBox("Date", "KediCAD", DateBox1.Value)
+
+End
+
+Public Sub Label7_DblClick()
+
+    label7.Text = InputBox("Drawing", "KediCAD", "A.ULUSOY")
+
+End
+
+Public Sub Label8_DblClick()
+
+    label8.Text = InputBox("Engineer", "KediCAD", "A.ULUSOY")
+
+End
+
+Public Sub Label9_DblClick()
+
+    label9.Text = InputBox("Appr.", "KediCAD", "A.ULUSOY")
+
+End
+
+Public Sub Label13_DblClick()
+
+    label13.Text = "Scale" & InputBox("Scale", "KediCAD", "1")
+
+End
+
+Public Sub Label14_DblClick()
+
+    label14.Text = InputBox("Not", "KediCAD", " ")
+
+End
+
+Public Sub CheckBox4_Click()
+
+    Dim myFile As File
+
+    If CheckBox4.Value = True Then
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/yazici" For Create
+        Print #myFile, label3.Text
+        Print #myFile, label6.Text
+        Print #myFile, label7.Text
+        Print #myFile, label8.Text
+        Print #myFile, label9.Text
+
+        Print #myFile, label13.Text
+        Print #myFile, label14.Text
+        Close #myFile
+    Endif
+    Catch
+	ilk.hatayaz("chckbx4clkc " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub CheckBox5_Click()
+
+    Dim myFile As File
+    Dim myLine As String
+    Dim doza As Integer
+
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/yazici")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/yazici" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                doza = doza + 1
+                If doza = 2 Then label3.Text = "Project \n" & (myLine)
+                If doza = 3 Then label6.Text = (myLine)
+                If doza = 4 Then label7.Text = (myLine)
+                If doza = 5 Then label8.Text = (myLine)
+                If doza = 6 Then label9.Text = (myLine)
+                If doza = 7 Then label13.Text = (myLine)
+                If doza = 8 Then label14.Text = (myLine)
+            Wend
+        End If
+        Close myFile
+    End If
+    Catch
+	ilk.hatayaz("chckbx5clkc " & Error.Text, Error.Where & "--" & Error.code)
+End

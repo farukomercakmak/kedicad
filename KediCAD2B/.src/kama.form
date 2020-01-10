@@ -1,0 +1,133 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,476,420)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  { Label33 Label
+    Move(7,196,136,40)
+    Text = ("Moment of \nrotate(kgf.cm.)")
+  }
+  { PictureBox6 PictureBox
+    Move(0,0,472,160)
+    Picture = Picture["Resim/kama.png"]
+    Stretch = True
+    Border = Border.Sunken
+  }
+  { mdo TextBox
+    Move(144,200,72,32)
+    Text = ("6266")
+  }
+  { Label35 Label
+    Move(7,168,128,24)
+    Text = ("Axle Dia. (D) mm. : ")
+  }
+  { mcp TextBox
+    Move(144,160,72,32)
+    Text = ("90")
+  }
+  { Label37 Label
+    Move(245,168,147,49)
+    Text = ("Material Safety \npressure  stress\n (kgf/cm^2)")
+  }
+  { ezemn TextBox
+    Move(392,176,72,32)
+    Text = ("900")
+  }
+  { Label38 Label
+    Move(245,217,147,49)
+    Text = ("Material Safety shear \nstress(kgf/cm^2)")
+  }
+  { kesemn TextBox
+    Move(400,224,64,32)
+    Text = ("500")
+  }
+  { Button6 Button
+    Move(0,376,104,40)
+    Text = ("Solve")
+    Picture = Picture["icon:/medium/calculator"]
+  }
+  { Frame4 Frame
+    Move(0,266,469,105)
+    Text = ("Results")
+    { l TextBox
+      Move(203,21,70,28)
+      ReadOnly = True
+    }
+    { Label39 Label
+      Move(7,21,196,21)
+      Text = ("Min. Wedge legth (L)mm.")
+    }
+    { b Label
+      Move(176,48,105,21)
+      Expand = True
+    }
+    { has Label
+      Move(32,48,105,21)
+      Expand = True
+    }
+    { t1 Label
+      Move(368,48,96,24)
+      Expand = True
+    }
+    { t2 Label
+      Move(368,72,104,24)
+      Expand = True
+    }
+    { bee Label
+      Move(176,80,105,21)
+      Expand = True
+    }
+    { hee Label
+      Move(32,72,98,28)
+      Expand = True
+    }
+    { Label43 Label
+      Move(288,8,112,24)
+    }
+    { Label1 Label
+      Move(328,48,32,24)
+      Text = ("t1 =")
+    }
+    { Label2 Label
+      Move(328,72,32,24)
+      Text = ("t2=")
+    }
+    { Label3 Label
+      Move(144,80,32,24)
+      Text = ("B=")
+    }
+    { Label4 Label
+      Move(144,48,24,24)
+      Text = ("b=")
+    }
+    { Label5 Label
+      Move(8,48,16,24)
+      Text = ("h=")
+    }
+    { Label6 Label
+      Move(8,72,16,24)
+      Text = ("H=")
+    }
+  }
+  { Button1 Button
+    Move(384,376,88,40)
+    Text = ("Close")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+  { Button2 Button
+    Move(112,376,144,40)
+    Text = ("Record Results")
+    Picture = Picture["standart/save.png"]
+  }
+  { Button3 Button
+    Move(256,376,112,40)
+    Text = ("Draw")
+    Picture = Picture["standart/draw-path.png"]
+  }
+  { Button4 Button
+    Move(7,238,208,24)
+    Text = ("Calculate moment")
+  }
+}

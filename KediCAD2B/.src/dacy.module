@@ -1,0 +1,2218 @@
+' Gambas module file
+
+Public kyno As Integer
+Public byno As Integer
+Public sm As Integer
+Public bgh As Integer
+Public ilkColor As Integer
+Public ilksekil As Integer
+Public ilkkalina As Integer
+Public goz As Integer
+Public somut As Integer
+
+Public myLine As String
+Public blokad As String
+Public ical As String
+Public blkref As String
+Public katim As String
+Public katad As String
+Public olcum As String
+Public pdx As New String[]
+Public pdy As New String[]
+Public sdx As New String[]
+Public sdy As New String[]
+Public vdx As New String[]
+Public vdy As New String[]
+Public bloklar As New String[]
+Public kata As New String[]
+
+Public cazgi As New Czm
+Public nazgi As New Tzm
+Public bazgi As Cvb
+Public yazgi As Czm
+Public altmis As Integer
+Private csp As Csplit
+Public yksk As Float
+Private tiz As New Cizim
+
+
+Public Sub dxf()
+
+    Dim myFile As File
+    Dim ono, onbir, oniki, onuc, ondort, onbes, onalti, yirmi, yirmibir, yirmiiki, yirmiuc, yirmidort, yirmibes, yirmialti, olc, yn, yzyk, iotuz As Float
+    Dim kirk, kirkbir, kirkiki, kirkuc, kirkdort, kirkbes, elli, ellibir, yazyuk, yazolcu, yetmis, yetmisbir, yetmisuc, doksan, altmisyedi As Float
+    Dim ona, komut, onla, orth, grid, gridvar, ib, komuty, yzm, ince As Integer
+    Dim bir, yedi, yuz, gkat, orto, yazim, km, dg, cm, ybir, bolum As String
+    csp = New Csplit
+    tiz = New Cizim
+    Inc Application.Busy
+    ilk.calanilk.Enabled = False
+
+    
+    If Exist(ilk.kaci) Then
+        myFile = Open ilk.kaci For Read
+    Else
+        Message("There is not  " & ilk.kaci)
+        Goto cik
+    Endif
+    kyno = 1
+    ilk.tezmi.Clear
+    bloklar.Clear
+    kata.Clear
+    pdx.Clear
+    pdy.Clear
+    sdx.Clear
+    sdy.Clear
+    vdx.Clear
+    vdy.Clear
+     ono = 0
+     iotuz = 0
+            onbir = 0
+            onuc = 0
+            ondort = 0
+            onbes = 0
+            onalti = 0
+            yirmi = 0
+            yirmibir = 0
+            yirmiuc = 0
+            yirmidort = 0
+            yirmibes = 0
+            yirmialti = 0
+            kirk = 0
+            kirkbir = 0
+            kirkiki = 0
+            kirkdort = 0
+            kirkbes = 0
+            elli = 0
+            yetmis = 1
+            doksan = 0
+            komut = komuty
+            komuty = 0
+            blokad = ""
+            ona = 0
+                ilksekil = 1
+                ilkColor = 0
+                goz = 0
+                ical = ""
+    somut = 0
+    komut = 0
+    sm = 0
+    ona = 0
+    yazolcu = -1
+    ilk.calanilk.Clear
+    ilk.katmer.Clear
+    ilk.bezmi.Clear
+    ilk.olcum = 1
+    ilk.mesgul = 1
+    onla = 1000
+    orth = 1000
+    If ilk.kaci <> System.User.Home &/ ".KediCAD/ac.dxf"
+        torba5.basim
+        baskatman
+        ilk.Text = "KediCAD2B " & " ~  " & ilk.kaci
+    Endif
+    While Not Eof(myFile)
+        Line Input #myFile, myLine
+        cm = km
+        km = myLine
+        myLine = Trim(myLine)
+        If myLine = "CLASSES" Then
+            somut = 0
+            bolum = "CLASSES" 
+            ical = ""
+        Endif
+        If myLine = "TABLES" Then
+            bolum = "TABLES" 
+            somut = 0
+            ical = ""
+        Endif
+        If myLine = "ENTITIES" Then
+            bolum = "ENTITIES" 
+            somut = 0
+            ical = ""
+        Endif
+        If myLine = "BLOCKS" Then 
+            somut = 12
+            bolum = "BLOCKS" 
+        Endif
+        If myLine = "OBJECTS" Then 
+               somut = 0
+             bolum = "OBJECTS" 
+             ical = ""
+        Endif
+        If cm = "0.0" Or cm = "1.0" Then
+            If myLine = "0" Then
+                ona = 766
+                komuty = 0
+                Goto atla
+            Endif
+        Endif
+        
+        If komut = 60 Or komut = 61 
+            If IsInteger(myLine)
+            Else If IsFloat(myLine)
+            Else
+                If Trim(cm) = 1
+                    If myLine <> "" Then ybir = km
+                Endif
+            Endif
+         Endif
+         If myLine = "ENDTAB" Then 
+            ona = 766
+            komuty = 0
+            Goto atla
+        Endif
+        If myLine = "ENDSEC" Then 
+            ona = 766
+            komuty = 0
+            Goto atla
+        Endif
+        If myLine = "SECTION" Then 
+            ona = 766
+            komuty = 0
+            Goto atla
+        Endif
+        If myLine = "EOF" Then 
+            ona = 766
+            komuty = 0
+            Goto atla
+        Endif
+        If myLine = "$INSUNITS" Then orth = 30  ' ön tanımlı yazı büyüklüğü
+        If myLine = "$TEXTSIZE" Then orth = 10  ' ön tanımlı yazı büyüklüğü
+        If myLine = "$DIMTXT" Then orth = 20  '  ölçü yazı büyüklüğü
+        If myLine = "$CLAYER" Then onla = 1  
+        If myLine = "$CMLSCALE" Then orth = 1
+        If myLine = "$GRIDMODE" Then grid = 0
+        
+'         If drn = 0 Then Goto son
+        If myLine = "BLOCK" Then ' 
+            komuty = 0 
+            ona = 766 
+        Endif
+        If myLine = "AcDbBlockEnd" Then
+            ona = 766
+            komuty = 0
+            ilksekil = 1
+            ilkColor = 0
+            goz = 0
+        Endif
+        If myLine = "SEQEND" Then
+            If vdx.Count > 0 Then vertex(yetmis, iotuz)
+            komuty = 0
+            ona = 766
+        End If
+        '/////////////////////////ÇİZİM  KOMUTLARI  //////////////////
+        If myLine = "LINE" Then
+            ona = 766
+            komuty = 1
+        Endif
+        If myLine = "MLINE" Then
+            ona = 766
+            komuty = 1
+        Endif
+        If myLine = "XLINE" Then
+            ona = 766
+            komuty = 2
+        Endif
+        If myLine = "ARC" Then
+            ona = 766
+            komuty = 20
+        Endif
+
+        If myLine = "CIRCLE" Then
+            ona = 766
+            komuty = 25
+        Endif
+        If myLine = "TEXT" Then
+            ona = 766
+            komuty = 60
+        Endif
+        If myLine = "ATTDEF" Then
+            ona = 766
+            komuty = 60
+        Endif
+        If myLine = "ATTRIB" Then
+            ona = 0
+            komut = 60
+        Endif
+        If myLine = "MTEXT" Then
+            ona = 766
+            komuty = 61
+        Endif
+        If myLine = "POINT" Then
+            ona = 766
+            komuty = 242
+        Endif
+        If myLine = "DIMENSION" Then
+            ona = 766
+            komuty = 100
+            
+        Endif
+        If myLine = "VERTEX" Then
+                komut = 5
+                ona = 0
+        Endif
+        If myLine = "POLYLINE" Then
+            ona = 766
+            komuty = 6
+        Endif
+        If myLine = "LWPOLYLINE" Then
+            ona = 766
+            komuty = 6
+            Goto bura
+        Endif
+        If myLine = "SPLINE" Then
+            ona = 766
+            komuty = 8
+        Endif
+        If myLine = "LEADER" Then
+            ona = 766
+            komuty = 6
+        Endif
+        If myLine = "TRACE" Then
+            komuty = 7
+            ona = 766
+            Goto bura
+        Endif
+        If myLine = "LAYER" Then
+            komuty = 12
+            ona = 766
+        Endif
+        If myLine = "INSERT" Then
+            ona = 766
+            komuty = 17
+        Endif
+        ' //////////////KULLANILMAYAN KOMUTLAR  //////////////////
+        
+        If myLine = "3DFACE" Then
+            ona = 766
+            komuty = 0
+        Endif
+        If myLine = "3DSOLID" Then
+            ona = 766
+            komuty = 0
+        Endif
+        
+        If myLine = "BODY" Then
+            ona = 766
+            komuty = 0
+        Endif
+        If myLine = "ELLIPSE" Then
+            ona = 766
+            komuty = 0
+        Endif
+        If myLine = "HATCH" Then
+            ona = 766
+            komuty = 0
+        Endif
+        If myLine = "IMAGE" Then
+            ona = 766
+            komuty = 0
+            
+        Endif
+        If myLine = "MLINE" Then
+            ona = 766
+            komuty = 0
+        Endif
+        If myLine = "OLEFRAME" Then
+            ona = 766
+            komuty = 0
+        Endif
+        If myLine = "OLE2FRAME" Then
+            ona = 766
+            komuty = 0
+        Endif
+        If myLine = "RAY" Then
+            ona = 766
+            komuty = 0
+        Endif
+        If myLine = "REGION" Then
+            ona = 766
+            komuty = 0
+        Endif
+        If myLine = "SHAPE" Then
+            ona = 766
+            komuty = 0
+        Endif
+        If myLine = "SOLID" Then
+            ona = 766
+            komuty = 0
+        Endif
+        If myLine = "TOLERANCE" Then
+            ona = 766
+            komuty = 0
+        Endif
+        If myLine = "VIEWPORT" Then
+            ona = 766
+            komuty = 0
+        Endif
+        '/////////////////   ÇİZİMLERİN ÖZELLİKLERİ  ALNIYOR   /////////////7
+        If ona = 0 Then Goto bura
+        If ona = 187
+            ' If Left(km) = "{" Then
+            '      km = Left(km, -1)
+            '      km = Right(km, -1)
+            '  Endif
+             bir = km
+             yazim = km
+            ona = 0
+'             Goto atla
+        Endif
+        If ona = 287
+            If komut = 12 Then
+                katad = myLine
+            Else If komut = 17 Then 
+                blkref = km
+            Else
+                blokad = km
+            Endif
+            If ical = "" Then ical = km
+            ona = 0
+'             Goto atla
+        Endif
+        If ona = 387
+            If myLine Like "Fill*" Then 
+                komut = 0
+                komuty = 0
+                ona = 766
+                Goto atla
+            Endif
+             ical = km
+            ona = 0
+'             Goto atla
+        Endif
+        If ona = 687
+            sekci(myLine)
+            ona = 0
+        Endif
+        If ona = 787
+            yedi = myLine
+            ona = 0
+'             Goto atla
+        Endif
+        If ona = 887
+            katim = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 1087
+            ono = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 1187
+            onbir = myLine
+            ona = 0
+'             Goto atla
+        Endif
+        If ona = 1287
+            oniki = myLine
+            ona = 0
+'             Goto atla
+        Endif
+        If ona = 1387
+            onuc = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 1487
+            ondort = myLine
+            ona = 0
+'             Goto atla
+        Endif
+        If ona = 1587
+            onbes = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 1687
+            onalti = myLine
+            ona = 0
+            Goto atla
+        Endif
+
+        If ona = 2087
+            yirmi = myLine
+            If ono <> 0
+                    If komut = 5 Then  ' vertex
+                        vdx.Add(ono)
+                        vdy.Add(yirmi)
+                    Endif
+                    If komut = 8 Then  ' spline
+                        sdx.Add(ono)
+                        sdy.Add(yirmi)
+                    Endif
+                    If komut = 6 Then  'poliline
+                        pdx.Add(ono)
+                        pdy.Add(yirmi)
+                    Endif
+                Endif
+            ona = 0
+'             Goto atla
+        Endif
+
+        If ona = 2187
+            yirmibir = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 2287
+            yirmiiki = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 2387
+            yirmiuc = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 2487
+            yirmidort = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 2587
+            yirmibes = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 2687
+            yirmialti = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 3987
+            If IsFloat(myLine) = 1
+                ilkkalina = myLine
+                If ilkkalina = 0 Then
+                    ilkkalina = 1
+                Else
+                    ilkkalina = ilkkalina / 100
+                Endif
+                If ilkkalina > 5 Then ilkkalina = 5
+            Else
+                ilkkalina = 1
+            Endif
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 4087
+            kirk = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 4187
+            kirkbir = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 4287
+            kirkiki = myLine
+            If komut = 100 Then yazolcu = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 4387
+            kirkuc = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 4487
+            kirkdort = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 4587
+            kirkbes = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 5087
+            elli = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 5187
+            ellibir = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 6087
+            altmis = myLine
+            goz = 0
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 6287
+            renkci(myLine)
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 6787
+            altmisyedi = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 7087
+            yetmis = myLine
+            If grid = 1 Then gridvar = 1
+            If komut = 100 Then olc = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 7187
+            yetmisbir = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 7387
+            yetmisuc = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 9087
+            doksan = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 10087
+            yuz = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 14187
+            yksk = myLine
+            ona = 0
+            Goto atla
+        Endif
+        If ona = 23087
+            iotuz = myLine
+            ona = 0
+            Goto atla
+        Endif
+        ' ////////////////   ÇİZİM ÖZELLİKLERİ İÇİN SAYILAR BELİRLENİYOR.. ///////
+    bura:
+        If myLine = "1" Then ona = 187   ' yazı
+        If myLine = "2" Then ona = 287   ' yazı blok adı
+        If myLine = "3" Then ona = 387    'blok adı
+        If myLine = "4" Then ona = 287    'yazı
+        If myLine = "6" Then ona = 687  ' çizgi şekli
+        If myLine = "7" Then ona = 787   ' yazı fontu
+        If myLine = "8" Then ona = 887    'katman adı
+        
+        If myLine = "10" Then ona = 1087  'x1
+        If myLine = "11" Then ona = 1187  'x2
+        If myLine = "12" Then ona = 1287  'x3. vertex
+        If myLine = "13" Then ona = 1387  'x4 ölçü birinci nokta
+        If myLine = "14" Then ona = 1487   'x5    ölçü ikinci nokta
+        If myLine = "15" Then ona = 1587
+        If myLine = "16" Then ona = 1687
+
+        If myLine = "20" Then ona = 2087  'y1
+        If myLine = "21" Then ona = 2187  'y2
+        If myLine = "22" Then ona = 2287  'y3   vertex
+        If myLine = "23" Then ona = 2387  'y4 . ölçü birinci nokta
+        If myLine = "24" Then ona = 2487   'y5    ölçü ikinci nokta
+        If myLine = "25" Then ona = 2587
+        If myLine = "26" Then ona = 2687
+        If myLine = "39" Then ona = 3987     ' yazı kalınlığı
+        
+        If myLine = "40" Then ona = 4087   'yarıçap.ve.yazı yüksekliği
+        If myLine = "41" Then ona = 4187      ' blok x ölçeği
+        If myLine = "42" Then ona = 4287      ' blok y ölçeği
+        If myLine = "43" Then ona = 4387      ' blok z ölçeği
+        If myLine = "44" Then ona = 4487      ' blok x uzaklık
+        If myLine = "45" Then ona = 4587      ' blok y uzaklık
+        
+        If myLine = "50" Then ona = 5087   ' yay başlama açısı,  blok dönme açısı, yazı açısı
+        If myLine = "51" Then ona = 5187    ' yay bitiş açısı
+        If myLine = "60" Then ona = 6087    ' gorunurluk
+        If myLine = "62" Then ona = 6287   'renk
+        If myLine = "67" Then ona = 6787   'model paper ayrımı model=0
+        
+        If myLine = "70" Then ona = 7087 ' blok x sayısı ..bayrak lar....
+        If myLine = "71" Then ona = 7187  ' blok x sayısı
+        If myLine = "73" Then ona = 7387  ' leader tipi
+        If myLine = "90" Then ona = 9087
+        If myLine = "100" Then ona = 10087
+        If myLine = "141" Then ona = 14187
+        If myLine = "230" Then ona = 23087
+        '  ///////////   ÇİZİMLER   KAYDEDİLİYOR  /////////////
+    atla:
+        If ona <> 766 Then Goto son    ' myline = 0
+            ' If ono = 0 Then Goto ck
+            ' If yirmi = 0 Then Goto ck
+            If altmisyedi = 1 Then Goto ck  ' paper space çizimi....
+                tiz.grup = ical
+                tiz.ical = ical
+                tiz.kalin = 1
+                tiz.katman = katim
+                tiz.rank = ilkColor
+                tiz.sekil = ilksekil
+                tiz.goz = goz
+                tiz.iotuz = iotuz
+                tiz.kalin = ilkkalina
+                cizem.grup = ""
+                tiz.grup = ""
+                cizem.katman = katim
+                cizem.kalin = 1
+                cizem.renk = ilkColor
+                cizem.sekil = ilksekil
+                cizem.bloku = blokad
+                cizem.kalin = ilkkalina
+                cizem.gor = goz
+                cizem.grup = blokad
+                yirmi = - yirmi
+                yirmibir = - yirmibir
+                yirmiiki = - yirmiiki
+                yirmiuc = - yirmiuc
+                yirmidort = - yirmidort
+                yirmibes = - yirmibes
+            If sdx.Count > 0 Then spoli(yetmis)
+            If pdx.Count > 0 Then poli(yetmis)
+            If komut = 17 Then 
+                If blkref Like "xref*"
+                Else If Left(blkref, 2) = "*X" Then
+                Else
+                    If kirkiki = 0 Then kirkiki = kirkbir
+                    olecek(blkref, kirkbir, ono, yirmi, elli, yetmis, yetmisbir, kirkdort, kirkbes) 
+                Endif
+            Endif
+            
+            If komut = 12 Then
+                If yetmis <> 0 Then
+                    kati(katad, yetmis)
+                Else
+                    kati(katad, 0)
+                Endif
+            Endif
+            If komut = 1 Then
+                If somut <> 12
+                    cizem.cizgi(ono, yirmi, onbir, yirmibir)
+                Else
+                    tiz.cizgis(ono, yirmi, onbir, yirmibir)
+                Endif
+                Goto ck
+            Endif
+            If komut = 20 Then
+                If somut <> 12
+                        cizem.yay(ono, yirmi, kirk, Rad(elli), Rad(ellibir), iotuz)
+                Else
+                        tiz.cemkay(ono, yirmi, kirk, Rad(elli), Rad(ellibir))
+                Endif
+                Goto ck
+            Endif
+            If komut = 25 Then
+                If somut <> 12
+                        cizem.cember(ono, yirmi, kirk, iotuz)
+                Else
+                        tiz.ckay(ono, yirmi, kirk)
+                Endif
+                Goto ck
+            Endif
+            If komut = 7 Then 'trace
+                If ono = yirmi And onbir = yirmibir Then Goto ck
+                If somut <> 12
+                    cizem.cizgi(ono, yirmi, onbir, yirmibir)
+                    cizem.cizgi(onbir, yirmibir, oniki, yirmiiki)
+                    cizem.cizgi(oniki, yirmiiki, onuc, yirmiuc)
+                    cizem.cizgi(onuc, yirmiuc, ono, yirmi)
+                Else
+                    tiz.cizgis(ono, yirmi, onbir, yirmibir)
+                    tiz.cizgis(onbir, yirmibir, oniki, yirmiiki)
+                    tiz.cizgis(oniki, yirmiiki, onuc, yirmiuc)
+                    tiz.cizgis(onuc, yirmiuc, ono, yirmi)
+                Endif
+                Goto ck
+            Endif
+            If komut = 60 Then
+                If ybir <> "" Then bir = ybir
+                If elli > 90 Then elli = 0
+                If kirk <> 0 Then
+                Else
+                    kirk = yazyuk
+                Endif
+                If fea.grns = 1 Then cizem.yaz(ono, yirmi, bir, kirk, elli)
+                csp.yazi = Right(bir, -1)
+                csp.nokvir()
+                If (csp.sonuc2) <> "" Then
+                    dg = csp.sonuc2
+                Else
+                    dg = bir
+                Endif
+                ' If Left(dg) = "{" Then dg = Right(dg, -1)
+                ' If Right(dg) = "}" Then dg = Left(dg, -1)
+                ' If dg Like "*%%C*" Then dg = "D" & Right(dg, -3)
+                ' If dg Like "f*"
+                ' Else
+                    If somut <> 12
+                        cizem.grup = bolum
+                        cizem.yaz(ono, yirmi, dg, kirk, elli)
+                    Else
+                        tiz.grup = bolum
+                        tiz.yaz(ono, yirmi, dg, kirk, yedi, elli)
+                    Endif
+'                 Endif
+                ybir = ""
+                bir = ""
+                yazim = ""
+                Goto ck
+            Endif
+            
+            If komut = 61 Then
+                If ybir <> "" Then yazim = ybir
+                kata.Clear
+                If kirk <> 0 Then
+                Else
+                    kirk = yazyuk
+                Endif
+                If elli > 90 Then elli = 0
+                csp.yazi = yazim
+                csp.pp()
+                If (csp.sonuc1) <> "" Then kata.Add(csp.sonuc1)
+                If (csp.sonuc2) <> "" Then kata.Add(csp.sonuc2)
+                If (csp.sonuc3) <> "" Then kata.Add(csp.sonuc3)
+                If (csp.sonuc4) <> "" Then kata.Add(csp.sonuc4)
+                If (csp.sonuc5) <> "" Then kata.Add(csp.sonuc5)
+                If (csp.sonuc6) <> "" Then kata.Add(csp.sonuc6)
+                If (csp.sonuc7) <> "" Then kata.Add(csp.sonuc7)
+                If (csp.sonuc8) <> "" Then kata.Add(csp.sonuc8)
+                If (csp.sonuc9) <> "" Then kata.Add(csp.sonuc9)
+                If kata.Count > 500
+                    For ib = 0 To kata.Count - 1
+                        csp.yazi = Right(kata[ib], -1)
+                        csp.nokvir()
+                        If (csp.sonuc2) <> "" Then
+                            dg = csp.sonuc2
+                        Else
+                            dg = kata[ib]
+                        Endif
+                        ' If Left(dg) = "{" Then dg = Right(dg, -1)
+                        ' If Right(dg) = "}" Then dg = Left(dg, -1)
+                        ' If dg Like "*%%C*" Then dg = "D" & Right(dg, -3)
+                        ' If dg Like "f*"
+                        ' Else
+                            If somut <> 12
+                                cizem.yaz(ono, yirmi - (1.5 * kirk * ib), dg, kirk, elli)
+                            Else
+                                tiz.yaz(ono, yirmi - (1.5 * kirk * ib), dg, kirk, yedi, elli)
+                            Endif
+'                         Endif
+                    Next
+                Else
+                    csp.yazi = (yazim)
+                    csp.nokvir()
+                    If (csp.sonuc2) <> "" Then
+                        dg = csp.sonuc2
+                    Else
+                        dg = yazim
+                    Endif
+                    ' If Left(dg) = "{" Then dg = Right(dg, -1)
+                    ' If Right(dg) = "}" Then dg = Left(dg, -1)
+                    ' If dg Like "*%%C*" Then dg = "D" & Right(dg, -3)
+                    If somut <> 12
+                        cizem.yaz(ono, yirmi + (1.5 * kirk * ib), dg, kirk, elli)
+                    Else
+                        tiz.yaz(ono, yirmi + (1.5 * kirk * ib), dg, kirk, yedi, elli)
+                    Endif
+                Endif
+                yazim = ""
+                bir = ""
+                ybir = ""
+                Goto ck
+            Endif
+            If komut = 100 Then
+                If somut <> 12
+                If kirk <> 0 Then
+                Else
+                    kirk = yzyk
+                Endif
+                If yazolcu <> -1 Then
+                If yazolcu <> 0 Then
+                    olcum = yazolcu
+                 Endif
+                 Endif
+                If olcum = 0 Then olcum = ""
+                If yuz = "AcDb2LineAngularDimension" Then olc = 2  ' Açısal ölçü
+                If yuz = "AcDbDiametricDimension" Then olc = 3   ' çap ölçü
+                If yuz = "AcDbRadialDimension" Then olc = 4   ' yarıçap ölçü
+                If yuz = "AcDbAlignedDimension" Then olc = 7   ' eğik ölçü
+                If olc = 3  ' çap ölçü 
+                    capciz(ono, yirmi, onbir, yirmibir, onbes, yirmibes, kirk)
+                    Goto ck
+                Else If olc = 4  ' yarıçap ölçü
+                    ycapciz(ono, yirmi, onbir, yirmibir, onbes, yirmibes, kirk)
+                    Goto ck
+                Else If olc = 2  ' Açısal ölçü
+                    If onalti = 0
+                        aciolcu2(ono, yirmi, onbir, yirmibir, onuc, yirmiuc, ondort, yirmidort, onbes, yirmibes, kirk)
+                    Else 
+                        aciolcu(ono, yirmi, onbir, yirmibir, onuc, yirmiuc, ondort, yirmidort, onbes, yirmibes, onalti, yirmialti, kirk)
+                    Endif
+                    Goto ck
+                Else If olc = 5 ' Açısal ölçü
+                    If onalti = 0
+                        aciolcu2(ono, yirmi, onbir, yirmibir, onuc, yirmiuc, ondort, yirmidort, onbes, yirmibes, kirk)
+                    Else
+                        aciolcu(ono, yirmi, onbir, yirmibir, onuc, yirmiuc, ondort, yirmidort, onbes, yirmibes, onalti, yirmialti, kirk)
+                    Endif
+                    Goto ck
+                Else If olc = 6 ' ordinate ölçü
+                Else If olc = 7 ' eğik ölçü
+                        olcucizim2(ono, yirmi, onbir, yirmibir, onuc, yirmiuc, ondort, yirmidort, yn, kirk) ' eğik ölçü
+                        Goto sat
+                Else
+                    If CFloat(yetmis) = 1
+                        olcucizim2(ono, yirmi, onbir, yirmibir, onuc, yirmiuc, ondort, yirmidort, yn, kirk) ' eğik ölçü
+                        Goto sat
+                    Endif
+                    yn = (elli)
+                    yn = Round(yn)
+                    If yn = 90
+                        If onuc Then olcucizim(ono, yirmi, onbir, yirmibir, onuc, yirmiuc, ondort, yirmidort, 2, kirk)  'yatay ölçü
+                    Else If yn = 0
+                        If onuc Then olcucizim(ono, yirmi, onbir, yirmibir, onuc, yirmiuc, ondort, yirmidort, 1, kirk)  'dik ölçü
+                    Else
+                        If onuc Then olcucizim(ono, yirmi, onbir, yirmibir, onuc, yirmiuc, ondort, yirmidort, yn, kirk) ' eğik ölçü
+                    Endif
+                End If
+                Endif
+                sat:
+                olcum = ""
+                yazolcu = -1
+            Endif
+'             If komut = 242 Then cizem.nokta(ono, - yirmi)
+        ck:
+            ono = 0
+            onbir = 0
+            onuc = 0
+            ondort = 0
+            onbes = 0
+            onalti = 0
+            yirmi = 0
+            yirmibir = 0
+            yirmiuc = 0
+            yirmidort = 0
+            yirmibes = 0
+            kirk = 0
+            kirkbir = 0
+            kirkiki = 0
+            kirkdort = 0
+            kirkbes = 0
+            elli = 0
+            yetmis = 1
+            doksan = 0
+            altmisyedi = 0
+            komut = komuty
+            komuty = 0
+            blokad = ""
+            iotuz = 0
+            ona = 0
+            If somut <> 12
+                ilksekil = 1
+                ilkColor = 0
+                ilkkalina = 1
+                goz = 0
+                ical = ""
+            Endif
+        son: 
+         If onla = 3 Then gkat = myLine
+        If orth = 3 Then
+            orto = myLine
+            orth = 100
+        Endif
+        If orth = 22 Then
+            yzyk = myLine
+            orth = 100
+        Endif
+        If orth = 35 Then
+            If yetmis = 1 Then ince = 1
+            If yetmis = 2 Then ince = 1
+            If yetmis = 3 Then ince = 1
+'             If ince = 1 Then Message("Bu dosya ingiliz birimine göre kaydedilmiş.. Hatalı açılabilir")
+            orth = 100
+        Endif
+        If orth = 12 Then
+            yazyuk = myLine
+            orth = 100
+        Endif
+        onla = onla + 1
+        orth = orth + 1
+        grid = grid + 1
+        If yzm = 5 Then yzm = 6
+    Wend
+    Close myFile
+    
+    For Each cazgi In ilk.cezmi
+        If cazgi.id > 0 Then
+            If cazgi.renk < 0 Then cazgi.gor = 2
+        Endif
+    Next
+    For Each cazgi In ilk.cezmi
+        If (cazgi.katman) <> 0
+            For Each bazgi In ilk.bezmi     ' katman özelliklerini yükle
+                If cazgi.katman = bazgi.ad Then
+                    cazgi.renk = bazgi.renk
+                    cazgi.sekil = bazgi.tip
+                    cazgi.kalinlik = bazgi.kal
+'                     If bazgi.gor <> 0 Then cazgi.gor = 2
+                    If bazgi.kilit <> 0 Then cazgi.kilit = 2
+                Endif
+            Next
+        Endif
+        If cazgi.komut = 60 Then cazgi.blok = 0
+    Next
+cik:
+    If gridvar = 1 Then ilk.iza = 1
+    ilk.orix = 50
+    ilk.oriy = 500
+    If ilk.kaci <> System.User.Home &/ ".KediCAD/ac.dxf"
+        ilk.kacino = 1
+        torba5.pasam(ilk.kaci)
+        torba5.pencere
+        gerde.zgercek = 0
+        onla = ilk.katmer.Find(gkat)
+        If onla > 0
+            ilk.katmer.Index = onla
+        Else
+            ilk.katmer.Index = 0
+        End If
+        sm = 0
+    Endif
+    ilk.mesgul = 0
+    Dec Application.Busy
+    ilk.calanilk.Enabled = True
+    ilk.dolas
+    ilk.tamekran_Click()
+    
+    Return
+'    Catch
+'        ilk.mesgul = 0
+'     Dec Application.Busy
+'     ilk.calanilk.Enabled = True
+'     ilk.dolas
+'     ilk.tamekran_Click()
+' ilk.hatayaz("dxf " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub spoli(fd As Integer)
+
+    Dim cb As String
+    Dim jh As Integer
+    Dim xx, yy, xx2, yy2, dx, dy As Float
+     If blokad <> ""
+        cb = blokad
+    Else
+        ilk.bolok = ilk.bolok + 2
+        cb = ilk.bolok
+    Endif
+     
+     tiz.kalin = ilkkalina
+     tiz.katman = katim
+     tiz.rank = ilkColor
+     tiz.sekil = ilksekil
+     tiz.goz = goz
+     tiz.grup = ical
+     tiz.ical = ical
+     dx = CFloat(sdx[0])
+     dy = - CFloat(sdy[0])
+     For jh = 0 To (sdx.Count - 2)
+             
+            xx = (sdx[jh])
+            yy = - 1 * (sdy[jh])
+            xx2 = (sdx[jh + 1])
+            yy2 = -1 * (sdy[jh + 1])
+            If somut <> 12
+                cizem.renk = ilkColor
+            cizem.sekil = ilksekil
+            cizem.katman = katim
+            cizem.gor = goz
+            cizem.kalin = ilkkalina
+             cizem.bloku = cb
+             cizem.grup = cb
+                cizem.cizgi(xx, yy, xx2, yy2)
+            Else
+                tiz.cizgis(xx, yy, xx2, yy2)
+            Endif
+     Next
+     
+     If fd = 1
+     
+            If somut <> 12
+                cizem.grup = cb
+            cizem.bloku = cb
+             cizem.renk = ilkColor
+            cizem.sekil = ilksekil
+            cizem.katman = katim
+            cizem.gor = goz
+            cizem.kalin = ilkkalina
+                cizem.cizgi(xx2, yy2, dx, dy)
+            Else
+                tiz.cizgis(xx2, yy2, dx, dy)
+            Endif
+     End If
+    sn:
+    sdx.Clear
+    sdy.Clear
+    blokad = ""
+    Return
+   Catch
+ilk.hatayaz("spoli " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+Public Sub vertex(fd As Integer, iotuz As Integer)
+
+    Dim cb As String
+    Dim jh As Integer
+    Dim xx, yy, xx2, yy2, dx, dy As Float
+    
+     If blokad <> ""
+        cb = blokad
+    Else
+        ilk.bolok = ilk.bolok + 2
+        cb = ilk.bolok
+    Endif
+      
+     
+     tiz.kalin = ilkkalina
+     tiz.katman = katim
+     tiz.rank = ilkColor
+     tiz.sekil = ilksekil
+     tiz.goz = goz
+     tiz.grup = ical
+     tiz.ical = ical
+        dx = (vdx[0])
+        If iotuz < 0 Then dx = - dx
+        dy = - 1 * (vdy[0])
+        For jh = 0 To (vdx.Count - 2)
+                
+            xx = (vdx[jh])
+            yy = - 1 * (vdy[jh])
+            xx2 = (vdx[jh + 1])
+            yy2 = - 1 * (vdy[jh + 1])
+            If iotuz < 0 Then 
+                    xx = - xx
+                    xx2 = - xx2
+            Endif
+             If somut <> 12
+                cizem.renk = ilkColor
+                 cizem.sekil = ilksekil
+                 cizem.katman = katim
+                 cizem.gor = goz
+                cizem.kalin = ilkkalina
+                cizem.grup = cb
+                cizem.bloku = cb
+                cizem.cizgi(xx, yy, xx2, yy2)
+            Else
+                tiz.cizgis(xx, yy, xx2, yy2)
+            Endif
+        atl:
+        Next
+        
+       If fd = 1 Then
+           If xx2 <> 0
+            If somut <> 12
+                cizem.grup = cb
+            cizem.bloku = cb
+             cizem.renk = ilkColor
+            cizem.sekil = ilksekil
+            cizem.katman = katim
+            cizem.gor = goz
+            cizem.kalin = ilkkalina
+                cizem.cizgi(xx2, yy2, dx, dy)
+            Else
+                tiz.cizgis(xx2, yy2, dx, dy)
+            Endif
+           Endif
+       Endif
+    vdx.Clear
+    vdy.Clear
+    blokad = ""
+    Return
+       Catch
+          vdx.Clear
+    vdy.Clear
+    blokad = "" 
+ilk.hatayaz("vertex " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub poli(fd As Integer)
+
+    Dim cb As String
+    Dim jh As Integer
+    Dim xx, yy, xx2, yy2, dx, dy As Float
+    If blokad <> ""
+        cb = blokad
+    Else
+        ilk.bolok = ilk.bolok + 2
+        cb = ilk.bolok
+    Endif
+    '   If cb Like "*TopR*" Then
+    '     Message(cb)
+    ' Endif
+    
+     tiz.kalin = ilkkalina
+            tiz.katman = katim
+            tiz.rank = ilkColor
+            tiz.sekil = ilksekil
+            tiz.goz = goz
+            tiz.grup = ical
+            tiz.ical = ical
+     dx = (pdx[0])
+     dy = - 1 * (pdy[0])
+'      Message(pdx.Count, somut)
+     For jh = 0 To (pdx.Count - 2)
+            xx = (pdx[jh])
+            yy = - 1 * (pdy[jh])
+            xx2 = (pdx[jh + 1])
+            yy2 = - 1 * (pdy[jh + 1])
+            If somut <> 12
+                 cizem.grup = cb
+            cizem.bloku = cb
+             cizem.renk = ilkColor
+            cizem.sekil = ilksekil
+            cizem.katman = katim
+            cizem.gor = goz
+            cizem.kalin = ilkkalina
+                cizem.cizgi(xx, yy, xx2, yy2)
+            Else
+                tiz.cizgis(xx, yy, xx2, yy2)
+            Endif
+     Next
+     If fd = 1
+        If xx2 <> 0
+            If somut <> 12
+                cizem.grup = cb
+            cizem.bloku = cb
+             cizem.renk = ilkColor
+            cizem.sekil = ilksekil
+            cizem.katman = katim
+            cizem.gor = goz
+            cizem.kalin = ilkkalina
+                cizem.cizgi(xx2, yy2, dx, dy)
+            Else
+                tiz.cizgis(xx2, yy2, dx, dy)
+            Endif
+        Endif
+     End If
+    sn:
+    pdx.Clear
+    pdy.Clear
+    blokad = ""
+    Return
+   Catch
+       pdx.Clear
+    pdy.Clear
+    blokad = ""
+    
+ilk.hatayaz("poli " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+Public Sub olcucizim(dex1 As Float, dey1 As Float, dex2 As Float, dey2 As Float, dex3 As Float, dey3 As Float, dex4 As Float, dey4 As Float, eg As Float, yuk As Float)
+
+    Dim bazi, l As Float
+
+    If Not dex1 Then Return
+    If Not dex2 Then Return
+    If Not dex3 Then Return
+    cazgi = New Czm
+    cazgi.x1 = dex4
+    cazgi.y1 = dey4
+    cazgi.x2 = dex3
+    cazgi.y2 = dey3
+    cazgi.x3 = dex2
+    cazgi.y3 = dey2
+    cazgi.yaziy = dey2
+    cazgi.yazix = dex2
+    bazi = Hyp(Abs(dex3 - dex4), Abs(dey3 - dey4))
+
+    If eg = 1 Then
+        cazgi.komut = 100 ' |_|
+        If dex4 < dex3 
+            cazgi.x4 = dex4 'olx1
+            cazgi.y4 = dey1 'oly3
+            cazgi.x5 = dex3 'olx2
+            cazgi.y5 = dey1 'oly3
+            cazgi.x1 = dex4
+            cazgi.y1 = dey4
+            cazgi.x2 = dex3
+            cazgi.y2 = dey3
+        Else
+            cazgi.x4 = dex3 'olx1
+            cazgi.y4 = dey1 'oly3
+            cazgi.x5 = dex4 'olx2
+            cazgi.y5 = dey1 'oly3
+            cazgi.x2 = dex4
+            cazgi.y2 = dey4
+            cazgi.x1 = dex3
+            cazgi.y1 = dey3
+        Endif
+        cazgi.y6 = 0
+    Else If eg = 2
+        cazgi.komut = 105 ' =|
+        If dey4 < dey3 
+            cazgi.x1 = dex4
+            cazgi.y1 = dey4
+            cazgi.x2 = dex3
+            cazgi.y2 = dey3
+            cazgi.x4 = dex1 'olx3
+            cazgi.y4 = dey4 'oly1
+            cazgi.x5 = dex1 'olx3
+            cazgi.y5 = dey3 'oly2
+        Else
+            cazgi.x2 = dex4
+            cazgi.y2 = dey4
+            cazgi.x1 = dex3
+            cazgi.y1 = dey3
+            cazgi.x5 = dex1 'olx3
+            cazgi.y5 = dey4 'oly1
+            cazgi.x4 = dex1 'olx3
+            cazgi.y4 = dey3 'oly2
+        Endif
+        cazgi.x6 = Pi / 2
+    Else
+        cazgi.komut = 120
+        l = Hyp(Abs(dex1 - dex4), Abs(dey1 - dey4))
+        cazgi.x4 = dex4 + l * Cos(Rad(eg) + (Pi / 2))
+        cazgi.y4 = dey4 - l * Sin(Rad(eg) + (Pi / 2))
+        cazgi.x5 = dex3 + l * Cos(Rad(eg) + (Pi / 2))
+        cazgi.y5 = dey3 - l * Sin(Rad(eg) + (Pi / 2))
+        acimi.aci(cazgi.x4, cazgi.y4, cazgi.x5, cazgi.y5)
+        cazgi.x6 = acimi.raci
+        cazgi.b = acimi.bb
+        cazgi.egim = acimi.ege
+        cazgi.teta = Rad(eg) + (Pi / 2)
+    End If
+    If olcum <> "" Then bazi = olcum
+    cazgi.yazi = bazi
+    cazgi.katman = "olcu"
+    cazgi.blok = 0
+    cazgi.id = dacy.kyno
+    cazgi.r = bazi
+    cazgi.sekil = 1
+    cazgi.renk = ilk.olre
+    cazgi.kalinlik = ilkkalina
+    cazgi.y6 = yuk
+    ilk.cezmi.Add(cazgi, dacy.kyno)
+    dacy.kyno = dacy.kyno + 1
+    olcum = ""
+    Return
+       Catch
+ilk.hatayaz("olcucizim " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub olcucizim2(dex1 As Variant, dey1 As Variant, dex2 As Variant, dey2 As Variant, dex3 As Variant, dey3 As Variant, dex4 As Variant, dey4 As Variant, eg As Variant, yuk As Float)
+
+    Dim bazi, l As Float
+
+    If Not dex1 Then Return
+    If Not dex2 Then Return
+    If Not dex3 Then Return
+
+    cazgi = New Czm
+    cazgi.x1 = dex3
+    cazgi.y1 = dey3
+    cazgi.x2 = dex4
+    cazgi.y2 = dey4
+    cazgi.x3 = dex2
+    cazgi.y3 = dey2
+    cazgi.yazix = dex2
+    cazgi.yaziy = dey2
+    cazgi.komut = 120
+    acimi.aci(dex1, dey1, dex4, dey4)
+    l = acimi.boy
+    acimi.aci(dex3, dey3, dex4, dey4)
+    bazi = Abs(acimi.boy)
+    eg = acimi.raci + (Pi / 2)
+    If eg > (2 * Pi) Then eg = eg - (2 * Pi)
+    If eg < 0 Then eg = eg + (2 * Pi)
+    cazgi.x4 = dex3 + l * Cos(eg)
+    cazgi.y4 = dey3 - l * Sin(eg)
+    cazgi.x5 = dex4 + l * Cos(eg)
+    cazgi.y5 = dey4 - l * Sin(eg)
+     If olcum <> "" Then bazi = olcum
+    cazgi.b = acimi.bb
+    cazgi.egim = acimi.ege
+    cazgi.yazi = bazi
+    cazgi.katman = "olcu"
+    cazgi.blok = 0
+    cazgi.id = dacy.kyno
+    cazgi.y6 = yuk
+    cazgi.r = bazi
+    cazgi.sekil = 1
+    cazgi.renk = ilk.olre
+    cazgi.kalinlik = ilkkalina
+    ilk.cezmi.Add(cazgi, dacy.kyno)
+    dacy.kyno = dacy.kyno + 1
+    Return
+       Catch
+ilk.hatayaz("olcucizim2 " & Error.Text, Error.Where & "--" & Error.code)
+
+Return
+End
+
+Public Sub ycapciz(dex0 As Variant, dey0 As Variant, dex1 As Variant, dey1 As Variant, dex5 As Variant, dey5 As Variant, yuk As Float)
+
+'  ycapciz(ono, yirmi, onbir, yirmibir, onbes, yirmibes, kirk)
+    Dim bazi, teta, mex1, mey1 As Float
+    cazgi = New Czm
+    acimi.aci(dex5, dey5, dex0, dey0)
+    bazi = acimi.boy
+    teta = acimi.raci
+    mex1 = dex0 + bazi * Cos(teta)
+    mey1 = dey0 - bazi * Sin(teta)
+    cazgi.komut = 190
+    cazgi.id = dacy.kyno
+    cazgi.x3 = dex0 - (2 * bazi)
+    cazgi.y3 = dey0 + bazi
+    cazgi.yazix = dex1
+    cazgi.yaziy = dey1
+    cazgi.x1 = dex0
+    cazgi.y1 = dey0
+    cazgi.x2 = dex1
+    cazgi.y2 = dey1
+    cazgi.x5 = dex5
+    cazgi.y5 = dey5
+    cazgi.yazi = bazi
+    cazgi.katman = "olcu"
+    cazgi.blok = 0
+    cazgi.r = bazi
+    cazgi.sekil = 1
+    cazgi.renk = ilk.olre
+    cazgi.kalinlik = ilkkalina
+    cazgi.x6 = yuk 
+    cazgi.egim = acimi.ege 
+    cazgi.b = acimi.bb
+    cazgi.x8 = Abs(acimi.raci) - (Pi / 4)
+    ilk.cezmi.Add(cazgi, dacy.kyno)
+    dacy.kyno = dacy.kyno + 1
+    Return
+       Catch
+ilk.hatayaz("ycapciz " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub capciz(dex0 As Float, dey0 As Float, dex3 As Float, dey3 As Float, dex5 As Float, dey5 As Float, yuk As Float)
+' capciz(ono, yirmi, onbir, yirmibir, onbes, yirmibes, kirk)
+    Dim bazi, teta, mex1, mey1 As Float
+    acimi.aci(dex0, dey0, dex5, dey5)
+    teta = (acimi.raci)
+    bazi = acimi.boy
+    mex1 = dex0 + bazi * Cos(teta)
+    mey1 = dey0 - bazi * Sin(teta)
+'      If olcum <> "" Then bazi = olcum
+    cazgi = New Czm
+    cazgi.id = dacy.kyno
+    cazgi.komut = 200
+    cazgi.x5 = dex5
+    cazgi.y5 = dey5
+    cazgi.x1 = mex1
+    cazgi.y1 = mey1
+    cazgi.x4 = dex0
+    cazgi.y4 = dey0
+    cazgi.x2 = dex5
+    cazgi.y2 = dey5
+    cazgi.yazi = bazi
+    cazgi.yaziy = dey3
+    cazgi.yazix = dex3
+    cazgi.x3 = dey3
+    cazgi.y3 = dex3
+    cazgi.katman = "olcu"
+    cazgi.blok = 0
+    cazgi.r = bazi
+    cazgi.sekil = 1
+    cazgi.renk = ilk.olre
+    cazgi.kalinlik = ilkkalina
+    cazgi.x6 = yuk 
+    cazgi.egim = acimi.ege
+    cazgi.b = acimi.bb
+    acimi.aci(dex5, dey5, dex3, dey3)
+    teta = (acimi.raci)
+    cazgi.x8 = teta + (Pi / 4)
+    ilk.cezmi.Add(cazgi, dacy.kyno)
+    dacy.kyno = dacy.kyno + 1
+    olcum = ""
+    Return
+   Catch
+ilk.hatayaz("capciz " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub sekci(fth As String)
+    Dim dkl As String
+    dkl = Trim(fth)
+    If dkl Like "DOT*" Then
+        ilksekil = 4
+    Else If dkl Like "DASHED*" Then
+        ilksekil = 3
+    Else If dkl Like "DASHDOT*" Then
+        ilksekil = 3
+    Else If dkl Like "CENTE*" Then
+        ilksekil = 5
+    Else If dkl Like "DIVID*" Then
+        ilksekil = 6
+    Else If dkl Like "BORDE*" Then
+        ilksekil = 5
+    Else If dkl = "BYBLOCK" Then
+         ilksekil = 2
+    Else
+        ilksekil = 1
+    End If
+    Return
+       Catch
+   ilksekil = 1
+ilk.hatayaz("sekci " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub renkci(renkli As String)
+    Dim renkcik As Integer
+    renkcik = CInteger(renkli)
+    If renkcik < 0 Then renkcik = -1 * renkcik
+    ilkColor = 0
+    If renkcik = 0 Then ilkColor = Color.RGB(255, 255, 255) ' siyah   beyaz oldu...
+    If renkcik = 1 Then ilkColor = Color.RGB(255, 0, 0) ' kırmızı
+    If renkcik = 2 Then ilkColor = Color.RGB(255, 255, 0) ' sarı
+    If renkcik = 3 Then ilkColor = Color.RGB(0, 255, 0) '
+    If renkcik = 4 Then ilkColor = Color.RGB(0, 255, 255) '
+    If renkcik = 5 Then ilkColor = Color.RGB(0, 0, 255) '
+    If renkcik = 6 Then ilkColor = Color.RGB(255, 0, 255) '
+    If renkcik = 7 Then ilkColor = Color.RGB(255, 255, 255) '
+    If renkcik = 8 Then ilkColor = Color.RGB(65, 65, 65) '
+    If renkcik = 9 Then ilkColor = Color.RGB(128, 128, 128) '
+    If renkcik = 10 Then ilkColor = Color.RGB(255, 0, 0) '
+    If renkcik = 11 Then ilkColor = Color.RGB(255, 170, 170) '
+    If renkcik = 12 Then ilkColor = Color.RGB(189, 0, 0)
+    If renkcik = 13 Then ilkColor = Color.RGB(189, 126, 126)
+    If renkcik = 14 Then ilkColor = Color.RGB(129, 0, 0)
+    If renkcik = 15 Then ilkColor = Color.RGB(129, 86, 86)
+    If renkcik = 16 Then ilkColor = Color.RGB(104, 0, 0)
+    If renkcik = 17 Then ilkColor = Color.RGB(104, 69, 69)
+    If renkcik = 18 Then ilkColor = Color.RGB(79, 0, 0)
+    If renkcik = 19 Then ilkColor = Color.RGB(79, 53, 53)
+    If renkcik = 20 Then ilkColor = Color.RGB(255, 63, 0)
+    If renkcik = 21 Then ilkColor = Color.RGB(255, 191, 170)
+    If renkcik = 22 Then ilkColor = Color.RGB(189, 46, 0)
+    If renkcik = 23 Then ilkColor = Color.RGB(189, 141, 126)
+    If renkcik = 24 Then ilkColor = Color.RGB(129, 31, 0)
+    If renkcik = 25 Then ilkColor = Color.RGB(129, 96, 86)
+    If renkcik = 26 Then ilkColor = Color.RGB(104, 25, 0)
+    If renkcik = 27 Then ilkColor = Color.RGB(104, 78, 69)
+    If renkcik = 28 Then ilkColor = Color.RGB(79, 19, 0)
+    If renkcik = 29 Then ilkColor = Color.RGB(79, 19, 53)
+    If renkcik = 30 Then ilkColor = Color.RGB(255, 127, 0)
+    If renkcik = 31 Then ilkColor = Color.RGB(255, 212, 170)
+    If renkcik = 32 Then ilkColor = Color.RGB(189, 94, 0)
+    If renkcik = 33 Then ilkColor = Color.RGB(189, 157, 126)
+    If renkcik = 34 Then ilkColor = Color.RGB(129, 64, 0)
+    If renkcik = 35 Then ilkColor = Color.RGB(129, 107, 86)
+    If renkcik = 36 Then ilkColor = Color.RGB(104, 52, 0)
+    If renkcik = 37 Then ilkColor = Color.RGB(104, 86, 69)
+    If renkcik = 38 Then ilkColor = Color.RGB(79, 39, 0)
+    If renkcik = 39 Then ilkColor = Color.RGB(79, 66, 53)
+    If renkcik = 40 Then ilkColor = Color.RGB(255, 191, 0)
+    If renkcik = 41 Then ilkColor = Color.RGB(255, 234, 170)
+    If renkcik = 42 Then ilkColor = Color.RGB(189, 141, 0)
+    If renkcik = 43 Then ilkColor = Color.RGB(189, 173, 126)
+    If renkcik = 44 Then ilkColor = Color.RGB(129, 96, 0)
+    If renkcik = 45 Then ilkColor = Color.RGB(129, 118, 86)
+    If renkcik = 46 Then ilkColor = Color.RGB(104, 78, 0)
+    If renkcik = 47 Then ilkColor = Color.RGB(104, 95, 69)
+    If renkcik = 48 Then ilkColor = Color.RGB(79, 59, 0)
+    If renkcik = 49 Then ilkColor = Color.RGB(79, 73, 53)
+    If renkcik = 50 Then ilkColor = Color.RGB(255, 255, 0)
+    If renkcik = 51 Then ilkColor = Color.RGB(255, 255, 170)
+    If renkcik = 52 Then ilkColor = Color.RGB(189, 189, 0)
+    If renkcik = 53 Then ilkColor = Color.RGB(189, 189, 126)
+    If renkcik = 54 Then ilkColor = Color.RGB(129, 129, 0)
+    If renkcik = 55 Then ilkColor = Color.RGB(129, 129, 86)
+    If renkcik = 56 Then ilkColor = Color.RGB(104, 104, 0)
+    If renkcik = 57 Then ilkColor = Color.RGB(104, 104, 69)
+    If renkcik = 58 Then ilkColor = Color.RGB(79, 79, 0)
+    If renkcik = 59 Then ilkColor = Color.RGB(79, 79, 53)
+    If renkcik = 60 Then ilkColor = Color.RGB(191, 255, 0)
+    If renkcik = 61 Then ilkColor = Color.RGB(234, 255, 170)
+    If renkcik = 62 Then ilkColor = Color.RGB(141, 189, 0)
+    If renkcik = 63 Then ilkColor = Color.RGB(173, 189, 126)
+    If renkcik = 64 Then ilkColor = Color.RGB(96, 129, 0)
+    If renkcik = 65 Then ilkColor = Color.RGB(118, 129, 255)
+    If renkcik = 66 Then ilkColor = Color.RGB(78, 104, 0)
+    If renkcik = 67 Then ilkColor = Color.RGB(95, 104, 69)
+    If renkcik = 68 Then ilkColor = Color.RGB(59, 79, 0)
+    If renkcik = 69 Then ilkColor = Color.RGB(73, 79, 53)
+    If renkcik = 70 Then ilkColor = Color.RGB(127, 255, 0)
+    If renkcik = 71 Then ilkColor = Color.RGB(212, 255, 170)
+    If renkcik = 72 Then ilkColor = Color.RGB(94, 189, 126)
+    If renkcik = 73 Then ilkColor = Color.RGB(157, 189, 126)
+    If renkcik = 74 Then ilkColor = Color.RGB(64, 129, 0)
+    If renkcik = 75 Then ilkColor = Color.RGB(107, 129, 86)
+    If renkcik = 76 Then ilkColor = Color.RGB(52, 104, 0)
+    If renkcik = 77 Then ilkColor = Color.RGB(86, 104, 69)
+    If renkcik = 78 Then ilkColor = Color.RGB(39, 79, 0)
+    If renkcik = 79 Then ilkColor = Color.RGB(66, 79, 53)
+    If renkcik = 80 Then ilkColor = Color.RGB(63, 255, 0)
+    If renkcik = 81 Then ilkColor = Color.RGB(191, 255, 170)
+    If renkcik = 82 Then ilkColor = Color.RGB(46, 189, 0)
+    If renkcik = 83 Then ilkColor = Color.RGB(141, 189, 126)
+    If renkcik = 84 Then ilkColor = Color.RGB(31, 129, 0)
+    If renkcik = 85 Then ilkColor = Color.RGB(96, 129, 86)
+    If renkcik = 86 Then ilkColor = Color.RGB(25, 104, 0)
+    If renkcik = 87 Then ilkColor = Color.RGB(78, 104, 69)
+    If renkcik = 88 Then ilkColor = Color.RGB(19, 79, 0)
+    If renkcik = 89 Then ilkColor = Color.RGB(59, 79, 53)
+    If renkcik = 90 Then ilkColor = Color.RGB(0, 255, 0)
+    If renkcik = 91 Then ilkColor = Color.RGB(170, 255, 170)
+    If renkcik = 92 Then ilkColor = Color.RGB(0, 189, 0)
+    If renkcik = 93 Then ilkColor = Color.RGB(126, 189, 126)
+    If renkcik = 94 Then ilkColor = Color.RGB(0, 129, 0)
+    If renkcik = 95 Then ilkColor = Color.RGB(86, 129, 86)
+    If renkcik = 96 Then ilkColor = Color.RGB(0, 104, 0)
+    If renkcik = 97 Then ilkColor = Color.RGB(69, 104, 69)
+    If renkcik = 98 Then ilkColor = Color.RGB(0, 79, 0)
+    If renkcik = 99 Then ilkColor = Color.RGB(53, 79, 53)
+    If renkcik = 100 Then ilkColor = Color.RGB(0, 255, 63)
+    If renkcik = 101 Then ilkColor = Color.RGB(170, 255, 191)
+    If renkcik = 102 Then ilkColor = Color.RGB(0, 189, 46)
+    If renkcik = 103 Then ilkColor = Color.RGB(126, 189, 141)
+    If renkcik = 104 Then ilkColor = Color.RGB(0, 129, 141)
+    If renkcik = 105 Then ilkColor = Color.RGB(86, 129, 96)
+    If renkcik = 106 Then ilkColor = Color.RGB(0, 104, 25)
+    If renkcik = 107 Then ilkColor = Color.RGB(69, 104, 78)
+    If renkcik = 108 Then ilkColor = Color.RGB(0, 79, 19)
+    If renkcik = 109 Then ilkColor = Color.RGB(53, 79, 59)
+    If renkcik = 110 Then ilkColor = Color.RGB(0, 255, 127)
+    If renkcik = 111 Then ilkColor = Color.RGB(170, 255, 212)
+    If renkcik = 112 Then ilkColor = Color.RGB(0, 189, 94)
+    If renkcik = 113 Then ilkColor = Color.RGB(126, 189, 157)
+    If renkcik = 114 Then ilkColor = Color.RGB(0, 129, 64)
+    If renkcik = 115 Then ilkColor = Color.RGB(86, 129, 64)
+    If renkcik = 116 Then ilkColor = Color.RGB(0, 104, 52)
+    If renkcik = 117 Then ilkColor = Color.RGB(69, 104, 86)
+    If renkcik = 118 Then ilkColor = Color.RGB(0, 79, 39)
+    If renkcik = 119 Then ilkColor = Color.RGB(53, 79, 66)
+    If renkcik = 120 Then ilkColor = Color.RGB(0, 255, 191)
+    If renkcik = 121 Then ilkColor = Color.RGB(170, 255, 234)
+    If renkcik = 122 Then ilkColor = Color.RGB(0, 189, 141)
+    If renkcik = 123 Then ilkColor = Color.RGB(126, 189, 173)
+    If renkcik = 124 Then ilkColor = Color.RGB(0, 129, 118)
+    If renkcik = 125 Then ilkColor = Color.RGB(86, 129, 118)
+    If renkcik = 126 Then ilkColor = Color.RGB(0, 104, 78)
+    If renkcik = 127 Then ilkColor = Color.RGB(69, 104, 95)
+    If renkcik = 128 Then ilkColor = Color.RGB(0, 79, 59)
+    If renkcik = 129 Then ilkColor = Color.RGB(53, 79, 73)
+    If renkcik = 130 Then ilkColor = Color.RGB(0, 255, 255)
+    If renkcik = 131 Then ilkColor = Color.RGB(170, 255, 255)
+    If renkcik = 132 Then ilkColor = Color.RGB(0, 189, 189)
+    If renkcik = 133 Then ilkColor = Color.RGB(126, 189, 189)
+    If renkcik = 134 Then ilkColor = Color.RGB(0, 129, 129)
+    If renkcik = 135 Then ilkColor = Color.RGB(86, 129, 129)
+    If renkcik = 136 Then ilkColor = Color.RGB(0, 104, 104)
+    If renkcik = 137 Then ilkColor = Color.RGB(69, 104, 104)
+    If renkcik = 138 Then ilkColor = Color.RGB(0, 79, 79)
+    If renkcik = 139 Then ilkColor = Color.RGB(53, 79, 79)
+    If renkcik = 140 Then ilkColor = Color.RGB(0, 191, 255)
+    If renkcik = 141 Then ilkColor = Color.RGB(170, 234, 255)
+    If renkcik = 142 Then ilkColor = Color.RGB(0, 141, 189)
+    If renkcik = 143 Then ilkColor = Color.RGB(126, 173, 189)
+    If renkcik = 144 Then ilkColor = Color.RGB(0, 96, 129)
+    If renkcik = 145 Then ilkColor = Color.RGB(86, 118, 129)
+    If renkcik = 146 Then ilkColor = Color.RGB(0, 78, 104)
+    If renkcik = 147 Then ilkColor = Color.RGB(69, 95, 104)
+    If renkcik = 148 Then ilkColor = Color.RGB(0, 59, 79)
+    If renkcik = 149 Then ilkColor = Color.RGB(53, 73, 79)
+    If renkcik = 150 Then ilkColor = Color.RGB(0, 127, 255)
+    If renkcik = 151 Then ilkColor = Color.RGB(170, 212, 255)
+    If renkcik = 152 Then ilkColor = Color.RGB(0, 94, 189)
+    If renkcik = 153 Then ilkColor = Color.RGB(126, 157, 189)
+    If renkcik = 154 Then ilkColor = Color.RGB(0, 64, 129)
+    If renkcik = 155 Then ilkColor = Color.RGB(86, 107, 129)
+    If renkcik = 156 Then ilkColor = Color.RGB(0, 52, 104)
+    If renkcik = 157 Then ilkColor = Color.RGB(69, 86, 104)
+    If renkcik = 158 Then ilkColor = Color.RGB(0, 39, 79)
+    If renkcik = 159 Then ilkColor = Color.RGB(53, 66, 79)
+    If renkcik = 160 Then ilkColor = Color.RGB(0, 63, 255)
+    If renkcik = 161 Then ilkColor = Color.RGB(170, 191, 255)
+    If renkcik = 162 Then ilkColor = Color.RGB(0, 46, 189)
+    If renkcik = 163 Then ilkColor = Color.RGB(126, 141, 189)
+    If renkcik = 164 Then ilkColor = Color.RGB(0, 31, 129)
+    If renkcik = 165 Then ilkColor = Color.RGB(86, 96, 129)
+    If renkcik = 166 Then ilkColor = Color.RGB(0, 25, 104)
+    If renkcik = 167 Then ilkColor = Color.RGB(69, 78, 104)
+    If renkcik = 168 Then ilkColor = Color.RGB(0, 19, 79)
+    If renkcik = 169 Then ilkColor = Color.RGB(53, 59, 79)
+    If renkcik = 170 Then ilkColor = Color.RGB(0, 0, 255)
+    If renkcik = 171 Then ilkColor = Color.RGB(170, 170, 255)
+    If renkcik = 172 Then ilkColor = Color.RGB(0, 0, 189)
+    If renkcik = 173 Then ilkColor = Color.RGB(126, 126, 189)
+    If renkcik = 174 Then ilkColor = Color.RGB(0, 0, 129)
+    If renkcik = 175 Then ilkColor = Color.RGB(86, 86, 129)
+    If renkcik = 176 Then ilkColor = Color.RGB(0, 0, 104)
+    If renkcik = 177 Then ilkColor = Color.RGB(69, 69, 104)
+    If renkcik = 178 Then ilkColor = Color.RGB(0, 0, 79)
+    If renkcik = 179 Then ilkColor = Color.RGB(53, 53, 79)
+    If renkcik = 180 Then ilkColor = Color.RGB(63, 0, 255)
+    If renkcik = 181 Then ilkColor = Color.RGB(191, 170, 255)
+    If renkcik = 182 Then ilkColor = Color.RGB(46, 0, 189)
+    If renkcik = 183 Then ilkColor = Color.RGB(141, 126, 189)
+    If renkcik = 184 Then ilkColor = Color.RGB(31, 0, 129)
+    If renkcik = 185 Then ilkColor = Color.RGB(96, 86, 129)
+    If renkcik = 186 Then ilkColor = Color.RGB(25, 0, 104)
+    If renkcik = 187 Then ilkColor = Color.RGB(78, 69, 104)
+    If renkcik = 188 Then ilkColor = Color.RGB(19, 0, 79)
+    If renkcik = 189 Then ilkColor = Color.RGB(59, 53, 79)
+    If renkcik = 190 Then ilkColor = Color.RGB(127, 0, 255)
+    If renkcik = 191 Then ilkColor = Color.RGB(212, 170, 255)
+    If renkcik = 192 Then ilkColor = Color.RGB(94, 0, 189)
+    If renkcik = 193 Then ilkColor = Color.RGB(157, 126, 189)
+    If renkcik = 194 Then ilkColor = Color.RGB(64, 0, 129)
+    If renkcik = 195 Then ilkColor = Color.RGB(107, 86, 129)
+    If renkcik = 196 Then ilkColor = Color.RGB(52, 0, 104)
+    If renkcik = 197 Then ilkColor = Color.RGB(86, 69, 104)
+    If renkcik = 198 Then ilkColor = Color.RGB(39, 0, 79)
+    If renkcik = 199 Then ilkColor = Color.RGB(66, 53, 79)
+    If renkcik = 200 Then ilkColor = Color.RGB(191, 0, 255)
+    If renkcik = 201 Then ilkColor = Color.RGB(234, 170, 255)
+    If renkcik = 202 Then ilkColor = Color.RGB(141, 0, 189)
+    If renkcik = 203 Then ilkColor = Color.RGB(173, 126, 189)
+    If renkcik = 204 Then ilkColor = Color.RGB(96, 0, 129)
+    If renkcik = 205 Then ilkColor = Color.RGB(118, 86, 129)
+    If renkcik = 206 Then ilkColor = Color.RGB(78, 0, 104)
+    If renkcik = 207 Then ilkColor = Color.RGB(95, 69, 104)
+    If renkcik = 208 Then ilkColor = Color.RGB(59, 0, 79)
+    If renkcik = 209 Then ilkColor = Color.RGB(73, 53, 79)
+    If renkcik = 210 Then ilkColor = Color.RGB(255, 0, 255)
+    If renkcik = 211 Then ilkColor = Color.RGB(255, 170, 255)
+    If renkcik = 212 Then ilkColor = Color.RGB(189, 0, 189)
+    If renkcik = 213 Then ilkColor = Color.RGB(189, 126, 189)
+    If renkcik = 214 Then ilkColor = Color.RGB(129, 0, 129)
+    If renkcik = 215 Then ilkColor = Color.RGB(129, 86, 129)
+    If renkcik = 216 Then ilkColor = Color.RGB(104, 0, 104)
+    If renkcik = 217 Then ilkColor = Color.RGB(104, 69, 104)
+    If renkcik = 218 Then ilkColor = Color.RGB(79, 0, 79)
+    If renkcik = 219 Then ilkColor = Color.RGB(79, 53, 79)
+    If renkcik = 220 Then ilkColor = Color.RGB(255, 0, 191)
+    If renkcik = 221 Then ilkColor = Color.RGB(255, 170, 234)
+    If renkcik = 222 Then ilkColor = Color.RGB(189, 0, 141)
+    If renkcik = 223 Then ilkColor = Color.RGB(189, 126, 173)
+    If renkcik = 224 Then ilkColor = Color.RGB(129, 0, 96)
+    If renkcik = 225 Then ilkColor = Color.RGB(129, 86, 118)
+    If renkcik = 226 Then ilkColor = Color.RGB(104, 0, 78)
+    If renkcik = 227 Then ilkColor = Color.RGB(104, 69, 78)
+    If renkcik = 228 Then ilkColor = Color.RGB(79, 0, 59)
+    If renkcik = 229 Then ilkColor = Color.RGB(79, 53, 73)
+    If renkcik = 230 Then ilkColor = Color.RGB(255, 0, 127)
+    If renkcik = 231 Then ilkColor = Color.RGB(255, 170, 212)
+    If renkcik = 232 Then ilkColor = Color.RGB(189, 0, 94)
+    If renkcik = 233 Then ilkColor = Color.RGB(189, 126, 157)
+    If renkcik = 234 Then ilkColor = Color.RGB(129, 0, 64)
+    If renkcik = 235 Then ilkColor = Color.RGB(129, 86, 107)
+    If renkcik = 236 Then ilkColor = Color.RGB(104, 0, 52)
+    If renkcik = 237 Then ilkColor = Color.RGB(104, 69, 86)
+    If renkcik = 238 Then ilkColor = Color.RGB(79, 0, 39)
+    If renkcik = 239 Then ilkColor = Color.RGB(79, 53, 66)
+    If renkcik = 240 Then ilkColor = Color.RGB(255, 0, 63)
+    If renkcik = 241 Then ilkColor = Color.RGB(255, 170, 191)
+    If renkcik = 242 Then ilkColor = Color.RGB(189, 0, 46)
+    If renkcik = 243 Then ilkColor = Color.RGB(189, 126, 141)
+    If renkcik = 244 Then ilkColor = Color.RGB(129, 0, 31)
+    If renkcik = 245 Then ilkColor = Color.RGB(129, 86, 96)
+    If renkcik = 246 Then ilkColor = Color.RGB(104, 0, 25)
+    If renkcik = 247 Then ilkColor = Color.RGB(104, 0, 25)
+    If renkcik = 248 Then ilkColor = Color.RGB(79, 0, 19)
+    If renkcik = 249 Then ilkColor = Color.RGB(79, 53, 59)
+    If renkcik = 250 Then ilkColor = Color.RGB(51, 51, 51)
+    If renkcik = 251 Then ilkColor = Color.RGB(80, 80, 80)
+    If renkcik = 252 Then ilkColor = Color.RGB(105, 105, 105)
+    If renkcik = 253 Then ilkColor = Color.RGB(130, 130, 130)
+    If renkcik = 254 Then ilkColor = Color.RGB(190, 190, 190)
+    If renkcik > 254 Then ilkColor = Color.RGB(255, 255, 255)
+    If ilkColor = 0 Then ilkColor = Color.RGB(255, 255, 255)
+    If CInteger(renkli) < 0 Then ilkColor = -1 * ilkColor
+    Return
+Catch
+ilk.hatayaz("renkci " & Error.Text, Error.Where & "--" & Error.code)
+    ilkColor = Color.RGB(130, 130, 130)
+    Return
+End
+
+Public Sub kati(ad As String, gore As Integer)
+
+    If ilk.katmer.Find(ad) = -1 Then
+
+        If ad = "LAYER" Then Return
+        If ad = "330" Then Return
+        If ad = "0" Then Return
+        ilk.katmer.Add(ad)
+        bazgi = New Cvb
+        bazgi.ad = ad
+        bazgi.tip = ilksekil
+        bazgi.renk = ilkColor
+        bazgi.kal = ilkkalina
+        bazgi.id = byno
+        'bazgi.gor 0 sa gözüküyor   gore = 6 ise  70 0
+        If gore = 1 Then
+            bazgi.gor = 1
+            bazgi.kilit = 1
+        Else If gore = 2
+            bazgi.kilit = 1
+            bazgi.gor = 1
+        Else If gore = 3
+            bazgi.kilit = 0
+            bazgi.gor = 0
+        Else If gore = 4
+            bazgi.kilit = 1
+            bazgi.gor = 0
+        Else
+            bazgi.kilit = 0
+            bazgi.gor = 0
+        End If
+        If altmis <> "" Then bazgi.gor = altmis
+        If ilkColor < 0 Then
+            bazgi.kilit = 1
+            bazgi.gor = 1
+        Endif
+        If ad = "Defpoints" Or ad = "DEFPOINTS" Then
+            bazgi.tip = ilksekil
+            bazgi.renk = ilkColor
+            bazgi.gor = 1
+            bazgi.kilit = 1
+        Endif
+        ilk.bezmi.Add(bazgi, byno)
+        byno = byno + 1
+    Endif
+    Return
+   Catch
+ilk.hatayaz("kati " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+Sub aciolcu2(onx As Float, yirmix As Float, yzx As Float, yzy As Float, ouc As Float, yuc As Float, odort As Float, ydort As Float, obes As Float, ybes As Float, yuk As Float)
+    Dim aci1, aci2, yaricap As Float
+    Dim yazi As Float
+    acimi.aci(obes, ybes, onx, yirmix)
+    yaricap = acimi.boy
+    acimi.aci(obes, ybes, ouc, yuc)
+    aci1 = acimi.raci
+    acimi.aci(obes, ybes, odort, ydort)
+    aci2 = acimi.raci
+    olcucur.yaziyuk = yuk
+    yazi = Deg(aci2 - aci1)
+    olcucur.acikma3(obes, ybes, yaricap, aci1, aci2, yzx, yzy, yazi, 1, 0)
+    Return
+       Catch
+ilk.hatayaz("aciolcu2 " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+Sub aciolcu(onx As Float, yirmix As Float, yzx As Float, yzy As Float, ouc As Float, yuc As Float, odort As Float, ydort As Float, obes As Float, ybes As Float, oalti As Float, yalti As Float, yuk As Float)
+    Dim aci1, aci2, yaricap, cx1, cy1 As Float
+    Dim yazi, hx, hy As Float
+    acimi.aci(odort, ydort, ouc, yuc)
+    aci1 = acimi.raci
+    hx = acimi.ege
+    hy = acimi.bb
+    acimi.aci(obes, ybes, onx, yirmix)
+    
+    aci2 = acimi.raci
+    cx1 = (hy - acimi.bb) / (acimi.ege - hx)
+    cy1 = ((hx * acimi.bb) - (acimi.ege * hy)) / (acimi.ege - hx)
+    acimi.aci(cx1, cy1, oalti, yalti)
+    yaricap = acimi.boy
+    
+    While aci1 < 0 
+        aci1 = aci1 + 2 * Pi
+    Wend
+    While aci1 > 2 * Pi
+        aci1 = aci1 - 2 * Pi
+    Wend
+    While aci2 > 2 * Pi
+        aci2 = aci2 - 2 * Pi
+    Wend
+    While aci2 < 0 
+        aci2 = aci2 + 2 * Pi
+    Wend
+    yazi = (Deg(aci2 - aci1))
+    If yazi < 0
+        ' hx = aci1
+        ' aci1 = aci2
+        ' aci2 = hx
+        acimi.aci(ouc, yuc, odort, ydort)
+        aci2 = acimi.raci
+        acimi.aci(onx, yirmix, obes, ybes)
+        aci1 = acimi.raci
+        yazi = (Deg(aci2 - aci1))
+    Endif
+    olcucur.yaziyuk = yuk
+    aci1 = aci1 - Pi
+     aci2 = aci2 - Pi
+    olcucur.acikma3(cx1, - cy1, yaricap, aci2, aci1, yzx, yzy, yazi, 1, 0)
+
+    
+    Return
+       Catch
+ilk.hatayaz("aciolcu " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+Sub baskatman()
+    bazgi = New Cvb
+    bazgi.ad = "0"
+    bazgi.tip = 1
+    bazgi.renk = Color.White
+    bazgi.kal = 1
+    bazgi.kilit = 0
+    bazgi.id = 1
+    ilk.bezmi.Add(bazgi, byno)
+    byno = byno + 1
+    ilk.katmer.Add("0")
+    bazgi = New Cvb
+    bazgi.ad = "olcu"
+    bazgi.tip = 1
+    bazgi.renk = ilk.olre
+    bazgi.kal = 1
+    bazgi.kilit = 0
+    bazgi.id = 2
+    ilk.bezmi.Add(bazgi, 1)
+    byno = byno + 1
+    ilk.katmer.Add("olcu")
+    Return
+       Catch
+ilk.hatayaz("baskatman " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+Public oran As Float
+Public Sub olecek(blad As String, kfx As Float, xf As Float, yf As Float, aci As Float, xad As Integer, yad As Integer, xara As Float, yara As Float)
+'     olecek(blkref, kirkiki, ono, -1 * yirmi, elli, yetmis, yetmisbir, kirkdort, kirkbes) 
+    oran = kfx
+    kfx = Abs(kfx)
+    If kfx = 0 Then kfx = 1
+    tiz.grup = blad
+    tiz.kfx = kfx
+    tiz.xf = xf
+    tiz.yf = yf
+    tiz.aci = aci
+    cizem.grup = blad
+    cizem.kfx = kfx
+    cizem.xf = xf
+    cizem.yf = yf
+    cizem.aci = aci
+    sm = sm + 1
+    If aci <> 0
+        If xara <> 0 Or yara <> 0 Then 
+            diz(xad, yad, xara, yara, blad, blad & sm & "a")
+            tasi(xf, yf, blad & sm & "a", blad & sm & "b")
+            dondur3(aci, xf, yf, blad & sm & "b", blad & sm & "c")
+            buyut(kfx, xf, yf, blad & sm & "c", blad & sm)
+        Else
+            If kfx = 1 Then
+                tasi(xf, yf, blad, blad & sm & "a")
+                dondur(aci, xf, yf, blad & sm & "a", blad & sm)
+            Else
+                tasi(xf, yf, blad, blad & sm & "a")
+                dondur3(aci, xf, yf, blad & sm & "a", blad & sm & "b")
+                buyut(kfx, xf, yf, blad & sm & "b", blad & sm)
+            Endif
+        Endif
+    Else
+        If xara <> 0 Or yara <> 0 Then 
+            diz(xad, yad, xara, yara, blad, blad & sm & "a")
+            tasi(xf, yf, blad & sm & "a", blad & sm & "b")
+            buyut(kfx, xf, yf, blad & sm & "b", blad & sm)
+        Else
+            If kfx = 1 Then
+                tasi2(xf, yf, blad, blad & sm)
+            Else
+                tasi(xf, yf, blad, blad & sm & "a")
+                buyut(kfx, xf, yf, blad & sm & "a", blad & sm)
+            Endif
+        Endif
+    Endif
+     blkref = ""
+     cizem.kfx = 1
+    cizem.xf = 0
+    cizem.yf = 0
+    cizem.aci = 0
+     tiz.kfx = 1
+    tiz.xf = 0
+    tiz.yf = 0
+    tiz.aci = 0
+    Return
+       Catch
+ilk.hatayaz("olecek " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Sub tasi(xf As Float, yf As Float, blke As String, ablke As String)
+    Dim zz1, zy1, zz2, zy2 As Float
+    For Each nazgi In ilk.tezmi
+        If nazgi.blok = blke
+            tiz.katman = nazgi.katman
+            tiz.rank = nazgi.renk
+            tiz.kalin = nazgi.kalinlik
+            tiz.sekil = nazgi.sekil
+            tiz.goz = nazgi.gor
+            tiz.asid = nazgi.id
+            tiz.ical = ablke
+            tiz.iotuz = nazgi.y7
+            If oran < 0
+                zz1 = - nazgi.x1 + xf
+                zz2 = - nazgi.x2 + xf
+            Else
+                zz1 = nazgi.x1 + xf
+                zz2 = nazgi.x2 + xf
+            Endif
+            zy1 = nazgi.y1 + yf
+            zy2 = nazgi.y2 + yf
+            If nazgi.komut = 1 Then tiz.cizgis(zz1, zy1, zz2, zy2)
+            If nazgi.komut = 20 Then tiz.cemkay(zz1, zy1, nazgi.yaricap, nazgi.teta, nazgi.r)
+            If nazgi.komut = 25 Then tiz.ckay(zz1, zy1, nazgi.yaricap)
+            If nazgi.komut = 60 Then tiz.yaz(zz1, zy1, nazgi.yazi, nazgi.x6, nazgi.fnt, nazgi.y8)
+        Endif
+    Next
+    Return
+       Catch
+ilk.hatayaz("tasi " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+Sub tasi2(xf As Float, yf As Float, blke As String, ablke As String)
+    Dim zz1, zy1, zz2, zy2 As Float
+    For Each nazgi In ilk.tezmi
+        If nazgi.blok = blke
+            cizem.kalin = nazgi.kalinlik
+            cizem.renk = nazgi.renk
+            cizem.sekil = nazgi.sekil
+            cizem.katman = nazgi.katman
+            cizem.bloku = ablke
+            cizem.gor = nazgi.gor
+            cizem.kfx = 1
+            cizem.xf = xf
+            cizem.yf = yf
+            If oran < 0
+                zz1 = - nazgi.x1 + xf
+                zz2 = - nazgi.x2 + xf
+            Else
+                zz1 = nazgi.x1 + xf
+                zz2 = nazgi.x2 + xf
+            Endif
+            zy1 = nazgi.y1 + yf
+            zy2 = nazgi.y2 + yf
+            If nazgi.komut = 1 Then cizem.cizgi(zz1, zy1, zz2, zy2)
+            If nazgi.komut = 20 Then cizem.yay(zz1, zy1, nazgi.yaricap, nazgi.teta, nazgi.r, nazgi.y7)
+            If nazgi.komut = 25 Then cizem.cember(zz1, zy1, nazgi.yaricap, nazgi.y7)
+            If nazgi.komut = 60 Then cizem.yaz(zz1, zy1, nazgi.yazi, nazgi.x6, nazgi.y8)
+        Endif
+    Next
+    Return
+       Catch
+ilk.hatayaz("tasi2 " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+Public Sub dondur(aci As Float, zx As Float, zy As Float, bnkc As String, abnkc As String)
+    Dim x4oku, y4oku, x5oku, y5oku, x6oku, y6oku, acig, r, r2, aci3, aci1, aci2 As Float
+    aci = Rad(aci)
+    While aci > (2 * Pi)
+        aci = aci - (2 * Pi)
+    Wend
+    While aci < 0
+        aci = aci + (2 * Pi)
+    Wend
+    
+'      If bnkc Like "BED*" Then Message(aci & " // " & bnkc, zx & " // " & zy)
+    For Each nazgi In ilk.tezmi
+        If nazgi.blok = bnkc
+            cizem.kalin = nazgi.kalinlik
+            cizem.renk = nazgi.renk
+            cizem.sekil = nazgi.sekil
+            cizem.katman = nazgi.katman
+            cizem.bloku = abnkc
+            cizem.gor = nazgi.gor
+            acimi.aci(zx, zy, nazgi.x1, nazgi.y1)
+            r = acimi.boy
+            acig = acimi.raci + aci
+            acimi.aci(zx, zy, nazgi.x2, nazgi.y2)
+            r2 = acimi.boy
+            x4oku = zx + (r * Cos(acig))
+            y4oku = zy - (r * Sin(acig))
+            aci3 = acimi.raci + aci
+            x5oku = zx + (r2 * Cos(aci3))
+            y5oku = zy - (r2 * Sin(aci3))
+            
+            If nazgi.komut = 1
+                cizem.cizgi(x4oku, y4oku, x5oku, y5oku)
+            Endif
+            If nazgi.komut = 25 Then
+                cizem.cember(x4oku, y4oku, nazgi.yaricap, nazgi.y7)
+            Endif
+            If nazgi.komut = 20
+                acimi.aci(zx, zy, nazgi.x3, nazgi.y3)
+                aci3 = acimi.raci + aci
+                r = acimi.boy
+                x6oku = zx + (r * Cos(aci3))
+                y6oku = zy - (r * Sin(aci3))
+                acimi.aci(x4oku, y4oku, x5oku, y5oku)
+                aci1 = acimi.raci
+                acimi.aci(x4oku, y4oku, x6oku, y6oku)
+                aci2 = acimi.raci
+                cizem.yay(x4oku, y4oku, nazgi.yaricap, aci1, aci2, nazgi.y7)
+            Endif
+            If nazgi.komut = 60
+                cizem.yaz(x4oku, y4oku, nazgi.yazi, nazgi.x6, nazgi.y8)
+            End If
+        End If
+    Next
+    Return
+       Catch
+ilk.hatayaz("dondur " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+Public Sub dondur3(aci As Float, zx As Float, zy As Float, bnkc As String, abnkc As String)
+    Dim x4oku, y4oku, x5oku, y5oku, x6oku, y6oku, acig, r, r2, aci3, aci1, aci2 As Float
+    aci = Rad(aci)
+    While aci > (2 * Pi)
+        aci = aci - (2 * Pi)
+    Wend
+    While aci < 0
+        aci = aci + (2 * Pi)
+    Wend
+    For Each nazgi In ilk.tezmi
+        If nazgi.blok = bnkc
+            tiz.asid = nazgi.id
+            tiz.katman = nazgi.katman
+            tiz.rank = nazgi.renk
+            tiz.kalin = nazgi.kalinlik
+            tiz.goz = nazgi.gor
+            tiz.sekil = nazgi.sekil
+            tiz.ical = abnkc
+            tiz.iotuz = nazgi.y7
+            acimi.aci(zx, zy, nazgi.x1, nazgi.y1)
+            r = acimi.boy
+            acig = acimi.raci + aci
+            x4oku = zx + (r * Cos(acig))
+            y4oku = zy - (r * Sin(acig))
+            acimi.aci(zx, zy, nazgi.x2, nazgi.y2)
+            r2 = acimi.boy
+            aci3 = acimi.raci + aci
+            x5oku = zx + (r2 * Cos(aci3))
+            y5oku = zy - (r2 * Sin(aci3))
+            
+            If nazgi.komut = 1
+                tiz.cizgis(x4oku, y4oku, x5oku, y5oku)
+            Endif
+            If nazgi.komut = 25 Then
+                tiz.ckay(x4oku, y4oku, nazgi.yaricap)
+            Endif
+            If nazgi.komut = 20
+                acimi.aci(zx, zy, nazgi.x3, nazgi.y3)
+                aci3 = acimi.raci + aci
+                r = acimi.boy
+                x6oku = zx + (r * Cos(aci3))
+                y6oku = zy - (r * Sin(aci3))
+                acimi.aci(x4oku, y4oku, x5oku, y5oku)
+                aci1 = acimi.raci
+                acimi.aci(x4oku, y4oku, x6oku, y6oku)
+                aci2 = acimi.raci
+                tiz.cemkay(x4oku, y4oku, nazgi.yaricap, aci1, aci2)
+            Endif
+            If nazgi.komut = 60
+                tiz.yaz(x4oku, y4oku, nazgi.yazi, nazgi.x6, nazgi.fnt, nazgi.y8)
+            End If
+        End If
+    Next
+    Return
+       Catch
+ilk.hatayaz("dondur3 " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub buyut(kfx As Float, ax As Float, ay As Float, blke As String, ablke As String)
+    Dim ax1, ay1, ax2, ay2 As Float
+    For Each nazgi In ilk.tezmi
+        If nazgi.blok = blke
+            cizem.kalin = nazgi.kalinlik
+            cizem.renk = nazgi.renk
+            cizem.sekil = nazgi.sekil
+            cizem.katman = nazgi.katman
+            cizem.bloku = ablke
+            cizem.gor = nazgi.gor
+            cizem.kfx = kfx
+            If oran < 0 Then
+                ax1 = - nazgi.x1 * kfx + ax * (1 - kfx)
+                ax2 = - nazgi.x2 * kfx + ax * (1 - kfx)
+            Else
+                 ax1 = nazgi.x1 * kfx + ax * (1 - kfx)
+                ax2 = nazgi.x2 * kfx + ax * (1 - kfx)
+            Endif
+            
+                ax1 = nazgi.x1 * kfx + ax * (1 - kfx)
+                ay1 = nazgi.y1 * kfx + ay * (1 - kfx)
+                ax2 = nazgi.x2 * kfx + ax * (1 - kfx)
+                ay2 = nazgi.y2 * kfx + ay * (1 - kfx)
+            If nazgi.komut = 1
+                cizem.cizgi(ax1, ay1, ax2, ay2)
+            Endif
+            If nazgi.komut = 25
+                ax2 = nazgi.yaricap * kfx
+                cizem.cember(ax1, ay1, ax2, nazgi.y7)
+            Endif
+            If nazgi.komut = 20
+                ax2 = nazgi.yaricap * kfx
+                cizem.yay(ax1, ay1, ax2, nazgi.teta, nazgi.r, nazgi.y7)
+            Endif
+            If nazgi.komut = 60
+                ax2 = (nazgi.x6) * kfx
+                cizem.yaz(ax1, ay1, nazgi.yazi, ax2, nazgi.y8)
+            End If
+        End If
+    Next
+    Return
+       Catch
+ilk.hatayaz("buyut " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub diz(xad As Integer, yad As Integer, xara As Float, yara As Float, blke As String, ablke As String)
+ Dim i, j As Integer
+    Dim cx1, cy1, cizx1, cizy1, cizx2, cizy2 As Float
+        For Each nazgi In ilk.tezmi
+            If nazgi.blok = blke
+                tiz.asid = nazgi.id
+                tiz.katman = nazgi.katman
+                tiz.rank = nazgi.renk
+                tiz.kalin = nazgi.kalinlik
+                tiz.goz = nazgi.gor
+                tiz.sekil = nazgi.sekil
+                tiz.ical = ablke
+                tiz.iotuz = nazgi.y7
+                For i = 0 To xad
+                    For j = 0 To yad
+                        If nazgi.komut = 1 Then
+                            cizx1 = nazgi.x1 + i * xara
+                            cizy1 = nazgi.y1 - j * yara
+                            cizx2 = nazgi.x2 + i * xara
+                            cizy2 = nazgi.y2 - j * yara
+                            tiz.cizgis(cizx1, cizy1, cizx2, cizy2)
+                        End If
+                        If nazgi.komut = 25 Then
+                            cx1 = nazgi.x1 + i * xara
+                            cy1 = nazgi.y1 - j * yara
+                            tiz.ckay(cx1, cy1, nazgi.yaricap)
+                        End If
+                        If nazgi.komut = 20 Then
+                            cx1 = nazgi.x1 + i * xara
+                            cy1 = nazgi.y1 - j * yara
+                            tiz.cemkay(cx1, cy1, nazgi.yaricap, nazgi.teta, nazgi.r)
+                        End If
+                        If nazgi.komut = 60 Then
+                            cx1 = nazgi.x1 + i * xara
+                            cy1 = nazgi.y1 - j * yara
+                            tiz.yaz(cx1, cy1, nazgi.yazi, nazgi.x6)
+                        End If
+                    Next
+                Next
+            Endif
+        Next
+    Return
+       Catch
+ilk.hatayaz("diz " & Error.Text, Error.Where & "--" & Error.code)
+Return
+    End

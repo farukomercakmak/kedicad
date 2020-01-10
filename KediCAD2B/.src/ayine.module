@@ -1,0 +1,316 @@
+' Gambas module file
+
+Public cazgi As Czm
+Public yazgi As Czm
+
+Public Sub aynalar()
+
+    Dim vx1, vy1, vx2, vy2, zz1, zy1, zz2, zy2, zz3, zy3, olcum, fx1, fy1, fx2, fy2, tx, ty As Float
+    Dim yomutu, onay As Integer
+    Dim egim, b, l1, l2, l3, tmx, tmy, alfa, beta, teta1, mu As Float
+    Dim abl, tym, nbv As String
+    Dim vbn As String[]
+
+    tasima.dzm = tasima.dzm + 1
+    fx1 = ilk.birx + 0.00001
+    fy1 = ilk.biry + 0.00001
+    fx2 = ilk.ikix + 0.00001
+    fy2 = ilk.ikiy + 0.00001
+    Select Message.Question("Delete mirrored drawing?", "Yes", "No")
+        Case 1
+            onay = 1
+        Case 2
+            onay = 2
+    End Select
+    ilk.bolok = ilk.bolok + 2
+    olcum = ilk.olcum
+    If (Abs(fx1 - fx2) < 5) Then fx2 = fx1
+    If (Abs(fy1 - fy2) < 5) Then fy2 = fy1
+    If (Abs(fx1 - fx2) < 5) Or (Abs(fy1 - fy2) < 5) Then
+        For Each cazgi In ilk.cezmi
+            If ilk.depo1.Exist(cazgi.id)
+                If onay = 1 Then cizi.asid = cazgi.id
+                tasima.drl.Add(cazgi.id)
+                yomutu = cazgi.komut
+                If Abs(fx2 - fx1) < Abs(fy2 - fy1) Then
+                    zz1 = fx1 + (fx1 - cazgi.x1 * olcum)
+                    zy1 = cazgi.y1 * olcum
+                    zz2 = fx1 + (fx1 - cazgi.x2 * olcum)
+                    zy2 = cazgi.y2 * olcum
+                    zz3 = fx1 + (fx1 - cazgi.x3 * olcum)
+                    zy3 = cazgi.y3 * olcum
+                Else
+                    tx = Abs(2 * Pi - cazgi.teta)
+                    ty = Abs(2 * Pi - cazgi.r)
+                    zz1 = cazgi.x1 * olcum
+                    zy1 = fy1 + (fy1 - cazgi.y1 * olcum)
+                    zz2 = cazgi.x2 * olcum
+                    zy2 = fy1 + (fy1 - cazgi.y2 * olcum)
+                    zz3 = cazgi.x3 * olcum
+                    zy3 = fy1 + (fy1 - cazgi.y3 * olcum)
+                End If
+                If cazgi.blok = 0 Then
+                    abl = 0
+                Else
+                    vbn = Split(cazgi.blok, "<")
+                    For Each nbv In vbn
+                        tym = nbv
+                    Next
+                    If tym = cazgi.blok Then
+                        abl = cazgi.blok & "<" & tasima.dzm
+                    Else
+                        abl = cazgi.blok & tasima.dzm
+                    End If
+                End If
+                vx1 = zz1
+                vy1 = zy1
+                vx2 = zz2
+                vy2 = zy2
+                cizi.aktar(cazgi.id)
+                cizi.bloku = abl
+                If yomutu = 25 Then
+                    cizi.cember(vx1, vy1, cazgi.yaricap)
+                    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                    ilk.gkay = ilk.gkay + 1
+                Else If yomutu = 20 Then
+                    ilk.birx = vx1
+                    ilk.biry = vy1
+                    ilk.ikix = zz3
+                    ilk.ikiy = zy3
+                    ilk.ucx = vx2
+                    ilk.ucy = vy2
+                    ilk.yaricap = cazgi.yaricap
+                    cmbr.yayciii(cazgi.renk, cazgi.kalinlik, cazgi.sekil, abl)
+                    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                    ilk.gkay = ilk.gkay + 1
+                Else If yomutu = 60 Then
+                    cizi.yaz(vx1, vy1, cazgi.yazi, cazgi.x6 * olcum, cazgi.y4)
+                Else If yomutu = 1 Then
+                    cizi.cizgi(vx1, vy1, vx2, vy2)
+                    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                    ilk.gkay = ilk.gkay + 1
+                Else If yomutu = 242 Then
+                    cizi.nokta(vx1, vy1, cazgi.yazi)
+                End If
+            End If
+        Next
+        Goto cik
+    Endif
+
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id)
+            yomutu = cazgi.komut
+            acimi.aci(fx1, fy1, fx2, fy2)
+            egim = acimi.ege
+            b = acimi.bb
+            acimi.tem(b, cazgi.b, egim, cazgi.egim)
+            tmx = acimi.tmx
+            tmy = acimi.tmy
+            alfa = Atn((tmy - fy2) / (tmx - fx2 - 0.0000001))
+            If tmx > fx2
+                alfa = Pi - alfa
+            Else
+                alfa = - alfa
+            End If
+            If alfa < 0 Then alfa = 2 * Pi + alfa
+            If alfa > (2 * Pi) Then alfa = alfa - 2 * Pi
+            beta = Atn((tmy - cazgi.y2 * ilk.olcum) / (tmx - cazgi.x2 * ilk.olcum - 0.00001))
+            If tmx > cazgi.x2
+                beta = Pi - beta
+            Else
+                beta = - beta
+            End If
+            If beta < 0 Then beta = 2 * Pi + beta
+            If beta > (2 * Pi) Then beta = beta - 2 * Pi
+            teta1 = (alfa - beta)
+            mu = beta + 2 * teta1
+            While mu > (2 * Pi)
+                mu = mu - 2 * Pi
+            Wend
+            l1 = Hyp(tmx - cazgi.x1 * ilk.olcum, tmy - cazgi.y1 * ilk.olcum)
+            l2 = Hyp(tmx - cazgi.x2 * ilk.olcum, tmy - cazgi.y2 * ilk.olcum)
+            l3 = Hyp(tmx - cazgi.x3 * ilk.olcum, tmy - cazgi.y3 * ilk.olcum)
+            zz1 = tmx + (l1 * Cos(mu))
+            zy1 = tmy - (l1 * Sin(mu))
+            zz2 = tmx + (l2 * Cos(mu))
+            zy2 = tmy - (l2 * Sin(mu))
+            zz3 = tmx + (l3 * Cos(mu))
+            zy3 = tmy - (l3 * Sin(mu))
+            vx1 = zz1
+            vy1 = zy1
+            vx2 = zz2
+            vy2 = zy2
+            cizi.aktar(cazgi.id)
+            cizi.bloku = abl
+            If yomutu = 25 Then
+                cizi.cember(vx1, vy1, cazgi.yaricap)
+                ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                ilk.gkay = ilk.gkay + 1
+            Else If yomutu = 20 Then
+                ilk.birx = vx1
+                ilk.biry = vy1
+                ilk.ikix = zz3
+                ilk.ikiy = zy3
+                ilk.ucx = vx2
+                ilk.ucy = vy2
+                ilk.yaricap = cazgi.yaricap
+                cmbr.yayciii(cazgi.renk, cazgi.kalinlik, cazgi.sekil, abl)
+                ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                ilk.gkay = ilk.gkay + 1
+            Else If yomutu = 1 Then
+                cizi.cizgi(vx1, vy1, vx2, vy2)
+                ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                ilk.gkay = ilk.gkay + 1
+            Else If yomutu = 242 Then
+                cizi.nokta(vx1, vy1, cazgi.yazi)
+            End If
+        End If
+    Next
+cik:
+    ilk.bolok = ilk.bolok + 5 + ilk.depo1.count
+    If onay = 1 Then
+        gerde.zkayit("ayna")
+    Else
+        gerde.zkayit("ayna2")
+    End If
+    onay = 0
+    ilk.dolas
+
+End
+Public Sub ayni()
+    ' ////////////  AYNALAMA ///////////////////
+
+    Dim zz1, zy1, zz2, zy2, egim, b, l1, l2, terta, tx, ty, tmx, tmy, alfa, beta, mu As Float
+    Dim yomutu As Integer
+    Dim fx1, fy1, fx2, fy2 As Float
+    Paint.Brush = Paint.Color(ilk.apla)                     'çizgi seçildi çizgiyi kalın  çiz.
+    Paint.LineWidth = 1
+    fx2 = ilk.mousex + 0.00001
+    fy2 = ilk.mousey + 0.00001
+    fx1 = ilk.birx + 0.00001
+    fy1 = ilk.biry + 0.00001
+    If (Abs(fx1 - fx2) < 5) Then fx2 = fx1
+    If (Abs(fy1 - fy2) < 5) Then fy2 = fy1
+    If (Abs(fx1 - fx2) < 5) Or (Abs(fy1 - fy2) < 5) Then
+
+        For Each cazgi In ilk.cezmi
+            If ilk.depo1.Exist(cazgi.id)
+                yomutu = cazgi.komut
+                If Abs(fx2 - fx1) < Abs(fy2 - fy1) Then
+                    zz1 = fx1 + (fx1 - cazgi.x1 * ilk.olcum)
+                    zy1 = cazgi.y1 * ilk.olcum
+                    zz2 = fx1 + (fx1 - cazgi.x2 * ilk.olcum)
+                    zy2 = cazgi.y2 * ilk.olcum
+                    tx = Pi - cazgi.teta
+                    ty = Pi - cazgi.r
+                    If zz1 > fx1 Then
+                        If cazgi.teta < 90 Then terta = 90 + (90 - cazgi.teta)
+                        If cazgi.teta > 270 Then terta = 270 - (cazgi.teta - 270)
+                    Else
+                        If cazgi.teta < 180 Then terta = 90 - (cazgi.teta - 90)
+                        If cazgi.teta >= 180 Then terta = 270 + (270 - cazgi.teta)
+                    End If
+                    If yomutu = 5 Then
+                        zz1 = fx1 + (fx1 - cazgi.x1 * ilk.olcum) + cazgi.x2 * ilk.olcum
+                        zz2 = cazgi.x2 * ilk.olcum
+                        zy2 = cazgi.y2 * ilk.olcum
+                    End If
+                Else
+                    tx = 2 * Pi - cazgi.teta
+                    ty = 2 * Pi - cazgi.r
+                    zz1 = cazgi.x1 * ilk.olcum
+                    zy1 = fy1 + (fy1 - cazgi.y1 * ilk.olcum)
+                    zz2 = cazgi.x2 * ilk.olcum
+                    zy2 = fy1 + (fy1 - cazgi.y2 * ilk.olcum)
+                    If cazgi.teta < 180 Then terta = 360 - cazgi.teta
+                    If cazgi.teta > 180 Then terta = 180 - (cazgi.teta - 180)
+                End If
+                
+                If fx1 <> 0
+                    Paint.MoveTo(fx1, fy1)
+                    Paint.LineTo(fx2, fy2)
+                End If
+                If yomutu = 25 Then
+                    Paint.arc(zz1, zy1, cazgi.yaricap * ilk.olcum)
+                Else If yomutu = 20 Then
+                    If ty < tx Then ty = ty + 2 * Pi
+                    Paint.Arc(zz1, zy1, cazgi.yaricap * ilk.olcum, - tx, - ty + tx)
+                Else If yomutu = 1 Then
+                    Paint.MoveTo(zz1, zy1)
+                    Paint.LineTo(zz2, zy2)
+                End If
+            End If
+        Next
+        Goto cik
+    Endif
+
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id)
+            yomutu = cazgi.komut
+            acimi.aci(fx1, fy1, fx2, fy2)
+            egim = acimi.ege
+            b = acimi.bb
+            If yomutu = 1 Then
+                acimi.tem(b, cazgi.b, egim, cazgi.egim)
+                tmx = acimi.tmx
+                tmy = acimi.tmy
+            Endif
+            alfa = Atn((tmy - fy2) / (tmx - fx2 - 0.0000001))
+            If tmx > fx2
+                alfa = Pi - alfa
+            Else
+                alfa = - alfa
+            End If
+            While alfa < 0
+                alfa = alfa + 2 * Pi
+            Wend
+            While alfa > (2 * Pi)
+                alfa = alfa - 2 * Pi
+            Wend
+            beta = Atn((tmy - cazgi.y2 * ilk.olcum) / (tmx - cazgi.x2 * ilk.olcum + 0.00001))
+            If tmx > cazgi.x2
+                beta = Pi - beta
+            Else
+                beta = - beta
+            End If
+            While beta < 0
+                beta = beta + 2 * Pi
+            Wend
+            While beta > (2 * Pi)
+                beta = beta - 2 * Pi
+            Wend
+            mu = beta + 2 * (alfa - beta)
+            While mu < 0
+                mu = mu + 2 * Pi
+            Wend
+            While mu > (2 * Pi)
+                mu = mu - 2 * Pi
+            Wend
+            
+            Paint.MoveTo(fx1, fy1)
+            Paint.LineTo(fx2, fy2)
+            l1 = Hyp(tmx - cazgi.x1 * ilk.olcum, tmy - cazgi.y1 * ilk.olcum)
+            l2 = Hyp(tmx - cazgi.x2 * ilk.olcum, tmy - cazgi.y2 * ilk.olcum)
+            zz1 = tmx + (l1 * Cos(mu))
+            zy1 = tmy - (l1 * Sin(mu))
+            zz2 = tmx + (l2 * Cos(mu))
+            zy2 = tmy - (l2 * Sin(mu))
+            If yomutu = 25 Then
+                Paint.MoveTo(fx1, fy1)
+                Paint.LineTo(zz1, zy1)
+                Paint.Arc(zz1, zy1, cazgi.yaricap * ilk.olcum)
+            Else If yomutu = 20 Then
+                tx = 2 * Pi - cazgi.teta
+                ty = 2 * Pi - cazgi.r
+                If ty < tx Then ty = ty + 2 * Pi
+                Paint.Arc(zz1, zy1, cazgi.yaricap * ilk.olcum, - tx, - ty + tx)
+            Else If yomutu = 1 Then
+                Paint.MoveTo(zz1, zy1)
+                Paint.LineTo(zz2, zy2)
+            End If
+        End If
+    Next
+    Paint.Stroke
+cik:
+    Return
+End

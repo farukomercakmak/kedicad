@@ -1,0 +1,88 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(504,0,196,315)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  SkipTaskbar = True
+  { TabStrip1 TabStrip
+    Move(0,0,196,280)
+    Count = 2
+    Index = 0
+    Text = ("Snaps")
+    { Label1 Label
+      Move(7,217,70,21)
+      Text = ("  Grid")
+    }
+    { izga TextBox
+      Move(98,217,77,28)
+    }
+    { CheckBox2 CheckBox
+      Move(7,35,112,21)
+      Text = ("Middle Point")
+    }
+    { CheckBox3 CheckBox
+      Move(7,53,133,21)
+      Text = ("Center Point")
+    }
+    { CheckBox4 CheckBox
+      Move(7,77,112,21)
+      Text = ("Tangent")
+    }
+    { CheckBox5 CheckBox
+      Move(7,105,105,21)
+      Text = ("Dik")
+    }
+    { CheckBox1 CheckBox
+      Move(7,14,161,21)
+      Text = ("End Point")
+    }
+    { CheckBox6 CheckBox
+      Move(7,123,147,21)
+      Text = ("Nearest")
+    }
+    { CheckBox7 CheckBox
+      Move(7,147,147,21)
+      Text = ("Quadrant")
+    }
+    { CheckBox11 CheckBox
+      Move(7,175,147,21)
+      Text = ("İntersection")
+    }
+    Index = 1
+    Text = ("Track")
+    { CheckBox8 CheckBox
+      Move(7,133,136,24)
+      Text = ("45 degree")
+      Value = CheckBox.True
+    }
+    { PictureBox1 PictureBox
+      Move(14,0,161,112)
+      Picture = Picture["Resim/track.png"]
+    }
+    { CheckBox9 CheckBox
+      Move(7,112,160,24)
+      Text = ("30 degree")
+      Value = CheckBox.True
+    }
+    { CheckBox10 CheckBox
+      Move(7,154,120,24)
+      Text = ("60 degree")
+      Value = CheckBox.True
+    }
+    { TextBox1 TextBox
+      Move(7,196,40,32)
+    }
+    { Label2 Label
+      Move(56,203,96,16)
+      Text = ("degree")
+    }
+    Index = 0
+  }
+  { Button1 Button
+    Move(105,287,84,28)
+    Text = ("Ok.")
+  }
+}

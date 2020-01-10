@@ -1,0 +1,116 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,322,413)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  { giris TextBox
+    Move(0,70,154,35)
+  }
+  { sonuc TextBox
+    Move(168,70,154,35)
+    ReadOnly = True
+  }
+  { bolum ComboBox
+    Move(161,0,161,35)
+    ReadOnly = True
+  }
+  { Frame1 Frame
+    Move(0,105,154,273)
+    Text = ("Kaynak")
+    { r11 RadioButton
+      Move(7,21,140,28)
+      Text = ("RadioButton1")
+    }
+    { r12 RadioButton
+      Move(7,49,140,28)
+      Text = ("RadioButton2")
+    }
+    { r13 RadioButton
+      Move(7,77,140,28)
+      Text = ("RadioButton3")
+    }
+    { r14 RadioButton
+      Move(7,105,140,28)
+      Text = ("RadioButton4")
+    }
+    { r15 RadioButton
+      Move(7,133,140,28)
+      Text = ("RadioButton5")
+    }
+    { r19 RadioButton
+      Move(7,245,140,28)
+      Text = ("RadioButton4")
+    }
+    { r18 RadioButton
+      Move(7,217,140,28)
+      Text = ("RadioButton3")
+    }
+    { r17 RadioButton
+      Move(7,189,140,28)
+      Text = ("RadioButton2")
+    }
+    { r16 RadioButton
+      Move(7,161,140,28)
+      Text = ("RadioButton1")
+    }
+  }
+  { Label1 Label
+    Move(0,7,161,28)
+    Text = ("Specify Converting unit")
+  }
+  { Frame2 Frame
+    Move(168,105,154,273)
+    Text = ("Hedef")
+    { r21 RadioButton
+      Move(7,21,140,28)
+      Text = ("RadioButton1")
+    }
+    { r22 RadioButton
+      Move(7,49,140,28)
+      Text = ("RadioButton2")
+    }
+    { r23 RadioButton
+      Move(7,77,140,28)
+      Text = ("RadioButton3")
+    }
+    { r24 RadioButton
+      Move(7,105,140,28)
+      Text = ("RadioButton4")
+    }
+    { r25 RadioButton
+      Move(7,133,140,28)
+      Text = ("RadioButton5")
+    }
+    { r29 RadioButton
+      Move(7,245,140,28)
+      Text = ("RadioButton4")
+    }
+    { r28 RadioButton
+      Move(7,217,140,28)
+      Text = ("RadioButton3")
+    }
+    { r27 RadioButton
+      Move(7,189,140,28)
+      Text = ("RadioButton2")
+    }
+    { r26 RadioButton
+      Move(7,161,140,28)
+      Text = ("RadioButton1")
+    }
+  }
+  { Label2 Label
+    Move(0,49,119,21)
+    Text = ("Input Value :")
+  }
+  { Label3 Label
+    Move(175,49,140,21)
+    Text = ("Result: ")
+  }
+  { Button1 Button
+    Move(189,378,119,35)
+    Text = ("Close")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+}

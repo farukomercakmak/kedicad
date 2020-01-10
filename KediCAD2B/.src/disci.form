@@ -1,0 +1,946 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(371,10003,511,560)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  SkipTaskbar = True
+  { Wizard1 Wizard
+    Move(0,0,472,512)
+    Count = 4
+    Index = 0
+    Text = ("Step #1")
+    { Label25 Label
+      Move(0,25,160,24)
+      Text = ("Motor Output Speed(d/d)")
+    }
+    { mcikis TextBox
+      Move(160,25,48,24)
+      Text = ("1460")
+      Alignment = Align.Right
+    }
+    { Label26 Label
+      Move(178,3,96,24)
+      Text = ("Form Faktor")
+    }
+    { sekil TextBox
+      Move(272,1,32,24)
+      Text = ("3")
+      Alignment = Align.Right
+    }
+    { mguc TextBox
+      Move(120,1,48,24)
+      Text = ("15")
+      Alignment = Align.Right
+    }
+    { Label28 Label
+      Move(0,0,120,24)
+      Text = (" Power(kW)")
+    }
+    { Frame2 Frame
+      Move(0,49,464,328)
+      Text = ("Enter the gear-pinion Features")
+      { Label29 Label
+        Move(133,21,42,49)
+        Text = ("Gear\ntooth\ncount")
+      }
+      { Label30 Label
+        Move(190,26,42,49)
+        Text = ("Pinion\ntooth\ncount")
+      }
+      { cark1 TextBox
+        Move(134,68,40,24)
+        Text = ("90")
+      }
+      { cark2 TextBox
+        Move(134,96,42,28)
+        Text = ("73")
+      }
+      { cark3 TextBox
+        Move(135,126,40,24)
+        Text = ("67")
+      }
+      { cark4 TextBox
+        Move(134,152,40,24)
+      }
+      { Label31 Label
+        Move(7,70,80,24)
+        Text = ("1. level")
+      }
+      { Label32 Label
+        Move(8,96,70,21)
+        Text = ("2.level")
+      }
+      { Label33 Label
+        Move(7,119,70,21)
+        Text = ("3.level")
+      }
+      { Label34 Label
+        Move(8,152,70,21)
+        Text = ("4.level")
+      }
+      { Label35 Label
+        Move(260,19,63,56)
+        Text = ("Pinion \nwidth\n(mm)")
+      }
+      { gen2 TextBox
+        Move(260,96,48,24)
+        Text = ("100")
+      }
+      { gen3 TextBox
+        Move(260,124,48,24)
+        Text = ("140")
+      }
+      { gen4 TextBox
+        Move(260,152,49,28)
+      }
+      { gen1 TextBox
+        Move(260,68,48,24)
+        Text = ("60")
+      }
+      { Label42 Label
+        Move(84,182,91,56)
+        Text = ("Tensile\n Strength\n(N/mm^2)")
+      }
+      { Label43 Label
+        Move(182,182,98,49)
+        Text = ("Pressure\nstrength\ncoeff.(N/mm^2)")
+      }
+      { cekme4 TextBox
+        Move(88,304,88,24)
+      }
+      { cekme3 TextBox
+        Move(91,281,63,21)
+        Text = ("350")
+      }
+      { cekme1 TextBox
+        Move(88,232,63,21)
+        Text = ("350")
+      }
+      { cekme2 TextBox
+        Move(88,256,63,21)
+        Text = ("350")
+      }
+      { basma4 TextBox
+        Move(184,304,80,24)
+      }
+      { basma3 TextBox
+        Move(184,280,63,21)
+        Text = ("950")
+      }
+      { basma1 TextBox
+        Move(184,232,70,21)
+        Text = ("583")
+      }
+      { basma2 TextBox
+        Move(184,256,70,21)
+        Text = ("780")
+      }
+      { Label36 Label
+        Move(296,184,70,49)
+        Text = ("Working \nsafety\ncoeff.")
+      }
+      { cal2 TextBox
+        Move(288,256,70,21)
+        Text = ("1.25")
+      }
+      { cal3 TextBox
+        Move(288,280,70,21)
+        Text = ("1.25")
+      }
+      { cal4 TextBox
+        Move(288,304,70,21)
+      }
+      { cal1 TextBox
+        Move(288,232,70,21)
+        Text = ("1.25")
+      }
+      { m1 TextBox
+        Move(92,68,40,24)
+        Text = ("3")
+      }
+      { m2 TextBox
+        Move(88,96,40,24)
+        Text = ("5")
+      }
+      { m4 TextBox
+        Move(92,152,40,24)
+      }
+      { m3 TextBox
+        Move(92,124,40,24)
+        Text = ("7")
+      }
+      { Label54 Label
+        Move(85,47,49,21)
+        Text = ("Modul")
+      }
+      { p2 TextBox
+        Move(183,96,56,24)
+        Text = ("14")
+      }
+      { p3 TextBox
+        Move(183,124,56,24)
+        Text = ("14")
+      }
+      { p4 TextBox
+        Move(183,152,56,24)
+      }
+      { p1 TextBox
+        Move(183,70,56,24)
+        Text = ("15")
+      }
+      { Label24 Label
+        Move(14,284,77,21)
+        Text = ("3.level")
+      }
+      { Label37 Label
+        Move(14,263,77,21)
+        Text = ("2.level")
+      }
+      { Label38 Label
+        Move(14,242,77,21)
+        Text = ("1.level")
+      }
+      { Label39 Label
+        Move(12,304,77,21)
+        Text = ("4.level")
+      }
+      { aci3 TextBox
+        Move(330,124,48,24)
+        Text = ("14.56")
+      }
+      { aci4 TextBox
+        Move(330,152,48,24)
+      }
+      { aci1 TextBox
+        Move(330,68,48,24)
+        Text = ("0")
+      }
+      { Label41 Label
+        Move(330,26,56,42)
+        Text = ("Helis\nAngle")
+      }
+      { aci2 TextBox
+        Move(330,96,48,24)
+        Text = ("0")
+      }
+      { Label44 Label
+        Move(384,184,77,49)
+        Text = ("Dinamik\nYük\nKatsayısı")
+      }
+      { din2 TextBox
+        Move(384,256,63,21)
+        Text = ("1")
+        Alignment = Align.Right
+      }
+      { din3 TextBox
+        Move(384,280,63,21)
+        Text = ("1")
+        Alignment = Align.Right
+      }
+      { din4 TextBox
+        Move(385,305,72,24)
+        Alignment = Align.Right
+      }
+      { din1 TextBox
+        Move(384,232,63,21)
+        Text = ("1.1")
+        Alignment = Align.Right
+      }
+      { Label49 Label
+        Move(399,21,63,49)
+        Text = ("Profil\nKavrama\nOranı")
+      }
+      { pko2 TextBox
+        Move(400,96,48,24)
+        Text = ("1.65")
+      }
+      { pko3 TextBox
+        Move(400,124,48,24)
+        Text = ("1.65")
+      }
+      { pko4 TextBox
+        Move(400,152,48,24)
+      }
+      { pko1 TextBox
+        Move(400,68,48,24)
+        Text = ("1.65")
+      }
+    }
+    { Button5 Button
+      Move(88,384,368,32)
+      Text = ("Solve")
+    }
+    { Label53 Label
+      Move(231,21,175,28)
+      Text = ("Modulus of elasticity N/mm2")
+    }
+    { elas TextBox
+      Move(408,25,56,24)
+      Text = ("21000")
+    }
+    { Label91 Label
+      Move(318,1,98,21)
+      Text = ("Grip Angle.")
+    }
+    { kavaci TextBox
+      Move(416,1,48,24)
+      Text = ("20")
+    }
+    Index = 1
+    Text = ("Step #2")
+    { Frame5 Frame
+      Move(0,0,464,216)
+      Text = ("Load Results")
+      { Label55 Label
+        Move(133,21,63,49)
+        Text = ("Tangent\nLoad\n(N)")
+      }
+      { Label56 Label
+        Move(238,21,56,49)
+        Text = ("Radial\nLoad\n(N)")
+      }
+      { cev1 TextBox
+        Move(126,70,84,24)
+      }
+      { cev2 TextBox
+        Move(126,98,84,24)
+      }
+      { cev3 TextBox
+        Move(126,126,84,24)
+      }
+      { cev4 TextBox
+        Move(126,154,84,24)
+      }
+      { Label57 Label
+        Move(0,72,72,24)
+        Text = ("1.Level")
+      }
+      { Label58 Label
+        Move(0,96,72,24)
+        Text = ("2.Level")
+      }
+      { Label59 Label
+        Move(0,126,72,24)
+        Text = ("3.Level")
+      }
+      { Label60 Label
+        Move(0,152,72,24)
+        Text = ("4.Level")
+      }
+      { Label61 Label
+        Move(385,28,49,42)
+        Text = ("Tork\n(Nm)")
+      }
+      { tork2 TextBox
+        Move(378,98,70,24)
+      }
+      { tork3 TextBox
+        Move(378,126,70,24)
+      }
+      { tork4 TextBox
+        Move(378,154,70,24)
+      }
+      { tork1 TextBox
+        Move(378,70,70,24)
+      }
+      { eks1 TextBox
+        Move(294,70,84,24)
+      }
+      { eks2 TextBox
+        Move(294,98,84,24)
+      }
+      { eks4 TextBox
+        Move(294,154,84,24)
+      }
+      { eks3 TextBox
+        Move(294,126,84,24)
+      }
+      { Label65 Label
+        Move(308,21,63,49)
+        Text = ("Axis\nLoad\n(N)")
+      }
+      { rad2 TextBox
+        Move(210,98,84,24)
+      }
+      { rad3 TextBox
+        Move(210,126,84,24)
+      }
+      { rad4 TextBox
+        Move(210,154,84,24)
+      }
+      { rad1 TextBox
+        Move(210,70,84,24)
+      }
+      { hiz2 TextBox
+        Move(70,98,56,24)
+      }
+      { hiz3 TextBox
+        Move(70,126,56,24)
+      }
+      { hiz4 TextBox
+        Move(70,154,56,24)
+      }
+      { hiz1 TextBox
+        Move(70,70,56,24)
+      }
+      { Label40 Label
+        Move(77,35,49,35)
+        Text = ("Speed\n(rpm)")
+      }
+      { hiz5 TextBox
+        Move(72,184,56,24)
+      }
+    }
+    { Frame3 Frame
+      Move(0,216,462,192)
+      Text = ("Safety Results")
+      { Label45 Label
+        Move(7,77,77,28)
+        Text = ("1.Level")
+      }
+      { Label46 Label
+        Move(7,105,70,28)
+        Text = ("2.Level")
+      }
+      { Label47 Label
+        Move(7,133,70,28)
+        Text = ("3.Level")
+      }
+      { Label48 Label
+        Move(7,161,70,21)
+        Text = ("4.Level")
+      }
+      { Label50 Label
+        Move(88,16,72,64)
+        Text = ("Teeth deep\nsafety\ncoeff.")
+      }
+      { Label51 Label
+        Move(168,16,72,56)
+        Text = ("Pressure\nsafety\ncoeff.")
+      }
+      { dip4 TextBox
+        Move(91,161,63,24)
+      }
+      { dip3 TextBox
+        Move(91,133,63,24)
+      }
+      { dip1 TextBox
+        Move(91,77,63,24)
+      }
+      { dip2 TextBox
+        Move(91,105,63,24)
+      }
+      { ez4 TextBox
+        Move(174,156,88,24)
+      }
+      { ez3 TextBox
+        Move(174,132,84,24)
+      }
+      { ez1 TextBox
+        Move(174,78,84,24)
+      }
+      { ez2 TextBox
+        Move(174,102,84,24)
+      }
+      { Label52 Label
+        Move(273,14,64,56)
+        Text = ("Modul1")
+      }
+      { ddmo2 TextBox
+        Move(270,102,84,24)
+      }
+      { ddmo3 TextBox
+        Move(270,132,84,24)
+      }
+      { ddmo4 TextBox
+        Move(270,162,84,24)
+      }
+      { ddmo1 TextBox
+        Move(270,78,84,24)
+      }
+      { Label66 Label
+        Move(371,14,80,56)
+        Text = ("Modul2")
+      }
+      { amo1 TextBox
+        Move(366,78,90,24)
+      }
+      { amo2 TextBox
+        Move(366,108,90,24)
+      }
+      { amo3 TextBox
+        Move(366,132,90,24)
+      }
+      { amo4 TextBox
+        Move(366,162,90,24)
+      }
+    }
+    Index = 2
+    Text = ("Step #3")
+    { Frame8 Frame
+      Move(0,0,480,366)
+      Text = ("Specify profile wrapping .(mm.)")
+      { Label86 Label
+        Move(176,43,72,16)
+        Text = ("1.Level")
+      }
+      { Label87 Label
+        Move(252,42,72,24)
+        Text = ("2.Level")
+      }
+      { Label88 Label
+        Move(328,48,72,16)
+        Text = ("3.Level")
+      }
+      { Label89 Label
+        Move(399,42,72,24)
+        Text = ("4.Level")
+      }
+      { Label92 Label
+        Move(0,64,160,24)
+        Text = ("Axises distance  :")
+      }
+      { Label93 Label
+        Move(0,84,176,32)
+        Text = ("axis include scroll profile.")
+      }
+      { ppk1 TextBox
+        Move(183,85,49,28)
+      }
+      { ppk2 TextBox
+        Move(263,85,49,24)
+      }
+      { ppk3 TextBox
+        Move(335,88,49,24)
+      }
+      { ppk4 TextBox
+        Move(407,85,49,24)
+      }
+      { pbd1 Label
+        Move(183,141,56,21)
+      }
+      { pbd2 Label
+        Move(263,141,63,24)
+      }
+      { pbd3 Label
+        Move(328,144,63,24)
+      }
+      { pbd4 Label
+        Move(400,141,56,24)
+      }
+      { cbd4 Label
+        Move(400,162,56,24)
+      }
+      { cbd3 Label
+        Move(328,165,63,24)
+      }
+      { cbd2 Label
+        Move(256,162,63,24)
+      }
+      { cbd1 Label
+        Move(176,162,56,21)
+      }
+      { ea4 Label
+        Move(407,64,49,24)
+      }
+      { ea3 Label
+        Move(336,64,63,24)
+      }
+      { ea2 Label
+        Move(256,64,70,24)
+      }
+      { ea1 Label
+        Move(184,64,56,21)
+      }
+      { Label106 Label
+        Move(0,144,175,28)
+        Text = ("Pinion section circle diameter")
+      }
+      { Label107 Label
+        Move(0,312,144,24)
+        Text = ("Pinyon Diş Üstü Çapı")
+      }
+      { Label108 Label
+        Move(0,336,144,24)
+        Text = ("Çark Diş Üstü Çapı")
+      }
+      { Label90 Label
+        Move(0,160,160,32)
+        Text = ("gear section circle diameter")
+      }
+      { pdu1 Label
+        Move(176,316,56,21)
+      }
+      { pdu2 Label
+        Move(256,316,63,24)
+      }
+      { pdu3 Label
+        Move(328,319,63,24)
+      }
+      { pdu4 Label
+        Move(410,313,56,24)
+      }
+      { cdu4 Label
+        Move(410,337,56,24)
+      }
+      { cdu3 Label
+        Move(328,340,63,24)
+      }
+      { cdu2 Label
+        Move(256,337,63,24)
+      }
+      { cdu1 Label
+        Move(176,337,56,21)
+      }
+      { cpk3 TextBox
+        Move(335,116,49,24)
+        Background = &HFFDFDF&
+        ReadOnly = True
+      }
+      { cpk2 TextBox
+        Move(263,113,49,24)
+        Background = &HFFDFDF&
+        ReadOnly = True
+      }
+      { Label116 Label
+        Move(0,112,176,32)
+        Text = ("Total scroll profile")
+      }
+      { cpk1 TextBox
+        Move(183,113,49,28)
+        Background = &HFFDFDF&
+        ReadOnly = True
+      }
+      { cpk4 TextBox
+        Move(407,113,49,24)
+        Background = &HFFDFDF&
+        ReadOnly = True
+      }
+      { Separator2 Separator
+        Move(7,105,456,16)
+      }
+      { Separator3 Separator
+        Move(8,136,456,16)
+      }
+      { Separator4 Separator
+        Move(7,154,472,16)
+      }
+      { Separator5 Separator
+        Move(7,231,464,16)
+      }
+      { Separator6 Separator
+        Move(0,252,464,16)
+      }
+      { Separator11 Separator
+        Move(7,77,456,16)
+      }
+      { Separator12 Separator
+        Move(0,56,456,16)
+      }
+      { akm4 Label
+        Move(400,190,56,24)
+      }
+      { akm3 Label
+        Move(328,193,63,24)
+      }
+      { akm2 Label
+        Move(256,190,56,24)
+      }
+      { akm1 Label
+        Move(176,190,56,21)
+      }
+      { Label121 Label
+        Move(0,192,144,24)
+        Text = ("Alın Kesiti Modülü")
+      }
+      { Separator7 Separator
+        Move(7,280,399,14)
+      }
+      { Separator9 Separator
+        Move(320,48,16,312)
+      }
+      { Separator10 Separator
+        Move(392,48,14,301)
+      }
+      { Separator8 Separator
+        Move(240,48,14,301)
+      }
+      { pddc4 Label
+        Move(400,211,56,24)
+      }
+      { pddc3 Label
+        Move(328,214,63,24)
+      }
+      { pddc2 Label
+        Move(256,211,56,24)
+      }
+      { pddc1 Label
+        Move(176,211,56,21)
+      }
+      { Label122 Label
+        Move(0,208,168,32)
+        Text = ("Pinyon Diş Dibi Çapı")
+      }
+      { Separator13 Separator
+        Move(0,304,456,16)
+      }
+      { Label94 Label
+        Move(0,264,176,24)
+        Text = ("Pinyon pro.kaydırması")
+      }
+      { pk1 TextBox
+        Move(176,260,63,28)
+      }
+      { pk2 TextBox
+        Move(256,260,63,24)
+      }
+      { pk3 TextBox
+        Move(328,263,56,24)
+      }
+      { pk4 TextBox
+        Move(400,260,63,24)
+      }
+      { Label95 Label
+        Move(0,288,168,24)
+        Text = ("Çark pro. kaydırması")
+      }
+      { ck1 TextBox
+        Move(176,288,63,28)
+        ReadOnly = True
+      }
+      { ck2 TextBox
+        Move(256,288,63,24)
+        ReadOnly = True
+      }
+      { ck3 TextBox
+        Move(328,291,56,24)
+        ReadOnly = True
+      }
+      { ck4 TextBox
+        Move(400,288,63,24)
+        ReadOnly = True
+      }
+      { Separator14 Separator
+        Move(7,203,464,16)
+      }
+      { Separator1 Separator
+        Move(160,40,16,320)
+      }
+      { cddc1 Label
+        Move(176,239,56,21)
+      }
+      { cddc2 Label
+        Move(256,239,56,24)
+      }
+      { cddc3 Label
+        Move(328,242,63,24)
+      }
+      { cddc4 Label
+        Move(400,239,56,24)
+      }
+      { Label96 Label
+        Move(0,240,168,24)
+        Text = ("Çark Diş Dibi Çapı")
+      }
+      { Separator15 Separator
+        Move(0,328,456,16)
+      }
+      { Separator16 Separator
+        Move(7,182,464,16)
+      }
+    }
+    { Button8 Button
+      Move(105,378,231,28)
+      Text = ("Save to results")
+    }
+    Index = 3
+    Text = ("Step #4")
+    { Frame6 Frame
+      Move(0,312,456,104)
+      Text = ("Shaft diameters (mm.): ")
+      { Label63 Label
+        Move(144,24,70,21)
+        Text = ("1.Level")
+      }
+      { Label64 Label
+        Move(224,24,70,21)
+        Text = ("2.Level")
+      }
+      { Label67 Label
+        Move(304,24,70,21)
+        Text = ("3.Level")
+      }
+      { Label68 Label
+        Move(384,24,70,21)
+        Text = ("4.Level")
+      }
+      { Label69 Label
+        Move(0,48,140,21)
+        Text = ("Diameter on 1 point(mm)")
+      }
+      { Label70 Label
+        Move(0,72,133,21)
+        Text = ("Diameter on 2 point(mm)")
+      }
+      { mileg1 TextBox
+        Move(144,48,63,21)
+      }
+      { milbur1 TextBox
+        Move(144,72,63,21)
+      }
+      { mileg2 TextBox
+        Move(224,48,77,21)
+      }
+      { milbur2 TextBox
+        Move(224,72,70,21)
+      }
+      { mileg3 TextBox
+        Move(312,48,63,21)
+      }
+      { milbur3 TextBox
+        Move(312,72,63,21)
+      }
+      { mileg4 TextBox
+        Move(392,48,63,21)
+      }
+      { milbur4 TextBox
+        Move(392,72,70,21)
+      }
+    }
+    { Button6 Button
+      Move(296,264,133,35)
+      Text = ("Calculate")
+      Picture = Picture["standart/accessories-calculator.png"]
+    }
+    { Frame7 Frame
+      Move(0,162,294,144)
+      Text = ("a b c dimensions in the picture(mm.)")
+      { Label71 Label
+        Move(11,51,70,28)
+        Text = ("2.Level")
+      }
+      { Label72 Label
+        Move(11,93,70,21)
+        Text = ("4.Level")
+      }
+      { Label73 Label
+        Move(11,72,70,28)
+        Text = ("3.Level")
+      }
+      { Label74 Label
+        Move(11,30,70,28)
+        Text = ("1.Level")
+      }
+      { Label75 Label
+        Move(95,16,28,14)
+        Text = ("a")
+      }
+      { Label76 Label
+        Move(158,16,28,14)
+        Text = ("b")
+      }
+      { Label77 Label
+        Move(252,13,28,14)
+        Text = ("c")
+      }
+      { a1 TextBox
+        Move(81,30,56,21)
+        Text = ("150")
+      }
+      { b1 TextBox
+        Move(144,30,77,21)
+        Text = ("160")
+      }
+      { c1 TextBox
+        Move(235,30,56,21)
+        Text = ("0")
+      }
+      { b2 TextBox
+        Move(144,51,77,21)
+        Text = ("85")
+      }
+      { a2 TextBox
+        Move(81,51,56,21)
+        Text = ("150")
+      }
+      { c2 TextBox
+        Move(235,51,56,21)
+        Text = ("75")
+      }
+      { b3 TextBox
+        Move(144,72,77,21)
+        Text = ("130")
+      }
+      { a3 TextBox
+        Move(81,72,56,21)
+        Text = ("105")
+      }
+      { c3 TextBox
+        Move(235,72,56,21)
+        Text = ("75")
+      }
+      { b4 TextBox
+        Move(144,93,77,21)
+        ToolTip = ("75")
+        Text = ("205")
+      }
+      { a4 TextBox
+        Move(81,93,56,21)
+        Text = ("105")
+      }
+      { c4 TextBox
+        Move(235,93,56,21)
+        Text = ("100")
+      }
+      { Label79 Label
+        Move(11,114,70,21)
+        Text = ("5.Level")
+      }
+      { b5 TextBox
+        Move(144,114,77,21)
+        ToolTip = ("75")
+      }
+      { a5 TextBox
+        Move(81,114,56,21)
+      }
+      { c5 TextBox
+        Move(235,114,56,21)
+      }
+    }
+    { Frame4 Frame
+      Move(0,108,456,54)
+      Text = ("Mil Malzemesi (N/mm^2)")
+      { Label27 Label
+        Move(0,24,168,16)
+        Text = ("Safety Bending Stress: ")
+      }
+      { emnegil TextBox
+        Move(168,24,49,21)
+        Text = ("100")
+      }
+      { Label62 Label
+        Move(224,24,168,24)
+        Text = ("Emn. Burulma Gerilmesi:")
+      }
+      { emnburul TextBox
+        Move(400,24,49,21)
+        Text = ("50")
+      }
+    }
+    { PictureBox1 PictureBox
+      Move(6,0,440,120)
+      Picture = Picture["Resim/milca.png"]
+      Stretch = True
+    }
+    { Label78 Label
+      Move(304,160,160,104)
+      Font = Font["Bold,+2"]
+      Foreground = &HFF0000&
+      Text = ("Larger than\n the shaft \ndiameter \nis used for each \nstage.")
+    }
+    Index = 0
+  }
+}

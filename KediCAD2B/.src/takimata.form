@@ -1,0 +1,71 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,47,40)
+  Icon = Picture["logo.png"]
+  Stacking = Window.Above
+  SkipTaskbar = True
+  { Label1 Label
+    MoveScaled(1,1,14,4)
+    Text = ("Select Tool")
+  }
+  { Label2 Label
+    MoveScaled(1,6,20,4)
+    Text = ("Tool Diameter(mm)")
+  }
+  { TextBox1 TextBox
+    MoveScaled(22,6,11,5)
+  }
+  { OK Button
+    MoveScaled(34,30,12,5)
+    Text = ("OK")
+  }
+  { Button1 Button
+    MoveScaled(0,30,12,5)
+    Text = ("Cancel")
+  }
+  { TextBox2 TextBox
+    MoveScaled(22,11,11,5)
+  }
+  { TextBox3 TextBox
+    MoveScaled(22,16,11,5)
+  }
+  { Label3 Label
+    MoveScaled(1,16,20,4)
+    Text = ("Z axis speed(mm/dk.)")
+  }
+  { Label4 Label
+    MoveScaled(1,11,22,4)
+    Text = ("Engraving speed(mm/dk.)")
+  }
+  { Label5 Label
+    MoveScaled(0,35,47,5)
+  }
+  { ComboBox1 ComboBox
+    MoveScaled(17,1,17,5)
+  }
+  { Panel1 Panel
+    MoveScaled(34,1,13,14)
+    Border = Border.Raised
+    { RadioButton1 RadioButton
+      MoveScaled(0,9,10,4)
+      Text = ("outer")
+    }
+    { RadioButton2 RadioButton
+      MoveScaled(0,4,10,4)
+      Text = ("Inner")
+    }
+    { RadioButton3 RadioButton
+      MoveScaled(0,0,11,4)
+      Text = ("Center")
+      Value = True
+    }
+  }
+  { Label6 Label
+    MoveScaled(1,21,20,4)
+    Text = ("Z step (mm. )")
+  }
+  { TextBox4 TextBox
+    MoveScaled(22,21,11,5)
+  }
+}

@@ -1,0 +1,60 @@
+' Gambas module file
+
+
+Public cazgi As Czm
+Public Sub uygu()
+
+    cizi.katmani = ilk.katmanoku
+    cizi.ozel
+    cizi.kalini = ilk.kalingec
+    cizi.bloku = ilk.blokgec
+    cizi.asid = ilk.gidoku
+    cizi.cizgi(faya2.lex1, faya2.ley1, faya2.lex2, faya2.ley2)
+    cizi.asid = ilk.yuvid
+    cizi.cizgi(faya2.lex3, faya2.ley3, faya2.lex4, faya2.ley4)
+    cizi.yay(faya2.clx, faya2.cly, faya2.d / ilk.olcum, faya2.hx, faya2.hy)
+    ' ilk.sil(ilk.yuvid)
+    ' ilk.sil(ilk.gidoku)
+    ilk.calanilk.Refresh
+     ilk.dolas
+    Wait 1
+Return
+        Catch
+	ilk.hatayaz("uygu " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub uygu2()
+
+      cizi.katmani = ilk.katmanoku
+    cizi.ozel
+    cizi.kalini = ilk.kalingec
+    cizi.bloku = ilk.blokgec
+    cizi.asid = ilk.gidoku
+    cizi.cizgi(faya2.lex1, faya2.ley1, faya2.lex2, faya2.ley2)
+    cizi.asid = ilk.yuvid
+    cizi.cizgi(faya2.lex3, faya2.ley3, faya2.lex4, faya2.ley4)
+    cizi.yay(faya2.clx, faya2.cly, faya2.d / ilk.olcum, faya2.hx, faya2.hy)
+Return
+        Catch
+	ilk.hatayaz("uygu2 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub pahuygu()
+
+    cizi.ozel
+    cizi.rengi = ilk.renkoku
+    cizi.kalini = ilk.kalinlikoku
+    cizi.sekli = ilk.sekiloku
+    cizi.asid = ilk.gidoku
+    cizi.cizgi(faya2.lex1, faya2.ley1, faya2.lex2, faya2.ley2)
+    cizi.asid = ilk.yuvid
+    cizi.cizgi(faya2.lex3, faya2.ley3, faya2.lex4, faya2.ley4)
+    cizi.cizgi(faya2.lex2, faya2.ley2, faya2.lex4, faya2.ley4)
+    ilk.dolas
+Return
+        Catch
+	ilk.hatayaz("pahuygu " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

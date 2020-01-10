@@ -1,0 +1,217 @@
+' Gambas module file
+
+Public cazgi As Czm
+
+
+Public Sub dondur(Optional aci As Float)
+
+    Dim zx, zy, x4oku, y4oku, x5oku, y5oku, x6oku, y6oku, acig, r, r2, acig2, aci3, acig3 As Float
+    Dim onay, k As Integer
+    Dim abl, pkm As String
+
+    tasima.dzm = tasima.dzm + 1
+    ilk.bolok = ilk.bolok + 2
+    pen.liste.clear
+    pen.liste2.clear
+    For Each cazgi In ilk.cezmi
+           If ilk.depo1.Exist(cazgi.id)
+                If cazgi.blok <> 0 Then
+                    If pen.liste.find(cazgi.blok) = -1 Then
+                        pen.liste.add(cazgi.blok) 
+                        pen.liste2.add(cazgi.blok & "d" & tasima.dzm) 
+                        tasima.dzm = tasima.dzm + 1
+                    Endif
+                Endif
+           Endif
+    Next
+    With ilk
+        Select Message.Question("Delete rotated drawing?", "Yes", "No")
+            Case 1
+                onay = 1
+            Case 2
+                onay = 2
+        End Select
+        While aci > (2 * Pi)
+            aci = aci - (2 * Pi)
+        Wend
+        While aci < 0
+            aci = aci + (2 * Pi)
+        Wend
+        If (.komutsayi) = 129 Then Goto atl5
+        If (.komutcuk.Text) <> "" Then
+            aci = Rad(CFloat(.komutcuk.Text))
+            Goto atl5
+        Endif
+
+        If Abs(2 * Pi - aci) < 0.1 Then aci = 0
+        If Abs(Pi - aci) < 0.1 Then aci = Pi
+        If Abs((Pi / 2) - aci) < 0.1 Then aci = Pi / 2
+        If Abs((Pi + Pi / 2) - aci) < 0.1 Then aci = Pi + Pi / 2
+        If Abs(aci) < 0.1 Then aci = 0
+    atl5:
+        zx = .birx + 0.00001
+        zy = .biry + 0.00001
+        For Each cazgi In ilk.cezmi
+            If .depo1.Exist(cazgi.id)
+                tasima.drl.Add(cazgi.id)
+                acimi.aci(cazgi.x1 * .olcum, cazgi.y1 * .olcum, zx, zy)
+                r = acimi.boy
+                acig2 = acimi.raci - Pi
+                acig = acig2 + aci
+                acimi.aci(cazgi.x2 * .olcum, cazgi.y2 * .olcum, zx, zy)
+                r2 = acimi.boy
+                acig3 = acimi.raci - Pi
+                aci3 = acig3 + aci
+                If cazgi.blok = 0 Then
+                    abl = 0
+                Else
+                    If cazgi.blok <> pkm
+                        For k = 0 To pen.liste.count - 1
+                            pen.liste.index = k
+                            pen.liste2.index = k
+                            If cazgi.blok = pen.liste.Text Then
+                                abl = pen.liste2.Text
+                                pkm = pen.liste.Text
+                            Endif
+                        Next
+                    Endif
+                End If
+                x4oku = zx + (r * Cos(acig))
+                y4oku = zy - (r * Sin(acig))
+                cizem.aktar(cazgi.id)
+                cizem.bloku = abl
+                If cazgi.komut = 1
+                    x5oku = zx + (r2 * Cos(aci3))
+                    y5oku = zy - (r2 * Sin(aci3))
+                    cizem.cizgi(x4oku, y4oku, x5oku, y5oku)
+                    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                    ilk.gkay = ilk.gkay + 1
+                Else If cazgi.komut = 25
+                    cizem.cember(x4oku, y4oku, cazgi.yaricap)
+                    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                    ilk.gkay = ilk.gkay + 1
+                Else If cazgi.komut = 20
+                    acimi.aci(zx, zy, cazgi.x1 * .olcum, cazgi.y1 * .olcum)
+                    acig = acimi.raci + aci
+                    r = acimi.boy
+                    x4oku = zx + (r * (Cos(acig)))
+                    y4oku = zy - (r * (Sin(acig)))
+                    acimi.aci(zx, zy, cazgi.x2 * .olcum, cazgi.y2 * .olcum)
+                    acig2 = acimi.raci + aci
+                    r = acimi.boy
+                    x5oku = zx + (r * (Cos(acig2)))
+                    y5oku = zy - (r * (Sin(acig2)))
+
+                    acimi.aci(zx, zy, cazgi.x3 * .olcum, cazgi.y3 * .olcum)
+                    aci3 = acimi.raci + aci
+                    r = acimi.boy
+                    x6oku = zx + (r * (Cos(aci3)))
+                    y6oku = zy - (r * (Sin(aci3)))
+                    ilk.birx = x4oku
+                    ilk.biry = y4oku
+                    ilk.ikix = x5oku
+                    ilk.ikiy = y5oku
+                    ilk.ucx = x6oku
+                    ilk.ucy = y6oku
+                    ilk.yaricap = cazgi.yaricap 
+'                     cizem.yay(x4oku, y4oku, cazgi.yaricap, acg2, aci3)
+                    cmbr.yayciii(cazgi.renk, cazgi.kalinlik, cazgi.sekil, abl)
+                    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                    ilk.gkay = ilk.gkay + 1
+                Else If cazgi.komut = 60
+                    cizem.yaz(x4oku, y4oku, cazgi.yazi, cazgi.x6, cazgi.y4 + aci)
+                    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                    ilk.gkay = ilk.gkay + 1
+                Else If cazgi.komut = 100 Or cazgi.komut = 105 Or cazgi.komut = 120
+                    x5oku = zx + (r2 * Cos(aci3))
+                    y5oku = zy - (r2 * Sin(aci3))
+                    olcucur.olcudegis(cazgi.komut, x4oku, y4oku, x5oku, y5oku, cazgi.x3, cazgi.y3, cazgi.teta, cazgi.yazi, cazgi.y6)
+                Else If cazgi.komut = 242
+                    cizem.nokta(x4oku, y4oku, cazgi.yazi)
+                End If
+                r = 0
+                r2 = 0
+                acig = 0
+                x4oku = 0
+                y4oku = 0
+                x5oku = 0
+                y5oku = 0
+
+            End If
+        Next
+        ilk.bolok = ilk.bolok + 5 + ilk.depo1.count
+        If onay = 1 Then
+            gerde.zkayit("don")
+            ilk.sildepo
+        Else
+            gerde.zkayit("don2")
+        End If
+        tem.temizlik
+        .komutcuk.Text = ""
+        .komyaz.Caption = "Komut Satırı  : "
+        aci = 0
+    End With
+    ilk.mesgul = 0
+    ilk.dolas
+    Return
+        Catch
+	ilk.hatayaz("dondur " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub dondur2(aci As Float)
+
+    Dim zx, zy, x4oku, y4oku, x5oku, y5oku, acig, r, r2, aci3 As Float
+    Dim abl As String
+
+    ilk.bolok = ilk.bolok + 2
+    With ilk
+        aci = Rad(aci)
+        While aci > (2 * Pi)
+            aci = aci - (2 * Pi)
+        Wend
+        For Each cazgi In ilk.cezmi
+            If .depo1.Exist(cazgi.id)
+                zx = cazgi.x1
+                zy = cazgi.y1
+                acig = Rad(cazgi.teta)
+                aci3 = aci
+                r2 = cazgi.uzun
+                If cazgi.blok = 0 Then
+                    abl = 0
+                Else
+                    abl = cazgi.blok & ilk.bolok
+                End If
+                cizem.aktar(cazgi.id)
+                cizem.bloku = abl
+                If cazgi.komut = 1
+                    x5oku = zx + (r2 * Cos(aci3))
+                    y5oku = zy - (r2 * Sin(aci3))
+                    cizem.cizgi(cazgi.x1 * .olcum, cazgi.y1 * .olcum, x5oku, y5oku)
+                    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                    ilk.gkay = ilk.gkay + 1
+                Else If cazgi.komut = 25
+                    cizem.cember(x4oku, y4oku, cazgi.yaricap)
+                    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                    ilk.gkay = ilk.gkay + 1
+                Else If cazgi.komut = 20
+                    cizem.yay(x4oku, y4oku, cazgi.yaricap, cazgi.r + aci, cazgi.teta + aci)
+                    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                    ilk.gkay = ilk.gkay + 1
+                End If
+                r = 0
+                r2 = 0
+                acig = 0
+                x4oku = 0
+                y4oku = 0
+                x5oku = 0
+                y5oku = 0
+            End If
+        Next
+        ilk.sildepo
+    End With
+    Return
+        Catch
+	ilk.hatayaz("dondur2 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

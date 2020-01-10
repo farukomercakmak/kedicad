@@ -1,0 +1,13 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,114,75)
+  Icon = Picture["logo.png"]
+  { tb3 TableView
+    MoveScaled(0,2,114,73)
+  }
+  { Label1 Label
+    MoveScaled(2,0,100,2)
+    Text = ("Label1")
+  }
+}

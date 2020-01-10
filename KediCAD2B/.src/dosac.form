@@ -1,0 +1,45 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(11.5714,21,110,62)
+  Icon = Picture["logo.png"]
+  Utility = True
+  Stacking = Window.Above
+  SkipTaskbar = True
+  { Button2 Button
+    MoveScaled(86,55,22,6)
+    Text = ("CANCEL")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+  { PictureBox1 PictureBox
+    MoveScaled(83,0,27,27)
+    Expand = True
+    Stretch = True
+    Border = Border.Etched
+  }
+  { Button1 Button
+    MoveScaled(86,47,22,7)
+    Text = ("OPEN")
+    Picture = Picture["standart/open.png"]
+  }
+  { DirChooser1 FileChooser
+    MoveScaled(0,3,83,59)
+    Filter = [("*.dxf"), ("*.DXF"), ("*.ulu"), ("*.ULU")]
+    ShowDetailed = True
+  }
+  { TextArea1 TextArea
+    MoveScaled(83,27,27,18)
+  }
+  { Button3 Button
+    MoveScaled(0,0,8,3)
+    Text = ("Home")
+  }
+  { Button4 Button
+    MoveScaled(8,0,9,3)
+    Text = ("Desktop")
+  }
+  { Button5 Button
+    MoveScaled(17,0,9,3)
+    Text = ("USB")
+  }
+}

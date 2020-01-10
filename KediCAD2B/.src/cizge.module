@@ -1,0 +1,229 @@
+' Gambas module file
+
+Private csp As Csplit
+Public cazgi As Czm
+Public tx As Integer
+Public danat As Integer
+Public jjy As String
+Public jjx As String
+Public kjy As String
+Public kjx As String
+Public beri As String
+Public acig As Float
+Public ly As Float
+Public lx As Float
+Public gx As Float
+Public gy As Float
+Public cizx2 As Float
+Public cizy2 As Float
+Public czdpx As New Float[]
+Public czdpy As New Float[]
+
+Public Sub cizgicizim()
+
+    If ilk.komutcuk.Text <> "" Then
+        danat = 1
+    Endif
+    '---------------------------------------------------------------------------------------------------------------------------------------
+    csp = New Csplit
+    beri = Trim$(ilk.komutcuk.Text)
+bekle1:
+    ly = 0
+    lx = 0
+    gy = 0
+    gx = 0
+    If beri <> "" Then   'konum.texde yazı var
+        If beri = "0,0" Then
+            cizx2 = ilk.orix * ilk.olcum
+            cizy2 = ilk.oriy * ilk.olcum
+            Goto cik
+        Endif
+        csp.yazi = beri
+        csp.kucuk()     'küçüktürle ayrılmış uzunluk < açı
+        jjx = csp.sonuc1
+        jjy = csp.sonuc2
+        If jjy Then ' uzunluk < açı
+            If jjx <> ""
+                ly = Val(jjy)
+                lx = Val(jjx)
+                acig = Rad(360 - ly)
+                cizx2 = ilk.birx + (lx * ilk.olcum) * Cos(acig)
+                cizy2 = ilk.biry + (lx * ilk.olcum) * Sin(acig)
+                Goto cik
+            End If
+        End If
+        csp.yazi = beri
+        csp.buyuk()       'büyüktürle ayrılmış  x uzunluk > y uzunluk
+        kjx = csp.sonuc1
+        kjy = csp.sonuc2
+        If kjy Then      ' x uzunluk > y uzunluk
+            If kjy <> ""
+                gx = Val(kjx)
+                gy = Val(kjy)
+                cizx2 = ilk.birx + gx * ilk.olcum
+                cizy2 = ilk.biry - gy * ilk.olcum
+                Goto cik
+            End If
+        End If
+        '/////////    < ve > yok konum.texde yazı var düz çizim
+        If yuru.yuac < 5 Then yuru.yuac = 0
+        If yuru.yuac > 355 Then yuru.yuac = 0
+        If yuru.yuac < 95
+            If yuru.yuac > 85 Then yuru.yuac = 90
+        End If
+        If yuru.yuac < 185
+            If yuru.yuac > 175 Then yuru.yuac = 180
+        End If
+        If yuru.yuac < 275
+            If yuru.yuac > 265 Then yuru.yuac = 270
+        End If
+
+        cizx2 = ilk.birx + CFloat(beri) * ilk.olcum * Cos(Rad(yuru.yuac))
+        cizy2 = ilk.biry - CFloat(beri) * ilk.olcum * Sin(Rad(yuru.yuac))
+        If ilk.orto = 1 Then
+            If yuru.yuac = 90
+                cizx2 = ilk.birx
+            Else
+                cizy2 = ilk.biry
+            Endif
+        Endif
+        Goto cik
+    End If
+    If ilk.isaretx = 0
+        If Abs(ilk.ikix - ilk.birx) < 15 Then
+            cizx2 = ilk.birx
+            cizy2 = ilk.ikiy
+            ilk.ikix = ilk.birx
+        Else If Abs(ilk.ikiy - ilk.biry) < 15 Then
+            cizx2 = ilk.ikix
+            cizy2 = ilk.biry
+            ilk.ikiy = ilk.biry
+        Else
+            cizx2 = ilk.ikix
+            cizy2 = ilk.ikiy
+        End If
+        If ilk.orto = 1 Then
+            If Abs(Abs(ilk.birx) - Abs(cizx2)) < Abs(Abs(ilk.biry) - Abs(cizy2))
+                cizx2 = ilk.birx
+            Else
+                cizy2 = ilk.biry
+            Endif
+        Endif
+    Else If ilk.isaretx <> 0
+        cizx2 = ilk.ikix
+        cizy2 = ilk.ikiy
+    End If
+cik:
+    If ilk.bln > 0 Then '                balon ok cizme
+        cizem.bloku = ilk.bolok
+        cizem.cizgi(ilk.p6x, ilk.p6y, ilk.p4x, ilk.p4y)
+        cizem.cizgi(ilk.p4x, ilk.p4y, ilk.p5x, ilk.p5y)
+        cizem.cizgi(ilk.p5x, ilk.p5y, ilk.p6x, ilk.p6y)
+        ilk.frr = 1
+    Endif
+    If ilk.komutsayi = 8
+        cizem.cizgi(ilk.birx, ilk.biry, ilk.ikix, ilk.ikiy, 8)
+        ilk.dolas
+        Goto cik2
+    End If
+    If ilk.komutsayi = 1
+        cizem.cizgi(ilk.birx, ilk.biry, cizx2, cizy2)
+    End If
+    If ilk.komutsayi = 3
+        cizem.bloku = ilk.bolok
+        cizem.cizgi(ilk.birx, ilk.biry, cizx2, cizy2)
+    End If
+    ilk.komutcuk.Clear
+    ilk.birx = cizx2
+    ilk.biry = cizy2
+cik2:
+    gerde.zkayit("cizgi", (dacy.kyno - 1))
+    Return
+    Catch
+	ilk.hatayaz("cizgicizim " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub dortgen(Optional cvx As Float, Optional cvy As Float)
+
+    If cvx <> 0
+        ilk.ikix = ilk.birx + cvx
+        ilk.ikiy = ilk.biry - cvy
+    End If
+    ilk.bolok = ilk.bolok + 2
+    cizem.bloku = ilk.bolok
+    cizem.cizgi(ilk.birx, ilk.biry, ilk.ikix, ilk.biry)
+    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+    ilk.gkay = ilk.gkay + 1
+    cizem.bloku = ilk.bolok
+    cizem.cizgi(ilk.ikix, ilk.biry, ilk.ikix, ilk.ikiy)
+    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+    ilk.gkay = ilk.gkay + 1
+    cizem.bloku = ilk.bolok
+    cizem.cizgi(ilk.ikix, ilk.ikiy, ilk.birx, ilk.ikiy)
+    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+    ilk.gkay = ilk.gkay + 1
+    cizem.bloku = ilk.bolok
+    cizem.cizgi(ilk.birx, ilk.ikiy, ilk.birx, ilk.biry)
+    ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+    ilk.gkay = ilk.gkay + 1
+    gerde.zkayit("dortgen")
+    cvx = 0
+    cvy = 0
+    Return
+        Catch
+	ilk.hatayaz("dortgen " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub olecek(kff As Variant)
+
+    Dim sb As String
+    Dim ax1, ay1, ax2, ay2 As Float
+    csp = New Csplit
+    csp.yazi = ilk.komutcuk.Text
+    csp.virg()
+    If csp.sonuc2 Then
+        sb = (csp.sonuc1) & "." & (csp.sonuc2)
+    Else
+        sb = (csp.sonuc1)
+    End If
+    If sb Then kff = CFloat(sb)
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id)
+            cizem.aktar(cazgi.id)
+            tasima.drl.Add(cazgi.id)
+            ax1 = cazgi.x1 * ilk.olcum * kff + ilk.birx * (1 - kff)
+            ay1 = cazgi.y1 * ilk.olcum * kff + ilk.biry * (1 - kff)
+            If cazgi.komut = 1
+                ax2 = cazgi.x2 * ilk.olcum * kff + ilk.birx * (1 - kff)
+                ay2 = cazgi.y2 * ilk.olcum * kff + ilk.biry * (1 - kff)
+                cizem.cizgi(ax1, ay1, ax2, ay2)
+                ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                ilk.gkay = ilk.gkay + 1
+            Else If cazgi.komut = 25
+                ax2 = cazgi.yaricap * kff
+                cizem.cember(ax1, ay1, ax2)
+                ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                ilk.gkay = ilk.gkay + 1
+            Else If cazgi.komut = 20
+                ax2 = cazgi.yaricap * kff
+                cizem.yay(ax1, ay1, ax2, cazgi.teta, cazgi.r)
+                ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                ilk.gkay = ilk.gkay + 1
+            Else If cazgi.komut = 60
+                ax2 = (cazgi.x6) * kff
+                cizem.yaz(ax1, ay1, cazgi.yazi, ax2, cazgi.y4)
+                ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                ilk.gkay = ilk.gkay + 1
+            End If
+        End If
+    Next
+    gerde.zkayit("olcek")
+    ilk.sildepo
+    tem.temizlik
+    Return
+        Catch
+	ilk.hatayaz("olecek " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

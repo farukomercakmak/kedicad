@@ -1,0 +1,879 @@
+' Gambas class file
+
+Public hiz As Float
+Public deb As Float
+Public sk As Float
+Public j As Float
+Public K As Float
+Public fyuk As Integer
+
+Private csp As Csplit
+
+Static Public Sub Main()
+
+    Dim hForm As Form
+
+    hForm = New Mukavemetli
+    hForm.Show
+
+End
+
+Public Sub Button1_Click()
+
+    csp = New Csplit
+    csp.yazi = atalet.Text
+    csp.nokta()
+    ' If csp.sonuc2 <> ""
+    '     J = Val(csp.sonuc1 & "," & csp.sonuc2)
+    ' Else
+    J = Val(atalet.Text)
+    ' End If
+    csp = New Csplit
+    csp.yazi = mukavemet.Text
+    csp.nokta()
+    ' If csp.sonuc2 <> ""
+    '     K = Val(csp.sonuc1 & "," & csp.sonuc2)
+    ' Else
+    K = Val(mukavemet.Text)
+    ' End If
+
+    If j = 0 Or K = 0 Then
+        message("Input a and b value", "OK")
+        Goto cik
+    End If
+    If mesnetsayi.Text = "İKİ KENARDA" And yukleme.Text = "Tekil merkez yük" Then
+        momente.Text = Format$(Val(yuke.Text) * Val(le.Text) / 4, "#.###")
+        sehime.Text = Format$(Val(yuke.Text) * Val(le.Text) ^ 3 * 10 / (48 * Val(emode.Text) * j), "#.###")
+        deb = (yuke.Text * le.Text) / 4
+        gere.Text = Format$(deb / K, "#.###")
+    End If
+    If mesnetsayi.Text = "İKİ KENARDA" And yukleme.Text = "Yayılı yük" Then
+        momente.Text = Format$(Val(yuke.Text) * Val(le.Text) / 8, "#.###")
+        sehime.Text = Format$(Val(yuke.Text) * Val(le.Text) ^ 3 * 10 * 5 / (384 * Val(emode.Text) * j), "#.###")
+        deb = (yuke.Text * le.Text) / 8
+        gere.Text = Format$(deb / K, "#.###")
+    End If
+    If mesnetsayi.Text = "İKİ KENARDA" And yukleme.Text = "Tekil merkez dışı yük" Then
+        If ae.Text = "" Or be.Text = "" Then
+            message("Input a and b value", "OK")
+            Goto cik
+        End If
+        momente.Text = Format$(Val(yuke.Text) * Val(ae.Text) * Val(be.Text) / (Val(le.Text)), "#.###")
+        sehime.Text = Format$(Val(yuke.Text) * Val(ae.Text) ^ 2 * Val(be.Text) ^ 2 * 10 / (Val(le.Text) * 3 * Val(emode.Text) * j), "#.###")
+        deb = (yuke.Text * ae.Text * be.Text / le.Text)
+        gere.Text = Format$(deb / K, "#.###")
+    End If
+    If mesnetsayi.Text = "ANKASTRE" And yukleme.Text = "Yayılı yük" Then
+        momente.Text = Format$(Val(yuke.Text) * Val(le.Text) / 2, "#.###")
+        sehime.Text = Format$(Val(yuke.Text) * Val(le.Text) ^ 3 * 10 / (8 * Val(emode.Text) * j), "#.###")
+        deb = (yuke.Text * le.Text) / 2
+        gere.Text = Format$(deb / K, "#.###")
+    End If
+    If mesnetsayi.Text = "ANKASTRE" And yukleme.Text = "Tekil merkez yük" Then
+        momente.Text = Format$(Val(yuke.Text) * Val(le.Text), "#.###")
+        sehime.Text = Format$(Val(yuke.Text) * Val(le.Text) ^ 3 * 10 / (3 * Val(emode.Text) * j), "#.###")
+        deb = (yuke.Text * le.Text)
+        gere.Text = Format$(deb / K, "#.###")
+    End If
+    If mesnetsayi.Text = "ANKASTRE + KENARDA" And yukleme.Text = "Yayılı yük" Then
+        momente.Text = Format$(Val(yuke.Text) * Val(le.Text) / 8, "#.###")
+        sehime.Text = Format$(Val(yuke.Text) * Val(le.Text) ^ 3 * 10 / (185 * Val(emode.Text) * j), "#.###")
+        deb = (yuke.Text * le.Text) / 8
+        gere.Text = Format$(deb / K, "#.###")
+    End If
+    If mesnetsayi.Text = "ANKASTRE + KENARDA" And yukleme.Text = "Tekil merkez yük" Then
+        momente.Text = Format$(3 * Val(yuke.Text) * Val(le.Text) / 16, "#.###")
+        sehime.Text = Format$(Val(yuke.Text) * Val(le.Text) ^ 3 * 10 * 7 / (768 * Val(emode.Text) * j), "#.###")
+        deb = (yuke.Text * le.Text) * 3 / 16
+        gere.Text = Format$(deb / K, "#.###")
+    End If
+
+cik:
+    Wizard1.Index = 3
+    'Catch
+    'If yuke.Text = "" Or le.Text = ""
+    '   message("Missing data", "OK")
+    'Else
+    '   message(Error.Text, "OK")
+    'End If
+
+End
+
+Public Sub Button4_Click()
+
+    myuk.Visible = True
+    label25.Visible = True
+    If radiobutton1.Value = True Then sk = 2 * pku.Text
+    If radiobutton2.Value = True Then sk = pku.Text
+    If radiobutton3.Value = True Then sk = 0.7 * pku.Text
+    If radiobutton4.Value = True Then sk = 0.5 * pku.Text
+    If radiobutton1.Value = False And radiobutton2.Value = False And radiobutton3.Value = False And radiobutton4.Value = False Then
+        message.Error("Select Connection form.", "OK")
+        Goto cik
+    End If
+    If kesitli.atalet.Text = "" Then
+        message("Specify section", "OK")
+        Goto cik
+    End If
+    j = kesitli.azamet
+    K = Pi ^ 2 * Val(emod.text) * j / sk ^ 2
+    fyuk = K / (emkat.Text)
+    myuk.Text = Format$((fyuk), "#.#")
+    If fyuk < CInt(yuk.Text) Then label24.Caption = "Not Suitable"
+    If fyuk > CInt(yuk.Text) Then label24.Caption = "Suitable "
+cik:
+
+End
+
+Public Sub Wizard1_Cancel()
+
+    Me.close
+    ilk.Show
+
+End
+
+Public Sub Button3_Click()
+
+    kesitli.Show
+
+End
+
+Public Sub Form_Open()
+
+    yukleme.Clear
+    mesnetsayi.Clear
+    Me.text = "KediCAD 2B STRENGTH CALCULATION"
+    mesnetsayi.Add("ANKASTRE", 0)
+    mesnetsayi.Add("İKİ KENARDA", 1)
+    mesnetsayi.Add("ANKASTRE + KENARDA", 1)
+    yukleme.Add("Yayılı yük", 0)
+    yukleme.Add("Tekil merkez yük", 1)
+    yukleme.Add("Tekil merkez dışı yük", 1)
+
+    ae.Visible = False
+    be.Visible = False
+    label6.Visible = False
+    label7.Visible = False
+    resime.picture = picture["res/ankastyay.png"]
+    daire.Value = True
+    a.Move(80, 200)
+    ab.Move(8, 200)
+    a.Visible = True
+    ab.Visible = True
+Catch
+
+End
+
+Public Sub yukleme_Change()
+
+    If mesnetsayi.Text = "ANKASTRE" And yukleme.Text = "Yayılı yük" Then
+        resime.picture = picture["res/ankastyay.png"]
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf/m.)"
+    End If
+    If mesnetsayi.Text = "ANKASTRE" And yukleme.Text = "Tekil merkez yük" Then
+        resime.picture = picture["res/ankasttek.png"]
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf.)"
+    End If
+    If mesnetsayi.Text = "ANKASTRE + KENARDA" And yukleme.Text = "Tekil merkez yük" Then
+        resime.picture = picture["res/ankastikitek.png"]
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf.)"
+    End If
+    If mesnetsayi.Text = "ANKASTRE + KENARDA" And yukleme.Text = "Yayılı yük" Then
+        resime.picture = picture["res/ankastikiyay.png"]
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf/m.)"
+    End If
+    If mesnetsayi.Text = "ANKASTRE" And yukleme.Text = "Tekil merkez dışı yük" Then
+        message("Bu seçenek uygulama dışı", "Tamam")
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf.)"
+    End If
+    If mesnetsayi.Text = "ANKASTRE + KENARDA" And yukleme.Text = "Tekil merkez dışı yük" Then
+        message("Bu seçenek uygulama dışı", "Tamam")
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf.)"
+    End If
+    If mesnetsayi.Text = "İKİ KENARDA" And yukleme.Text = "Tekil merkez yük" Then
+        resime.picture = picture["res/ikilitek.png"]
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf.)"
+    End If
+    If mesnetsayi.Text = "İKİ KENARDA" And yukleme.Text = "Yayılı yük" Then
+        resime.picture = picture["res/ikiliyay.png"]
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf/m.)"
+    End If
+    If mesnetsayi.Text = "İKİ KENARDA" And yukleme.Text = "Tekil merkez dışı yük" Then
+        resime.picture = picture["res/ikilitekkayik.png"]
+        ae.Visible = True
+        be.Visible = True
+        label6.Visible = True
+        label7.Visible = True
+        label4.Caption = "Load(kgf.)"
+    End If
+
+End
+
+Public Sub mesnetsayi_Change()
+
+    If mesnetsayi.Text = "ANKASTRE" And yukleme.Text = "Yayılı yük" Then
+        resime.picture = picture["res/ankastyay.png"]
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf/m.)"
+    End If
+    If mesnetsayi.Text = "ANKASTRE" And yukleme.Text = "Tekil merkez yük" Then
+        resime.picture = picture["res/ankasttek.png"]
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf.)"
+    End If
+    If mesnetsayi.Text = "ANKASTRE + KENARDA" And yukleme.Text = "Tekil merkez yük" Then
+        resime.picture = picture["res/ankastikitek.png"]
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf.)"
+    End If
+    If mesnetsayi.Text = "ANKASTRE + KENARDA" And yukleme.Text = "Yayılı yük" Then
+        resime.picture = picture["res/ankastikiyay.png"]
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf/m.)"
+    End If
+    If mesnetsayi.Text = "ANKASTRE" And yukleme.Text = "Tekil merkez dışı yük" Then
+        message("Bu seçenek uygulama dışı", "Tamam")
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf.)"
+    End If
+    If mesnetsayi.Text = "ANKASTRE + KENARDA" And yukleme.Text = "Tekil merkez dışı yük" Then
+        message("Bu seçenek uygulama dışı", "Tamam")
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf.)"
+    End If
+    If mesnetsayi.Text = "İKİ KENARDA" And yukleme.Text = "Tekil merkez yük" Then
+        resime.picture = picture["res/ikilitek.png"]
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf.)"
+    End If
+    If mesnetsayi.Text = "İKİ KENARDA" And yukleme.Text = "Yayılı yük" Then
+        resime.picture = picture["res/ikiliyay.png"]
+        ae.Visible = False
+        be.Visible = False
+        label6.Visible = False
+        label7.Visible = False
+        label4.Caption = "Load(kgf/m.)"
+    End If
+    If mesnetsayi.Text = "İKİ KENARDA" And yukleme.Text = "Tekil merkez dışı yük" Then
+        resime.picture = picture["res/ikilitekkayik.png"]
+        ae.Visible = True
+        be.Visible = True
+        label6.Visible = True
+        label7.Visible = True
+        label4.Caption = "Load(kgf.)"
+    End If
+
+End
+
+Public Sub RadioButton5_Click()
+
+    gucmil.Text = ""
+    yukb.Text = ""
+    dd.Text = ""
+    gerb.Text = ""
+    burul.Text = ""
+    milli.Text = ""
+    label14.Caption = "Load Radius(R)(cm.)"
+    label13.Caption = "Power(kW)"
+    label18.Caption = "Axle Dia.(d)(cm.)"
+    label30.Visible = False
+    milcap.Visible = False
+    label31.Visible = True
+    miluz.Visible = True
+
+End
+
+Public Sub RadioButton7_Click()
+
+    gucmil.Text = ""
+    yukb.Text = ""
+    dd.Text = ""
+    gerb.Text = ""
+    burul.Text = ""
+    milli.Text = ""
+    label14.Caption = "Load(kgf.)"
+    label13.Caption = "Load Dia.(D)(cm.)"
+    label18.Caption = "Power(kW)"
+    label30.Visible = True
+    milcap.Visible = True
+    label31.Visible = True
+    miluz.Visible = True
+
+End
+
+Public Sub Button8_Click()
+
+    Dim kuv, mom, bumil, jet, derke, mom2, son2, son1, jet2 As Float
+
+    kuv = yukb.Text * 10
+    If radiobutton7.Value = True Then  ' motor gücü bulunacak
+        mom = yukb.Text * gucmil.Text / 2
+        dmom.Text = Format(mom, "#.###")
+        milli.Text = Format(mom * dd.Text / 97400, "#.###")
+        bumil = mom * dd.Text / 97400
+        jet = Pi * (milcap.Text) ^ 3 / 16
+        mom2 = yukb.Text * miluz.Text
+        jet2 = Pi * (milcap.Text) ^ 3 / 32
+        son2 = mom2 / jet2
+        son1 = mom / jet
+        gerb.Text = Format(son2 + son1, "#.##")
+        derke = mom * miluz.Text / (jet * 800000)
+        burul.Text = Format((derke * 360 / (2 * Pi)), "#.##")
+        label32.Caption = jet
+    Else If radiobutton5.Value = True Then  ' milçapı bulunacak
+        bumil = 14.4 * ((gucmil.Text / (1.36 * dd.Text)) ^ (1 / 3))
+        milli.Text = Format(14.4 * ((gucmil.Text / (1.36 * dd.Text)) ^ (1 / 3)), "#.####")
+        dmom.Text = Format(97400 * gucmil.Text / dd.Text, "#.##")
+        derke = 97400 * gucmil.Text / dd.Text
+        jet = Pi * (bumil) ^ 3 / 16
+        mom2 = yukb.Text * miluz.Text
+        jet2 = Pi * (bumil) ^ 3 / 32
+        son2 = mom2 / jet2
+        son1 = derke / jet
+        gerb.Text = Format(son2 + son1, "#.##")
+    End If
+Catch
+
+End
+
+Public Sub RadioButton6_Click()
+
+    label28.Caption = "dd"
+    label29.Caption = "radyan/sn"
+    dda.Text = ""
+    radi.Text = ""
+
+End
+
+Public Sub RadioButton8_Click()
+
+    label28.Caption = "radyan/sn"
+    label29.Caption = "dd"
+    dda.Text = ""
+    radi.Text = ""
+
+End
+
+Public Sub cevir_Click()
+
+    If radiobutton6.Value = True Then  ' dd bulunacak
+        radi.Text = Format(Pi * dda.Text / 30, "#.###")
+    Else If radiobutton8.Value = True Then  ' radyan bulunacak
+        radi.Text = Format(30 * dda.Text / Pi, "#.###")
+    End If
+Catch
+
+End
+
+Public Sub yuke_KeyRelease()
+
+    If key.Code = key.Enter
+        Button1_Click
+    End If
+
+End
+
+Public Sub le_KeyRelease()
+
+    If key.Code = key.Enter
+        Button1_Click
+    End If
+
+End
+
+Public Sub Button6_Click()
+
+    t.Text = Format(tyuk.Text * ycap.Text / 10, "#.###")
+    g.Text = Format(tyuk.Text * ycap.Text * dev.Text / 955000, "#.###")
+    hes.Text = Format(Pi * 2 * ycap.Text * dev.Text / 10, "#.###")
+
+End
+
+Public Sub daire_Click()
+
+    clre
+    a.Move(80, 200)
+    ab.Move(8, 200)
+    a.Visible = True
+    ab.Visible = True
+    ab.text = " Dia(mm.) "
+    resim.Picture = picture["res/daireres.png"]
+    profil.Clear
+
+End
+
+Public Sub boru_Click()
+
+    clre
+    profil.Clear
+    a.Move(100, 200)
+    ab.Move(8, 200)
+    b.Move(100, 230)
+    bb.Move(8, 230)
+    a.Visible = True
+    b.Visible = True
+    ab.Visible = True
+    bb.Visible = True
+    ab.text = "Outer Dia(mm.)"
+    bb.text = "Inner Dia(mm.)"
+    resim.Picture = picture["res/borures.png"]
+
+End
+
+Public Sub dikdort_Click()
+
+    clre
+    profil.Clear
+    a.Move(80, 200)
+    ab.Move(8, 200)
+    b.Move(80, 230)
+    bb.Move(8, 230)
+    a.Visible = True
+    b.Visible = True
+    ab.Visible = True
+    bb.Visible = True
+    ab.text = " a(mm.)"
+    bb.text = "b(mm.)"
+    resim.Picture = picture["res/dikres.png"]
+
+End
+
+Public Sub bosdort_Click()
+
+    clre
+    profil.Clear
+    a.Move(80, 200)
+    ab.Move(8, 200)
+    b.Move(80, 230)
+    bb.Move(8, 230)
+    c.Move(80, 260)
+    cb.Move(8, 260)
+    a.Visible = True
+    b.Visible = True
+    c.Visible = True
+    e.Visible = True
+    ab.Visible = True
+    bb.Visible = True
+    cb.Visible = True
+    ab.text = "a(mm.)"
+    bb.text = "b(mm.)"
+    cb.text = "t(mm.)"
+    resim.Picture = picture["res/bosdikres.png"]
+
+End
+
+Public Sub npi_Click()
+
+    clre
+    nip.clear
+    profil.Clear
+    profil.Visible = True
+    yazi.move(3, 230)
+    etiket.move(3, 265)
+    yazi.Visible = True
+    nip.Visible = True
+
+    etiket.Visible = True
+    etiket.text = "Select I height"
+    resim.Picture = picture["res/i.png"]
+    yazi.text = "Select I type"
+    nip.Add("NPI", 0)
+    nip.Add("IPE", 1)
+    nip.Add("HEA", 2)
+    nip.Add("HEB", 3)
+    nip.Add("HEM", 4)
+    ekle
+    hsp
+
+End
+
+Public Sub npu_Click()
+
+    clre
+    profil.Clear
+    etiket.move(3, 265)
+    profil.Visible = True
+    etiket.Visible = True
+    resim.Picture = picture["res/u.png"]
+    etiket.text = "Select U height"
+    akla
+    hsp
+
+End
+
+Public Sub kosebent_Click()
+
+    clre
+    profil.Clear
+    profil.Visible = True
+    etiket.text = "Select Angle height"
+    resim.Picture = picture["res/kosebent.png"]
+
+End
+
+Sub ekle()
+
+    profil.Visible = True
+    profil.Add(80, 0)
+    profil.Add(100, 1)
+    profil.Add(120, 2)
+    profil.Add(140, 3)
+    profil.Add(160, 4)
+    profil.Add(180, 5)
+    profil.Add(200, 6)
+    profil.Add(220, 7)
+    profil.Add(240, 8)
+    profil.Add(260, 9)
+    profil.Add(280, 10)
+    profil.Add(300, 11)
+    profil.Add(320, 12)
+    profil.Add(340, 13)
+    profil.Add(360, 14)
+    profil.Add(380, 15)
+    profil.Add(400, 16)
+    profil.Add(450, 17)
+    profil.Add(500, 18)
+    profil.Add(550, 19)
+    Return
+
+End
+
+Sub akla()
+
+    profil.Visible = True
+    profil.Add("30-15", 0)
+    profil.Add("30-33", 1)
+    profil.Add("40-20", 2)
+    profil.Add("40-35", 3)
+    profil.Add("50-25", 4)
+    profil.Add("50-38", 5)
+    profil.Add(60, 6)
+    profil.Add(65, 7)
+    profil.Add(80, 8)
+    profil.Add(100, 9)
+    profil.Add(120, 10)
+    profil.Add(140, 11)
+    profil.Add(160, 12)
+    profil.Add(180, 13)
+    profil.Add(200, 14)
+    profil.Add(220, 15)
+    profil.Add(240, 16)
+    profil.Add(260, 17)
+    profil.Add(280, 18)
+    profil.Add(300, 19)
+    profil.Add(320, 20)
+    profil.Add(350, 21)
+    profil.Add(380, 22)
+    profil.Add(400, 23)
+    Return
+
+End
+
+Public Sub Wizard1_Change()
+
+    If Wizard1.Index = 2 Then
+        hsp
+        If atalet.Text
+        Else
+            message("Specify profile ", "OK")
+            Wizard1.Index = 1
+        End If
+    End If
+
+End
+
+Public Sub hsp()
+
+    kesit.tem
+    If daire.Value = True Then
+        If IsFloat(a.Text)
+            kesit.daire(a.Text)
+            atalet.Text = Format$(kesit.atalet, "#.####")
+            iyy.Text = Format$(kesit.atalet, "#.####")
+            mukavemet.Text = Format$(kesit.mukavemet, "#.####")
+            alana.Text = Format$(kesit.allan, "#.####")
+            agir.Text = Format$(kesit.agir, "#.####")
+        End If
+    End If
+    If boru.Value = True Then
+        If IsFloat(a.Text)
+            If IsFloat(b.Text)
+                kesit.boru(b.Text, a.Text)
+                atalet.Text = Format$(kesit.atalet, "#.###")
+                iyy.Text = Format$(kesit.atalet, "#.###")
+                mukavemet.Text = Format$(kesit.mukavemet, "#.###")
+                alana.Text = Format$(kesit.allan, "#.###")
+                agir.Text = Format$(kesit.agir, "#.###")
+            End If
+        Endif
+    End If
+    If dikdort.Value = True Then
+        If IsFloat(a.Text)
+            If IsFloat(b.Text)
+                kesit.dikd(b.Text, a.Text)
+                atalet.Text = Format$(kesit.atalet, "#.###")
+                iyy.Text = Format$(kesit.atalety, "#.###")
+                mukavemet.Text = Format$(kesit.mukavemet, "#.###")
+                alana.Text = Format$(kesit.allan, "#.###")
+                agir.Text = Format$(kesit.agir, "#.###")
+            Endif
+        Endif
+    End If
+
+    If bosdort.Value = True Then
+        If IsFloat(a.Text)
+            If IsFloat(b.Text)
+                If IsFloat(c.Text)
+                    kesit.kutu(a.Text, b.Text, c.Text)
+                    atalet.Text = Format$(kesit.atalet, "#.###")
+                    iyy.Text = Format$(kesit.atalety, "#.###")
+                    mukavemet.Text = Format$(kesit.mukavemet, "#.###")
+                    alana.Text = Format$(kesit.allan, "#.###")
+                    agir.Text = Format$(kesit.agir, "#.###")
+                Endif
+            Endif
+        Endif
+    End If
+
+    If npi.Value = True Then
+        If nip.Text = "NPI" Then
+            kesit.npi(profil.Text)
+        End If
+        If nip.Text = "IPE" Then
+            kesit.ipe(profil.Text)
+        End If
+        If nip.Text = "HEA" Then
+            kesit.hea(profil.Text)
+        End If
+        If nip.Text = "HEB" Then
+            kesit.heb(profil.Text)
+        End If
+        If nip.Text = "HEM" Then
+            kesit.heb(profil.Text)
+        Endif
+        alana.Text = kesit.allan
+        agir.Text = kesit.agir
+        atalet.Text = kesit.atalet
+        mukavemet.Text = kesit.mukavemet
+        iyy.Text = kesit.atalety
+    End If
+    If npu.Value = True Then
+        kesit.npu(profil.Text)
+        alana.Text = kesit.allan
+        agir.Text = kesit.agir
+        atalet.Text = kesit.atalet
+        mukavemet.Text = Format$(kesit.mukavemet, "#.###")
+        iyy.Text = kesit.atalety
+    End If
+
+End
+
+Public Sub clre()
+
+    a.Visible = False
+    b.Visible = False
+    c.Visible = False
+    e.Visible = False
+    ab.Visible = False
+    bb.Visible = False
+    cb.Visible = False
+    eb.Visible = False
+    profil.Visible = True
+    yazi.Visible = False
+    nip.Visible = False
+    etiket.Visible = False
+    yazi.Visible = False
+    profil.Visible = ""
+    atalet.Text = ""
+    alana.Text = ""
+    mukavemet.Text = ""
+    agir.Text = ""
+    a.Text = ""
+    b.Text = ""
+    c.Text = ""
+    e.Text = ""
+    iyy.Text = ""
+
+End
+
+Public Sub profil_Change()
+
+    hsp
+
+End
+
+Public Sub nip_Change()
+
+    hsp
+
+End
+
+Public Sub a_Activate()
+
+    hsp
+
+End
+
+Public Sub e_Activate()
+
+    hsp
+
+End
+
+Public Sub b_Activate()
+
+    hsp
+
+End
+
+Public Sub c_Activate()
+
+    hsp
+
+End
+
+Public Sub Wizard3_Change()
+
+    If Wizard3.Index = 3
+        Button4_Click
+    End If
+
+End
+
+Public cazgi As Czm
+
+Public Sub Button5_Click()
+
+    Button3_Click
+    a.Move(120, 200)
+    ab.Move(8, 200)
+    b.Move(120, 230)
+    bb.Move(8, 230)
+    a.Visible = True
+    b.Visible = True
+    ab.Visible = True
+    bb.Visible = True
+    ab.text = "x distance(mm.)"
+    bb.text = "y distance(mm.)"
+    kesad.fsec = 1
+    kesitli.ListBox1.Clear
+    kesad.ax1.Clear
+    kesad.ay1.Clear
+    kesad.ax2.Clear
+    kesad.ay2.Clear
+    If ilk.depo1.Count = 0
+        ilk.komutsayi = 321
+    Else
+        For Each cazgi In ilk.cezmi
+            If ilk.depo1.Exist(cazgi.id) Then
+                kesitli.ListBox1.Add(cazgi.id)
+            Endif
+        Next
+        ozel
+    End If
+
+End
+
+Public Sub ozel()
+
+    Dim i As Integer
+
+    For i = 0 To kesitli.ListBox1.Count - 1
+        kesitli.ListBox1.Index = i
+        For Each cazgi In ilk.cezmi
+            If cazgi.id = kesitli.ListBox1.Text
+                If cazgi.komut = 1
+                    kesad.ax1.Add(cazgi.x1)
+                    kesad.ay1.Add(cazgi.y1)
+                    kesad.ax2.Add(cazgi.x2)
+                    kesad.ay2.Add(cazgi.y2)
+                Else If cazgi.komut = 20
+                    bol(cazgi.teta, cazgi.r, cazgi.yaricap, cazgi.x1, cazgi.y1)
+                End If
+            End If
+        Next
+    Next
+    kesad.bas
+    Return
+
+End
+
+Public Sub bol(r As Float, t2 As Float, y2 As Float, x1 As Float, y1 As Float)
+
+    Dim yar, tx, intx, inty, xon, yon As Float
+
+    yar = 1 / (y2 + 0.0001)
+    For tx = r To t2 Step yar
+        intx = x1 + y2 * Cos(tx)
+        inty = y1 - y2 * Sin(tx)
+        If xon <> 0 Then
+            kesad.ax1.Add(Round(xon, 0))
+            kesad.ay1.Add(Round(yon, 0))
+            kesad.ax2.Add(Round(intx, 0))
+            kesad.ay2.Add(Round(inty, 0))
+        End If
+        xon = intx
+        yon = inty
+    Next
+    intx = x1 + y2 * Cos(t2)
+    inty = y1 - y2 * Sin(t2)
+    kesad.ax1.Add(Round(xon, 0))
+    kesad.ay1.Add(Round(yon, 0))
+    kesad.ax2.Add(Round(intx, 0))
+    kesad.ay2.Add(Round(inty, 0))
+    Return
+
+End

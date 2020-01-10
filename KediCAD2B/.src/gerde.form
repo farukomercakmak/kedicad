@@ -1,0 +1,25 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,476,448)
+  #Scaled = False
+  Stacking = Window.Above
+  { liste ListBox
+    Move(0,0,147,441)
+  }
+  { Button1 Button
+    Move(371,385,91,49)
+    Text = ("Button1")
+  }
+  { liste2 ListBox
+    Move(147,70,196,350)
+  }
+  { Label1 Label
+    Move(154,7,182,28)
+    Text = ("Label1")
+  }
+  { Label2 Label
+    Move(147,42,154,28)
+    Text = ("Label2")
+  }
+}

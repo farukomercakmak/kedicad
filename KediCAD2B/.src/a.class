@@ -1,0 +1,10 @@
+' Gambas class file
+
+Public id As Integer  '0
+Public komut As Integer '1
+Public x1 As Float '2
+Public y1 As Float '3
+Public x2 As Float '4
+Public y2 As Float '5
+Public x3 As Float '4
+Public y3 As Float '5

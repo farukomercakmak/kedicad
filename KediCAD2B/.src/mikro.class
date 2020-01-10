@@ -1,0 +1,214 @@
+' Gambas class file
+
+Public myAr As String[]
+Private $hProcess As Process
+Private $sText As String
+Public gx As String
+Public gy As String
+Public gl As String
+Public gk As String
+Public lx As Float
+Public ly As Float
+Public hForm As Form
+
+Public Sub _new()
+
+    $hProcess = Exec ["bash", "--noediting"] For Read Write
+    komut.SetFocus
+    Komut.Text = "Kedi "
+
+End
+
+Public Sub Form_Close()
+
+    $hProcess.Kill
+
+End
+
+Public Sub Form_Resize()
+
+    komut.Move(0, Me.ClientH - komut.H, Me.ClientW, komut.H)
+    yazi.Move(0, 0, Me.ClientW, komut.Y)
+    yardim.Move(0, 0, Me.ClientW, komut.Y)
+
+End
+
+Public Sub Process_Read()
+
+    Dim sStr As String
+
+    'WHILE NOT Eof(LAST)
+
+    Read #Last, sStr, -256
+
+    $sText = $sText & sStr
+    'WEND
+
+    UpdateConsole
+
+End
+
+Public Sub Process_Error(sStr As String)
+
+    $sText = $sText & sStr
+    UpdateConsole
+
+End
+
+Private Sub UpdateConsole()
+
+    Dim iPos As Integer
+    Dim sStr As String
+
+    Do
+
+        iPos = InStr($sText, "\n")
+        If iPos = 0 Then Return
+
+        sStr = Normalize(Left$($sText, iPos))
+        $sText = Mid$($sText, iPos + 1)
+
+        yazi.Pos = yazi.Length
+        yazi.Insert(sStr)
+
+    Loop
+
+End
+
+Public Sub Process_Kill()
+
+    'hProcess = NULL
+    Try Me.Close
+
+End
+
+Private csp As Csplit
+
+Public Sub komut_Activate()
+
+    Dim out, sLig, kom1, komciz, bas As String
+
+    Dim x1, y1, x2, y2 As Float
+    Dim dug As Button
+
+    csp = New Csplit
+    sLig = komut.Text & gb.NewLine
+    sLig = LTrim$(sLig) & gb.NewLine
+    csp.yazi = sLig
+    csp.akm()
+    kom1 = csp.sonuc1
+    komciz = csp.sonuc2
+    bas = csp.sonuc3
+
+    If kom1 = "kedi" Or kom1 = "Kedi" Or kom1 = "KEDİ"
+        If komciz = "düğme"
+            csp.yazi = bas
+            csp.virg()
+            gy = csp.sonuc1
+            gx = csp.sonuc2
+            If gk Then x1 = Val(gk)
+            If gl Then y1 = Val(gl)
+            yazi.Insert("Kedi  " & sLig)
+            yazi.Insert("Kedi  " & kom1)
+            yazi.Insert("Kedi  " & komciz)
+            yazi.Insert("Kedi  " & gy)
+            yazi.Insert("Kedi  " & gx)
+            dug = New Button(pen)
+            dug.tag = "Düğme"
+            dug.x = x1
+            dug.y = y1
+            dug.Show
+            pen.Show
+        End If
+    End If
+
+    If kom1 = "kedi" Or kom1 = "Kedi" Or kom1 = "KEDİ"
+
+        If komciz = "Çizgi" Or komciz = "çizgi" Or komciz = "ÇİZGİ"
+            csp.yazi = bas
+            csp.virg()
+            gy = csp.sonuc1
+            gx = csp.sonuc2
+            gl = csp.sonuc3
+            gk = csp.sonuc4
+            If gk Then x1 = Val(gk) + ilk.orix
+            If gl Then y1 = -1 * Val(gl) + ilk.orix
+            If gx Then x2 = Val(gx) + ilk.orix
+            If gy Then y2 = -1 * Val(gy) + ilk.orix
+            yazi.Insert("Komut:  " & sLig)
+            cizem.cizgi(x1, y1, x2, y2)
+        End If
+
+        If komciz = "çember" Or komciz = "ÇEMBER" Or komciz = "Çember"
+            out = ","     ' büyüktür işaretiyle ayırma yap.
+            csp.yazi = bas
+            csp.virg()
+            gy = csp.sonuc1
+            gx = csp.sonuc2
+            gl = csp.sonuc3
+            If gx Then x2 = Val(gx) + ilk.orix
+            If gy Then y2 = -1 * Val(gy) + ilk.orix
+            If gl Then y1 = Val(gl)
+            yazi.Insert("Komut:  " & sLig)
+            ilk.komutsayi = 25
+            ilk.x1gec = x2
+            ilk.y1gec = y2
+            ilk.yaricap = y1
+            cizem.cember(ilk.x1gec, ilk.y1gec, ilk.yaricap)
+        End If
+    End If
+    tem.temizlik
+    komut.Clear
+    Komut.Text = "Kedi "
+
+End
+
+Static Private Function Normalize(sStr As String) As String
+
+    Dim sNorm As String
+    Dim iInd As Integer
+    Dim iCar As Integer
+    Dim bEsc As Boolean
+
+    For iInd = 1 To Len(sStr)
+
+        iCar = Asc(sStr, iInd)
+
+        If iCar = 27 Then
+            bEsc = True
+            Continue
+        Endif
+
+        If bEsc Then
+            If iCar < 32 Then bEsc = False
+            Continue
+        Endif
+
+        If iCar < 32 And iCar <> 10 Then iCar = 32
+
+        sNorm = sNorm & Chr$(iCar)
+
+    Next
+
+    Return Conv$(sNorm, System.Charset, Desktop.Charset)
+
+End
+
+Public Sub Form_Open()
+
+    Me.text = "KediCAD 2B KONSOL"
+    Komut.Text = "Kedi "
+
+End
+
+Public Sub Menu2_Click()
+
+    yardim.Visible = True
+
+End
+
+Public Sub Menu3_Click()
+
+    yardim.Visible = False
+
+End

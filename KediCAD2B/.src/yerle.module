@@ -1,0 +1,543 @@
+' Gambas module file
+
+Public cazgi As Czm
+Public yerkes As Integer
+Public mbv As String
+
+Public Sub yerlesim2()
+
+    With ilk  'Menüler yanlarda.. İlk form yerlşimleri
+        .Panel7.Move(ilk.Clientx, ilk.ClientY - 20, ilk.w) ' üstbar
+        .button41.move(330, 2, 85, 25)
+        .button26.move(425, 2, 25, 25)
+        .katmer.move(500, 2, 120, 25)
+        .kalin.move(85, 2, 50, 25)
+        .sekil.move(200, 2, 77, 25)
+        .gerin.move(645, 2, 25, 25)
+        .button4.move(670, 2, 25, 25)
+        .silme.move(750, 2, 40, 25)
+        .button16.move(900, 2, 25, 25)
+        .button28.move(925, 2, 25, 25)
+        .button18.move(950, 2, 25, 25)
+        .button20.move(975, 2, 25, 25)
+        .Label6.move(0, 2, 80, 25)
+        .Label7.move(145, 2, 55, 25)
+        .Label5.move(290, 2, 50, 25)
+        .Label8.move(455, 2, 42, 25)
+        
+        .Button47.Move(ilk.w - 40, 0)
+        .Button51.Move(32, 70)
+        
+        .label15.Move(0, 0, 90, 14)   ' dosya
+        .Panel3.Move(ilk.ClientX, ilk.ClientY + 10, 90, 120)
+        .yenidosya.Move(0, 14, 33, 33)
+        .dosyaac.Move(28, 14, 33, 33)
+        .kayit.Move(56, 14, 33, 33)
+        .benzet.Move(0, 47, 33, 33)
+        .yazdirici.Move(28, 47, 33, 33)
+        .kayit2.Move(56, 47, 33, 33)
+        .kesti.Move(0, 80, 33, 33)
+        .canta.Move(28, 80, 33, 33)
+        .yapistir.Move(56, 80, 33, 33)
+
+        .label14.Move(0, 0, 90, 14)  ' Çizim
+        .panel14.Move(ilk.Clientx, ilk.ClientY + 125, 90, 150)
+        .cizgia.Move(0, 14, 33, 33)
+        .cizgi2.Move(28, 14, 33, 33)
+        .cizgi3.Move(56, 14, 33, 33)
+        .dikdort.Move(0, 47, 33, 33)
+        .button25.Move(28, 47, 33, 33)
+        .yazim.Move(56, 47, 33, 33)
+        .cember.Move(0, 80, 33, 33)
+        .cember3.Move(28, 80, 33, 33)
+        .Button8.Move(56, 80, 33, 33)
+        .yay3.Move(0, 113, 33, 33)
+        .yay.Move(28, 113, 33, 33)
+        .tara.Move(56, 113, 33, 33)
+        .Button45.Move(0, 146, 30, 33)
+
+        .label9.Move(0, 0, 90, 14)  ' Değişiklik
+        .panel13.Move(ilk.Clientx, ilk.ClientY + 305, 90, 180)
+        .tasi.Move(0, 14, 33, 33)
+        .kopya.Move(28, 14, 33, 33)
+        .Button6.Move(56, 14, 33, 33)
+        .ayna.Move(0, 47, 33, 33)
+        .dizi.Move(28, 47, 33, 33)
+        .olsek.Move(56, 47, 33, 33)
+        .budama.Move(0, 80, 33, 33)
+        .budama2.Move(28, 80, 33, 33)
+        .kesis.Move(56, 80, 33, 33)
+        .olsek2.Move(0, 113, 33, 33)
+        .icerle.Move(28, 113, 33, 33)
+        .yuvarlama.Move(56, 113, 33, 33)
+        .pah.Move(0, 146, 33, 33)
+        .Button7.Move(28, 146, 33, 33)
+
+        .label3.Move(0, 0, 90, 14) ' görüntü
+        .Panel8.Move(ilk.ClientX, ilk.ClientY + 490, 90, 85)  ' görüntü
+        .tamekran.move(0, 14, 33, 33)
+        .button5.Move(28, 14, 33, 33)
+        .Button104.Move(56, 14, 33, 33)
+        .uzaklas2.Move(0, 47, 33, 33)
+        .uzaklas.Move(28, 47, 33, 33)
+        .uzalasi.Move(56, 47, 33, 33)
+
+        .label3.Move(0, 0, 90, 14) ' görüntü
+        
+        .label17.Move(0, 0, 90, 14)  ' makro
+        .Panel16.Move(ilk.ClientX, ilk.ClientY + 570, 90, 50)
+        .button11.move(0, 14, 33, 33)
+        .button13.Move(28, 14, 33, 33)
+        .hmak2.Move(56, 14, 33, 33)
+
+        .label10.Move(0, 0, 90, 14)   ' ölçü
+        .panel11.Move(ilk.w - 100, ilk.ClientY + 10, 90, 150)
+        .dikolcu.move(0, 14, 30, 33)
+        .egikolcu.Move(30, 14, 30, 33)
+        .Button9.Move(60, 14, 30, 33)
+        .button1.Move(0, 47, 30, 33)
+        .dikolcu3.Move(30, 47, 30, 33)
+        .button10.Move(60, 47, 30, 33)
+        .blon.Move(0, 80, 30, 33)
+        .button51.Move(30, 80, 30, 33)
+        .eksen.Move(60, 80, 30, 33)
+        .button21.Move(0, 113, 30, 33)
+        
+
+        .label11.Move(0, 0, 90, 14)  ' uç yakalama
+        .panel9.Move(ilk.w - 100, ilk.ClientY + 160, 90, 110)
+        .basuc.move(0, 14, 33, 33)
+        .ortauc.Move(28, 14, 33, 33)
+        .meruc.Move(56, 14, 33, 33)
+        .tegetuc.Move(0, 47, 33, 33)
+        .dikuc.Move(28, 47, 33, 33)
+        .yakin.Move(56, 47, 33, 33)
+        .meruc2.Move(0, 80, 90, 35)
+        
+         .label12.Move(0, 0, 90, 14)   ' Blok
+        .pblok.Move(ilk.w - 100, ilk.ClientY + 275, 90, 115)
+        .birlestir.move(0, 14, 33, 33)
+        .blokyap.Move(28, 14, 33, 33)
+        .blokal.Move(56, 14, 33, 33)
+        .birlestir2.Move(0, 47, 33, 33)
+        .profil.Move(28, 47, 33, 33)
+        .pat.Move(56, 47, 33, 33)
+        .grup.Move(0, 80, 33, 33)
+        
+
+        .label13.Move(0, 0, 90, 14)    ' bilgi
+        .panel6.Move(ilk.w - 100, ilk.ClientY + 395, 90, 50)
+        .button2.move(0, 14, 33, 33)
+        .button39.Move(28, 14, 33, 33)
+        .button31.Move(56, 14, 33, 33)
+
+        .label16.Move(0, 0, 90, 14)   ' araçlar
+        .panel1.Move(ilk.w - 100, ilk.ClientY + 445, 90, 50)
+        .hmak.move(0, 14, 33, 33)
+
+        .label24.Move(0, 0, 90, 14)   ' cam
+        .panel23.Move(ilk.w - 100, ilk.ClientY + 500, 90, 80)
+        .button36.move(0, 14, 33, 33)
+        .button37.move(28, 14, 33, 33)
+        .button38.move(56, 14, 33, 33)
+        .button40.move(0, 47, 33, 33)
+        .button42.move(28, 47, 33, 33)
+        .button43.move(56, 47, 33, 33)
+
+        .ScrollView1.Move(ilk.ClientX + 90, ilk.ClientY + 10, ilk.w - 190, ilk.h - 75)
+        .panel17.Move(0, ilk.Height - 50, ilk.w, 28)
+        .komyaz.move(0, 2, 300, 25)
+        .komutcuk.Move(300, 2, 150, 25)
+        .Panel5.Move(450, 2, 245, 25)
+        .izgara.move(0, 2, 60, 25)
+        .ucyakala.Move(60, 2, 60, 25)
+        .dogrultu.Move(120, 2, 60, 25)
+        .button74.Move(180, 2, 60, 25)
+        .Label1.Move(700, 2, 230, 25)
+        .Label25.Move(950, 2, 250, 25)
+        .PictureBox1.Move(ilk.w - 100, 2, 100, 25)
+        
+        .Panel20.Move(ilk.button41.x, ilk.button41.y)
+        .calanilk.Move(0, 0)
+        .Panel2.Move(ilk.w - 620, 0)
+        .ListView1.Move(0, 20, 250, .Height - 180)
+        .Button12.Move(210, 0)
+        .Panel12.Move(100, 30, 250, .Height - 150)
+
+        .yilk.Move(ilk.ClientWidth - .yilk.width - 20, ilk.Height - .yilk.Height - 80, 200, 200)
+        .Panel24.Move(400, 70)
+        
+        .hazim.Move(300, 150, 500, 190)
+        .Label29.Move(0, 0, 600, 24)
+        .Button24.move(260, 30)
+        .TextArea1.Move(5, 30, 250, 150)
+         .Panel26.Move(.calanilk.Width - .Panel26.Width, 10)
+          .Panel4.Move(.calanilk.Width - .Panel4.Width, 10)
+    End With
+    Return
+
+End
+
+Public Sub yerlesim()
+
+    With ilk  'Menüler üstte  İlk form yerlşimleri
+        .Panel7.Move(ilk.Clientx, ilk.ClientY + 55, ilk.w) ' Üstbar
+        .Button51.Move(90, 49)
+        .button41.move(330, 2, 85, 25)
+        .button26.move(425, 2, 25, 25)
+        .katmer.move(500, 2, 120, 25)
+        .kalin.move(85, 2, 50, 25)
+        .sekil.move(200, 2, 77, 25)
+        .gerin.move(645, 2, 25, 25)
+        .button4.move(670, 2, 25, 25)
+        .silme.move(750, 2, 40, 25)
+        .button16.move(900, 2, 25, 25)
+        .button28.move(925, 2, 25, 25)
+        .button18.move(950, 2, 25, 25)
+        .button20.move(975, 2, 25, 25)
+        .Label6.move(0, 2, 80, 25)
+        .Label7.move(145, 2, 55, 25)
+        .Label5.move(290, 2, 50, 25)
+        .Label8.move(455, 2, 42, 25)
+        .Button47.Move(ilk.w - 40, 0)
+
+        .label15.Move(0, 0, 140, 14) ' dosya
+        .Panel3.Move(ilk.ClientX, ilk.ClientY - 20, 140, 72)
+        .yenidosya.Move(0, 14, 28, 28)
+        .dosyaac.Move(28, 14, 28, 28)
+        .yazdirici.Move(56, 14, 28, 28)
+        .canta.Move(84, 14, 28, 28)
+        .yapistir.Move(112, 14, 28, 28)
+        .kayit.Move(0, 42, 28, 28)
+        .kayit2.Move(28, 42, 28, 28)
+        .kesti.Move(56, 42, 28, 28)
+        .benzet.Move(84, 42, 28, 28)
+        
+        .label3.Move(0, 0, 85, 14) ' görüntü
+        .Panel8.Move(ilk.ClientX + 145, ilk.ClientY - 20, 85, 72)  ' görüntü
+        .tamekran.move(0, 14, 28, 28)
+        .button5.Move(28, 14, 28, 28)
+        .Button104.Move(56, 14, 28, 28)
+        .uzaklas2.Move(0, 42, 28, 28)
+        .uzaklas.Move(28, 42, 28, 28)
+        .uzalasi.Move(56, 42, 28, 28)
+
+        .label14.Move(0, 0, 170, 14) ' Çizim
+        .panel14.Move(ilk.Clientx + 235, ilk.ClientY - 20, 170, 72)
+        .cizgia.Move(0, 14, 28, 28)
+        .cizgi2.Move(28, 14, 28, 28)
+        .cizgi3.Move(56, 14, 28, 28)
+        .cember.Move(84, 14, 28, 28)
+        .cember3.Move(112, 14, 28, 28)
+        .yay.Move(140, 14, 28, 28)
+        .dikdort.Move(0, 42, 28, 28)
+        .button25.Move(28, 42, 28, 28)
+        .yazim.Move(56, 42, 28, 28)
+        .Button8.Move(84, 42, 28, 28)
+        .yay3.Move(112, 42, 28, 28)
+        .tara.Move(140, 42, 28, 28)
+        .Button45.Move(168, 14, 28, 28)
+        
+        .label9.Move(0, 0, 195, 14)  ' Değişiklik
+        .panel13.Move(ilk.Clientx + 435, ilk.ClientY - 20, 195, 72)
+        .tasi.Move(0, 14, 28, 28)
+        .kopya.Move(28, 14, 28, 28)
+        .Button6.Move(56, 14, 28, 28)
+        .budama.Move(84, 14, 28, 28)
+        .budama2.Move(112, 14, 28, 28)
+        .kesis.Move(140, 14, 28, 28)
+        .Button7.Move(168, 14, 28, 28)
+        .ayna.Move(0, 42, 28, 28)
+        .dizi.Move(28, 42, 28, 28)
+        .olsek.Move(56, 42, 28, 28)
+        .olsek2.Move(84, 42, 28, 28)
+        .icerle.Move(112, 42, 28, 28)
+        .yuvarlama.Move(140, 42, 28, 28)
+        .pah.Move(168, 42, 28, 28)
+
+        .label10.Move(0, 0, 140, 14) ' ölçü
+        .panel11.Move(ilk.Clientx + 635, ilk.ClientY - 20, 140, 72)
+        .dikolcu.move(0, 14, 28, 28)
+        .egikolcu.Move(28, 14, 28, 28)
+        .button1.Move(56, 14, 28, 28)
+        .dikolcu3.Move(84, 14, 28, 28)
+        .Button9.Move(0, 42, 28, 28)
+        .button10.Move(28, 42, 28, 28)
+        .blon.Move(56, 42, 28, 28)
+        .button51.Move(84, 42, 28, 28)
+        .eksen.Move(112, 14, 28, 28)
+        .button21.Move(112, 42, 28, 28)
+        
+         .label12.Move(0, 0, 110, 14) ' Blok
+        .pblok.Move(ilk.Clientx + 780, ilk.ClientY - 20, 110, 72)
+        .birlestir.move(0, 14, 28, 28)
+        .blokyap.Move(28, 14, 28, 28)
+        .blokal.Move(56, 14, 28, 28)
+        .birlestir2.Move(0, 42, 28, 28)
+        .profil.Move(28, 42, 28, 28)
+        .pat.Move(56, 42, 28, 28)
+        .grup.Move(84, 14, 28, 28)
+        
+
+        .label11.Move(0, 0, 110, 14) ' uç yakalama
+        .panel9.Move(ilk.Clientx + 895, ilk.ClientY - 20, 110, 72)
+        .basuc.move(0, 14, 28, 28)
+        .ortauc.Move(28, 14, 28, 28)
+        .meruc.Move(56, 14, 28, 28)
+        .meruc2.Move(84, 14, 28, 56)
+        .tegetuc.Move(0, 42, 28, 28)
+        .dikuc.Move(28, 42, 28, 28)
+        .yakin.Move(56, 42, 28, 28)
+
+        .label13.Move(0, 0, 85, 14) ' bilgi
+        .panel6.Move(ilk.Clientx + 1010, ilk.ClientY - 20, 85, 42)
+        .button2.move(0, 14, 28, 28)
+        .button39.Move(28, 14, 28, 28)
+        .button31.Move(56, 14, 28, 28)
+
+        .label16.Move(0, 0, 28, 14) ' araçlar
+        .panel1.Move(ilk.Clientx + 1100, ilk.ClientY - 20, 28, 72)
+        .hmak.Move(0, 14, 28, 28)
+        .button3.Move(0, 42, 28, 28)
+        
+         .label17.Move(0, 0, 85, 14) ' makro
+        .Panel16.Move(ilk.Clientx + 1135, ilk.ClientY - 20, 85, 42)
+        .button11.move(0, 14, 28, 28)
+        .button13.Move(28, 14, 28, 28)
+        .hmak2.Move(56, 14, 28, 28)
+        
+        .label24.Move(0, 0, 87, 14) ' cam
+        .panel23.Move(ilk.Clientx + 1225, ilk.ClientY - 20, 85, 72)
+        .button36.move(0, 14, 28, 28)
+        .button37.move(28, 14, 28, 28)
+        .button38.move(56, 14, 28, 28)
+        .button40.move(0, 42, 28, 28)
+        .button42.move(28, 42, 28, 28)
+        .button43.move(56, 42, 28, 28)
+
+        
+
+        .ScrollView1.Move(ilk.ClientX, ilk.ClientY + 85, ilk.ClientWidth, ilk.h - 150)
+        .panel17.Move(0, ilk.Height - 50, ilk.w, 28)
+        .komyaz.move(0, 2, 300, 25)
+        .komutcuk.Move(300, 2, 150, 25)
+        .Panel5.Move(450, 2, 245, 25)
+        .izgara.move(0, 2, 60, 25)
+        .ucyakala.Move(60, 2, 60, 25)
+        .dogrultu.Move(120, 2, 60, 25)
+        .button74.Move(180, 2, 60, 25)
+        .Label1.Move(700, 2, 230, 25)
+        .Label25.Move(950, 2, 250, 25)
+        .PictureBox1.Move(ilk.w - 100, 2, 100, 25)
+        
+        .Panel20.Move(ilk.button41.x, ilk.button41.y)
+
+        .calanilk.Move(0, 0)
+        .Panel2.Move(ilk.w - 520, 0)
+        .ListView1.Move(0, 0, 250, .Height - 220)
+        .Button12.Move(210, .Height - 220)
+        .Panel12.Move(0, 120, 250, .Height - 180)
+        .yilk.Move(ilk.ClientWidth - .yilk.width - 20, ilk.Height - .yilk.Height - 80, 200, 200)
+        .Panel24.Move(400, 70)
+        .hazim.Move(300, 150, 500, 190)
+        .Label29.Move(0, 0, 600, 24)
+        .Button24.move(260, 30)
+        .TextArea1.Move(5, 30, 250, 150)
+        .Panel26.Move(.calanilk.Width - .Panel26.Width, 10)
+    End With
+    Return
+
+End
+
+Public Sub cankayit()
+
+    Dim myFile As File
+
+    myFile = Open System.User.Home &/ ".KediCAD/Genel" &/ mbv & ".blk" For Create
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id)
+            Print #myFile, cazgi.id
+            Print #myFile, cazgi.komut
+            Print #myFile, Round(cazgi.x1, -2)
+            Print #myFile, Round(cazgi.y1, -2)
+            Print #myFile, Round(cazgi.x2, -2)
+            Print #myFile, Round(cazgi.y2, -2)
+            Print #myFile, Round(cazgi.yazix, -2)
+            Print #myFile, Round(cazgi.yaziy, -2)
+            Print #myFile, Round(cazgi.r, -2)
+            Print #myFile, Round(cazgi.b, -2)
+            Print #myFile, Round(cazgi.egim, -2)
+            Print #myFile, ""
+            Print #myFile, Round(cazgi.teta, -2)
+            Print #myFile, ""
+            Print #myFile, ""
+            Print #myFile, ""
+            Print #myFile, ""
+            Print #myFile, ""
+            Print #myFile, Round(cazgi.yaricap, -2)
+            Print #myFile, cazgi.sekil
+            Print #myFile, cazgi.renk
+            Print #myFile, cazgi.kalinlik
+            If ilk.komutsayi = 295 Then
+                Print #myFile, ilk.bolok
+                ilk.bolok = ilk.bolok + 2
+            Else
+                Print #myFile, cazgi.blok
+            End If
+            Print #myFile, cazgi.katman
+            Print #myFile, ""
+            Print #myFile, cazgi.yazi
+            Print #myFile, ""
+            Print #myFile, ""
+            Print #myFile, ""
+            Print #myFile, ""
+            Print #myFile, Round(cazgi.x1, -2)
+            Print #myFile, Round(cazgi.y1, -2)
+            Print #myFile, Round(cazgi.x2, -2)
+            Print #myFile, Round(cazgi.y2, -2)
+            Print #myFile, Round(cazgi.x3, -2)
+            Print #myFile, Round(cazgi.y3, -2)
+            Print #myFile, Round(cazgi.x4, -2)
+            Print #myFile, Round(cazgi.y4, -2)
+            Print #myFile, Round(cazgi.x5, -2)
+            Print #myFile, Round(cazgi.y5, -2)
+            Print #myFile, Round(cazgi.x6, -2)
+            Print #myFile, Round(cazgi.y6, -2)
+        End If
+    Next
+    Close myFile
+    tem.temizlik
+cik:
+    Return
+
+End
+
+Public yol As String
+
+Public Sub yankayit()
+
+    Dim myFile As File
+
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/cankay.ulu" For Create
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id)
+            Print #myFile, cazgi.id ' 1
+            Print #myFile, cazgi.komut ' 2
+            Print #myFile, Round(cazgi.x1, -2) ' 3
+            Print #myFile, Round(cazgi.y1, -2) ' 4
+            Print #myFile, Round(cazgi.x2, -2) ' 5
+            Print #myFile, Round(cazgi.y2, -2) ' 6
+            Print #myFile, Round(cazgi.yazix, -2) ' 7
+            Print #myFile, Round(cazgi.yaziy, -2) ' 8
+            Print #myFile, Round(cazgi.r, -2) ' 9
+            Print #myFile, Round(cazgi.b, -2) ' 10
+            Print #myFile, Round(cazgi.egim, -2) ' 11
+            Print #myFile, Round(cazgi.x4, -2) ' 12
+            Print #myFile, Round(cazgi.teta, -2) ' 13
+            Print #myFile, Round(cazgi.x6, -2) ' 14
+            Print #myFile, "" ' 15
+            Print #myFile, "" ' 16
+            Print #myFile, "" ' 17
+            Print #myFile, cazgi.blok  ' 18"
+            Print #myFile, Round(cazgi.yaricap, -2) ' 19
+            Print #myFile, cazgi.sekil '20
+            Print #myFile, cazgi.renk ' 21
+            Print #myFile, cazgi.kalinlik ' 22
+            If ilk.komutsayi = 295 Then
+                Print #myFile, ilk.bolok
+                ilk.bolok = ilk.bolok + 2
+            Else
+                Print #myFile, cazgi.blok ' 23
+            End If
+            Print #myFile, cazgi.katman ' 24
+            Print #myFile, "" ' 1
+            Print #myFile, cazgi.yazi ' 25
+            Print #myFile, "" ' 26
+            Print #myFile, "" ' 27
+            Print #myFile, "" ' 28
+            Print #myFile, "" ' 29
+            Print #myFile, Round(cazgi.x1, -2) ' 30
+            Print #myFile, Round(cazgi.y1, -2) ' 31
+            Print #myFile, Round(cazgi.x2, -2) ' 32
+            Print #myFile, Round(cazgi.y2, -2) ' 33
+            Print #myFile, Round(cazgi.x3, -2) ' 34
+            Print #myFile, Round(cazgi.y3, -2) ' 35
+            Print #myFile, Round(cazgi.x4, -2) ' 36
+            Print #myFile, Round(cazgi.y4, -2) ' 37
+            Print #myFile, Round(cazgi.x5, -2) ' 38
+            Print #myFile, Round(cazgi.y5, -2) ' 39
+            Print #myFile, Round(cazgi.x6, -2) ' 40
+            Print #myFile, "--" ' 41
+            
+        End If
+    Next
+    Close myFile
+    If ilk.zir = 0 Then
+        tem.temizlik
+    Else
+        ilk.zir = 0
+    End If
+cik:
+    Return
+
+End
+
+Public Sub pahci()
+
+    Dim tmx, tmy, r1, r2, alfa, kff, arx, ary, ilkx, ilky As Float
+
+    With ilk
+        kff = CFloat(.komutcuk.Text)
+        If .eggec > -1000 And .eggec < 1000
+            tmx = (.bgec - .yuvb) / (.yuveg - .eggec)
+        Else
+            If .y1gec = .y2gec
+                tmx = .x1gec
+            Else If .yuvy1 = .yuvy2
+                tmx = .yuvx1
+            Else
+                tmx = (.bgec - .yuvb) / (.yuveg - .eggec)
+            End If
+        End If
+        tmy = ((.eggec * .yuvb) - (.yuveg * .bgec)) / - (.yuveg - .eggec)
+        alfa = Atn((tmy - .y3gec) / (tmx - .x3gec))
+        arx = kff * Cos(alfa)
+        ary = kff * Sin(alfa)
+        For Each cazgi In ilk.cezmi
+            If cazgi.id = .idoku
+                cizem.aktar(cazgi.id)
+                r1 = Hyp(cazgi.x1 - tmx, cazgi.y1 - tmy)
+                r2 = Hyp(cazgi.x2 - tmx, cazgi.y2 - tmy)
+                If r1 < r2 Then     ' cazgi.x1/y1 daha yakın
+                    cizem.cizgi(cazgi.x2, cazgi.y2, tmx - arx, tmy - ary)
+                Else
+                    cizem.cizgi(cazgi.x1, cazgi.y1, tmx - arx, tmy - ary)
+                Endif
+                ilkx = tmx - arx
+                ilky = tmy - ary
+            End If
+        Next
+        alfa = Atn((tmy - .yuvy2) / (tmx - .yuvx2))
+        arx = kff * Cos(alfa)
+        ary = kff * Sin(alfa)
+        For Each cazgi In ilk.cezmi
+            If cazgi.id = .yuvid
+                cizem.aktar(cazgi.id)
+                r1 = Hyp(cazgi.x1 - tmx, cazgi.y1 - tmy)
+                r2 = Hyp(cazgi.x2 - tmx, cazgi.y2 - tmy)
+                If r1 < r2 Then     ' cazgi.x1/y1 daha yakın
+                    cizem.cizgi(cazgi.x2, cazgi.y2, tmx - arx, tmy - ary)
+                Else
+                    cizem.cizgi(cazgi.x1, cazgi.y1, tmx - arx, tmy - ary)
+                Endif
+                cizem.cizgi(ilkx, ilky, tmx - arx, tmy - ary)
+            End If
+        Next
+        ilk.sil(.yuvid)
+        ilk.sil(.idoku)
+        cizem.cember(tmx, tmy, 5)
+    End With
+    tem.temizlik
+    Return
+
+End

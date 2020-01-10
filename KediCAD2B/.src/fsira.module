@@ -1,0 +1,220 @@
+' Gambas module file
+
+Public cazgi As Czm
+Public yazgi As Czm
+Public ax1 As New Float[]
+Public ay1 As New Float[]
+Public ax2 As New Float[]
+Public ay2 As New Float[]
+Public aid As New Integer[]
+Public aid2 As New Integer[]
+Public mnx As Float
+Public mxx As Float
+Public gyx As Float
+Public gyy As Float
+Public gyi As Integer
+Public yju As Integer
+Public orx As Float
+Public ory As Float
+Public smn As Integer
+
+
+	
+Public Sub tumsira(ide As Integer)
+Dim i As Integer
+ax2.Clear
+ay2.Clear
+aid2.Clear
+ax1.Clear
+ay1.Clear
+aid.Clear
+For Each cazgi In ilk.cezmi
+    If cazgi.komut = 1 Then
+        If cazgi.id > 0 Then
+            If smn = 0 Then smn = cazgi.id
+            ax1.Add(cazgi.x1)
+            ay1.Add(cazgi.y1)
+            aid.Add(cazgi.id)
+            ax1.Add(cazgi.x2)
+            ay1.Add(cazgi.y2)
+            aid.Add(cazgi.id)
+        Endif
+    Endif
+Next
+smn = ide
+ax2.Add(ax1[ide])
+ay2.Add(ay1[ide])
+aid2.Add(aid[ide])
+ax1[ide] = 99999
+ay1[ide] = 99999
+aid[ide] = 99999
+xybul()
+For i = 0 To 1000
+        idebul()  ' x y den id bulunuyor
+        xybul()  ' id  den x y bulunuyor...
+Next
+ax1.Clear
+ay1.Clear
+aid.Clear
+Return
+        Catch
+	ilk.hatayaz("tumsira " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub sirala()
+Dim i As Integer
+smn = aid[0]
+xybul()
+For i = 0 To aid.Count - 1
+        idebul()  ' x y den id bulunuyor
+        xybul()  ' id  den x y bulunuyor...
+Next
+Return
+        Catch
+	ilk.hatayaz("sirala " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub xybul() ' x ve y bulunuyor
+Dim i As Integer
+For i = 0 To ax1.Count - 1
+    If aid[i] = smn Then
+        If ax1[i] <> 99999
+        If ay1[i] <> 99999
+            orx = ax1[i]
+            ory = ay1[i]
+            aid2.Add(aid[i])
+            ax2.Add(ax1[i])
+            ay2.Add(ay1[i])
+             ax1[i] = 99999
+             ay1[i] = 99999
+             aid[i] = 99999
+        Endif
+        Endif
+    Endif
+Next
+Return
+        Catch
+	ilk.hatayaz("xybul " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub idebul() ' id bulunuyor...
+Dim i As Integer
+For i = 0 To ax1.Count - 1
+    If Round(ax1[i]) = Round(orx)
+    If Round(ay1[i]) = Round(ory)
+    If ax1[i] <> 99999
+    If ay1[i] <> 99999
+    If aid[i] <> 99999
+        smn = aid[i]
+        aid2.Add(aid[i])
+        ax2.Add(ax1[i])
+        ay2.Add(ay1[i])
+        ax1[i] = 99999
+        ay1[i] = 99999
+        aid[i] = 99999
+    Endif
+    Endif
+    Endif
+    Endif
+    Endif
+Next
+ Return
+         Catch
+	ilk.hatayaz("idebul " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub deposira(Optional idno As Integer)
+   ' ax1ay1 aid ekle
+    Dim i As Integer
+Dim myFile As File
+' ciztem   ' çizimdeki aynı çizgileri temizleme
+ax1.Clear
+ay1.Clear
+aid.Clear
+For Each cazgi In ilk.cezmi
+    If ilk.depo1.Exist(cazgi.id)
+        ax1.Add(cazgi.x1)
+        ay1.Add(cazgi.y1)
+        aid.Add(cazgi.id)
+        ax1.Add(cazgi.x2)
+        ay1.Add(cazgi.y2)
+        aid.Add(cazgi.id)
+    Endif
+Next
+myFile = Open System.User.Home &/ "aa" For Create
+     For i = 0 To aid.Count - 1
+         Print #myFile, aid[i] & "- " & ax1[i] & "- " & ay1[i]
+     Next
+Close myFile
+
+If idno <> "" Then 
+    smn = aid[idno]
+    ax2.Add(ax1[idno])
+    ay2.Add(ay1[idno])
+    aid2.Add(aid[idno])
+Else
+    smn = aid[0]
+Endif
+xybul()
+For i = 0 To 1000
+        idebul()  ' x y den id bulunuyor
+        xybul()  ' id  den x y bulunuyor...
+Next
+For Each cazgi In ilk.cezmi
+    If ilk.depo1.Exist(cazgi.id)
+    If cazgi.komut = 25
+        aid2.Add(cazgi.id)
+    Endif
+    Endif
+Next
+ax1.Clear
+ay1.Clear
+aid.Clear
+ilk.depo1.Clear
+For i = 0 To aid2.Count - 1
+    ilk.depo1.Add(aid2[i], aid2[i])
+Next
+myFile = Open System.User.Home &/ "bb" For Create
+        For i = 0 To aid2.Count - 1
+            Print #myFile, aid2[i] 
+        Next
+
+Close myFile
+Return
+        Catch
+	ilk.hatayaz("deposira " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub ciztem()  ' çizimdeki aynı çizgileri temizleme
+For Each cazgi In ilk.cezmi  
+        If ilk.depo1.Exist(cazgi.id)
+            If cazgi.id < 0 Then Goto gec
+            For Each yazgi In ilk.cezmiyedek
+                If yazgi.id < 0 Then Goto gec1
+                If cazgi.id <> yazgi.id Then
+                    If cazgi.x1 = yazgi.x1
+                        If cazgi.y1 = yazgi.y1
+                            If cazgi.x2 = yazgi.x2
+                                If cazgi.y2 = yazgi.y2
+                                    ilk.sil(cazgi.id)
+                                    ilk.depo1.Remove(cazgi.id)
+                                Endif
+                            Endif
+                        Endif
+                    Endif
+                Endif
+            gec1:
+            Next
+        Endif
+    gec:
+    Next
+Return
+        Catch
+	ilk.hatayaz("ciztem " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

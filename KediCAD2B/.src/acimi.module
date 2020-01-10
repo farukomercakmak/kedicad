@@ -1,0 +1,119 @@
+' Gambas module file
+
+Public cazgi As Czm
+Public d As Float
+Public cc As Float
+Public daci As Float
+Public raci As Float
+Public laci As Float
+Public maci As Float
+Public ege As Float
+Public boy As Float
+Public bb As Float
+Public tmx As Float
+Public tmy As Float
+Public emx As Float
+Public emy As Float
+Public Sub aci(mex As Float, mey As Float, tex As Float, tey As Float)
+'  y= egim * x + b
+    If (mex - tex) <> 0
+        ege = (tey - mey) / (tex - mex + 0.0001)
+    Else
+        ege = (tey - mey) / (tex - mex + 0.0001)
+    End If
+    bb = (mey - (ege * mex))  ' b= y - egim * x
+    If tex = mex Then
+        boy = (tey - mey)
+        Goto af
+    Endif
+    If tey = mey Then
+        boy = (tex - mex)
+        Goto af
+    Endif
+    boy = Abs(Hyp((tex - mex), (tey - mey)))  '  Çizgi uzunluğu.
+    cc = ege * tex + tey * bb
+af:
+    raci = Atn(ege)
+    If boy Then maci = ACos((tex - mex) / boy)
+    If mex > tex
+        raci = Pi - raci
+    Else
+        raci = - raci
+    End If
+    While raci < 0
+        raci = 2 * Pi + raci
+    Wend
+    While raci > (2 * Pi)
+        raci = raci - (2 * Pi)
+    Wend
+    daci = Deg(raci)
+    Return
+    Catch
+	ilk.hatayaz("aci " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub tem(bbir As Float, biki As Float, eg1 As Float, eg2 As Float)
+' If (eg1 < 0.01) Or (eg2 < 0.01) Then  ' çizgi yatay...
+'     tmx = ((biki - bbir) / (eg1 - (eg2 + 0.001))) + 0.001
+'     tmy = - ((eg2 * bbir - eg1 * biki) / (eg1 - (eg2 + 0.001)) + 0.001)
+' Else If (Abs(eg1) > 1000) Or (Abs(eg2) > 1000) Then  ' çizgi dikey
+'     tmx = (biki - bbir) / (eg1 - (eg2 + 0.001))
+'     tmy = - (eg2 * bbir - eg1 * biki) / (eg1 - (eg2 + 0.001))
+' Else
+    tmx = ((biki - bbir) / (eg1 - (eg2 + 0.001))) + 0.001
+    tmy = - ((eg2 * bbir - eg1 * biki) / (eg1 - (eg2 + 0.001)) + 0.001)
+' Endif
+    Return
+Catch
+	ilk.hatayaz("tem " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub oztem(mex As Float, mey As Float, tex As Float, tey As Float, zx1 As Float, zy1 As Float, uzun As Integer)
+    Dim p, k, a, ra, c, b As Float  ' 
+    aci(mex, mey, tex, tey)
+    a = boy
+    ra = raci - (Pi / 2)
+    If ra < 0 Then ra = ra + 2 * Pi
+    laci = ra
+    aci(mex, mey, zx1, zy1)
+    c = boy
+    p = c * c / a
+    aci(tex, tey, zx1, zy1)
+    b = boy
+    k = b * b / a
+    d = Sqr(p * k)
+    emx = zx1 + uzun * Cos(ra)
+    emy = zy1 - uzun * Sin(ra)
+    Return
+    Catch
+	ilk.hatayaz("oztem " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+Public Function cizgiuzak(nokx As Float, noky As Float) As Integer
+    Dim l, l1 As Float
+    Dim ide As Integer
+    l = 99999999999
+    nokx = nokx / ilk.olcum
+    noky = noky / ilk.olcum
+    
+    For Each cazgi In ilk.cezmi
+        If cazgi.gor <> 0 Then Goto gecgit
+        If cazgi.kilit <> 0 Then Goto gecgit
+        If cazgi.id < 0 Then Goto gecgit
+        If cazgi.komut = 1 Then
+            oztem(cazgi.x1, cazgi.y1, cazgi.x2, cazgi.y2, nokx, noky, 50)
+             l1 = d
+            If l1 < l Then
+                l = l1
+                ide = cazgi.id 
+            Endif
+        Endif
+        gecgit:
+    Next
+    Return ide
+    Catch
+	ilk.hatayaz("cizgiuzak " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End

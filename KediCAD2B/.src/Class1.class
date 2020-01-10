@@ -1,0 +1,26 @@
+' Gambas class file
+
+Public Struct Arm
+  Length As Float
+  NumberOfFingers As Integer
+  HasGlove As Boolean
+End Struct
+
+Public Struct Leg
+  Length As Float
+  NumberOfFingers As Integer
+  HasSock As Boolean
+  HasShoe As Boolean
+End Struct
+
+Public Struct Man
+  FirstName As String
+  LastName As String
+  Age As Integer
+  Eyes As String
+  LeftArm As Struct Arm
+  RightArm As Struct Arm
+  LeftLeg As Struct Leg
+  RightLeg As Struct Leg
+  
+End Struct

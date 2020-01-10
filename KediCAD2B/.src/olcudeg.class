@@ -1,0 +1,144 @@
+' Gambas class file
+
+Public cazgi As Czm
+
+
+Public Sub Form_Open()
+Dim myFile As File
+    Dim myLine As String
+    Dim doza, gr As Integer
+    ondalik.Clear
+    cizgiyazi.Visible = False
+    Label12.Visible = False
+    PictureBox4.Visible = False
+    PictureBox5.Visible = False
+    PictureBox6.Visible = False
+Me.Move(Desktop.Width - Me.Width, 0)
+ondalik.Add("#", 0)
+ondalik.Add("#.#", 1)
+ondalik.Add("#.##", 2)
+ondalik.Add("#.###", 3)
+ondalik.Add("#.####", 4)
+ondalik.Add("#.#####", 5)
+For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then
+            If cazgi.komut > 90 Then gr = 1
+        Endif
+Next
+If gr = 1 Then
+    Button1.Text = "OK"
+    cizgiyazi.Visible = True
+    Label12.Visible = True
+    PictureBox4.Visible = True
+    PictureBox5.Visible = True
+    PictureBox6.Visible = True
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then
+            If cazgi.komut > 90 Then
+                yazibuyuk.Text = cazgi.y6
+                yazirenk.Value = cazgi.renk
+                cizgiyazi.Text = Round(cazgi.yazi, -2)
+                ondalik.Index = cazgi.sekil
+            Endif
+        Endif
+    Next
+Else
+        Button1.Text = "Save"
+        cizgiyazi.Visible = False
+        Label12.Visible = False
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/.olcad.ulu")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/.olcad.ulu" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                If doza = 0 Then yazibuyuk.Text = myLine
+                If doza = 1 Then yazirenk.Value = Val(myLine)
+                If doza = 2 Then ondalik.Index = myLine
+                doza = doza + 1
+            Wend
+        End If
+        Close myFile
+    Else
+         yazirenk.Value = ilk.olre 
+         yazibuyuk.Text = ilk.oyabu / 5
+    End If
+Endif
+   Catch
+	ilk.hatayaz("fopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button1_Click()
+Dim myFile As File
+If yazibuyuk.Text = 0 Or yazibuyuk.Text = "" Then
+    Message("ölçü yüksekliği girilmemiş")
+    Return
+Endif
+
+If ilk.depo1.Count > 0 Then
+    If cizgiyazi.Text = "" Then
+        Message("yazılacak yazı  girilmemiş")
+        Return
+    Endif
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then
+            If cazgi.komut > 70 Then
+                cazgi.y6 = yazibuyuk.Text
+                cazgi.renk = yazirenk.Value
+                cazgi.yazi = cizgiyazi.Text 
+                If ondalik.Index = 0 Then
+                    cazgi.sekil = 0
+                Else
+                    cazgi.sekil = ondalik.Index
+                Endif
+            Endif
+        Endif
+    Next
+Else
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/.olcad.ulu" For Create
+    Print #myFile, yazibuyuk.Text
+    Print #myFile, yazirenk.Value
+    Print #myFile, ondalik.Index
+    ilk.olre = yazirenk.Value
+    ilk.oyabu = 5 * CFloat(yazibuyuk.Text)
+    For Each cazgi In ilk.cezmi
+        If cazgi.komut > 70 Then cazgi.sekil = ondalik.Index
+    Next
+    Close myFile
+Endif
+ilk.calanilk.Refresh
+Me.Close
+End
+
+Public Sub Button2_Click()
+Me.Close
+End
+
+Public Sub Button3_Click()
+If yazibuyuk.Text = 0 Or yazibuyuk.Text = "" Then
+    Message("ölçü yüksekliği girilmemiş")
+    Return
+Endif
+    For Each cazgi In ilk.cezmi
+            If cazgi.komut = 100 Or cazgi.komut = 105 Or cazgi.komut = 110 Or cazgi.komut = 120 Then
+                cazgi.y6 = yazibuyuk.Text
+                cazgi.renk = yazirenk.Value
+                If ondalik.Index = 0 Then
+                    cazgi.sekil = 0
+                Else
+                    cazgi.sekil = ondalik.Index
+                Endif
+            Endif
+            If cazgi.komut = 190 Or cazgi.komut = 200 Then
+                cazgi.x6 = yazibuyuk.Text
+                cazgi.renk = yazirenk.Value
+                If ondalik.Index = 0 Then
+                    cazgi.sekil = 0
+                Else
+                    cazgi.sekil = ondalik.Index
+                Endif
+            Endif
+        Next
+ilk.olre = yazirenk.Value
+ilk.oyabu = 5 * CFloat(yazibuyuk.Text)
+ilk.calanilk.Refresh
+End

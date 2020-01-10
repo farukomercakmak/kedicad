@@ -1,0 +1,153 @@
+' Gambas class file
+
+Private $sPath As String
+
+Public tyol As String
+Public yollum As String
+Public yolf As String
+Public res As String
+Public uzan As String
+Public suzan As String
+Public kuzan As String
+Public vari As String
+Public asa As Integer
+Public bsa As Integer
+Public muzan As Integer
+Private csp As Csplit
+
+
+Public Sub Form_Open()
+
+    Dim myFile As File
+    Dim myLine As String
+
+    Me.text = "KediCAD 2B "
+    Me.Center
+    myFile = Open System.User.Home &/ ".KediCAD/Acilis/sondosya.ulu" For Read
+    While Not Eof(myFile)
+        Line Input #myFile, myLine
+        If myLine = "" Then
+            $sPath = System.User.Home
+        Else
+            $sPath = myLine
+        End If
+    Wend
+        Catch
+	ilk.hatayaz("fopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub FileChooser1_Change()
+
+    csp = New Csplit
+    csp.yazi = FileChooser1.Value
+    csp.dsy()
+    TextBox1.Text = csp.sonuc1
+    suzan = Right$(csp.sonuc1, 3)
+    res = Left$(csp.sonuc1, -3)
+    $sPath = FileChooser1.Dir
+        Catch
+	ilk.hatayaz("filechoo1chng " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub FileChooser1_Activate()
+
+    Button1_Click
+
+End
+
+Public Sub Button1_Click()
+
+    Dim myFile As File
+
+    suzan = Right$(TextBox1.Text, 3)
+    If suzan = "dxf" Or suzan = "DXF" Then
+        vari = TextBox1.Text
+        ilk.kaci = $sPath & "/" & TextBox1.Text
+    Else
+        vari = TextBox1.Text & ".dxf"
+        ilk.kaci = $sPath & "/" & TextBox1.Text & ".dxf"
+    End If
+    If Exist($sPath &/ vari) Then
+        If Message.Warning(" \n\n\t" & $sPath &/ vari & "\n\n. Overwrite?", "Yes", "Cancel") > 1 Then
+            Return
+        End If
+    End If
+    Me.Hide
+    ilk.dosyami = vari
+    dac.dxfkay(ilk.kaci)
+    myFile = Open System.User.Home &/ ".KediCAD/Acilis/sondosya.ulu" For Create
+    Print #myFile, $sPath
+    Close myFile
+    Me.close
+        Catch
+	ilk.hatayaz("btn1clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub resam()
+
+    Dim reskayit As Picture
+    Dim sb As String
+
+    sb = ilk.kaci
+    If Exist(System.User.Home &/ ".KediCAD/Acilis/" & sb & ".jpeg")
+        Shell "rm " & System.User.Home &/ ".KediCAD/Acilis/" & sb & ".jpeg"
+    End If
+    If Exist(System.User.Home &/ ".KediCAD/Acilis/" & Left$(sb, -4) & ".jpeg")
+        Shell "rm " & System.User.Home &/ ".KediCAD/Acilis/" & Left$(sb, -4) & ".jpeg"
+    End If
+    Wait 1
+    sb = ilk.dosyami
+    reskayit = desktop.Screenshot(0, 200, Me.Width - 150, Me.Height - 250)
+    $Spath = System.User.Home &/ ".KediCAD/Acilis/" & Left$(sb, -4) & ".jpeg"
+    reskayit.Save($Spath, 3)
+    Return
+        Catch
+	ilk.hatayaz("resam " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub Button2_Click()
+
+    Me.Close
+
+End
+
+Public Sub Button3_Click()
+
+    $sPath = System.User.Home
+    FileChooser1.Dir = $sPath
+    FileChooser1.Refresh
+
+End
+
+Public Sub TextBox1_Activate()
+
+    Button1_Click
+
+End
+
+Public Sub Button4_Click()
+
+    If IsDir(System.User.Home &/ "Masaüstü") Then
+        $sPath = System.User.Home &/ "Masaüstü"
+    Else
+        $sPath = System.User.Home &/ "Desktop"
+    Endif
+    FileChooser1.Dir = $sPath
+    FileChooser1_Change()
+        Catch
+	ilk.hatayaz("btn4clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button5_Click()
+
+    If Exist("/media/" & System.User.Name & "/")
+        $sPath = "/media/" & System.User.Name & "/"
+    Else
+        $sPath = "/run/media/" & System.User.Name & "/"
+    Endif
+    FileChooser1.Dir = $sPath
+    FileChooser1.Refresh
+        Catch
+	ilk.hatayaz("btn5clk " & Error.Text, Error.Where & "--" & Error.code)
+End

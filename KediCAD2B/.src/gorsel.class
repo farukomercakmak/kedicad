@@ -1,0 +1,1306 @@
+' Gambas class file
+
+Private $sPath As String
+Private $yol As String
+Public tekbuton As Object
+Public hepsi As New Object[]
+Public xa As Integer
+Public ya As Integer
+Public bs As Integer
+Public ls As Integer
+Public ys As Integer
+Public es As Integer
+Public ks As Integer
+Public als As Integer
+Public rs As Integer
+Public t As Integer
+Public t1 As Integer
+Public i As Integer
+Public b As String
+Public c As String
+Public x1 As Integer
+Public y1 As Integer
+Public x2 As Integer
+Public y2 As Integer
+Public mx As Integer
+Public my As Integer
+
+
+Public Sub Form_Open()
+
+    Shell "rm " & System.User.Home &/ ".KediCAD/macro/*"
+    Me.text = "KediCAD 2B MACRO"
+    Me.Center
+    Panel1.Move(0, 30)
+    Panel3.Move(0, 0)
+    i = 5
+
+End
+
+Public Sub Button1_Click()
+
+    i = 3
+    t = 2
+
+End
+
+Public Sub Button2_Click()
+
+    i = 1
+    t = 2
+
+End
+
+Public Sub Button4_Click()
+
+    i = 0
+    t = 2
+
+End
+
+Public Sub Button5_Click()
+
+    i = 4
+    t = 2
+
+End
+
+Public Sub Button6_Click()
+
+    i = 6
+    t = 2
+
+End
+
+Public Sub Button7_Click()
+
+    i = 2
+    t = 2
+
+End
+
+Public Sub Button8_Click()
+
+    i = 7
+    t = 2
+
+End
+
+Public Sub DrawingArea1_MouseMove()
+
+    If t1 = 1 And i <> 5
+        mx = Round(mouse.x, 1)
+        my = Round(mouse.y, 1)
+    Else
+        ' DrawingArea1.Clear
+    End If
+    DrawingArea1.Refresh
+
+End
+
+Public Sub DrawingArea1_Draw()
+
+    Dim iy, j As Integer
+
+    For iy = 0 To DrawingArea1.Width Step 10
+        For j = 0 To DrawingArea1.Height Step 10
+            Draw.Point(iy, j)
+        Next
+    Next
+    If x1 > 0 Then Draw.Rect(x1, y1, mx - x1, my - y1)
+        Catch
+	ilk.hatayaz("dwgare1draw " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub DrawingArea1_MouseUp()
+
+    Dim yx, yy, rx, ry As Float
+
+    rx = Round(mouse.x, 1)
+    ry = Round(mouse.y, 1)
+    If t1 <> 0 And i <> 5
+        yx = Min(rx, x1)    ' temp
+        yy = Min(ry, y1)   ' temp
+        xa = Max(rx, x1)
+        ya = Max(ry, y1)
+        x1 = yx
+        y1 = yy
+        If t = 2
+            If i = 0 Then
+                c = "button" & bs
+                bs = bs + 1
+                sifir()  'buton
+            End If
+            If i = 1 Then
+                c = "label" & es
+                es = es + 1
+                bir() 'etiket
+            End If
+            If i = 2 Then
+                c = "list" & ls
+                ls = ls + 1
+                iki() 'liste
+            End If
+            If i = 3 Then
+                c = "yazi" & ys
+                ys = ys + 1
+                uc() 'yazı
+            End If
+            If i = 4 Then
+                c = "check" & ks
+                ks = ks + 1
+                dort() ' kontrol
+            End If
+            If i = 6 Then
+                c = "combo" & als
+                als = als + 1
+                alti() 'açılır liste
+            End If
+            If i = 7 Then
+                c = "picture" & rs
+                rs = rs + 1
+                yedi() 'resim
+            End If
+            t = 0
+        End If
+        t1 = 0
+        x1 = 0
+        y1 = 0
+        i = 5
+    End If
+        Catch
+	ilk.hatayaz("mouseup " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub DrawingArea1_MouseDown()
+
+    Dim rx, ry As Float
+
+    rx = Round(mouse.x, 1)
+    ry = Round(mouse.y, 1)
+
+    If t1 = 0 And i <> 5
+        x1 = rx
+        y1 = ry
+        t1 = 1
+    End If
+        Catch
+	ilk.hatayaz("mousedown " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Sub yedi()
+
+    tekbuton = New PictureBox(DrawingArea1) As "picturea"
+    With tekbuton
+        .X = x1
+        .Y = y1
+        .Width = Abs(xa - x1)
+        .height = Abs(ya - y1)
+        .Tag = c
+        .border = 2
+        hepsi.Add(tekbuton)
+    End With
+    Return
+        Catch
+	ilk.hatayaz("yedi " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub alti()
+
+    tekbuton = New ComboBox(DrawingArea1) As "comboa"
+    With tekbuton
+        .X = x1
+        .Y = y1
+        .Width = Abs(xa - x1)
+        .height = Abs(ya - y1)
+        .Tag = c
+        .text = .Tag
+        hepsi.Add(tekbuton)
+    End With
+    b = c
+    Return
+        Catch
+	ilk.hatayaz("alti " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub dort()
+
+    tekbuton = New CheckBox(DrawingArea1) As "checka"
+    With tekbuton
+        .X = x1
+        .Y = y1
+        .Width = Abs(xa - x1)
+        .height = Abs(ya - y1)
+        .Tag = c
+        .text = .Tag
+        hepsi.Add(tekbuton)
+    End With
+    b = c
+    Return
+        Catch
+	ilk.hatayaz("dort " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub iki()
+
+    tekbuton = New ListBox(DrawingArea1) As "lista"
+    With tekbuton
+        .X = x1
+        .Y = y1
+        .Width = Abs(xa - x1)
+        .height = Abs(ya - y1)
+        .Tag = c
+        hepsi.Add(tekbuton)
+    End With
+    b = c
+    Return
+        Catch
+	ilk.hatayaz("iki " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public ndepo As New String[]
+
+Sub bir()
+
+    tekbuton = New Label(DrawingArea1) As "labela"
+    With tekbuton
+        .X = x1
+        .Y = y1
+        .Width = Abs(xa - x1)
+        .height = Abs(ya - y1)
+        .Tag = c
+        .text = c
+        .border = 1
+        hepsi.Add(tekbuton)
+    End With
+    b = c
+    Return
+        Catch
+	ilk.hatayaz("bir " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub uc()
+
+    TextArea1.Clear
+    tekbuton = New TextBox(DrawingArea1) As "yazia"
+    With tekbuton
+        .X = x1
+        .Y = y1
+        .Width = Abs(xa - x1)
+        .height = Abs(ya - y1)
+        .Tag = c
+        .text = c
+        hepsi.Add(tekbuton)
+    End With
+    b = c
+    onyazi("_Change()")
+    onyazi("_Activate()")
+    Return
+        Catch
+	ilk.hatayaz("uc " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub sifir()
+
+    TextArea1.Clear
+    tekbuton = New Button(DrawingArea1) As "buttona"
+    With tekbuton
+        .X = x1
+        .Y = y1
+        .Width = Abs(xa - x1)
+        .height = Abs(ya - y1)
+        .Tag = c
+        .text = c
+        ndepo.Add(c)
+        hepsi.Add(tekbuton)
+    End With
+
+    b = c
+    onyazi("_Click()")
+    Return
+        Catch
+	ilk.hatayaz("sifir " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub TextBox5_Activate()
+
+    Dim nesne As Object
+    Dim il As Integer
+
+    For Each nesne In hepsi
+        If hepsi[il].name <> "picturea"
+            If TextBox1.Text = hepsi[il].Tag Then
+                hepsi[il].text = TextBox5.Text
+                TextBox5.Text = ""
+            Endif
+        End If
+        il = il + 1
+    Next
+
+End
+
+Public Sub TextBox7_Activate()
+
+    Dim nesne As Object
+    Dim il As Integer
+
+    For Each nesne In hepsi
+        If TextBox1.Text = hepsi[il].Tag Then
+            hepsi[il].height = TextBox7.Text
+        Endif
+        il = il + 1
+    Next
+
+End
+
+Public Sub TextBox6_Activate()
+
+    Dim nesne As Object
+    Dim il As Integer
+
+    For Each nesne In hepsi
+        If TextBox1.Text = hepsi[il].Tag Then
+            hepsi[il].width = TextBox6.Text
+        Endif
+        il = il + 1
+    Next
+
+End
+
+Public Sub TextBox3_Activate()
+
+    Dim nesne As Object
+    Dim il As Integer
+
+    For Each nesne In hepsi
+        If TextBox1.Text = hepsi[il].Tag Then
+            hepsi[il].y = TextBox3.Text
+        Endif
+        il = il + 1
+    Next
+
+End
+
+Public Sub TextBox2_Activate()
+
+    Dim nesne As Object
+    Dim il As Integer
+
+    For Each nesne In hepsi
+        If TextBox1.Text = hepsi[il].Tag Then
+            hepsi[il].x = TextBox2.Text
+        Endif
+        il = il + 1
+    Next
+
+End
+
+Sub listele()
+
+    TextBox1.Text = Last.Tag
+    TextBox2.Text = Last.x
+    TextBox3.Text = Last.y
+    TextBox6.Text = Last.width
+    TextBox7.Text = Last.height
+    TextBox5.Text = Last.Text
+
+    Return
+
+End
+
+Public Sub picturea_MouseDown()
+
+    b = Last.tag
+    listele
+    TextBox4.Text = Last.name
+
+End
+
+Public Sub comboa_Click()
+
+    b = Last.tag
+    listele
+    TextBox4.Text = Last.name
+
+End
+
+Public Sub checka_Click()
+
+    b = Last.tag
+    listele
+    TextBox4.Text = Last.name
+
+End
+
+Public Sub lista_MouseDown()
+
+    b = Last.tag
+    listele
+    TextBox4.Text = Last.name
+
+End
+
+Public Sub labela_MouseDown()
+
+    b = Last.tag
+    listele
+    TextBox4.Text = Last.name
+
+End
+
+Public Sub yazia_DblClick()
+
+    TabStrip1.index = 1
+
+End
+
+Public Sub yazia_MouseDown()
+
+    TextArea1.clear
+    b = Last.tag
+    listele
+    TextBox4.Text = Last.name
+
+    ComboBox1.Clear
+    ComboBox1.Add("")
+    ComboBox1.Add("_Change()")
+    ComboBox1.Add("_Activate()")
+
+End
+
+Public Sub buttona_DblClick()
+
+    TabStrip1.index = 1
+
+End
+
+Public Sub buttona_Click()
+
+    Dim nesne As Object
+
+    TextArea1.clear
+    ListBox1.clear
+    b = Last.tag
+    listele
+    TextBox4.Text = Last.name
+    For Each nesne In hepsi
+        ListBox1.Add(nesne.tag)
+    Next
+    ComboBox1.Clear
+    ComboBox1.Add("")
+    ComboBox1.Add("_Click()")
+        Catch
+	ilk.hatayaz("butona " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public zxcv As Integer
+
+Public Sub TextArea1_KeyRelease()
+
+    If Key.Code = Key.Enter Then
+        akay(ComboBox1.Text)
+    End If
+
+End
+
+Public Sub ComboBox1_Change()
+
+    Dim ustdos As File
+    Dim myLine As String
+
+    If ComboBox1.Index <> 0
+        TextArea1.Clear
+        ustdos = Open System.User.Home &/ ".KediCAD/macro" &/ Trim$(b) & ComboBox1.Text For Read
+        If Lof(ustdos) > 0 Then
+            While Not Eof(ustdos)
+                Line Input #ustdos, myLine
+                TextArea1.Text = TextArea1.Text & myLine & Chr$(10)
+            Wend
+        End If
+        Close ustdos
+    End If
+        Catch
+	ilk.hatayaz("cmbboxchang " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Sub onyazi(bv As String)
+
+    Dim mb As String
+
+    mb = bv
+    TextArea1.Clear
+    TextArea1.Text = "Public Sub " & Trim$(b) & mb & Chr$(10)
+
+    If b Like "butt*" Then
+        TextArea1.Text = TextArea1.Text & "" & Chr$(10)
+        TextArea1.Text = TextArea1.Text & "" & Chr$(10)
+    Else
+        TextArea1.Text = TextArea1.Text & " for each tekbuton in hepsi" & Chr$(10)
+        TextArea1.Text = TextArea1.Text & "     if tekbuton.name=  \"" & b & "\"" & Chr$(10)
+        TextArea1.Text = TextArea1.Text & "            " & b & "y = tekbuton.text" & Chr$(10)
+        TextArea1.Text = TextArea1.Text & "         if " & b & "i <> \"\" then " & Chr$(10)
+        TextArea1.Text = TextArea1.Text & "             tekbuton.text= " & b & "i" & Chr$(10)
+        TextArea1.Text = TextArea1.Text & "         Endif" & Chr$(10)
+        TextArea1.Text = TextArea1.Text & "     Endif" & Chr$(10)
+        TextArea1.Text = TextArea1.Text & " next" & Chr$(10)
+    End If
+    If b Like "but*"
+        TextArea1.Text = TextArea1.Text & "altsub" & Chr$(10)
+    Endif
+    TextArea1.Text = TextArea1.Text & "END" & Chr$(10)
+    TextArea1.Text = TextArea1.Text & "'   /////////////////////////////  "
+    akay(mb)
+    Return
+        Catch
+	ilk.hatayaz("onyazi " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub akay(bv As String)
+
+    Dim myFile As File
+
+    If Not IsDir(System.User.Home &/ ".KediCAD/macro") Then Mkdir System.User.Home &/ ".KediCAD/macro"
+    myFile = Open System.User.Home &/ ".KediCAD/macro" &/ Trim$(b) & bv For Create
+    Print #myFile, TextArea1.Text
+    Close myfile
+    Return
+        Catch
+	ilk.hatayaz("akay " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub Button11_Click()
+
+    akay(ComboBox1.Text)
+Button11.Enabled = False
+End
+
+Public ackapa As Integer
+
+Public Sub DirChooser1_Change()
+
+    Label11.text = DirChooser1.Value
+    $yol = DirChooser1.Value
+
+End
+
+Public Sub Menu5_Click()
+
+    Panel3.Visible = True
+    ackapa = 1
+
+End
+
+Public Sub Menu7_Click()
+
+    Panel3.Visible = True
+    ackapa = 2
+
+End
+
+Public Sub Button17_Click()
+
+    If ackapa = 2 Then kyt
+    If ackapa = 1 Then ac
+    Panel3.Visible = False
+    ackapa = 0
+
+End
+
+Public timer1 As New Timer
+
+Sub ac()
+
+    Dim myFile As File
+    Dim myLine, adi, tad As String
+    Dim ib As Integer
+
+    hepsi.Clear
+    myFile = Open $yol &/ "form" For Read
+    If Lof(myFile) > 0 Then
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            ib = ib + 1
+            If ib = 1 Then adi = myLine
+            If ib = 2 Then tad = myLine
+            If ib = 3 Then x1 = Val(myLine)
+            If ib = 4 Then y1 = Val(myLine)
+            If ib = 5 Then xa = Val(myLine)
+            If ib = 6 Then ya = Val(myLine)
+            If ib = 7 Then
+                If adi Like "butt*"
+                    tekbuton = New Button(DrawingArea1) As "buttona"
+                    bs = bs + 1
+                Else If adi Like "yaz*"
+                    tekbuton = New Textbox(DrawingArea1) As "yazia"
+                    ys = ys + 1
+                Else If adi Like "lab*"
+                    tekbuton = New Label(DrawingArea1) As "labela"
+                End If
+                With tekbuton
+                    .X = x1
+                    .Y = y1
+                    .Width = xa
+                    .height = ya
+                    .Tag = tad
+                    .text = myLine
+                    ndepo.Add(myLine)
+                    hepsi.Add(tekbuton)
+                End With
+
+                ib = 0
+            End If
+        Wend
+    End If
+    Close myFile
+    tekbuton = New Label(timer1) As "timer1"
+    With tekbuton
+        .Tag = "tmr"
+        ndepo.Add(myLine)
+        hepsi.Add(tekbuton)
+    End With
+    txtCommand.Text = "cd " & $yol
+    txtCommand_Activate
+    txtCommand.Text = "cp * " & System.User.Home &/ ".KediCAD/macro/"
+    txtCommand_Activate
+    txtCommand.Text = "cd " & System.User.Home &/ ".KediCAD/macro/"
+    txtCommand_Activate
+    txtCommand.Text = "rm form"
+    txtCommand_Activate
+    Return
+        Catch
+	ilk.hatayaz("ac " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub kyt()
+
+    Dim myFile, ustdos As File
+    Dim myLine, sb As String
+    Dim nesne As Object
+
+    myFile = Open $sPath &/ "form" For Create
+    For Each nesne In hepsi
+        Print #myFile, nesne.name
+        Print #myFile, nesne.tag
+        Print #myFile, nesne.x
+        Print #myFile, nesne.y
+        Print #myFile, nesne.width
+        Print #myFile, nesne.height
+        Print #myFile, nesne.text
+    Next
+    Close myfile
+    $sPath = System.User.Home &/ ".KediCAD/macro"
+    For Each sb In Dir($sPath)
+        If sb Like ".*" Then
+        Else
+            myFile = Open DirChooser1.Value &/ sb For Create
+            ustdos = Open $sPath &/ sb For Read
+            If Lof(ustdos) > 0 Then
+                While Not Eof(ustdos)
+                    Line Input #ustdos, myLine
+                    Print #myFile, myLine
+                Wend
+            End If
+            Close ustdos
+        Endif
+    Next
+    Return
+        Catch
+	ilk.hatayaz("kyt " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub isle()
+
+    Dim nesne As Object
+    Dim myFile, ustdos As File
+    Dim myLine, sb As String
+    Dim ax, ay As Integer
+
+    $sPath = System.User.Home &/ ".KediCAD/macro"
+    myFile = Open System.User.Home &/ ".KediCAD/dene.gbs" For Create
+    Print #myFile, "#!/usr/bin/env gbs3"
+    Print #myFile, "USE \"gb.image\""
+    Print #myFile, "USE  \"gb.gui\""
+    Print #myFile, "PUBLIC say As integer"
+    Print #myFile, "PUBLIC nb as form"
+    Print #myFile, "PUBLIC c As String"
+    Print #myFile, "PUBLIC a As integer"
+    Print #myFile, "PUBLIC tekbuton As Object"
+    Print #myFile, "PUBLIC tmr As Object"
+    Print #myFile, "PUBLIC daci As Float"
+    Print #myFile, "PUBLIC raci As Float"
+    Print #myFile, "PUBLIC ege As Float"
+    Print #myFile, "PUBLIC boy As Float"
+    Print #myFile, "PUBLIC bb As Float"
+    Print #myFile, "PUBLIC hepsi As New Object[]"
+    For Each nesne In hepsi
+        Print #myFile, "PUBLIC " & nesne.tag & " as Button"
+        Print #myFile, "PUBLIC " & nesne.tag & "y As String"
+        Print #myFile, "PUBLIC " & nesne.tag & "i As String"
+    Next
+    Print #myFile, ""
+    Print #myFile, "'   /////////////////////////////  "
+    Print #myFile, ""
+    Print #myFile, "PUBLIC SUB Main()"
+    Print #myFile, "    nb = New form"
+    ' Print #myFile, "    nb.Move(50,50,550,330)"
+    Print #myFile, "    nb.AutoResize = True"
+    Print #myFile, "    nb.show"
+    Print #myFile, "    tmr = New Timer As \"Timer1\""
+    Print #myFile, "    With tmr"
+    Print #myFile, "        .enabled =true"
+    Print #myFile, "        .Delay = 0.5"
+    Print #myFile, "    End with"
+    Print #myFile, "    if exist(System.User.Home &/ \".KediCAD/Kayit\"  &/ \"yankay.ulu\")"
+    Print #myFile, "        shell \"rm \" & System.User.Home &/ \".KediCAD/Kayit\"  &/ \"yankay.ulu\""
+    Print #myFile, "    end if"
+    For Each nesne In hepsi
+        If nesne.tag Like "but*"
+            Print #myFile, "tekbuton = New Button(nb) As \"" & nesne.tag & "\""
+        Else If nesne.tag Like "pict*"
+            Print #myFile, "tekbuton = New Picturebox(nb) As \"" & nesne.tag & "\""
+        Else If nesne.tag Like "yaz*"
+            Print #myFile, "tekbuton = New Textbox(nb) As \"" & nesne.tag & "\""
+        Else If nesne.tag Like "lab*"
+            Print #myFile, "tekbuton = New Label(nb) As \"" & nesne.tag & "\""
+        Else If nesne.tag Like "com*"
+            Print #myFile, "tekbuton = New combobox(nb) As \"" & nesne.tag & "\""
+        Else If nesne.tag Like "chec*"
+            Print #myFile, "tekbuton = New checkbox(nb) As \"" & nesne.tag & "\""
+        Else If nesne.tag Like "list*"
+            Print #myFile, "tekbuton = New listbox(nb) As \"" & nesne.tag & "\""
+        End If
+        Print #myFile, "    With tekbuton"
+        Print #myFile, "    hepsi.add(tekbuton)"
+        Print #myFile, "        .x = " & nesne.x
+        Print #myFile, "        .y = " & nesne.y
+        Print #myFile, "        .width = " & nesne.Width
+        Print #myFile, "        .height = " & nesne.height
+        Print #myFile, "        .tag=\" " & nesne.name & "\""
+        If nesne.x > ax Then ax = nesne.x
+        If nesne.y > ay Then ay = nesne.y
+        If nesne.tag Like "pic*" Or nesne.tag Like "list*"
+            Print #myFile, "        .border = 2"
+        Else
+            Print #myFile, "        .text=\"" & nesne.text & "\""
+        End If
+        Print #myFile, "altsub"
+        Print #myFile, "    End with"
+    Next
+    Print #myFile, "    nb.Move(50,50," & (ax + 100) & "," & (ay + 100) & ")"
+    Print #myFile, "End"
+    Print #myFile, "'   /////////////////////////////  "
+    For Each sb In Dir($sPath)
+        If sb Like "yazi*"
+            ustdos = Open $sPath &/ sb For Read
+            If Lof(ustdos) > 0 Then
+                While Not Eof(ustdos)
+                    Line Input #ustdos, myLine
+                    Print #myFile, myLine
+                Wend
+            End If
+            Close ustdos
+        End If
+    Next
+    For Each sb In Dir($sPath)
+        If sb Like "butt*"
+            ustdos = Open $sPath &/ sb For Read
+            If Lof(ustdos) > 0 Then
+                While Not Eof(ustdos)
+                    Line Input #ustdos, myLine
+                    Print #myFile, myLine
+                Wend
+            End If
+            Close ustdos
+        End If
+    Next
+
+    Print #myFile, "'   /////////////////////////////  "
+    Print #myFile, "SUB altsub()"
+
+    ' Print #myFile, " for each tekbuton in hepsi" & Chr$(10)
+    '   Print #myFile, "     if tekbuton.name like  \"yazi*\"" & Chr$(10)
+    '    Print #myFile, "         if " & b & "i <> null then " & Chr$(10)
+    '   Print #myFile, "             tekbuton.text= " & b & "i " & Chr$(10)
+    '   ' Print #myFile, "             message(tekbuton.text)" & Chr$(10)
+    '   Print #myFile, "         Endif" & Chr$(10)
+    '   Print #myFile, "     Endif" & Chr$(10)
+    '    Print #myFile, " next" & Chr$(10)
+
+    For Each nesne In hepsi
+        If nesne.tag Like "yazi*"
+            Print #myFile, nesne.tag & "_Change()"
+            Print #myFile, nesne.tag & "_Activate()"
+        End If
+    Next
+    '     Print #myFile, "return"
+    Print #myFile, "end"
+    Print #myFile, "'   /////////////////////////////  "
+    Print #myFile, "Public Sub Timer1_Timer()"
+    '     Print #myFile, "altsub()"
+    Print #myFile, "wait 0.1"
+    Print #myFile, "end"
+    Close myfile
+    Return
+        Catch
+	ilk.hatayaz("isle " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub Button3_Click()
+If Button11.Enabled = True Then
+    Message("önce kodları kaydetmelisiniz")
+    Return
+Endif
+    ListBox3.Clear
+
+    txtConsole.clear
+    isle
+    Wait 1
+    kayitci
+    txtCommand.Text = "cd " & System.User.Home &/ ".KediCAD/"
+    txtCommand_Activate
+    txtCommand.Text = "gbs3  dene.gbs"
+    txtCommand_Activate
+        Catch
+	ilk.hatayaz("buton3 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Menu6_Click()
+
+    Panel1.Visible = True
+
+End
+
+Public Sub Button12_Click()
+
+    Panel1.Visible = True
+
+End
+
+Public Sub Button10_Click()
+
+    TextArea1.Clear
+    txtConsole.Clear
+
+End
+
+Public Sub TabStrip1_Click()
+
+    Dim il As Integer
+    Dim myFile As File
+    Dim myLine As String
+
+    ListBox4.Clear
+    ListBox3.Clear
+    If TabStrip1.Index = 2 Then
+        isle
+        kayitci
+        myFile = Open System.User.Home &/ ".KediCAD/dene.gbs" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                ListBox4.Add(myLine)
+                il = il + 1
+                ListBox3.Add(il)
+            Wend
+        End If
+        Close myFile
+    Endif
+        Catch
+	ilk.hatayaz("tabstrp1clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+'////////////////konsole ///////////////
+
+Private $hProcess As Process
+Private $sText As String
+
+Public Sub _new()
+
+    $hProcess = Exec ["bash", "--noediting"] For Input Output As "Process"
+
+End
+
+Public Sub Form_Close()
+
+    $hProcess.Kill
+
+End
+
+Public Sub Process_Read()
+
+    Dim sStr As String
+
+    'Debug Eof(Last);; Lof(Last);;
+    'While Not sStr
+    Read #$hProcess, sStr, -256
+    'Wend
+    'Error sStr
+    $sText = $sText & sStr
+    'Debug Quote(sStr)
+    UpdateConsole
+
+End
+
+Public Sub Process_Error(sStr As String)
+
+    $sText = $sText & sStr
+    UpdateConsole
+
+End
+
+Private Sub UpdateConsole()
+
+    Dim iPos As Integer
+    Dim sStr As String
+
+    While Len($sText)
+
+        iPos = InStr($sText, "\n")
+        If iPos = 0 Then iPos = Len($sText)
+
+        sStr = Normalize(Left$($sText, iPos))
+        'Debug sStr
+        $sText = Mid$($sText, iPos + 1)
+
+        txtConsole.Pos = txtConsole.Length
+        txtConsole.Insert(sStr)
+
+    Wend
+
+End
+
+Public Sub Process_Kill()
+
+    'hProcess = NULL
+    Try Me.Close
+
+End
+
+Public Sub txtCommand_Activate()
+
+    Dim sLig As String
+
+    sLig = txtCommand.Text & gb.NewLine
+
+    'txtConsole.Pos = txtConsole.Length
+    'txtConsole.Insert("# " & sLig)
+    txtCommand.Clear
+
+    sLig = Conv$(sLig, Desktop.Charset, System.Charset)
+
+    Print #$hProcess, sLig;
+
+End
+
+Static Private Function Normalize(sStr As String) As String
+
+    Dim sNorm As String
+    Dim iInd As Integer
+    Dim iCar As Integer
+    Dim bEsc As Boolean
+
+    For iInd = 1 To Len(sStr)
+
+        iCar = Asc(sStr, iInd)
+
+        If iCar = 27 Then
+            bEsc = True
+            Continue
+        Endif
+
+        If bEsc Then
+            If iCar < 32 Then bEsc = False
+            Continue
+        Endif
+
+        If iCar < 32 And iCar <> 10 Then iCar = 32
+
+        sNorm = sNorm & Chr$(iCar)
+
+    Next
+
+    Return Conv$(sNorm, System.Charset, Desktop.Charset)
+'        Catch
+	'ilk.hatayaz("normaliz " & Error.Text, Error.Where & "--" & Error.code)
+ '   Return
+
+End
+
+Public Sub btnCtrlC_Click()
+
+    Print #$hProcess, Chr$(3);
+
+End
+
+Public Sub btnCtrlD_Click()
+
+    Print #$hProcess, Chr$(4);
+
+End
+
+Public Sub btnCtrlZ_Click()
+
+    Print #$hProcess, Chr$(26);
+
+End
+
+Public Sub Button13_Click()
+
+    txtCommand.Text = "cd " & System.User.Home
+    txtCommand_Activate
+
+    If CheckBox1.Value = True
+        If Not IsDir(System.User.Home &/ ".KediCAD/macroy") Then
+            Mkdir System.User.Home &/ ".KediCAD/macroy"
+        Endif
+        txtCommand.Text = "cp " & System.User.Home &/ ".KediCAD/dene.gbs " & System.User.Home &/ ".KediCAD/macroy" &/ TextBox8.Text & ".gbs"
+        txtCommand_Activate
+        txtCommand.Text = "chmod 777 " & System.User.Home &/ ".KediCAD/macroy" &/ TextBox8.Text & ".gbs"
+    Else
+        txtCommand.Text = "cp " & System.User.Home &/ ".KediCAD/dene.gbs " & System.User.Home &/ TextBox8.Text & ".gbs"
+        txtCommand_Activate
+        txtCommand.Text = "chmod 777 " & System.User.Home &/ TextBox8.Text & ".gbs"
+    Endif
+    txtCommand_Activate
+    Panel1.Visible = False
+        Catch
+	ilk.hatayaz("btn13clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button9_Click()
+
+    Me.Close
+
+End
+
+Public Sub Button18_Click()
+
+    Panel1.Visible = False
+
+End
+
+Public Sub ListBox3_Click()
+
+    ListBox4.Index = ListBox3.Index
+
+End
+
+Public Sub ListBox4_Click()
+
+    ListBox3.Index = ListBox4.Index
+
+End
+
+Sub kayitci()
+
+    Dim myFile As File
+
+    myFile = Open System.User.Home &/ ".KediCAD/dene.gbs" For Write
+    Seek #myFile, Lof(myFile)
+    Print #myFile, "'   /////////////////////////////  "
+    Print #myFile, "Public Sub cizgi(x1 As Float, y1 As Float, x2 As Float, y2 As Float)"
+    Print #myFile, "Dim dosya, sIcon As String"
+    Print #myFile, "Dim myFile As File"
+    Print #myFile, "Dim keld, secr As Integer"
+    Print #myFile, "Dim tteta, r, egim, b As Float"
+    Print #myFile, "x1= x1 + " & ilk.orix
+    Print #myFile, "x2= x2 + " & ilk.orix
+    Print #myFile, "y1= y1 + " & ilk.oriy
+    Print #myFile, "y2= y2 + " & ilk.oriy
+    Print #myFile, "aci(x1, y1, x2, y2)"
+    Print #myFile, "tteta = daci"
+    Print #myFile, "r = boy"
+    Print #myFile, "egim = ege"
+    Print #myFile, "b = bb"
+    Print #myFile, "if exist(System.User.Home &/ \".KediCAD/Kayit\"  &/ \"yankay.ulu\")"
+    Print #myFile, "else"
+    Print #myFile, "myFile = Open System.User.Home &/ \".KediCAD/Kayit\"  &/ \"yankay.ulu\"  For Create "
+    Print #myFile, "wait 1.0"
+    Print #myFile, "shell \" chmod 777 \"  & System.User.Home &/ \".KediCAD/Kayit\"  &/ \"yankay.ulu\""
+    Print #myFile, "end if"
+
+    Print #myFile, "myFile = Open System.User.Home &/ \".KediCAD/Kayit\"  &/ \"yankay.ulu\"  For write"
+    Print #myFile, "    Seek #myFile, Lof(myFile)"
+    Print #myFile, "           Print #myFile,\"\""
+    Print #myFile, "           Print #myFile, 1"
+    Print #myFile, "if x1 =0 then"
+    Print #myFile, "           Print #myFile,  0"
+    Print #myFile, "else"
+    Print #myFile, "           Print #myFile,  x1"
+    Print #myFile, "end if"
+    Print #myFile, "if y1 =0 then"
+    Print #myFile, "           Print #myFile,  0"
+    Print #myFile, "else"
+    Print #myFile, "           Print #myFile,  y1"
+    Print #myFile, "end if"
+    Print #myFile, "           Print #myFile,  x2"
+    Print #myFile, "          Print #myFile,  y2"
+    Print #myFile, "           Print #myFile,  - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, r"
+    Print #myFile, "           Print #myFile, b"
+    Print #myFile, "           Print #myFile, egim"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, tteta"
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile,\"\""
+    Print #myFile, "           Print #myFile,0"
+    Print #myFile, "           Print #myFile, 1"
+    Print #myFile, "           Print #myFile, 16777215"
+    Print #myFile, "           Print #myFile, 1"
+    Print #myFile, "           Print #myFile, 0"
+    Print #myFile, "           Print #myFile, 0"
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile,\"\""
+    Print #myFile, "           Print #myFile,\"\""
+    Print #myFile, "           Print #myFile,\"\""
+    Print #myFile, "           Print #myFile, x1"
+    Print #myFile, "           Print #myFile, y1"
+    Print #myFile, "           Print #myFile, x2"
+    Print #myFile, "           Print #myFile, y2"
+    Print #myFile, "           Print #myFile, (x2 + x1) / 2"
+    Print #myFile, "           Print #myFile, (y2 + y1) / 2"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "  Close myFile"
+    Print #myFile, "Return"
+    Print #myFile, "End"
+    Print #myFile, "'   /////////////////////////////  "
+
+    Print #myFile, "Public Sub cember(x1 As Float, y1 As Float, yar As Float)"
+    Print #myFile, "    Dim dosya, sIcon As String"
+    Print #myFile, "    Dim myFile As File"
+    Print #myFile, "    Dim keld, secr As Integer"
+    Print #myFile, "    Dim tteta, r, egim, b As Float"
+    Print #myFile, "    x1= x1 + " & ilk.orix
+    Print #myFile, "    y1= y1 + " & ilk.oriy
+    Print #myFile, "    if exist(System.User.Home &/ \".KediCAD/Kayit\"  &/ \"yankay.ulu\")"
+    Print #myFile, "    else"
+    Print #myFile, "        myFile = Open System.User.Home &/ \".KediCAD/Kayit\"  &/ \"yankay.ulu\"  For Create "
+    Print #myFile, "        wait 1.0"
+    Print #myFile, "        shell \" chmod 777 \"  & System.User.Home &/ \".KediCAD/Kayit\"  &/ \"yankay.ulu\""
+    Print #myFile, "    end if"
+    Print #myFile, "    myFile = Open System.User.Home &/ \".KediCAD/Kayit\"  &/ \"yankay.ulu\"  For write"
+    Print #myFile, "        Seek #myFile, Lof(myFile)"
+
+    Print #myFile, "           Print #myFile,\"\""
+    Print #myFile, "           Print #myFile, 25"
+    Print #myFile, "           if x1 =0 then"
+    Print #myFile, "                Print #myFile,  0"
+    Print #myFile, "           else"
+    Print #myFile, "                Print #myFile,  x1"
+    Print #myFile, "           end if"
+    Print #myFile, "           if y1 =0 then"
+    Print #myFile, "                Print #myFile,  0"
+    Print #myFile, "           else"
+    Print #myFile, "                Print #myFile,  y1"
+    Print #myFile, "           end if"
+    Print #myFile, "           Print #myFile,  0"
+    Print #myFile, "          Print #myFile,  0"
+    Print #myFile, "           Print #myFile,  - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, 0"
+    Print #myFile, "           Print #myFile, 0"
+    Print #myFile, "           Print #myFile, 0"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, tteta"
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile,\"\""
+    Print #myFile, "           Print #myFile,yar"
+    Print #myFile, "           Print #myFile, 1"
+    Print #myFile, "           Print #myFile, 16777215"
+    Print #myFile, "           Print #myFile, 1"
+    Print #myFile, "           Print #myFile, 0"
+    Print #myFile, "           Print #myFile, 0"
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile, \"\""
+    Print #myFile, "           Print #myFile,\"\""
+    Print #myFile, "           Print #myFile,\"\""
+    Print #myFile, "           Print #myFile,\"\""
+    Print #myFile, "           Print #myFile, x1"
+    Print #myFile, "           Print #myFile, y1"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "           Print #myFile, - 123456"
+    Print #myFile, "  Close myFile"
+    Print #myFile, "Return"
+    Print #myFile, "End"
+    Print #myFile, "'   /////////////////////////////  "
+    Print #myFile, "Public Sub aci(mex As Float, mey As Float, tex As Float, tey As Float)"
+    Print #myFile, "    Dim yuk As Float"
+    Print #myFile, "    If (mex - tex) <> 0"
+    Print #myFile, "        ege = (tey - mey) / (tex - mex)"
+    Print #myFile, "    Else"
+    Print #myFile, "        ege = (tey - mey) / (tex - mex + 0.00001)"
+    Print #myFile, "    End If"
+    Print #myFile, "    If ege = 0 Then ege = 0.000001"
+    Print #myFile, "    bb = tey -1* (ege * tex)"
+    Print #myFile, "    If bb = 0 Then bb = 0.000001"
+    Print #myFile, "   boy = Hyp((tex - mex), (tey - mey + 0.00001))    '  Çizgi uzunluğu."
+    Print #myFile, "    raci = Atn((tey - mey) / (tex - mex + 0.00001))"
+    Print #myFile, ""
+    Print #myFile, "    If mex > tex"
+    Print #myFile, "        raci = Pi - raci"
+    Print #myFile, "    Else"
+    Print #myFile, "        raci = - raci"
+    Print #myFile, "    End If"
+    Print #myFile, "    If raci < 0 Then raci = 2 * Pi + raci"
+    Print #myFile, "    daci = Deg(raci)"
+    Print #myFile, "Return"
+    Print #myFile, "End"
+    Print #myFile, "'   /////////////////////////////  "
+    Print #myFile, "Public Sub yenile()"
+    Print #myFile, "    if exist(System.User.Home &/ \".KediCAD/Kayit\"  &/ \"yankay.ulu\")"
+    Print #myFile, "        shell \"rm \" & System.User.Home &/ \".KediCAD/Kayit\"  &/ \"yankay.ulu\""
+    Print #myFile, "    end if"
+    Print #myFile, "Return"
+    Print #myFile, "catch"
+    Print #myFile, "Return"
+    Print #myFile, "End"
+    Return
+        Catch
+	ilk.hatayaz("kayitci " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub txtConsole_Menu()
+
+    kayitci
+
+End
+
+Public Sub TextArea1_Change()
+Button11.Enabled = True
+    
+
+End

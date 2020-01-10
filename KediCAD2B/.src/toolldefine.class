@@ -1,0 +1,37 @@
+' Gambas class file
+
+Public Sub Form_Open()
+
+    Dim s As String
+    Dim dr As Integer
+
+    For Each s In Dir(System.User.Home &/ ".KediCAD/CNC")
+        If CInteger(s) > dr Then dr = CInteger(s)
+    Next
+    dr = dr + 1
+    textbox4.Text = dr
+
+End
+
+Public Sub Button1_Click()
+
+    Dim myFile As File
+
+    myFile = Open System.User.Home &/ ".KediCAD/CNC" &/ textbox4.Text For Create
+    Print #myFile, ""
+    Print #myFile, ""
+    Print #myFile, ""
+    Print #myFile, textbox1.Text
+    Print #myFile, textbox2.Text
+    Print #myFile, textbox3.Text
+    Print #myFile, textbox5.Text
+    Close #myFile
+    Me.Close
+
+End
+
+Public Sub Button2_Click()
+
+    Me.Close
+
+End

@@ -1,0 +1,637 @@
+' Gambas module file
+
+
+
+Public Sub yurru()
+
+    Dim cx5, cy5, yaricap As Float
+    
+    If ilk.isaretx <> 0 Then cizimci.ucyq                '     //////  UÇ YAKALAMA çizimi ////
+    If ilk.doga = 1 Then cizimci.musab                 '//////  MUSARAT ÇİZİMİ  ////
+    If ilk.mnhe = 1 Then torba4.kizin(ilk.msa, ilk.mse, ilk.msad)        '//////  dizi çizimi  ////
+    If ilk.komutsayi = 372 Then yuru.boss(ilk.mousex, ilk.mousey)   '//////  orta nokta seçim ÇİZİMİ  ////
+    Paint.Brush = Paint.Color(ilk.apla)                     'çizgi seçildi çizgiyi kalın  çiz.
+    Paint.LineWidth = 1
+    If ilk.komutsayi = 1 Then
+        yuru.cizgi() 'çizgi gösterimi
+        Return
+    Endif
+    If ilk.komutsayi = 3 Then
+        yuru.cizgi() 'çizgi gösterimi
+        Return
+    Endif
+    If ilk.komutsayi = 6 Then
+        yuru.spline() 'çizgi gösterimi
+        Return
+    Endif
+    If ilk.komutsayi = 25 Then
+        yuru.cer()   'Çember gösterimi
+        Return
+    End If
+    If ilk.komutsayi = 170 Then     '2 Nokta Çember gösterimi
+        If ilk.birx <> 0 Then
+            cx5 = Abs(ilk.mousex + ilk.birx) / 2
+            cy5 = Abs(ilk.mousey + ilk.biry) / 2
+            yaricap = Hyp((ilk.mousex - ilk.birx), (ilk.mousey - ilk.biry))
+            yuru.cer3(cx5, cy5, yaricap)
+        End If
+        Return
+    End If
+    If ilk.komutsayi = 20 Then   ' yay gösterimi
+        If konum.sira = 1
+            yuru.cer1()
+        Else If konum.sira = 2 Then
+            yuru.cer2()
+        End If
+        Return
+    End If
+    If ilk.komutsayi = 22 Then   ' 3 nokta yay gösterimi
+        If konum.sira = 2 Then yuru.yay3
+        Return
+    End If
+    If ilk.komutsayi = 280 Then
+        If konum.sira = 1 Then yuru.cokg
+        If konum.sira = 2 Then yuru.cokgen
+        Return
+    Endif
+    If ilk.komutsayi = 5 Then
+        yuru.dortge() 'dikdörtgen gösterimi
+        Return
+    End If
+    If ilk.komutsayi = 52 Then
+        If konum.sira > 5 Then yuru.tas()
+        Return
+    End If
+    If ilk.komutsayi = 51 Then
+        If konum.sira > 5 Then yuru.tas()
+        Return
+    End If
+    If ilk.komutsayi = 56 Then
+        If konum.sira > 5 Then yuru.tas()
+        Return
+    End If
+    If ilk.komutsayi = 55 Then
+        If konum.sira > 5 Then yuru.tas()
+        Return
+    End If
+    If ilk.komutsayi = 128 Then
+        If konum.sira > 5 Then doney.dondur()
+        Return
+    Endif
+    If ilk.komutsayi = 130 Then
+        If konum.sira > 5 Then doney.dondur()
+        Return
+    Endif
+    If ilk.komutsayi = 135 Then
+        yuru.cer()   'Çember gösterimi
+        Return
+    End If
+    If ilk.komutsayi = 26          ' 3 nokta çember
+        If konum.sira > 1 Then yuru.cemuc(ilk.mousex, ilk.mousey)
+        Return
+    End If
+    If ilk.komutsayi = 30                  ' buda
+        If ilk.yuvx1 <> 0
+            If ilk.x1gec <> 0
+                yuru.kas()
+            End If
+        End If
+        Return
+    End If
+    If ilk.komutsayi = 33        ' uzat
+        yuru.uzasa
+        If yuru.tnx > 0
+            If yuru.tny > 0
+                If yuru.tnx1 > 0
+                    If yuru.tny1 > 0
+                        If yuru.gf = 1
+                            Paint.MoveTo(yuru.tnx, yuru.tny)
+                            Paint.LineTo(yuru.tnx1, yuru.tny1)
+                        Else If yuru.gf = 2
+                            Paint.MoveTo(yuru.tnx1, yuru.tny1)
+                            Paint.LineTo(yuru.tnx, yuru.tny)
+                        End If
+                        paint.Stroke
+                    Endif
+                Endif
+            Endif
+        Endif
+        Return
+    End If
+    If ilk.komutsayi = 35         ' kesiş
+        If ilk.onsec = 1 Then yuru.pas(ilk.mousex, ilk.mousey)
+        Return
+    End If
+
+    If ilk.komutsayi = 37         ' pah
+        If ilk.yuvb <> 0
+            If ilk.yuvx1 <> 0
+                If (ilk.gx1oku <> 0) Then faya2.bas
+                If (ilk.x1gec <> 0) Then faya2.bas
+            End If
+        End If
+        Return
+    End If
+    If ilk.komutsayi = 40          ' fillet
+        If ilk.yuvb <> 0
+            If ilk.yuvx1 <> 0
+                If (ilk.gx1oku <> 0) Then faya2.bas
+                If (ilk.x1gec <> 0) Then faya2.bas
+            End If
+        End If
+        Return
+    End If
+
+    If ilk.komutsayi = 100 Then    'ölçü
+        If konum.sira > 1 Then yuru.olcad(ilk.mousex, ilk.mousey, ilk.birx, ilk.biry, ilk.ikix, ilk.ikiy)
+        Return
+    End If
+    If ilk.komutsayi = 110 Or ilk.komutsayi = 325 Then    'açı ölçü
+        If konum.sira > 1 Then
+            yuru.acol(ilk.mousex, ilk.mousey)
+        End If
+        If ilk.yurux1 <> 0
+            If ilk.yuruy2 < ilk.yurux2 Then ilk.yuruy2 = ilk.yuruy2 + 2 * Pi
+            Paint.Arc(ilk.yurux1, ilk.yuruy1, ilk.yaricap, - ilk.yurux2, - ilk.yuruy2 + ilk.yurux2)
+            paint.Text("Degree = " & Format$(ilk.yazixoku, "#.#"), ilk.mousex + 20, ilk.mousey + 20)
+            paint.Stroke
+        End If
+        Return
+    End If
+    If ilk.komutsayi = 120 Or ilk.komutsayi = 90 Then     'ölçü
+        If konum.sira > 1 Then yuru.olca
+        Return
+    End If
+
+    If ilk.komutsayi = 144 Then     ' yapıştır
+        yuru.yapisma
+        Return
+    Endif
+    If ilk.komutsayi = 152
+        If konum.sira > 5 Then
+            ayine.ayni()
+        Endif
+        Return
+    Endif
+    If ilk.komutsayi = 150
+        If konum.sira > 5 Then
+            ayine.ayni()
+        Endif
+        Return
+    Endif
+    If ilk.komutsayi = 160 Then ' öteleme
+        If ilk.depo1.Count > 2
+            icle.bas2
+        Else
+            icle.icerley
+        Endif
+        Return
+    Endif
+    If ilk.komutsayi = 162 Then ' öteleme
+        If ilk.depo1.Count > 2
+            icle.bas2
+        Else
+            icle.icerley
+        Endif
+        Return
+    Endif
+
+    If ilk.komutsayi = 190 Then      ' yarıçapolcu
+        If konum.sira > 0
+            Paint.MoveTo(ilk.x1oku, ilk.y1oku)
+            Paint.LineTo(ilk.mousex, ilk.mousey)
+            paint.Text("R = " & Format$(ilk.yarioku / ilk.olcum, "#.#"), ilk.mousex + 50, ilk.mousey + 50)
+            paint.Stroke
+        End If
+        Return
+    End If
+
+    If ilk.komutsayi = 200 Then       ' çapolcu
+        If konum.sira > 0
+            Paint.MoveTo(ilk.x1oku, ilk.y1oku)
+            Paint.LineTo(ilk.mousex, ilk.mousey)
+            Paint.Text("D = " & Format$(ilk.yarioku * 2 / ilk.olcum, "#.#"), ilk.mousex + 50, ilk.mousey + 50)
+             paint.Stroke
+        End If
+        Return
+    End If
+
+
+    If ilk.komutsayi = 320    'aralık ölçme
+        If ilk.ikix = 0
+            If ilk.birx <> 0 Then
+                Paint.MoveTo(ilk.birx, ilk.biry)
+                Paint.LineTo(ilk.mousex, ilk.mousey)
+            Endif
+        Else
+            If ilk.birx <> 0 Then
+                Paint.MoveTo(ilk.birx, ilk.biry)
+                Paint.LineTo(ilk.ikix, ilk.ikiy)
+            Endif
+        End If
+        Return
+    End If              '     //////  UÇ YAKALAMA çizimi ////
+    Return
+       Catch
+	ilk.hatayaz("yurru " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub ucyq()
+
+    Dim x1ucue, x1ucua, y1ucue, y1ucua As Float
+    Paint.LineWidth = 2
+     Draw.LineStyle = 1
+    x1ucue = ilk.isaretx - ilk.ucum
+    x1ucua = ilk.isaretx + ilk.ucum
+    y1ucue = ilk.isarety - ilk.ucum
+    y1ucua = ilk.isarety + ilk.ucum
+    Paint.Brush = Paint.Color(ilk.ucrenk)                     'çizgi seçildi çizgiyi kalın  çiz.
+    Paint.LineWidth = 2
+    If torba2.b11 = 1 Then      ' kare
+        paint.Rectangle(x1ucue, y1ucue, 2 * ilk.ucum, 2 * ilk.ucum)
+        Return
+    Else If torba2.b11 = 2 Then     ' üçgen
+        Paint.MoveTo(x1ucue, y1ucua)
+        Paint.LineTo(x1ucua, y1ucua)
+        Paint.LineTo(ilk.isaretx, y1ucue)
+        Paint.LineTo(x1ucue, y1ucua)
+        Return
+    Else If torba2.b11 = 3 Then     ' çember
+        Paint.arc(ilk.isaretx, ilk.isarety, ilk.ucum)
+        Return
+    Else If torba2.b11 = 4 Then     ' çarpı
+        Paint.MoveTo(x1ucue, y1ucua)
+        Paint.LineTo(x1ucua, y1ucue)
+        Paint.MoveTo(x1ucue, y1ucue)
+        Paint.LineTo(x1ucua, y1ucua)
+        Return
+    Else If torba2.b11 = 5 Then     ' diküçgen
+        Paint.MoveTo(x1ucue, y1ucue)
+        Paint.LineTo(x1ucua, y1ucue)
+        Paint.MoveTo(x1ucue, y1ucue)
+        Paint.LineTo(x1ucue, y1ucua)
+        Paint.MoveTo(x1ucue, ilk.isarety)
+        Paint.LineTo(ilk.isaretx, ilk.isarety)
+        Paint.LineTo(ilk.isaretx, y1ucue)
+        Return
+    Else If torba2.b11 = 6 Then     ' eşkenar dörtgen
+        Paint.MoveTo(x1ucue, ilk.isarety)
+        Paint.LineTo(ilk.isaretx, y1ucua)
+        Paint.LineTo(x1ucua, ilk.isarety)
+        Paint.LineTo(ilk.isaretx, y1ucue)
+        Paint.LineTo(x1ucue, ilk.isarety)
+        Return
+    Else If torba2.b11 = 7 Then     ' çember + çizgi
+        Paint.Arc(ilk.isaretx, ilk.isarety, ilk.ucum)
+        Paint.MoveTo(x1ucua, y1ucue)
+        Paint.LineTo(x1ucue, y1ucue)
+        Return
+    Else If torba2.b11 = 8 Then     ' çarpı
+        Paint.MoveTo(x1ucue, ilk.isarety)
+        Paint.LineTo(ilk.isaretx, y1ucua)
+        Paint.LineTo(x1ucua, ilk.isarety)
+        Paint.LineTo(ilk.isaretx, y1ucue)
+        Paint.LineTo(x1ucue, ilk.isarety)
+        Paint.MoveTo(x1ucue, y1ucua)
+        Paint.LineTo(x1ucua, y1ucue)
+        Paint.MoveTo(x1ucue, y1ucue)
+        Paint.LineTo(x1ucua, y1ucua)
+        Return
+    End If
+    Paint.Stroke
+    Return
+       Catch
+	ilk.hatayaz("ucyq " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub takip()
+Dim re As Float
+Paint.LineWidth = 1
+Draw.LineStyle = 2
+Paint.Brush = Paint.Color(Color.Cyan)  
+If ilk.olcum < 0 Then
+            re = (ilk.tasec / ilk.olcum)
+        Else
+            re = 3 * (ilk.tasec / ilk.olcum)
+        Endif
+        If Abs(ilk.isrx - ilk.mousex) < re Then
+             Paint.MoveTo(ilk.isrx, ilk.isry)
+            Paint.LineTo(ilk.isrx, ilk.mousey)
+            ilk.onisaretx = ilk.isrx
+        Else
+            ilk.onisaretx = 0
+        Endif
+        If Abs(ilk.isry - ilk.mousey) < re Then
+            Paint.MoveTo(ilk.isrx, ilk.isry)
+            Paint.LineTo(ilk.mousex, ilk.isry)
+            ilk.onisarety = ilk.isry
+        Else
+            ilk.onisarety = 0
+        Endif
+
+Paint.Stroke
+Return
+           Catch
+	ilk.hatayaz("takip " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub musab()
+    Paint.Brush = Paint.Color(Color.DarkMagenta)                     'çizgi seçildi çizgiyi kalın  çiz.
+    Paint.LineWidth = 1
+    If ilk.komutsayi = 0 Then Return
+    Paint.MoveTo(torba2.tusx, 0)
+    Paint.LineTo(torba2.tusx, ilk.calanilk.Height)
+    Paint.MoveTo(0, torba2.tusy)
+    Paint.LineTo(ilk.calanilk.Width, torba2.tusy)
+    If ilk.biry > 0
+        If ilk.birx > 0 Then
+            Paint.MoveTo(ilk.birx, ilk.biry)
+            Paint.LineTo(ilk.mousex, ilk.mousey)
+            Paint.arc(torba2.tusx, ilk.biry, 5)
+            Paint.arc(ilk.birx, torba2.tusy, 5)
+            Paint.Stroke
+        End If
+    End If
+    Return
+       Catch
+	ilk.hatayaz("musab " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub scc()
+    Paint.Brush = Paint.Color(Color.Magenta)                     'çizgi seçildi çizgiyi kalın  çiz.
+    Paint.LineWidth = 2
+    Paint.arc(torba4.scx, torba4.scy, 6)
+    Paint.arc(torba4.scx, torba4.scy, 6)
+    Paint.arc(torba4.scx, torba4.scy, 6)
+    Paint.Stroke
+    Return
+End
+
+Public Sub ozel()
+
+    Dim ibn As Float
+    If ibn < 200 Then
+        ibn = ibn + 0.1
+        Return
+    Endif
+    If ilk.TableView1[12, 1].Text <> ""
+        If ilk.TableView1[13, 1].Text <> ""
+            If ilk.TableView1[14, 1].Text <> ""
+                If ilk.TableView1[15, 1].Text <> ""
+                    Paint.Brush = Paint.Color(Color.Cyan)                     'çizgi seçildi çizgiyi kalın  çiz.
+                    Paint.LineWidth = 3
+                    If ilk.TableView1[2, 1].Text = "Line (1)" Then
+                        Paint.MoveTo(ilk.TableView1[12, 1].Text, ilk.TableView1[13, 1].Text)
+                        Paint.LineTo(ilk.TableView1[14, 1].Text, ilk.TableView1[15, 1].Text)
+                    Else If ilk.TableView1[2, 1].Text = "Arc (20)" Then
+                        Paint.arc(ilk.TableView1[12, 1].Text, ilk.TableView1[13, 1].Text, ilk.TableView1[5, 1].Text, Rad(ilk.TableView1[7, 1].Text), Rad(ilk.TableView1[4, 1].Text))
+                    Else If ilk.TableView1[2, 1].Text = "Circle  (25)" Then
+                        Paint.arc(ilk.TableView1[12, 1].Text, ilk.TableView1[13, 1].Text, ilk.TableView1[5, 1].Text)
+                    Else If ilk.TableView1[2, 1].Text = "Text (60)" Then
+                        Paint.Font.Size = ilk.TableView1[17, 1].Text
+                        Paint.Text(ilk.TableView1[16, 1].Text, ilk.TableView1[12, 1].Text, ilk.TableView1[13, 1].Text, ilk.TableView1[17, 1].Text, ilk.TableView1[8, 1].Text)
+                    Else
+                        Paint.MoveTo(ilk.TableView1[12, 1].Text, ilk.TableView1[13, 1].Text)
+                        Paint.LineTo(ilk.TableView1[14, 1].Text, ilk.TableView1[15, 1].Text)
+                    Endif
+                Endif
+            Endif
+        Endif
+    Endif
+    Paint.arc(torba.osx, torba.osy, 8)
+    Paint.Stroke
+hik:
+    Return
+       Catch
+	ilk.hatayaz("ozel " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub camci()
+
+    Dim isx, isy, ihx, ihy As Float
+
+    isx = ilk.orix * ilk.olcum
+    isy = ilk.oriy * ilk.olcum
+    ihx = isx + (ilk.isalanx * ilk.olcum)
+    ihy = isy - (ilk.isalany * ilk.olcum)
+    Paint.Brush = Paint.Color(Color.Cyan)                     'çizgi seçildi çizgiyi kalın  çiz.
+    Paint.LineWidth = 3
+    paint.MoveTo(isx, isy)
+    paint.lineto(ihx, isy) 'İŞLEME ALANINI GÖSTER
+    paint.lineto(ihx, ihy)
+    paint.lineto(isx, ihy)
+    paint.lineto(isx, isy)
+    ilk.asx = isx
+    ilk.asy = isy
+    Paint.Arc(ihx, ihy, 5)
+    Paint.Stroke
+    Return
+       Catch
+	ilk.hatayaz("camci " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public obix As Float
+Public obiy As Float
+Public olcum As Float
+
+Public Sub eksen()
+    Paint.Brush = Paint.Color(Color.White)                     'çizgi seçildi çizgiyi kalın  çiz.
+    Paint.LineWidth = 1
+    olcum = ilk.olcum
+    obix = ilk.orix * olcum
+    obiy = ilk.oriy * olcum
+    Paint.MoveTo(obix, obiy)
+    Paint.LineTo((obix + 100), obiy)
+    Paint.LineTo((obix + 100), obiy + 10)
+    Paint.LineTo((obix + 120), obiy - 10)
+    Paint.LineTo((obix + 100), obiy - 30)
+    Paint.LineTo((obix + 100), obiy - 20)
+    Paint.LineTo(obix, obiy - 20)
+    Paint.LineTo(obix, obiy)
+    Paint.LineTo(obix + 20, obiy)
+    Paint.LineTo(obix + 20, obiy - 100)
+    Paint.LineTo(obix + 40, obiy - 100)
+    Paint.LineTo(obix + 10, obiy - 120)
+    Paint.LineTo(obix - 20, obiy - 100)
+    Paint.LineTo(obix, obiy - 100)
+    Paint.LineTo(obix, obiy)
+    Paint.Stroke
+    Paint.LineWidth = 2
+    Paint.Font.Size = 10
+    Paint.Font.Name = "FreeSans"
+    Paint.Text("X", (obix + 95), obiy - 5)
+    Paint.Text("Y", obix + 5, (obiy - 95))
+    Paint.Stroke
+    Return
+       Catch
+	ilk.hatayaz("eksen " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub cerceve()
+
+    olcum = ilk.olcum
+    Paint.Brush = Paint.Color(color.red)                     'çizgi seçildi çizgiyi kalın  çiz.
+    Paint.LineWidth = 1
+    Paint.MoveTo(torba6.basx * olcum, torba6.basy * olcum)
+    Paint.LineTo(torba6.basx * olcum, torba6.sony * olcum)
+    Paint.LineTo(torba6.sonx * olcum, torba6.sony * olcum)
+    Paint.LineTo(torba6.sonx * olcum, torba6.basy * olcum)
+    Paint.LineTo(torba6.basx * olcum, torba6.basy * olcum)
+    Paint.Text("son", torba6.sonx * olcum, torba6.sony * olcum)
+    Paint.Stroke
+    Return
+       Catch
+	ilk.hatayaz("cerceve " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub alan()
+    Paint.Brush = Paint.Color(color.red)                     'çizgi seçildi çizgiyi kalın  çiz.
+    Paint.LineWidth = 1
+    If ilk.vex1 < ilk.mousex
+        draw.LineStyle = 1
+        Paint.Brush = Paint.Color(color.blue) 
+    Else
+        draw.LineStyle = 2
+        Paint.Brush = Paint.Color(color.Green) 
+    End If
+    If ilk.komutsayi = 0
+        Paint.MoveTo(ilk.vex1, ilk.vey1)
+        Paint.LineTo(ilk.mousex, ilk.vey1)
+        Paint.MoveTo(ilk.mousex, ilk.vey1)
+        Paint.LineTo(ilk.mousex, ilk.mousey)
+        Paint.MoveTo(ilk.mousex, ilk.mousey)
+        Paint.LineTo(ilk.vex1, ilk.mousey)
+        Paint.MoveTo(ilk.vex1, ilk.mousey)
+        Paint.LineTo(ilk.vex1, ilk.vey1)
+        Paint.Stroke
+        Return
+    Else
+        ilk.vex1 = 0
+        ilk.vey1 = 0
+        Return
+    Endif
+
+    Return
+       Catch
+	ilk.hatayaz("alan " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub izg()
+
+    Dim i, j As Integer
+    Paint.Brush = Paint.Color(Color.Gray)                     'çizgi seçildi çizgiyi kalın  çiz.
+    Paint.LineWidth = 1
+    obix = ilk.orix * olcum
+    obiy = ilk.oriy * olcum
+    For i = obix To (obix + 1000) Step 50
+        For j = (obiy - 1000) To obiy Step 50
+            Paint.arc(i, j, 1)
+        Next
+    Next
+    Paint.Stroke
+    Return
+       Catch
+	ilk.hatayaz("izg " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Private csp As Csplit
+Public cazgi As Czm
+
+Public Sub fem()
+
+    Dim cs, ls As Float
+    Dim i, t As Integer
+    Paint.Brush = Paint.Color(Color.Yellow)                     'çizgi seçildi çizgiyi kalın  çiz.
+    Paint.LineWidth = 1
+    csp = New Csplit
+    For i = 0 To fea.ListBox2.Count - 1
+        fea.ListBox2.Index = i
+        csp.yazi = fea.ListBox2.text
+        csp.akm()
+        For Each cazgi In ilk.cezmi
+            If cazgi.id < 0 Then Goto gec4
+            If cazgi.komut = 60 Then
+                If Right$(cazgi.yazi, -2) = csp.sonuc1 Then
+                    If csp.sonuc2 = "x" Then
+                        If CFloat(csp.sonuc3) > 0 Then
+                            cs = cazgi.x1 + 50
+                        Else
+                            cs = cazgi.x1 - 50
+                        End If
+                        ilk.komyaz.Text = Right$(cazgi.yazi, -2)
+                        Paint.MoveTo(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum)
+                        Paint.LineTo(cs * ilk.olcum, cazgi.y1 * ilk.olcum)
+                        Paint.Text(csp.sonuc3 & " N", cs * ilk.olcum, cazgi.y1 * ilk.olcum)
+                    Else
+                        If CFloat(csp.sonuc3) > 0 Then
+                            cs = cazgi.y1 + 50
+                        Else
+                            cs = cazgi.y1 - 50
+                        End If
+                        Paint.MoveTo(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum)
+                        Paint.LineTo(cazgi.x1 * ilk.olcum, cs * ilk.olcum)
+                        Paint.Text(csp.sonuc3 & " N", cazgi.x1 * ilk.olcum, cs * ilk.olcum)
+                    Endif
+                Endif
+            Endif
+        gec4:
+        Next
+    Next
+
+    For i = 0 To fea.ListBox3.Count - 1
+        fea.ListBox3.Index = i
+        csp.yazi = fea.ListBox3.text
+        csp.akm()
+        For Each cazgi In ilk.cezmi
+            If cazgi.id < 0 Then Goto gec
+            If cazgi.komut = 60 Then
+                ' ListBox3.Add(TextBox5.Text & " x-y destek")
+                If Right$(cazgi.yazi, -2) = csp.sonuc1 Then
+                    If csp.sonuc2 = "x-y" Then
+                        cs = (cazgi.x1 - 10) * ilk.olcum
+                        ls = (cazgi.x1 + 10) * ilk.olcum
+                        Paint.MoveTo(cs, cazgi.y1 * ilk.olcum)
+                        Paint.LineTo(ls, cazgi.y1 * ilk.olcum)
+                        For t = cs To ls Step 5
+                            Paint.MoveTo(t, (cazgi.y1 + 5) * ilk.olcum)
+                            Paint.LineTo(t + 3, cazgi.y1 * ilk.olcum)
+                        Next
+                    Else If csp.sonuc2 = "x" Then
+                        cs = (cazgi.x1 - 10) * ilk.olcum
+                        ls = (cazgi.x1 + 10) * ilk.olcum
+                        Paint.MoveTo(cs, (cazgi.y1 + 10) * ilk.olcum)
+                        Paint.LineTo(ls, (cazgi.y1 + 10) * ilk.olcum)
+                        Paint.MoveTo(cs, (cazgi.y1 + 10) * ilk.olcum)
+                        Paint.LineTo(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum)
+                        Paint.MoveTo(ls, (cazgi.y1 + 10) * ilk.olcum)
+                        Paint.LineTo(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum)
+                    Else
+                        cs = (cazgi.y1 - 10) * ilk.olcum
+                        ls = (cazgi.y1 + 10) * ilk.olcum
+                        Paint.MoveTo((cazgi.x1 - 10) * ilk.olcum, cs)
+                        Paint.LineTo((cazgi.x1 - 10) * ilk.olcum, ls)
+                        Paint.MoveTo((cazgi.x1 - 10) * ilk.olcum, cs)
+                        Paint.LineTo(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum)
+                        Paint.MoveTo((cazgi.x1 - 10) * ilk.olcum, ls)
+                        Paint.LineTo(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum)
+                    Endif
+                Endif
+            Endif
+        gec:
+        Next
+    Next
+    Paint.Stroke
+    Return
+       Catch
+	ilk.hatayaz("fem " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

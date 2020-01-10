@@ -1,0 +1,110 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(546,0,343,203)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  SkipTaskbar = True
+  { Button1 Button
+    Move(238,175,105,28)
+    Text = ("Ok.")
+    Picture = Picture["standart/ok.png"]
+  }
+  { Button2 Button
+    Move(0,175,91,28)
+    Text = ("Cancel")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+  { TabStrip1 TabStrip
+    Move(0,0,343,175)
+    Count = 2
+    Index = 0
+    Text = ("Rotate")
+    { PictureBox2 PictureBox
+      Move(168,0,168,140)
+    }
+    { CheckBox1 CheckBox
+      Move(0,105,147,28)
+      Text = ("Rotate Drawings")
+    }
+    { xa TextBox
+      Move(63,7,49,28)
+    }
+    { Button6 Button
+      Move(112,7,49,49)
+      Text = ("Pick")
+    }
+    { ya TextBox
+      Move(63,35,49,28)
+    }
+    { Label5 Label
+      Move(0,7,70,28)
+      Text = ("Center X")
+    }
+    { Label6 Label
+      Move(0,35,56,28)
+      Text = ("Center Y")
+    }
+    { adedi TextBox
+      Move(63,63,49,28)
+    }
+    { Label7 Label
+      Move(7,70,56,21)
+      Text = ("Count")
+    }
+    Index = 1
+    Text = ("Rectangular")
+    { sutunara TextBox
+      Move(84,91,63,28)
+      Text = ("50")
+    }
+    { Label4 Label
+      Move(0,63,84,28)
+      Text = (" L Distance:")
+    }
+    { Label3 Label
+      Move(0,91,84,28)
+      Text = ("S Distance  :")
+    }
+    { Label2 Label
+      Move(0,0,98,28)
+      Text = ("Column Count  :")
+    }
+    { Label1 Label
+      Move(0,28,91,28)
+      Text = ("Row Count  :")
+    }
+    { satir TextBox
+      Move(91,0,77,28)
+      Text = ("4")
+    }
+    { sutun TextBox
+      Move(91,28,84,28)
+      Text = ("5")
+    }
+    { satirara TextBox
+      Move(84,63,63,28)
+      Text = ("50")
+    }
+    { PictureBox1 PictureBox
+      Move(196,0,140,154)
+      Picture = Picture["res/dizin.png"]
+      Stretch = True
+    }
+    { Button3 Button
+      Move(147,70,28,28)
+      Text = ("L")
+    }
+    { Button4 Button
+      Move(147,112,28,28)
+      Text = ("S")
+    }
+    { Button5 Button
+      Move(168,70,28,70)
+      Text = ("L\nS")
+    }
+    Index = 0
+  }
+}

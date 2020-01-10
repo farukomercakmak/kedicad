@@ -1,0 +1,310 @@
+' Gambas class file
+
+Public yagk As String
+Public myAr As String[]
+Public gwr As String
+Public sabr As Integer
+
+Static Public Sub Main()
+
+    Dim hForm As Form
+
+    hForm = New Rulman
+    hForm.Show
+
+End
+
+Public Sub iccap_Activate()
+
+    Dim myFile As File
+    Dim myLine As String
+    Dim elt As String[]
+    Dim sb, tx, gy, gx, gt, hk, hl, hm, hn, ho, hp As String
+    Dim mx As Integer
+    Dim pax, fax As Float
+
+    If kod.Text = ""
+        Message("Specify Bearing Type", "OK")
+        Goto cika
+    End If
+    iccap.Text = Trim$(iccap.Text)
+    liste.Clear
+    liste.Visible = True
+    liste.Add("d        D        B        C          Co         P         ref hız(d/d) lim. hız(d/d)            KOD")
+    If kod.Text <> ""
+        myFile = Open "rulman" &/ kod.Text For Read
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            elt = Split(myLine, "-")
+            mx = 0
+            For Each sb In elt
+
+                mx = mx + 1
+                If mx = 1 Then
+                    hk = sb
+                    hk = Trim$(hk)
+                Else If mx = 2 Then
+                    hl = sb
+                    hl = Trim$(hl)
+                Else If mx = 3 Then
+                    hm = sb
+                    hm = Trim$(hm)
+
+                Else If mx = 4 Then
+                    hn = sb
+                    hn = Trim$(hn)
+
+                Else If mx = 5 Then
+                    ho = sb
+                    ho = Trim$(ho)
+
+                Else If mx = 6 Then
+                    hp = sb
+                    hp = Trim$(hp)
+
+                Else If mx = 7 Then
+                    tx = sb
+                    tx = Trim$(tx)
+
+                Else If mx = 8 Then
+                    gx = sb
+                    gx = Trim$(gx)
+                    If kod.Text = "Yuksek_isi" Then Goto kula
+                Else If mx = 9 Then
+                    gy = sb
+                    gy = Trim$(gy)
+
+                Else If mx = 10 Then
+                    gt = sb
+                    gt = Trim$(gt)
+                kula:
+                    If CheckBox2.Value = True Then
+                        pax = Val(hk)
+                        If pax = Val(iccap.Text) Then
+                            liste.Add(hk & "  ,  " & hl & "    ,  " & hm & "   ,   " & hn & "   , " & ho & "  ,  " & hp & "   ,  " & tx & "   ,  " & gx & "             " & gt)
+                        End If
+                    End If
+
+                    If CheckBox3.Value = True Then
+                        pax = Val(hl)
+                        If pax = Val(iccap.Text) Then
+                            liste.Add(hk & "   , " & hl & "    ,  " & hm & "   ,   " & hn & "  ,  " & ho & "  ,  " & hp & "   ,  " & tx & "   ,  " & gx & "             " & gt)
+                        End If
+                    End If
+
+                    If CheckBox1.Value = True Then
+                        pax = Val(hk)
+                        fax = Val(hl)
+                        If pax = Val(iccap.Text) And fax = Val(dcap.Text) Then
+                            liste.Add(hk & "  ,  " & hl & "    ,  " & hm & "   ,   " & hn & "  ,  " & ho & "  ,  " & hp & "  ,   " & tx & "  ,   " & gx & "             " & gt)
+                        End If
+                    End If
+                    hm = ""
+                    hn = ""
+                    ho = ""
+                    hp = ""
+                    tx = ""
+                    gx = ""
+                    gy = ""
+                    gt = ""
+                End If
+            Next
+
+        Wend
+
+    cik:
+        Close myFile
+    Else
+    End If
+cika:
+Catch
+
+
+End
+
+Public Sub Button1_Click()
+
+    liste.Clear
+    kod.Text = "200"
+    iccap_Activate
+
+End
+
+Public Sub Button3_Click()
+
+    kod.Text = "4000"
+    liste.Clear
+    iccap_Activate
+
+End
+
+Public Sub Button4_Click()
+
+    kod.Text = "6000"
+    liste.Clear
+    iccap_Activate
+
+End
+
+Public Sub Button5_Click()
+
+    kod.Text = "22000"
+    liste.Clear
+    iccap_Activate
+
+End
+
+Public Sub Button6_Click()
+
+    kod.Text = "51000"
+    liste.Clear
+    iccap_Activate
+
+End
+
+Public Sub Button7_Click()
+
+    kod.Text = "paslanmaz"
+    liste.Clear
+    iccap_Activate
+
+End
+
+Public Sub Button8_Click()
+
+    kod.Text = "Yuksek_isi"
+    liste.Clear
+    iccap_Activate
+
+End
+
+Public Sub Button9_Click()
+
+    ilk.Show
+    Me.Close
+    iccap_Activate
+
+End
+
+Public Sub Form_Open()
+
+    Me.text = "KediCAD 2B BEARING"
+    Me.Center
+    CheckBox2.Value = True
+
+End
+
+Public Sub CheckBox2_Click()
+
+    CheckBox3.Value = False
+    CheckBox1.Value = False
+    label1.Caption = "Shaft Dia. :"
+    label3.Visible = False
+    label4.Visible = False
+    dcap.Visible = False
+    liste.Clear
+
+End
+
+Public Sub CheckBox3_Click()
+
+    CheckBox2.Value = False
+    CheckBox1.Value = False
+    label1.Caption = "Hole dia.:"
+    label3.Visible = False
+    label4.Visible = False
+    dcap.Visible = False
+    liste.Clear
+
+End
+
+Public Sub CheckBox1_Click()
+
+    CheckBox2.Value = False
+    CheckBox3.Value = False
+    label1.Caption = "MShaft dia :"
+    label3.Visible = True
+    label4.Visible = True
+    dcap.Visible = True
+    liste.Clear
+
+End
+
+Public Sub dcap_Activate()
+
+    iccap_Activate
+
+End
+
+Public Sub Button10_Click()
+
+    Me.Close
+    ilk.Show
+
+End
+
+Public Sub Button2_Click()
+
+    ilk.sbr = 1
+    Me.Hide
+    ilk.komyaz.Text = "Specify First Point."
+
+End
+
+Private csp As Csplit
+
+Public Sub rulciz(frx As Float, fry As Float)
+
+    Dim tx, gy, gx, gt, hk, hl, hm, hn, ho, hp As String
+    Dim pax, fax, tax As Float
+
+    Message(ilk.sabd)
+    frx = frx / ilk.olcum
+    fry = fry / ilk.olcum
+    csp = New Csplit
+    csp.yazi = ilk.sabd
+    csp.virg()
+    hk = csp.sonuc1
+    hl = csp.sonuc2
+    hm = csp.sonuc3
+    hn = csp.sonuc4
+    ho = csp.sonuc5
+    hp = csp.sonuc6
+    tx = csp.sonuc7
+    gx = csp.sonuc8
+    gy = csp.sonuc9
+    gt = csp.sonuc10
+    csp.yazi = gt
+    csp.akm()
+
+    If IsDir(System.User.Home &/ ".KediCAD/cizim/rulman" & kod.Text) Then
+
+    Endif
+
+    pax = CFloat(hk) / 2
+    fax = CFloat(hl) / 2
+    tax = CFloat(hm)
+    ilk.bolok = ilk.bolok + 1
+    cizem.bloku = ilk.bolok
+    cizem.cember(frx * ilk.olcum, fry * ilk.olcum, pax)
+    cizem.cember(frx * ilk.olcum, fry * ilk.olcum, fax)
+    cizem.cizgi((frx + pax * 3) * ilk.olcum, (fry + fax) * ilk.olcum, (frx + pax * 3) * ilk.olcum, (fry - fax) * ilk.olcum)
+    cizem.cizgi((frx + pax * 3 + tax) * ilk.olcum, (fry + fax) * ilk.olcum, (frx + pax * 3 + tax) * ilk.olcum, (fry - fax) * ilk.olcum)
+    cizem.bloku = ilk.bolok + 1
+    cizem.cizgi((frx + pax * 3) * ilk.olcum, (fry + fax) * ilk.olcum, (frx + pax * 3 + tax) * ilk.olcum, (fry + fax) * ilk.olcum)
+    cizem.cizgi((frx + pax * 3) * ilk.olcum, (fry - fax) * ilk.olcum, (frx + pax * 3 + tax) * ilk.olcum, (fry - fax) * ilk.olcum)
+    cizem.cizgi((frx + pax * 3) * ilk.olcum, (fry + pax) * ilk.olcum, (frx + pax * 3 + tax) * ilk.olcum, (fry + pax) * ilk.olcum)
+    cizem.cizgi((frx + pax * 3) * ilk.olcum, (fry - pax) * ilk.olcum, (frx + pax * 3 + tax) * ilk.olcum, (fry - pax) * ilk.olcum)
+    sabr = 0
+    ilk.bolok = ilk.bolok + 2
+    Me.Close
+cika:
+    Return
+
+End
+
+Public Sub liste_Click()
+
+    ilk.sabd = liste.Text
+
+End

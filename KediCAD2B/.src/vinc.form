@@ -1,0 +1,958 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,770,427)
+  #Scaled = False
+  Text = ("İnputs")
+  Icon = Picture["logo.png"]
+  Resizable = False
+  { TabStrip1 TabStrip
+    Move(0,0,770,427)
+    Count = 2
+    Index = 0
+    Text = ("DTD")
+    { Wizard2 Wizard
+      Move(7,0,756,385)
+      Count = 4
+      Index = 0
+      Text = ("Inputs")
+      { Label30 Label
+        Move(0,49,147,28)
+        Text = ("Enviroment")
+      }
+      { ComboBox2 ComboBox
+        Move(182,42,304,32)
+        Text = ("ComboBox2")
+      }
+      { Label31 Label
+        Move(7,203,168,28)
+        Text = ("Safety coefficient")
+      }
+      { TextBox17 TextBox
+        Move(182,196,64,32)
+        Text = ("2")
+      }
+      { TextBox18 TextBox
+        Move(182,84,105,35)
+        Text = ("1000")
+      }
+      { Label27 Label
+        Move(0,91,168,28)
+        Text = ("Hook Load(kgf.)")
+      }
+      { TextBox19 TextBox
+        Move(399,84,105,35)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { Label28 Label
+        Move(294,84,98,28)
+        Text = ("Test Load(kgf.)")
+      }
+      { TextBox29 TextBox
+        Move(182,161,64,32)
+        Text = ("7000")
+      }
+      { Label54 Label
+        Move(7,168,168,28)
+        Text = ("Tensile Strrength(kgf/cm^2)")
+      }
+      { TextBox55 TextBox
+        Move(385,231,105,35)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { Label83 Label
+        Move(287,231,98,28)
+        Text = ("Test Load(kgf.)")
+      }
+      { TextBox57 TextBox
+        Move(182,231,105,35)
+        Text = ("3500")
+      }
+      { Label90 Label
+        Move(7,238,168,28)
+        Text = ("Holding Load(kgf.)")
+      }
+      { Label92 Label
+        Move(0,133,168,28)
+        Text = ("Span(m.)")
+      }
+      { TextBox60 TextBox
+        Move(182,126,105,35)
+        Text = ("20100")
+      }
+      { Label93 Label
+        Move(0,7,147,28)
+        Text = ("PROJE ADI")
+      }
+      { TextBox61 TextBox
+        Move(182,7,294,28)
+        Text = ("DS36K7 ")
+      }
+      Index = 1
+      Text = ("Load ad sections")
+      { yuk GridView
+        Move(0,0,385,287)
+        Header = GridView.Vertical
+      }
+      { TextBox26 TextBox
+        Move(245,252,136,32)
+        Visible = False
+        Text = ("TextBox26")
+      }
+      { PictureBox2 PictureBox
+        Move(392,7,322,140)
+        Picture = Picture["Resim/yukmesafe.png"]
+        Stretch = True
+      }
+      { PictureBox3 PictureBox
+        Move(385,133,133,154)
+        Picture = Picture["res/bosdikres.png"]
+        Stretch = True
+      }
+      { CheckBox1 CheckBox
+        Move(518,266,105,28)
+        Text = ("dec. section")
+      }
+      { eni TextBox
+        Move(609,154,98,28)
+        Text = ("456")
+      }
+      { boyi TextBox
+        Move(609,189,98,28)
+        Text = ("540")
+      }
+      { kil TextBox
+        Move(609,224,98,28)
+        Text = ("8")
+      }
+      { Label51 Label
+        Move(539,161,56,28)
+        Text = ("a(mm.)")
+      }
+      { Label52 Label
+        Move(539,189,56,28)
+        Text = ("b(mm.)")
+      }
+      { Label53 Label
+        Move(539,224,56,28)
+        Text = ("t(mm.)")
+      }
+      { Button1 Button
+        Move(637,259,63,35)
+        Text = ("Button1")
+      }
+      { Label94 Label
+        Move(0,287,189,28)
+        Text = ("Total  Length")
+      }
+      { Label95 Label
+        Move(189,287,161,28)
+        Text = ("Length")
+      }
+      { Label96 Label
+        Move(357,287,154,21)
+        Text = ("Load")
+      }
+      Index = 2
+      Text = ("Hydraulic Calculations Inputs")
+      { TextBox36 TextBox
+        Move(154,217,56,28)
+        Text = ("1")
+      }
+      { Label58 Label
+        Move(0,217,140,35)
+        Text = ("Holding  Cylinder count")
+      }
+      { Label59 Label
+        Move(0,245,154,35)
+        Text = ("Hol.Cylinder sroke(mm.)")
+      }
+      { TextBox37 TextBox
+        Move(154,245,56,28)
+        Text = ("1240")
+      }
+      { TextBox38 TextBox
+        Move(518,231,56,28)
+        Text = ("250")
+      }
+      { Label60 Label
+        Move(434,231,77,35)
+        Text = ("Working\npressure(bar)")
+      }
+      { TextBox39 TextBox
+        Move(518,266,56,28)
+        Text = ("70")
+      }
+      { Label61 Label
+        Move(434,266,77,35)
+        Text = ("Stroke\ntime(sn)")
+      }
+      { TextBox40 TextBox
+        Move(686,280,56,28)
+        Text = ("2080")
+      }
+      { TextBox41 TextBox
+        Move(679,91,56,28)
+        Text = ("1")
+      }
+      { Label63 Label
+        Move(567,91,91,28)
+        Text = ("Rotating\nspeed (rpm)")
+      }
+      { TextBox58 TextBox
+        Move(371,217,56,28)
+        Text = ("1")
+      }
+      { Label85 Label
+        Move(217,217,154,35)
+        Text = ("Folding Cylindercount")
+      }
+      { Label86 Label
+        Move(217,245,154,35)
+        Text = ("Fol.Cylinder Stroke(mm)")
+      }
+      { TextBox59 TextBox
+        Move(371,245,56,28)
+        Text = ("1340")
+      }
+      { GridView1 GridView
+        Move(0,0,567,217)
+      }
+      { Label56 Label
+        Move(0,273,154,35)
+        Text = ("cylinder axle length(mm)")
+      }
+      { TextBox31 TextBox
+        Move(154,273,56,28)
+        Text = ("351")
+      }
+      { Label57 Label
+        Move(217,273,154,35)
+        Text = ("cylinder axle length(mm)")
+      }
+      { TextBox32 TextBox
+        Move(371,273,56,28)
+        Text = ("258")
+      }
+      { Label62 Label
+        Move(574,280,112,28)
+        Text = ("Telescopic Cylinder \nStrok(mm)")
+      }
+      { Separator2 Separator
+        Move(574,224,7,91)
+      }
+      { Label87 Label
+        Move(588,0,126,28)
+        Text = ("Slewing ring")
+      }
+      { Label88 Label
+        Move(567,35,112,28)
+        Text = ("Gear Tooth count")
+      }
+      { TextBox33 TextBox
+        Move(679,35,56,28)
+        Text = ("122")
+      }
+      { Label89 Label
+        Move(567,63,112,28)
+        Text = ("Pinion Tooth count")
+      }
+      { TextBox34 TextBox
+        Move(679,63,56,28)
+        Text = ("18")
+      }
+      { Label32 Label
+        Move(567,126,49,28)
+        Text = ("Fa (kN)")
+      }
+      { Label33 Label
+        Move(567,161,98,28)
+        Text = ("Mt DTD(kNm.)")
+      }
+      { TextBox20 TextBox
+        Move(665,126,63,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { TextBox21 TextBox
+        Move(665,161,63,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { TextBox30 TextBox
+        Move(665,196,63,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { Label55 Label
+        Move(567,196,98,28)
+        Text = ("Mt kirma(kNm.)")
+      }
+      { TextLabel1 TextLabel
+        Move(588,231,154,21)
+        Text = ("TextLabel1")
+      }
+      { TextLabel2 TextLabel
+        Move(588,252,154,21)
+        Text = ("TextLabel1")
+      }
+      Index = 3
+      Text = ("Hydraulic Calculations")
+      { TextBox42 TextBox
+        Move(168,42,77,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { TextBox43 TextBox
+        Move(406,42,77,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { TextBox44 TextBox
+        Move(168,77,77,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { TextBox45 TextBox
+        Move(406,77,77,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { TextBox47 TextBox
+        Move(168,112,77,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { TextBox48 TextBox
+        Move(406,112,77,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { TextBox49 TextBox
+        Move(168,147,77,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { TextBox50 TextBox
+        Move(406,147,77,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { Label67 Label
+        Move(0,42,147,28)
+        Font = Font["+1"]
+        Text = ("Cylinder Force F(kN)")
+      }
+      { TextBox51 TextBox
+        Move(154,280,105,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { TextBox53 TextBox
+        Move(154,245,105,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { Label73 Label
+        Move(0,245,154,28)
+        Font = Font["+1"]
+        Text = ("Input Torque(Nm.)")
+      }
+      { Separator1 Separator
+        Move(245,14,14,175)
+      }
+      { Label76 Label
+        Move(294,14,56,14)
+        Text = ("Folding")
+      }
+      { Label77 Label
+        Move(14,182,203,21)
+        Font = Font["+1"]
+        Text = ("Slewing Ring hydraulic motor")
+      }
+      { Label79 Label
+        Move(56,14,84,14)
+        Text = ("Holdin")
+      }
+      { Label80 Label
+        Move(336,0,133,21)
+        Text = ("SİLİNDİRLER")
+      }
+      { Label81 Label
+        Move(0,210,98,28)
+        Font = Font["+1"]
+        Text = ("Jm (kgm^2.)")
+      }
+      { TextBox56 TextBox
+        Move(154,210,105,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { Label64 Label
+        Move(0,77,126,28)
+        Text = ("Cylinder Diameter:(mm.)")
+      }
+      { Label68 Label
+        Move(0,112,126,28)
+        Text = ("Flow  (lt/dk.)")
+      }
+      { Label69 Label
+        Move(0,147,126,28)
+        Text = ("Power (kW)")
+      }
+      { Label71 Label
+        Move(0,280,140,28)
+        Font = Font["+1"]
+        Text = ("Output  torku(Nm.)")
+      }
+      { TextBox35 TextBox
+        Move(651,42,77,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { TextBox46 TextBox
+        Move(651,77,77,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { TextBox52 TextBox
+        Move(651,112,77,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { TextBox54 TextBox
+        Move(651,140,77,28)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { Separator3 Separator
+        Move(490,35,7,147)
+      }
+      { Label82 Label
+        Move(532,14,91,14)
+        Text = ("Telescopic")
+      }
+      { Frame6 Frame
+        Move(273,175,222,138)
+        Text = ("Tork Calculation")
+        { Label29 Label
+          Move(7,21,126,30)
+          Text = ("Accelaration(m/sn^2):")
+        }
+        { Label34 Label
+          Move(6,60,114,30)
+          Text = ("Pinion Gear Ratio")
+        }
+        { TextBox22 TextBox
+          Move(132,18,84,30)
+          Text = ("1")
+        }
+        { TextBox23 TextBox
+          Move(133,63,84,30)
+          Text = ("120")
+        }
+        { TextBox25 TextBox
+          Move(132,96,84,30)
+          Text = ("1")
+        }
+        { Label36 Label
+          Move(7,98,112,21)
+          Text = ("Speedz (d/dk.) :")
+        }
+      }
+      { Label35 Label
+        Move(504,245,77,21)
+        Text = ("Torque(Nm.) :")
+      }
+      { TextBox24 TextBox
+        Move(588,238,88,32)
+        Background = Color.LightBackground
+        ReadOnly = True
+      }
+      { Button7 Button
+        Move(497,273,133,35)
+        Text = ("Draw")
+        Picture = Picture["standart/accessories-calculator.png"]
+      }
+      { Label91 Label
+        Move(511,182,203,21)
+        Text = ("Label91")
+      }
+      { Button6 Button
+        Move(637,273,105,35)
+        Text = ("Save to File")
+        Picture = Picture["standart/save.png"]
+      }
+      { Label43 Label
+        Move(252,42,147,28)
+        Font = Font["+1"]
+        Text = ("Cylinder Force F(kN)")
+      }
+      { Label65 Label
+        Move(252,77,126,28)
+        Text = ("Cylinder Diameter:(mm.)")
+      }
+      { Label66 Label
+        Move(252,112,126,28)
+        Text = ("Flow  (lt/dk.)")
+      }
+      { Label70 Label
+        Move(252,147,126,28)
+        Text = ("Power (kW)")
+      }
+      { Label72 Label
+        Move(497,42,147,28)
+        Font = Font["+1"]
+        Text = ("Cylinder Force F(kN)")
+      }
+      { Label74 Label
+        Move(497,77,126,28)
+        Text = ("Cylinder Diameter:(mm.)")
+      }
+      { Label75 Label
+        Move(497,112,126,28)
+        Text = ("Flow  (lt/dk.)")
+      }
+      { Label78 Label
+        Move(497,147,126,28)
+        Text = ("Power (kW)")
+      }
+      Index = 0
+    }
+    Index = 1
+    Text = ("Crane")
+    { Wizard1 Wizard
+      Move(7,7,721,378)
+      Count = 7
+      Index = 0
+      Text = ("Section")
+      { etiket Label
+        Move(14,217,84,28)
+        Text = ("Label1")
+      }
+      { cb Label
+        Move(14,238,84,21)
+        Text = ("Label8")
+      }
+      { yazi Label
+        Move(14,196,91,21)
+        Text = ("Label1")
+      }
+      { ab Label
+        Move(14,168,84,28)
+        Text = ("Label6")
+      }
+      { b TextBox
+        Move(105,196,119,28)
+      }
+      { Frame10 Frame
+        Move(6,0,160,160)
+        Text = ("Section Type")
+        { daire RadioButton
+          Move(7,28,140,21)
+          Text = ("Round Solid")
+        }
+        { boru RadioButton
+          Move(8,48,147,21)
+          Text = ("Round Hallow")
+        }
+        { npi RadioButton
+          Move(7,112,63,21)
+          Text = ("I")
+        }
+        { npu RadioButton
+          Move(7,133,56,21)
+          Text = ("U")
+        }
+        { dikdort RadioButton
+          Move(7,70,147,21)
+          Text = ("Rectangle Solid")
+        }
+        { bosdort RadioButton
+          Move(7,91,160,24)
+          Text = ("Rectangle Hallow")
+        }
+      }
+      { resim PictureBox
+        Move(175,0,196,161)
+        Expand = True
+        Stretch = True
+      }
+      { a TextBox
+        Move(105,168,63,28)
+      }
+      { nip ComboBox
+        Move(105,224,119,28)
+        Text = (" ")
+      }
+      { profil ComboBox
+        Move(105,252,119,28)
+        Text = (" ")
+      }
+      { Label44 Label
+        Move(459,7,128,32)
+        Text = ("Moment of Inertia\nIxx (cm^4)")
+      }
+      { atalet TextBox
+        Move(588,7,120,32)
+      }
+      { iyy TextBox
+        Move(588,39,120,32)
+      }
+      { Label45 Label
+        Move(459,39,128,32)
+        Text = ("Moment of Inertia\nIyy (cm^4)")
+      }
+      { Label46 Label
+        Move(459,79,119,28)
+        Text = ("Section Modulüs\n(cm^3)")
+      }
+      { mukavemet TextBox
+        Move(588,71,120,32)
+      }
+      { c TextBox
+        Move(105,280,119,28)
+      }
+      { bb Label
+        Move(14,280,84,28)
+        Text = ("Label7")
+      }
+      { eb Label
+        Move(14,259,84,21)
+        Text = ("Label9")
+      }
+      { e TextBox
+        Move(72,416,112,28)
+      }
+      { agir TextBox
+        Move(588,143,120,32)
+      }
+      { Label47 Label
+        Move(459,151,120,32)
+        Text = ("Mass (Kg/m.)")
+      }
+      { alana TextBox
+        Move(588,111,120,32)
+      }
+      { Label48 Label
+        Move(459,119,104,24)
+        Text = ("Area (cm^2)")
+      }
+      Index = 1
+      Text = ("Load form")
+      { Label17 Label
+        Move(8,0,70,28)
+        Text = ("Supports")
+      }
+      { mesnetsayi ComboBox
+        Move(80,0,168,32)
+        Text = (" ")
+      }
+      { Label18 Label
+        Move(336,0,80,24)
+        Text = ("Load Form")
+      }
+      { yukleme TextBox
+        Move(432,0,200,32)
+        Text = ("Tekil merkez yük")
+      }
+      { resime PictureBox
+        Move(0,35,714,273)
+        Stretch = True
+        Border = Border.Etched
+      }
+      Index = 2
+      Text = ("Inputs for calculations")
+      { Frame2 Frame
+        Move(6,6,112,152)
+        { rb2 RadioButton
+          Move(8,56,64,24)
+          Text = ("1-18 ")
+        }
+        { rb1 RadioButton
+          Move(8,32,56,24)
+          Text = ("0-6 ")
+        }
+        { rb3 RadioButton
+          Move(8,80,64,24)
+          Text = ("19-30 ")
+        }
+        { rb4 RadioButton
+          Move(8,104,64,24)
+          Text = ("31-60 ")
+        }
+        { rb5 RadioButton
+          Move(8,128,64,24)
+          Text = (">60 ")
+        }
+        { Label42 Label
+          Move(8,0,112,32)
+          Text = ("Working cycle \nper hour")
+        }
+      }
+      { Frame1 Frame
+        Move(126,6,104,88)
+        Text = ("Beam Count")
+        { tekkiris RadioButton
+          Move(8,32,91,21)
+          Text = ("one")
+        }
+        { ciftkiris RadioButton
+          Move(7,56,88,24)
+          Text = ("Two")
+        }
+      }
+      { TextBox6 TextBox
+        Move(385,7,88,32)
+        Text = ("4")
+      }
+      { Label6 Label
+        Move(259,7,119,28)
+        Text = ("Donam")
+      }
+      { Label25 Label
+        Move(259,224,112,28)
+        Text = ("Elastisity\nModules")
+      }
+      { emode TextBox
+        Move(386,226,90,30)
+        Text = ("2100000")
+      }
+      { TextBox27 TextBox
+        Move(386,86,80,32)
+        Text = ("150")
+      }
+      { Label37 Label
+        Move(260,86,114,30)
+        Text = ("Lifting\nrate(cm/dk)")
+      }
+      { Label38 Label
+        Move(259,196,120,30)
+        Text = ("Speed(cm/dk)")
+      }
+      { TextBox28 TextBox
+        Move(386,191,98,28)
+        Text = ("100")
+      }
+      { TextBox12 TextBox
+        Move(386,156,96,30)
+        Text = ("12000")
+      }
+      { Label12 Label
+        Move(260,156,96,30)
+        Text = ("Clearance(mm)")
+      }
+      { Label9 Label
+        Move(260,121,104,32)
+        Text = ("Lifting \nHeight(mm)")
+      }
+      { Label7 Label
+        Move(259,49,119,28)
+        Text = ("Hook Load(kgf.)")
+      }
+      { TextBox7 TextBox
+        Move(385,49,88,32)
+        Text = ("15000")
+      }
+      { TextBox9 TextBox
+        Move(385,121,96,30)
+        Text = ("6")
+      }
+      { Label49 Label
+        Move(259,7,119,28)
+        Text = ("Donam")
+      }
+      Index = 3
+      Text = ("Solve")
+      { Button2 Button
+        Move(238,175,224,56)
+        Text = ("Solve")
+        Picture = Picture["standart/accessories-calculator.png"]
+      }
+      Index = 4
+      Text = ("Results")
+      { Label1 Label
+        Move(0,6,138,30)
+        Text = ("Rope Load(kgf) :")
+      }
+      { TextBox1 TextBox
+        Move(154,0,72,32)
+      }
+      { TextBox2 TextBox
+        Move(152,56,72,32)
+      }
+      { Label2 Label
+        Move(0,56,147,35)
+        Text = ("Rope diameter(mm.)")
+      }
+      { Label11 Label
+        Move(0,105,147,49)
+        Text = ("Rope Length(m)\n(without diead ropes)")
+      }
+      { TextBox11 TextBox
+        Move(150,114,72,32)
+      }
+      { Frame9 Frame
+        Move(469,0,234,186)
+        Text = ("Kedi Yürüme Motoru")
+      }
+      { TextBox5 TextBox
+        Move(360,8,80,32)
+      }
+      { Label5 Label
+        Move(238,7,119,42)
+        Text = ("equivalent Reel\ndiameter (mm.)")
+      }
+      { Label16 Label
+        Move(238,56,119,49)
+        Text = ("Kedi Ray \nAçıklığı(mm)")
+      }
+      { TextBox16 TextBox
+        Move(360,64,80,32)
+      }
+      { TextBox4 TextBox
+        Move(150,180,72,32)
+      }
+      { Label4 Label
+        Move(0,175,147,42)
+        Text = ("Rope Pulley\nDiameter (mm.)")
+      }
+      Index = 5
+      Text = ("Step #6")
+      { Label8 Label
+        Move(7,98,168,35)
+        Text = ("Drum length (mm)")
+      }
+      { TextBox8 TextBox
+        Move(184,96,72,32)
+      }
+      { TextBox3 TextBox
+        Move(184,0,72,32)
+      }
+      { Label3 Label
+        Move(7,7,175,35)
+        Text = ("Drum Dia.(mm.)")
+      }
+      { Label10 Label
+        Move(7,140,175,35)
+        Text = ("Number of winding")
+      }
+      { TextBox10 TextBox
+        Move(184,136,72,32)
+      }
+      { Label13 Label
+        Move(7,49,175,35)
+        Text = ("Drum inner dia.(mm.)")
+      }
+      { TextBox13 TextBox
+        Move(184,48,72,32)
+      }
+      { Frame7 Frame
+        Move(304,8,256,160)
+        Text = ("Holding Motor")
+        { g TextBox
+          Move(176,72,72,32)
+        }
+        { Label39 Label
+          Move(8,72,161,42)
+          Text = ("Power(kW.)")
+        }
+        { t TextBox
+          Move(176,24,72,32)
+        }
+        { Label40 Label
+          Move(8,24,161,42)
+          Text = ("Holding Moment\n(kgf.cm)")
+        }
+        { hesa TextBox
+          Move(176,120,72,32)
+        }
+        { Label41 Label
+          Move(7,119,168,35)
+          Text = ("Drum cycle (rpm)")
+        }
+      }
+      Index = 6
+      Text = ("Step #7")
+      { TextBox14 TextBox
+        Move(192,8,80,32)
+      }
+      { Label14 Label
+        Move(8,8,184,32)
+        Text = ("Rail clearence(mm.)")
+      }
+      { Frame8 Frame
+        Move(472,0,200,248)
+        Text = ("Başlık Yürüme Motoru")
+      }
+      { TextBox15 TextBox
+        Move(189,56,80,32)
+      }
+      { Label15 Label
+        Move(8,48,182,35)
+        Text = ("\nwheel load(kgf.)")
+      }
+      { Label23 Label
+        Move(7,168,182,35)
+        Text = ("Strength(kgf/cm^2)")
+      }
+      { Label24 Label
+        Move(7,224,182,35)
+        Text = ("Deflection(mm.)")
+      }
+      { momente TextBox
+        Move(192,112,80,32)
+      }
+      { gere TextBox
+        Move(192,168,80,32)
+      }
+      { sehime TextBox
+        Move(192,224,80,32)
+      }
+      { Label22 Label
+        Move(301,14,63,28)
+        Visible = False
+        Text = ("a(cm.)")
+      }
+      { Label21 Label
+        Move(301,70,70,28)
+        Visible = False
+        Text = ("b(cm.)")
+      }
+      { Label19 Label
+        Move(301,112,84,28)
+        Visible = False
+        Text = ("Load(kgf.)")
+      }
+      { Label26 Label
+        Move(7,112,182,42)
+        Text = ("Max.Moment(kgf.cm)")
+      }
+      { le TextBox
+        Move(392,161,64,32)
+        Visible = False
+      }
+      { Label20 Label
+        Move(301,161,84,28)
+        Visible = False
+        Text = ("L(cm.)")
+      }
+      { yuke TextBox
+        Move(392,112,64,32)
+        Visible = False
+      }
+      { be TextBox
+        Move(392,63,64,32)
+        Visible = False
+      }
+      { ae TextBox
+        Move(392,8,72,32)
+        Visible = False
+      }
+      Index = 0
+    }
+    Index = 0
+  }
+}

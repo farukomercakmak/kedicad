@@ -1,0 +1,172 @@
+' Gambas class file
+
+Public ase As Integer
+Public sasay As Integer
+Public susay As Integer
+Public sara As Float
+Public sura As Float
+Public saray As Integer
+Public ici As New Collection
+Public cazgi As Czm
+Public mnh As Integer
+Public msx As Float
+Public msy As Float
+
+Static Public Sub Main()
+
+    Dim hForm As Form
+
+    hForm = New Dizim
+    hForm.Show
+
+End
+
+
+Public Sub Button2_Click()
+
+    Me.hide
+    tem.temizlik
+    ilk.Show
+
+End
+
+Public Sub adedi_Activate()
+
+    Button1_Click
+
+End
+
+Public Sub Button1_Click()
+
+    ilk.mesgul = 1
+    If TabStrip1.Index = 1
+        If satir.Text = "" Then satir.Text = 1
+        If sutun.Text = "" Then sutun.Text = 1
+        If satirara.Text = "" Then satirara.Text = 1
+        If sutunara.Text = "" Then sutunara.Text = 1
+        satirara.Text = CFloat(satirara.Text) * ilk.olcum
+        sutunara.Text = CFloat(sutunara.Text) * ilk.olcum
+        sasay = CInteger(satir.Text)
+        susay = CInteger(sutun.Text)
+        sara = msx / ilk.olcum
+        sura = msy / ilk.olcum
+        torba4.dizin
+    Else
+        sara = msx
+        sura = msy
+        sasay = CInteger(adedi.Text)
+        torba4.mizin(sara, sura, sasay)
+    End If
+    ilk.Show
+    ilk.dolas
+    ase = 0
+    ici.Clear
+    Me.Close
+    ilk.mesgul = 0
+        Catch
+	ilk.hatayaz("btn1clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub satir_KeyRelease()
+
+    If key.Code = key.Enter Then Button1_Click
+
+End
+
+Public Sub sutun_KeyRelease()
+
+    If key.Code = key.Enter Then Button1_Click
+
+End
+
+Public Sub satirara_KeyRelease()
+
+    If key.Code = key.Enter Then Button1_Click
+
+End
+
+Public Sub sutunara_KeyRelease()
+
+    If key.Code = key.Enter Then Button1_Click
+
+End
+
+Public Sub Form_Open()
+
+    Me.text = "KediCAD 2B DİZİ"
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id)
+            ici.Add(cazgi.id, cazgi.id)
+            ase = ase + 1
+        End If
+    Next
+    CheckBox1.Value = True
+
+End
+
+Public Sub Button3_Click()
+
+    saray = 1
+    ilk.show
+    Me.Hide
+    ilk.Menu16_Click
+
+End
+
+Public Sub Button4_Click()
+
+    ilk.show
+    Me.Hide
+
+End
+
+Public Sub Button5_Click()
+
+    ilk.show
+    Me.Hide
+
+End
+
+Public Sub Button6_Click()
+
+    ilk.komutsayi = 221
+    ilk.show
+    Me.Hide
+
+End
+
+Public Sub merk(moex As Float, moey As Float)
+
+    If TabStrip1.Index <> 1
+        adedi.SetFocus
+        msx = moex
+        msy = moey
+        xa.Text = Format$((moex), "#,#")
+        ya.Text = Format$((moey), "#,#")
+    Else
+        satirara.Text = moex
+        sutunara.Text = moey
+    End If
+    Return
+        Catch
+	ilk.hatayaz("merk " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub adedi_Change()
+
+    If IsInteger(adedi.Text)
+        sasay = CInt(adedi.Text)
+    Else
+        Return
+    Endif
+    sara = msx / ilk.olcum
+    sura = msy / ilk.olcum
+    ilk.msa = sara
+    ilk.mse = sura
+    ilk.msad = sasay
+    ilk.mnhe = 1
+    ilk.calanilk.Refresh
+Catch
+    ilk.hatayaz("adedi_Change " & Error.Text, Error.Where & "--" & Error.code)
+End

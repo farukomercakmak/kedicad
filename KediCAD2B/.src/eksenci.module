@@ -1,0 +1,25 @@
+' Gambas module file
+
+Public cazgi As Czm
+
+Public Sub eks()
+
+    Dim a, b, c As Float
+
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id)
+            a = cazgi.yaricap * ilk.olcum
+            b = cazgi.x1 * ilk.olcum
+            c = cazgi.y1 * ilk.olcum
+            cizem.aktar(cazgi.id)
+            cizem.sekil = 4
+            cizem.cizgi(b - a - (a / 20), c, b + a + (a / 20), c)
+            cizem.cizgi(b, c - a - (a / 20), b, c + a + (a / 20))
+        End If
+    Next
+    ilk.dolas
+    Return
+    Catch
+ilk.hatayaz("eks " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End

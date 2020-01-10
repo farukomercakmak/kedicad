@@ -1,0 +1,337 @@
+' Gambas module file
+
+Public smn As Integer
+Public bvv As New Integer[]
+Public tmn As Integer
+Public yazgi As Czm
+Public cazgi As Czm
+
+Public Sub duzen()
+
+    Dim avx, avy, avl, avc, bvx, bvy, cvx, cvy, l1, l2 As Float
+    Dim avi, i, savi As Integer
+bvv.Clear
+    ilk.cezmiyedek = ilk.cezmi ' çizimi yedekleme
+    For Each cazgi In ilk.cezmi  ' çizimdeki aynı çizgileri temizleme
+        If ilk.depo1.Exist(cazgi.id)
+            If cazgi.id < 0 Then Goto gec
+            If bvv.Exist(cazgi.id) Then Goto gec
+            For Each yazgi In ilk.cezmiyedek
+                If bvv.Exist(yazgi.id) Then Goto gec
+                If yazgi.id < 0 Then Goto gec1
+                If cazgi.id <> yazgi.id Then
+                    If cazgi.x1 = yazgi.x1
+                        If cazgi.y1 = yazgi.y1
+                            If cazgi.x2 = yazgi.x2
+                                If cazgi.y2 = yazgi.y2
+                                    ilk.sil(yazgi.id)
+                                    ilk.depo1.Remove(yazgi.id)
+                                    bvv.add(yazgi.id, yazgi.id)
+                                Endif
+                            Endif
+                        Endif
+                    Endif
+                    If cazgi.x1 = yazgi.x2
+                        If cazgi.y1 = yazgi.y2
+                            If cazgi.x2 = yazgi.x1
+                                If cazgi.y2 = yazgi.y1
+                                    ilk.sil(yazgi.id)
+                                    ilk.depo1.Remove(yazgi.id)
+                                    bvv.add(yazgi.id, yazgi.id)
+                                Endif
+                            Endif
+                        Endif
+                    Endif
+                Endif
+            gec1:
+            Next
+        Endif
+    gec:
+    Next
+    Return
+    avi = -5
+    savi = -5
+    avx = ilk.orix * ilk.olcum
+    avy = ilk.oriy * ilk.olcum
+    avc = 9999999999999
+    For Each cazgi In ilk.cezmi
+        If cazgi.id < 0 Then Goto gec2
+        acimi.aci(avx, avy, cazgi.x1, cazgi.y1)  ' 0,0 noktasına en yakın çizim seçiliyor.
+        avl = acimi.boy
+        If avl < avc Then
+            avc = avl
+            cvx = cazgi.x1
+            cvy = cazgi.y1
+        Endif
+    gec2:
+    Next
+    avx = cvx
+    avy = cvy
+    ilk.cezmi10.Clear
+    For Each yazgi In ilk.cezmiyedek
+        For Each cazgi In ilk.cezmi
+            If cazgi.id > 0
+                If cazgi.komut = 1
+                    If cazgi.x1 = avx
+                        If cazgi.y1 = avy    'x1 önceki x e y1 önceki y ye eşit. ilk.cezmi10 a çizimi ekle ve sil
+                            savi = cazgi.id
+                            avx = cazgi.x2
+                            avy = cazgi.y2
+                            fgec(savi)
+                            Goto atla
+                        Endif
+                    Endif
+                    If cazgi.x2 = avx
+                        If cazgi.y2 = avy Then  'x2 önceki x e y2 önceki y ye eşit. ilk.cezmi10 a çizimi ekle ve sil
+                            savi = cazgi.id
+                            avx = cazgi.x1
+                            avy = cazgi.y1
+                            fgec(savi)
+                            Goto atla
+                        Endif
+                    Endif
+                Endif
+            Endif
+        Next
+        avc = 9999999999999
+        For Each cazgi In ilk.cezmi
+            If cazgi.id > 0
+                If cazgi.komut = 1 Or cazgi.komut = 20 Or cazgi.komut = 25
+                    acimi.aci(avx, avy, cazgi.x1, cazgi.y1)
+                    avl = acimi.boy
+                    If avl < avc Then  'x1 y1 ye olan uzaklık
+                        avc = avl
+                        savi = cazgi.id
+                        cvx = cazgi.x1
+                        cvy = cazgi.y1
+                    End If
+                End If
+            Endif
+        Next
+        avc = 9999999999999
+        For Each cazgi In ilk.cezmi
+            If cazgi.id > 0
+                If cazgi.komut = 1
+                    acimi.aci(avx, avy, cazgi.x2, cazgi.y2)
+                    avl = acimi.boy
+                    If avl < avc Then '  x2 y2 ye olan uzaklık
+                        avc = avl
+                        avi = cazgi.id
+                        bvx = cazgi.x2
+                        bvy = cazgi.y2
+                    End If
+                Endif
+            Endif
+        Next
+        acimi.aci(avx, avy, cvx, cvy)
+        l1 = acimi.boy
+        acimi.aci(avx, avy, bvx, bvy)
+        l2 = acimi.boy
+        If l1 > l2   ' en yakın nokta x1 y1
+            If avi <> -5
+                fgec(avi)
+                avx = bvx
+                avy = bvy
+            Endif
+        Else         ' en yakın nokta x2 y2
+            If savi <> -5
+                fgec(savi)
+                avx = cvx
+                avy = cvy
+            Endif
+        End If
+    atla:
+        ilk.sil(savi)
+        ilk.sil(avi)
+        avi = -5
+        savi = -5
+    Next
+    fec
+    ilk.depo1.Clear
+    For i = 0 To bvv.Count - 1
+        ilk.depo1.Add(bvv[i], bvv[i])
+    Next
+    ilk.cezmi = ilk.cezmi10
+    Return
+    Catch
+ilk.hatayaz("duzen " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub fgec(dsaf As Integer)
+
+    With ilk
+        For Each cazgi In .cezmi
+            If cazgi.id = dsaf
+                yazgi = New Czm
+                tmn = tmn + 1
+                yazgi.id = tmn
+                If .depo1.Exist(dsaf) Then bvv.Add(tmn)
+                yazgi.komut = cazgi.komut
+                yazgi.x1 = cazgi.x1
+                yazgi.y1 = cazgi.y1
+                yazgi.x2 = cazgi.x2
+                yazgi.y2 = cazgi.y2
+                yazgi.x3 = cazgi.x3
+                yazgi.y3 = cazgi.y3
+                yazgi.x4 = cazgi.x4
+                yazgi.y4 = cazgi.y4
+                yazgi.x5 = cazgi.x5
+                yazgi.y5 = cazgi.y5
+                yazgi.x6 = cazgi.x6
+                yazgi.y6 = cazgi.y6
+                yazgi.x7 = cazgi.x7
+                yazgi.y7 = cazgi.y7
+                yazgi.x8 = cazgi.x8
+                yazgi.y8 = cazgi.y8
+                yazgi.x9 = cazgi.x9
+                yazgi.y9 = cazgi.y9
+                yazgi.uc = cazgi.uc
+                yazgi.yazix = cazgi.yazix
+                yazgi.yaziy = cazgi.yaziy
+                yazgi.r = cazgi.r
+                yazgi.uzun = cazgi.uzun
+                yazgi.b = cazgi.b
+                yazgi.egim = cazgi.egim
+                yazgi.teta = cazgi.teta
+                yazgi.yaricap = cazgi.yaricap
+                yazgi.sekil = cazgi.sekil
+                yazgi.renk = cazgi.renk
+                yazgi.kalinlik = cazgi.kalinlik
+                yazgi.blok = cazgi.blok
+                yazgi.katman = cazgi.katman
+                yazgi.yazi = cazgi.id
+                yazgi.fnt = cazgi.fnt
+                yazgi.z = cazgi.z
+                yazgi.uc = cazgi.uc
+                ilk.cezmi10.Add(yazgi, tmn)
+            Endif
+        Next
+    End With
+    Return
+    Catch
+ilk.hatayaz("fgec " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub fec()
+
+    With ilk
+        For Each cazgi In .cezmi10
+            If cazgi.id > 0
+                yazgi = New Czm
+                smn = smn + 1
+                yazgi.id = smn
+                yazgi.komut = cazgi.komut
+                yazgi.x1 = cazgi.x1
+                yazgi.y1 = cazgi.y1
+                yazgi.x2 = cazgi.x2
+                yazgi.y2 = cazgi.y2
+                yazgi.x3 = cazgi.x3
+                yazgi.y3 = cazgi.y3
+                yazgi.x4 = cazgi.x4
+                yazgi.y4 = cazgi.y4
+                yazgi.x5 = cazgi.x5
+                yazgi.y5 = cazgi.y5
+                yazgi.x6 = cazgi.x6
+                yazgi.y6 = cazgi.y6
+                yazgi.x7 = cazgi.x7
+                yazgi.y7 = cazgi.y7
+                yazgi.x8 = cazgi.x8
+                yazgi.y8 = cazgi.y8
+                yazgi.x9 = cazgi.x9
+                yazgi.y9 = cazgi.y9
+                yazgi.uc = cazgi.uc
+                yazgi.yazix = cazgi.yazix
+                yazgi.yaziy = cazgi.yaziy
+                yazgi.r = cazgi.r
+                yazgi.uzun = cazgi.uzun
+                yazgi.b = cazgi.b
+                yazgi.egim = cazgi.egim
+                yazgi.teta = cazgi.teta
+                yazgi.yaricap = cazgi.yaricap
+                yazgi.sekil = cazgi.sekil
+                yazgi.renk = cazgi.renk
+                yazgi.kalinlik = cazgi.kalinlik
+                yazgi.blok = cazgi.blok
+                yazgi.katman = cazgi.katman
+                yazgi.yazi = cazgi.yazi
+                yazgi.fnt = cazgi.fnt
+                yazgi.z = cazgi.z
+                yazgi.uc = cazgi.uc
+                ilk.cezmi10.Add(yazgi, smn)
+            End If
+        Next
+    End With
+    Return
+    Catch
+ilk.hatayaz("fec " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub aynicizim()
+ilk.cezmiyedek.Clear
+    ilk.cezmiyedek = ilk.cezmi ' çizimi yedekleme
+    For Each cazgi In ilk.cezmi  ' çizimdeki aynı çizgileri temizleme
+            If cazgi.id < 0 Then Goto gec
+            If ilk.depo1.Exist(cazgi.id) Then Goto gec
+            For Each yazgi In ilk.cezmiyedek
+                If yazgi.id < 0 Then Goto gec1
+                If ilk.depo1.Exist(yazgi.id) Then Goto gec1
+                If cazgi.id <> yazgi.id Then   ' iki ayrı çizimse...
+                    If cazgi.komut = 1
+                            If cazgi.x1 = yazgi.x1
+                                If cazgi.y1 = yazgi.y1
+                                    If cazgi.x2 = yazgi.x2
+                                        If cazgi.y2 = yazgi.y2
+                                            ilk.depo1.add(cazgi.id, cazgi.id)
+'                                             Message(cazgi.id, yazgi.id)
+                                        Endif
+                                    Endif
+                                Endif
+                            Endif
+                            If cazgi.x1 = yazgi.x2
+                                If cazgi.y1 = yazgi.y2
+                                    If cazgi.x2 = yazgi.x1
+                                        If cazgi.y2 = yazgi.y1
+                                            ilk.depo1.add(yazgi.id, yazgi.id)
+                                        Endif
+                                    Endif
+                                Endif
+                            Endif
+                    Else If cazgi.komut = 25
+                        If cazgi.x1 = yazgi.x1
+                        If cazgi.y1 = yazgi.y1
+                            If cazgi.yaricap = yazgi.yaricap
+                                 ilk.depo1.add(cazgi.id, cazgi.id)
+                            Endif
+                        Endif
+                        Endif
+                    Else If cazgi.komut = 20
+                        If cazgi.x1 = yazgi.x1
+                        If cazgi.y1 = yazgi.y1
+                        If cazgi.teta = yazgi.teta
+                        If cazgi.r = yazgi.r
+                            If cazgi.yaricap = yazgi.yaricap
+                                 ilk.depo1.add(cazgi.id, cazgi.id)
+                            Endif
+                         Endif
+                         Endif
+                         Endif
+                        Endif
+                    Else If cazgi.komut = 60
+                        If cazgi.x1 = yazgi.x1
+                            If cazgi.yazi = yazgi.yazi
+                                 ilk.depo1.add(cazgi.id, cazgi.id)
+                            Endif
+                        Endif
+                    Endif
+                Endif
+            gec1:
+            Next
+    gec:
+    Next
+    Return
+     Catch
+ilk.hatayaz("fec " & Error.Text, Error.Where & "--" & Error.code)
+    End

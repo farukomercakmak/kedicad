@@ -1,0 +1,25 @@
+' Gambas class file
+
+
+Public Sub Form_Open()
+   
+  'First, put the buttons In a group that can Catch events:
+      
+End
+
+
+
+Public Sub liste2_Click()
+
+    
+
+End
+
+Public Sub Button1_Click()
+Dim myFile As File
+ilk.hatano = 0
+myFile = Open System.User.Home &/ ".KediCAD/Kayit/hatalar.txt" For Create
+Close myFile
+    
+
+End

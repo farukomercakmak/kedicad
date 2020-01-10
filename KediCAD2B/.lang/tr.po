@@ -1,0 +1,4583 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: KediCAD2B 3.9.2\n"
+"PO-Revision-Date: 2017-09-24 19:05 UTC\n"
+"Last-Translator: ulusoy <ulusoy@ulusoy-Lenovo>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .project:1 Form1.form:16 ilk.form:511
+msgid "KediCAD2B"
+msgstr "KediCAD2B"
+
+#: .project:2
+msgid "2D CAD software"
+msgstr "2D CAD Yazılımı"
+
+#: aciklama.form:27
+msgid "License   "
+msgstr "Lisans"
+
+#: aciklama.form:48
+msgid "Abdurrahman ULUSOY<br>\nDeveloper<br>\n <href='mailto:ulusoyab@yahoo.com'>ulusoyab@yahoo.com</u><br>\nGraphics<br>\nGülendam ULUSOY<br>"
+msgstr "Abdurrahman ULUSOY<br>\nGeliştirici<br>\n<href='mailto:ulusoyab@yahoo.com'>ulusoyab@yahoo.com</u><br>\nGrafikler<br>\nGülendam ULUSOY<br>"
+
+#: aciklama.form:53
+msgid "<h2 align=center>License</h1><br>\n\nThis software is a free<br>\nclosed source software.<br>\nContact Address : <br>\nulusoyab@yahoo.com"
+msgstr "<h2 align=center>Lisans</h1><br>\n\nBu Yazılım ücretsizdir<br>\nKodları kapalıdır.<br>\nİletişim adresi : <br>\nulusoyab@yahoo.com"
+
+#: aciklama.form:78
+msgid "www.cncroutersanayi.com"
+msgstr ""
+
+#: ayar.form:34 ilk.form:2317
+msgid "Snaps"
+msgstr "Uçlar"
+
+#: ayar.form:38
+msgid "  Grid"
+msgstr "Izgara"
+
+#: ayar.form:47
+msgid "Middle Point"
+msgstr "Orta Nokta"
+
+#: ayar.form:52
+msgid "Center Point"
+msgstr "Merkez Noktası"
+
+#: ayar.form:57
+msgid "Tangent"
+msgstr "Tanjant"
+
+#: ayar.form:62
+msgid "Dik"
+msgstr "Dik"
+
+#: ayar.form:67
+msgid "End Point"
+msgstr "Son Nokta"
+
+#: ayar.form:72
+msgid "Nearest"
+msgstr "En Yakın"
+
+#: ayar.form:77
+msgid "Quadrant"
+msgstr "köşe"
+
+#: ayar.form:82
+msgid "İntersection"
+msgstr "Kesişim"
+
+#: ayar.form:85
+msgid "Track"
+msgstr "Çekme"
+
+#: ayar.form:89
+msgid "45 degree"
+msgstr "45 Derece"
+
+#: ayar.form:100
+msgid "30 degree"
+msgstr "30 derece"
+
+#: ayar.form:106
+msgid "60 degree"
+msgstr "60 Derece"
+
+#: ayar.form:116
+msgid "degree"
+msgstr "derece"
+
+#: ayar.form:123 dizim.form:38
+msgid "Ok."
+msgstr "Tmm."
+
+#: canli.form:58 dizim.form:52 ilk.form:845
+msgid "Rotate"
+msgstr "Döndür"
+
+#: canli.form:62
+msgid "Specify \nDrawings"
+msgstr "Çizim Seç"
+
+#: canli.form:67 ilk.form:3101
+msgid "Select"
+msgstr "Seç"
+
+#: canli.form:81
+msgid "Specify rotate\ncenter"
+msgstr "Dönme MerkeziniBelirt"
+
+#: canli.form:94
+msgid "X :"
+msgstr ""
+
+#: canli.form:99
+msgid "Y :"
+msgstr ""
+
+#: canli.form:110
+msgid "Dönme Açısı (derece)"
+msgstr ""
+
+#: canli.form:119
+msgid "Rotate angle(degree)"
+msgstr "Dönme Açısı(derece)"
+
+#: canli.form:124
+msgid "Angular velocity\n (degree/sc)"
+msgstr "Açısal Hız\n(derece/sn)"
+
+#: canli.form:129
+msgid "counter\nclockwise"
+msgstr "Saatin\ntersyönü"
+
+#: canli.form:135
+msgid "clockwise"
+msgstr "Saat Yönü"
+
+#: canli.form:138
+msgid "plain"
+msgstr "Düz"
+
+#: canli.form:147
+msgid "Select\nDrawings"
+msgstr "Çizim\n Seç"
+
+#: canli.form:152
+msgid "start\npoint"
+msgstr "Başlangıç\nNoktası"
+
+#: canli.form:197
+msgid "finish\npoint"
+msgstr "Bitiş\nNoktası"
+
+#: canli.form:219
+msgid "Create video"
+msgstr "Video Oluştur"
+
+#: canli.form:225 kesitli.form:199 mukavemetli.form:209 vinc.form:888
+msgid "Label8"
+msgstr ""
+
+#: canli.form:231
+msgid "Label11"
+msgstr ""
+
+#: rulman.form:99 secenekler.form:443 toolplace.form:125
+msgid "Close"
+msgstr "Kapat"
+
+#: canli.form:250
+msgid "Stop"
+msgstr "Dur"
+
+#: canli.form:256
+msgid "Watch"
+msgstr "Gözle"
+
+#: canli.form:262
+msgid "Run"
+msgstr "Çalıştır"
+
+#: mukavemetli.form:204 torna.form:72 vinc.form:883 yazicim.form:138
+msgid "Label1"
+msgstr ""
+
+#: cnc.form:57
+msgid "The Output file will have the same name, but with an \".ngc\" extension"
+msgstr "Aynı isimde ngc uzantılı kaydedilecek."
+
+#: cnc.form:58
+msgid "Add to order"
+msgstr "Sıraya Ekle"
+
+#: cnc.form:64
+msgid "Surface of material = 0 mm"
+msgstr "Malzeme Yüzeyi =  mm"
+
+#: cnc.form:65
+msgid "15.0"
+msgstr ""
+
+#: cnc.form:71
+msgid "Engraving depth(mm)"
+msgstr "İşleme derinliği(mm)"
+
+#: cnc.form:76
+msgid "Safety Heigth (mm)"
+msgstr "Emniyetli Yükseklik(mm)"
+
+#: cnc.form:81
+msgid "Tool will clear the surface by this amount, or not, if it's negative Beware!"
+msgstr ""
+
+#: cnc.form:82
+msgid "5.0"
+msgstr "5.0"
+
+#: cnc.form:88
+msgid "Feedrate for G1  G2 G3  X & Y moves"
+msgstr "G1 G2 G3 X-Y İlerleme hızı"
+
+#: cnc.form:89
+msgid "4200"
+msgstr "4200"
+
+#: cnc.form:95
+msgid "Speed mm/min"
+msgstr "Hız(mm/dk)"
+
+#: cnc.form:100
+msgid "Feed rate for Z going down"
+msgstr "Dalma hızı"
+
+#: cnc.form:101 pase.form:147 toolplace.form:120 vinc.form:273
+msgid "1000"
+msgstr "1000"
+
+#: cnc.form:107
+msgid "Depth Speed mm/min"
+msgstr "Dalma Hızı(mm/dk)"
+
+#: cnc.form:112
+msgid "Open G-Code File"
+msgstr "G-Code dosyası Aç"
+
+#: cnc.form:117
+msgid "Save Code"
+msgstr ""
+
+#: cnc.form:133
+msgid "Generate Cod"
+msgstr "Kod Üret"
+
+#: cnc.form:142
+msgid "Move up"
+msgstr "Yukarı"
+
+#: cnc.form:143
+msgid "^"
+msgstr "^"
+
+#: cnc.form:148
+msgid "Move down"
+msgstr "Aşağı"
+
+#: cnc.form:149
+msgid "v"
+msgstr ""
+
+#: cnc.form:154 ilk.form:1287
+msgid "Delete"
+msgstr "Sil"
+
+#: cnc.form:191 ilk.form:2399
+msgid "5000"
+msgstr "5000"
+
+#: cnc.form:196
+msgid "No engraving\nSpeed"
+msgstr "Uçuş Hızı"
+
+#: cnc.form:205 ozellik.form:62 pase.form:535 profile.form:121 yazicim.form:160
+msgid "ComboBox1"
+msgstr ""
+
+#: cnc.form:210 takimata.form:30
+msgid "Select Tool"
+msgstr "Takım Seç"
+
+#: cnc.form:216 fblok.form:41 gerde.form:34 hiddev.form:151
+msgid "Label2"
+msgstr ""
+
+#: secenekler.form:204
+msgid "5"
+msgstr "5"
+
+#: cnc.form:234
+msgid "Z Step(mm.)"
+msgstr "Z dalma miktarı(mm.)"
+
+#: cnc.form:249
+msgid "yolları göster"
+msgstr ""
+
+#: cnc.form:271
+msgid "Text as written to Output File"
+msgstr "Yazı olarak kaydet"
+
+#: cnc2.form:22
+msgid "Material dimensions"
+msgstr "Malzeme Ölçüleri"
+
+#: cnc2.form:33
+msgid "X (mm.)="
+msgstr ""
+
+#: cnc2.form:38
+msgid "Y (mm.)="
+msgstr ""
+
+#: cnc2.form:43
+msgid "Z (mm.)="
+msgstr ""
+
+#: cnc2.form:48
+msgid "2100"
+msgstr ""
+
+#: cnc2.form:53
+msgid "2800"
+msgstr ""
+
+#: cnc2.form:58
+msgid "18.3"
+msgstr ""
+
+#: olcudeg.form:113 takimata.form:44
+msgid "OK"
+msgstr "Tmm."
+
+#: cnc2.form:68 dosac.form:22 fblok.form:35 fblokal.form:42 ilk.form:2840
+msgid "CANCEL"
+msgstr "İPTAL"
+
+#: disci.form:272 mukavemetli.form:150
+msgid "Step #1"
+msgstr "Adım #1"
+
+#: disci.form:276
+msgid "Motor Output Speed(d/d)"
+msgstr "Motor çıkış hızı(d/d)"
+
+#: disci.form:281
+msgid "1460"
+msgstr "1460"
+
+#: disci.form:287
+msgid "Form Faktor"
+msgstr "Şekil Faktörü"
+
+#: disci.form:292 fea.form:143 hesapmak.form:64 ilk.form:2364 pase.form:197
+msgid "3"
+msgstr "3"
+
+#: disci.form:298 kapi.form:182
+msgid "15"
+msgstr "15"
+
+#: disci.form:304
+msgid " Power(kW)"
+msgstr "Motor Gücü(kW)"
+
+#: disci.form:309
+msgid "Enter the gear-pinion Features"
+msgstr "Dişli-Pinyon Özellikleri:"
+
+#: disci.form:313
+msgid "Gear\ntooth\ncount"
+msgstr "Dişli\nDiş\nSayısı"
+
+#: disci.form:318
+msgid "Pinion\ntooth\ncount"
+msgstr "Pinyon\nDişli\nsayısı"
+
+#: disci.form:323 kama.form:64
+msgid "90"
+msgstr "90"
+
+#: disci.form:328
+msgid "73"
+msgstr "73"
+
+#: disci.form:333
+msgid "67"
+msgstr "67"
+
+#: disci.form:342
+msgid "1. level"
+msgstr "1.Kademe"
+
+#: disci.form:347
+msgid "2.level"
+msgstr "2.kademe"
+
+#: disci.form:352
+msgid "3.level"
+msgstr "3. kademe"
+
+#: disci.form:357
+msgid "4.level"
+msgstr "4.kademe"
+
+#: disci.form:362
+msgid "Pinion \nwidth\n(mm)"
+msgstr "Pinyon\ngenişliği\n(mm)"
+
+#: torna.form:94 vinc.form:1139
+msgid "100"
+msgstr "100"
+
+#: disci.form:372
+msgid "140"
+msgstr "140"
+
+#: disci.form:381 pase.form:172
+msgid "60"
+msgstr "60"
+
+#: disci.form:386
+msgid "Tensile\n Strength\n(N/mm^2)"
+msgstr "Çekme\nGerilmesi\n(N/mm^2)"
+
+#: disci.form:391
+msgid "Pressure\nstrength\ncoeff.(N/mm^2)"
+msgstr ""
+
+#: disci.form:400
+msgid "350"
+msgstr "350"
+
+#: disci.form:419
+msgid "950"
+msgstr "950"
+
+#: disci.form:424
+msgid "583"
+msgstr "583"
+
+#: disci.form:429
+msgid "780"
+msgstr "780"
+
+#: disci.form:434
+msgid "Working \nsafety\ncoeff."
+msgstr "Emniyetli\nÇalışma\nKaysayısı"
+
+#: disci.form:439
+msgid "1.25"
+msgstr "1.25"
+
+#: disci.form:472 hesapmak.form:142
+msgid "7"
+msgstr "7"
+
+#: disci.form:477
+msgid "Modul"
+msgstr "Modül"
+
+#: disci.form:482
+msgid "14"
+msgstr "14"
+
+#: disci.form:511
+msgid "1.level"
+msgstr "1.Kademe"
+
+#: disci.form:521
+msgid "14.56"
+msgstr "14.56"
+
+#: disci.form:530 hesapmak.form:124 ilk.form:2874
+msgid "0"
+msgstr "0"
+
+#: disci.form:535
+msgid "Helis\nAngle"
+msgstr "Helis\nAçısı"
+
+#: disci.form:545
+msgid "Dinamik\nYük\nKatsayısı"
+msgstr ""
+
+#: disci.form:550 hesapmak.form:52 torna.form:89 vinc.form:427
+msgid "1"
+msgstr "1"
+
+#: disci.form:567
+msgid "1.1"
+msgstr "1.1"
+
+#: disci.form:573
+msgid "Profil\nKavrama\nOranı"
+msgstr ""
+
+#: disci.form:578
+msgid "1.65"
+msgstr "1.65"
+
+#: disci.form:598 kama.form:89 vinc.form:1177
+msgid "Solve"
+msgstr "Çöz"
+
+#: disci.form:603
+msgid "Modulus of elasticity N/mm2"
+msgstr "Elastisite modülü(N/mm^2)"
+
+#: disci.form:608
+msgid "21000"
+msgstr "21000"
+
+#: disci.form:613
+msgid "Grip Angle."
+msgstr "Kavrama Açısı"
+
+#: disci.form:618 ilk.form:2851 kapak.form:177 pase.form:506
+msgid "20"
+msgstr "20"
+
+#: disci.form:621 mukavemetli.form:195
+msgid "Step #2"
+msgstr "Adım #2"
+
+#: disci.form:625
+msgid "Load Results"
+msgstr "Sonuçları göster"
+
+#: disci.form:629
+msgid "Tangent\nLoad\n(N)"
+msgstr "Teğet\nYükü\n(N)"
+
+#: disci.form:634
+msgid "Radial\nLoad\n(N)"
+msgstr "radyal\n yük(N)"
+
+#: disci.form:655 pase.form:585
+msgid "1.Level"
+msgstr "1.Kademe"
+
+#: disci.form:660 pase.form:590
+msgid "2.Level"
+msgstr "2.kademe"
+
+#: disci.form:665 pase.form:595
+msgid "3.Level"
+msgstr "3.kademe"
+
+#: disci.form:670
+msgid "4.Level"
+msgstr "4.Kademe"
+
+#: disci.form:675
+msgid "Tork\n(Nm)"
+msgstr "Tork(Nm)"
+
+#: disci.form:712
+msgid "Axis\nLoad\n(N)"
+msgstr "Eksen\nYük\nn(n)"
+
+#: disci.form:749
+msgid "Speed\n(rpm)"
+msgstr "Hız(d/dk)"
+
+#: disci.form:759
+msgid "Safety Results"
+msgstr "Sonuçlar."
+
+#: disci.form:783
+msgid "Teeth deep\nsafety\ncoeff."
+msgstr "Diş dibine\ngöre emn. \nkatsayısı"
+
+#: disci.form:788
+msgid "Pressure\nsafety\ncoeff."
+msgstr "Emniyetli basınç katsayısı"
+
+#: disci.form:825
+msgid "Modul1"
+msgstr "Modül1"
+
+#: disci.form:846
+msgid "Modul2"
+msgstr "Modül2"
+
+#: disci.form:866 mukavemetli.form:344
+msgid "Step #3"
+msgstr "Adım #3"
+
+#: disci.form:870
+msgid "Specify profile wrapping .(mm.)"
+msgstr "Profil kaydırmayı belirle(mm)"
+
+#: disci.form:894
+msgid "Axises distance  :"
+msgstr "Eksenler arası mesafe:"
+
+#: disci.form:899
+msgid "axis include scroll profile."
+msgstr "Eksende profil kaydırma."
+
+#: disci.form:968
+msgid "Pinion section circle diameter"
+msgstr "Piyon kesit çapı"
+
+#: disci.form:973
+msgid "Pinyon Diş Üstü Çapı"
+msgstr ""
+
+#: disci.form:978
+msgid "Çark Diş Üstü Çapı"
+msgstr ""
+
+#: disci.form:983
+msgid "gear section circle diameter"
+msgstr "Dişli kesit çapı"
+
+#: disci.form:1032
+msgid "Total scroll profile"
+msgstr "Toplam profil kaydırma"
+
+#: disci.form:1093
+msgid "Alın Kesiti Modülü"
+msgstr ""
+
+#: disci.form:1130
+msgid "Pinyon Diş Dibi Çapı"
+msgstr ""
+
+#: disci.form:1139
+msgid "Pinyon pro.kaydırması"
+msgstr ""
+
+#: disci.form:1160
+msgid "Çark pro. kaydırması"
+msgstr ""
+
+#: disci.form:1209
+msgid "Çark Diş Dibi Çapı"
+msgstr ""
+
+#: disci.form:1223
+msgid "Save to results"
+msgstr "Sonuçları kaydet"
+
+#: disci.form:1226 mukavemetli.form:380 torna.form:127
+msgid "Step #4"
+msgstr "Adım #4"
+
+#: disci.form:1230
+msgid "Shaft diameters (mm.): "
+msgstr "Mil çapı(mm.)"
+
+#: disci.form:1254
+msgid "Diameter on 1 point(mm)"
+msgstr "1 noktasındaki çap(mm.)"
+
+#: disci.form:1259
+msgid "Diameter on 2 point(mm)"
+msgstr "2 noktasındaki çap(mm.)"
+
+#: konvoy.form:131 mukavemetli.form:376 pase.form:253
+msgid "Calculate"
+msgstr "Hesapla"
+
+#: disci.form:1303
+msgid "a b c dimensions in the picture(mm.)"
+msgstr "resimdeki a b c ölçüleri(mm.)"
+
+#: disci.form:1327
+msgid "a"
+msgstr "a"
+
+#: disci.form:1332
+msgid "b"
+msgstr ""
+
+#: disci.form:1337
+msgid "c"
+msgstr "c"
+
+#: disci.form:1342 kapi.form:286 pase.form:221 torna.form:65 vinc.form:1124
+msgid "150"
+msgstr "150"
+
+#: disci.form:1347
+msgid "160"
+msgstr "160"
+
+#: disci.form:1357
+msgid "85"
+msgstr "85"
+
+#: disci.form:1367
+msgid "75"
+msgstr "75"
+
+#: disci.form:1372
+msgid "130"
+msgstr "130"
+
+#: disci.form:1377
+msgid "105"
+msgstr "105"
+
+#: disci.form:1388
+msgid "205"
+msgstr "205"
+
+#: disci.form:1403
+msgid "5.Level"
+msgstr "5.Kademe"
+
+#: disci.form:1422
+msgid "Mil Malzemesi (N/mm^2)"
+msgstr ""
+
+#: disci.form:1426
+msgid "Safety Bending Stress: "
+msgstr "Emn. Bükülme gerilmesi"
+
+#: disci.form:1436
+msgid "Emn. Burulma Gerilmesi:"
+msgstr ""
+
+#: torna.form:99
+msgid "50"
+msgstr "50"
+
+#: disci.form:1455
+msgid "Larger than\n the shaft \ndiameter \nis used for each \nstage."
+msgstr "Her kademedeki\n hesaplanandan \n daha büyük mil çapı."
+
+#: toolplace.form:130 yazicim.form:111
+msgid "Cancel"
+msgstr "İptal"
+
+#: dizim.form:60
+msgid "Rotate Drawings"
+msgstr "Dönüş Çizimi"
+
+#: dizim.form:69
+msgid "Pick"
+msgstr "Seç"
+
+#: dizim.form:78
+msgid "Center X"
+msgstr "Merkez X"
+
+#: dizim.form:83
+msgid "Center Y"
+msgstr "Merkez Y"
+
+#: dizim.form:92
+msgid "Count"
+msgstr "Adet"
+
+#: dizim.form:95
+msgid "Rectangular"
+msgstr "Dikdörtgen"
+
+#: dizim.form:104
+msgid " L Distance:"
+msgstr "L Mesafesi:"
+
+#: dizim.form:109
+msgid "S Distance  :"
+msgstr "S Mesafesi"
+
+#: dizim.form:114
+msgid "Column Count  :"
+msgstr "Satır  Sayısı"
+
+#: dizim.form:119
+msgid "Row Count  :"
+msgstr "Sütun Sayısı"
+
+#: dizim.form:124 hesapmak.form:70 vinc.form:1104
+msgid "4"
+msgstr "4"
+
+#: dizim.form:145
+msgid "L"
+msgstr ""
+
+#: dizim.form:150
+msgid "S"
+msgstr ""
+
+#: dizim.form:155
+msgid "L\nS"
+msgstr ""
+
+#: donus.form:53
+msgid "Kaynak"
+msgstr ""
+
+#: donus.form:57
+msgid "RadioButton1"
+msgstr ""
+
+#: donus.form:62
+msgid "RadioButton2"
+msgstr ""
+
+#: donus.form:67
+msgid "RadioButton3"
+msgstr ""
+
+#: donus.form:72
+msgid "RadioButton4"
+msgstr ""
+
+#: donus.form:77
+msgid "RadioButton5"
+msgstr ""
+
+#: donus.form:103
+msgid "Specify Converting unit"
+msgstr "Birim Belirle"
+
+#: donus.form:108
+msgid "Hedef"
+msgstr ""
+
+#: donus.form:158
+msgid "Input Value :"
+msgstr "Giriş Değeri:"
+
+#: donus.form:163
+msgid "Result: "
+msgstr "Sonuç:"
+
+#: dosac.form:35 fblokal.form:36
+msgid "OPEN"
+msgstr "AÇ"
+
+#: dosac.form:41 kayipci.form:19
+msgid "*.DXF"
+msgstr ""
+
+#: dosac.form:41 kayipci.form:19
+msgid "*.ULU"
+msgstr ""
+
+#: dosac.form:41 kayipci.form:19
+msgid "*.dxf"
+msgstr ""
+
+#: dosac.form:41 kayipci.form:19
+msgid "*.ulu"
+msgstr ""
+
+#: dosac.form:51 kayipci.form:50
+msgid "Home"
+msgstr "Ev"
+
+#: dosac.form:56 kayipci.form:40
+msgid "Desktop"
+msgstr "MasaÜstü"
+
+#: dosac.form:61 kayipci.form:45
+msgid "USB"
+msgstr ""
+
+#: fblok.form:30
+msgid "Write a name for block:"
+msgstr "Bloğa bir İsim Verin"
+
+#: fblokal.form:59
+msgid "DELETE"
+msgstr "SİL"
+
+#: fblokal.form:69
+msgid "ANTET "
+msgstr ""
+
+#: fblokal.form:74
+msgid "HYDRAULIC"
+msgstr "HİDROLİK"
+
+#: fblokal.form:79
+msgid "BLOCKS"
+msgstr "ÇİZİMDEKİ BLOKLAR"
+
+#: fea.form:89
+msgid "Agreement"
+msgstr "Anlaşma"
+
+#: fea.form:97
+msgid "Show GPL"
+msgstr "GPL Göster"
+
+#: fea.form:102
+msgid "I read Legal_disclaimer.\nI read  GPL. I agree both."
+msgstr "GPL yi ve yasal açıklamayı \n okudum ve kabul ediyorum"
+
+#: fea.form:105
+msgid "Material "
+msgstr "Malzeme"
+
+#: fea.form:113
+msgid "Elastisity Modules"
+msgstr "Elastisite Modülü"
+
+#: fea.form:118
+msgid "Poison Ratio"
+msgstr "Poison oranı"
+
+#: fea.form:138
+msgid "Specify Material"
+msgstr "Malzeme Seç"
+
+#: fea.form:149
+msgid "Material Thickness (mm.):"
+msgstr "Malzeme Kalınlığı(mm.):"
+
+#: fea.form:154
+msgid "SE MESH"
+msgstr "Meshle"
+
+#: fea.form:159
+msgid "Other Material"
+msgstr "Başka Malzeme"
+
+#: fea.form:168
+msgid "Mesh Size :(İf your comp. is  \ngood then specify> 5\nElse specify  < 5                      )\n"
+msgstr "Mesh ölçüsü(Bilg. iyiyse\n 5 ten büyük seçilebilir\n"
+
+#: fea.form:171
+msgid "LOADS"
+msgstr "YÜKLER"
+
+#: fea.form:179
+msgid "Specify Load Point (Kgf.)"
+msgstr "Noktaya Uygulanan Yük(kgf.)"
+
+#: fea.form:184 pase.form:137
+msgid "3000"
+msgstr "3000"
+
+#: fea.form:190
+msgid "Selected Points"
+msgstr "Seçilen Noktalar"
+
+#: fea.form:195
+msgid "X axis"
+msgstr "X ekseni"
+
+#: fea.form:201
+msgid "Y axis"
+msgstr "Y Ekseni"
+
+#: fea.form:206
+msgid "Degree"
+msgstr "Derece"
+
+#: fea.form:212 pase.form:495
+msgid "45"
+msgstr "45"
+
+#: fea.form:236
+msgid "UP"
+msgstr "YUKARI"
+
+#: fea.form:242
+msgid "DOWN"
+msgstr "AŞAĞI"
+
+#: fea.form:252
+msgid "BOUNDARY CONDITIONS"
+msgstr "SINIR ŞARTLARI"
+
+#: fea.form:257
+msgid "Choose a calculation type"
+msgstr "Hesaplama yöntemini seçin."
+
+#: fea.form:261
+msgid "Finite element (Normal)"
+msgstr "Sonlu Eleman"
+
+#: fea.form:267
+msgid "Beam"
+msgstr "Kiriş"
+
+#: fea.form:277
+msgid "X FIXED"
+msgstr "X SABİTLEME"
+
+#: fea.form:282
+msgid "Y FIXED"
+msgstr "Y SABİTLEME"
+
+#: fea.form:287
+msgid "X-Y FIXED"
+msgstr "X-Y SABİTLEME"
+
+#: fea.form:292
+msgid "Selected Point"
+msgstr "Seçilen Nokta"
+
+#: fea.form:310
+msgid "Z88 SOLVER"
+msgstr "Z88 Çözücü"
+
+#: fea.form:314
+msgid "Choice of the reduced\n stress hypothesis     :"
+msgstr "Uygulanacak Gerilme\n hipotezini seçin :"
+
+#: fea.form:323
+msgid "RUN Z88 SOLVER"
+msgstr "Z88 ile ÇÖZ"
+
+#: fea.form:332
+msgid "Z88 Developed by : Prof. Dr.-Ing. Frank Rieg, Chair of \nEngineering Design and CAD, University of Bayreuth, \nGermany\n\nhttp://www.z88.uni-bayreuth.de/english.html"
+msgstr "Z88 Geliştirici: Prof.Dr.Ing.Frank Rieg. Chairof \n Engineering Design and CAD , Bayreuth Üniversitesi,\nAlmanya\n\nhttp://www.z88.uni-bayreuth.de/english.html"
+
+#: fea.form:335
+msgid "RESULTS"
+msgstr "SONUÇLAR"
+
+#: fea.form:339
+msgid "DEFORMED X  POINTS"
+msgstr "ŞEKİL DEĞİŞTİRME X NOKTALARI"
+
+#: fea.form:344
+msgid "DEFORMED Y POINTS"
+msgstr "ŞEKİL DEĞİŞTİRME Y NOKTALARI"
+
+#: fea.form:349
+msgid "SHOW MESH"
+msgstr "MESH i GÖSTER"
+
+#: fea.form:354
+msgid "DEFORMED  POINTS"
+msgstr "ŞEKİL DEĞİŞTİRME NOKTALAR"
+
+#: fea.form:359
+msgid "X Deformed Shape"
+msgstr "X Şekil Değişimi"
+
+#: fea.form:364
+msgid "Y Deformed Shape"
+msgstr "Y Şekil Değişimi"
+
+#: fea.form:369
+msgid "SHOW DEFORMED\nSHAPE"
+msgstr "ŞEKİL DEĞİŞİMİNİ\nGÖSTER"
+
+#: fea.form:374
+msgid "SHOW \nALL"
+msgstr "HEPSİNİGÖSTER"
+
+#: fea.form:379
+msgid "SHOW POINTS"
+msgstr "NOKTALARI GÖSTER"
+
+#: fea.form:384
+msgid "SHOW ELEMENTS\nNUMBER"
+msgstr "ELEMAN NUMARASINI \nGÖSTER"
+
+#: fea.form:387 vinc.form:1316
+msgid "Step #7"
+msgstr "Adım #7"
+
+#: fea.form:415
+msgid "Select Line"
+msgstr "Çizgi Seç"
+
+#: fea.form:420
+msgid "Select Element"
+msgstr "Eleman Seç"
+
+#: fea.form:425
+msgid "Specify Presure\n      Point"
+msgstr "Elemana Uygulanan Basınç"
+
+#: fea.form:430 kama.form:84 kapi.form:276 mukavemetli.form:734 pase.form:152
+msgid "500"
+msgstr "500"
+
+#: fea.form:436
+msgid "Presure(kgf./cm^2))"
+msgstr "Basınç(kgf/cm^2)"
+
+#: gerde.form:20 torna.form:131 vinc.form:405
+msgid "Button1"
+msgstr "Buton"
+
+#: gorsel.form:70 hiddev.form:74
+msgid "Dosya"
+msgstr ""
+
+#: gorsel.form:73
+msgid "Proje Aç"
+msgstr ""
+
+#: gorsel.form:77
+msgid "Projeyi kaydet"
+msgstr ""
+
+#: gorsel.form:81
+msgid "Çalıştırma dosyasını Kaydet"
+msgstr ""
+
+#: gorsel.form:86
+msgid "Menu3"
+msgstr ""
+
+#: gorsel.form:90
+msgid "Taşı"
+msgstr ""
+
+#: gorsel.form:94
+msgid "kopyala"
+msgstr ""
+
+#: gorsel.form:103
+msgid "Visual"
+msgstr "Görsel"
+
+#: gorsel.form:107 ilk.form:761
+msgid "Arc"
+msgstr "Yay"
+
+#: gorsel.form:112 ilk.form:731
+msgid "Circle"
+msgstr "Çember"
+
+#: gorsel.form:117 ilk.form:711
+msgid "Line"
+msgstr "Çizgi"
+
+#: gorsel.form:122 ilk.form:777
+msgid "Text"
+msgstr "Yazı"
+
+#: gorsel.form:127
+msgid "Textbox"
+msgstr ""
+
+#: gorsel.form:132
+msgid "Button"
+msgstr "Buton"
+
+#: gorsel.form:137
+msgid "CheckBox"
+msgstr ""
+
+#: gorsel.form:142
+msgid "Combobox"
+msgstr ""
+
+#: gorsel.form:147
+msgid "List"
+msgstr "Liste"
+
+#: gorsel.form:152
+msgid "Picture"
+msgstr "Resim"
+
+#: gorsel.form:163
+msgid "Codes"
+msgstr "Kodlar"
+
+#: gorsel.form:187
+msgid "gbs file"
+msgstr "gbs Dosyası"
+
+#: gorsel.form:222
+msgid "Group"
+msgstr "Grup"
+
+#: gorsel.form:231
+msgid "Name"
+msgstr "Ad"
+
+#: gorsel.form:244
+msgid "X"
+msgstr "X"
+
+#: gorsel.form:249
+msgid "Y"
+msgstr "Y"
+
+#: gorsel.form:276
+msgid "Height"
+msgstr "Yükseklik"
+
+#: gorsel.form:285
+msgid "Width"
+msgstr "Genişlik"
+
+#: gorsel.form:304
+msgid "Macro name :"
+msgstr "Makro  Adı:"
+
+#: gorsel.form:313
+msgid "Load this macro when KediCAD opening."
+msgstr "KediCAD Açılırken bu makroyu yükle."
+
+#: gorsel.form:319
+msgid "You can run this macro with it's name. \nWrite macro name to Command line."
+msgstr "Bu makroyu adıyla komut satırından\n çalıştırabilirsiniz."
+
+#: gorsel.form:324 ilk.form:531 kayipci.form:34 toolldefine.form:52
+msgid "Save"
+msgstr "Kaydet"
+
+#: gorsel.form:344 ilk.form:2792
+msgid "TAMAM"
+msgstr ""
+
+#: gorsel.form:356
+msgid "Bir Dizin Seçin"
+msgstr ""
+
+#: hesapmak.form:38
+msgid "Calculater"
+msgstr "Hesap Mak."
+
+#: hesapmak.form:58 hidrof.form:135 pase.form:167 vinc.form:268
+msgid "2"
+msgstr "2"
+
+#: hesapmak.form:82 toolplace.form:100 vinc.form:1169
+msgid "6"
+msgstr "6"
+
+#: hesapmak.form:88 vinc.form:385
+msgid "8"
+msgstr "8"
+
+#: hesapmak.form:94
+msgid "9"
+msgstr "9"
+
+#: hesapmak.form:100 yazicim.form:133
+msgid "+"
+msgstr "+"
+
+#: hesapmak.form:106 ilk.form:2512 yazicim.form:127
+msgid "-"
+msgstr "-"
+
+#: hesapmak.form:112
+msgid "x"
+msgstr ""
+
+#: hesapmak.form:118
+msgid "/"
+msgstr "/"
+
+#: hesapmak.form:130
+msgid "="
+msgstr "="
+
+#: hesapmak.form:136
+msgid "CE"
+msgstr ""
+
+#: hesapmak.form:148
+msgid ","
+msgstr ","
+
+#: hiddev.form:77
+msgid "yeni"
+msgstr ""
+
+#: hiddev.form:82
+msgid "Pompalar"
+msgstr ""
+
+#: hiddev.form:85
+msgid "Salınım Motoru"
+msgstr ""
+
+#: hiddev.form:89
+msgid "Çift Yönlü"
+msgstr ""
+
+#: hiddev.form:98
+msgid "POMPA"
+msgstr ""
+
+#: hiddev.form:103
+msgid "SİLİNDİR"
+msgstr ""
+
+#: hiddev.form:108
+msgid "KUMANDA \nVALFLERİ"
+msgstr ""
+
+#: hiddev.form:113
+msgid "ÖZEL\nVALFLER"
+msgstr ""
+
+#: hiddev.form:118
+msgid "ÇEK\nVALF"
+msgstr ""
+
+#: hiddev.form:128
+msgid "Hat"
+msgstr ""
+
+#: hiddev.form:156 ilk.form:2880
+msgid "TextBox2"
+msgstr ""
+
+#: hiddev.form:165
+msgid "ÇİFT\nYÖNLÜ"
+msgstr ""
+
+#: hiddev.form:170
+msgid "TEK\nYÖNLÜ"
+msgstr ""
+
+#: hiddev.form:175
+msgid "SALINIM\nMOTORU"
+msgstr ""
+
+#: hiddev.form:185
+msgid "2/2 P-A\n AÇIK"
+msgstr "2/2P-A\n AÇIK"
+
+#: hiddev.form:190
+msgid "2/2 P-A\nKAPALI"
+msgstr "2/2P-A\nKAPALI"
+
+#: hiddev.form:195
+msgid "3/2 P-A\nAÇIK"
+msgstr "3/2 P-A\nAçık"
+
+#: hiddev.form:200
+msgid "3/2 P-A\nKAPALI"
+msgstr ""
+
+#: hiddev.form:205
+msgid "3/3 YÖN-\nLENDİRME"
+msgstr ""
+
+#: hiddev.form:210
+msgid "4/2 YÖN-\nLENDİRME"
+msgstr ""
+
+#: hiddev.form:215
+msgid "4/3 \nKAPALI"
+msgstr ""
+
+#: hiddev.form:220
+msgid "4/3 DÖNÜ-\nŞÜMLÜ"
+msgstr ""
+
+#: hiddev.form:230
+msgid "TEK\nETKİLİ"
+msgstr ""
+
+#: hiddev.form:235
+msgid "ÇİFT \nETKİLİ"
+msgstr ""
+
+#: hiddev.form:245
+msgid "İKİ \nROTLU"
+msgstr ""
+
+#: hiddev.form:250
+msgid "TEK \nROTLU"
+msgstr ""
+
+#: hiddev.form:255
+msgid "SÜREKLİ\nTAHRİK"
+msgstr ""
+
+#: hiddev.form:265
+msgid "DIŞ\nKUVVET"
+msgstr ""
+
+#: hiddev.form:270
+msgid "YAYLI"
+msgstr ""
+
+#: hiddev.form:275
+msgid "YASTIKLI"
+msgstr ""
+
+#: hiddev.form:290
+msgid "BASINÇ\nVALFLERİ"
+msgstr ""
+
+#: hiddev.form:295
+msgid "AKIŞ\nVALFLERİ"
+msgstr ""
+
+#: hiddev.form:305
+msgid "2 \nYOLLU"
+msgstr ""
+
+#: hiddev.form:310
+msgid "3\nYOLLU"
+msgstr ""
+
+#: hiddev.form:315
+msgid "İÇERDEN\nTANK"
+msgstr ""
+
+#: hiddev.form:320
+msgid "DIŞARDAN \nTANK"
+msgstr ""
+
+#: hiddev.form:330
+msgid "AYAR.\nKISMA"
+msgstr ""
+
+#: hiddev.form:335
+msgid "KISMA"
+msgstr ""
+
+#: hiddev.form:340
+msgid "ORİFİS"
+msgstr "Delik"
+
+#: hiddev.form:345
+msgid "KAPAMA"
+msgstr ""
+
+#: hiddev.form:355
+msgid "VEYA"
+msgstr ""
+
+#: hiddev.form:360
+msgid "VE"
+msgstr ""
+
+#: hiddev.form:365
+msgid "AYAR. AKIŞ\nKONTROL"
+msgstr ""
+
+#: hiddev.form:370
+msgid "ÇABUK\nBOŞALTMA"
+msgstr ""
+
+#: hiddev.form:375
+msgid "DÜZ\nÇEKVALF"
+msgstr ""
+
+#: hidrof.form:68
+msgid "Input Values"
+msgstr "Giriş Değerleri"
+
+#: hidrof.form:79
+msgid "Load (kg.)"
+msgstr "Yük(kgf)"
+
+#: hidrof.form:84
+msgid "Ultimate stress(kgf/mm^2)"
+msgstr "Çekme Gerilmesi(kgf/mm^2)"
+
+#: hidrof.form:89
+msgid "Max. Pressure (bar)"
+msgstr "Max.Basınç(bar)"
+
+#: hidrof.form:94 vinc.form:263
+msgid "Safety coefficient"
+msgstr "Emniyet Katsayısı"
+
+#: hidrof.form:99
+msgid "Working pressure(bar)"
+msgstr "Çalışma Basıncı(bar)"
+
+#: hidrof.form:104
+msgid "Time(second)"
+msgstr "Zaman(sn)"
+
+#: hidrof.form:109
+msgid "Stroke(cm)"
+msgstr "Strok(cm)"
+
+#: hidrof.form:130
+msgid "35"
+msgstr "35"
+
+#: hidrof.form:140 kapak.form:103
+msgid "300"
+msgstr "300"
+
+#: hidrof.form:154 kama.form:95 konvoy.form:193 vinc.form:1185
+msgid "Results"
+msgstr "Sonuç"
+
+#: hidrof.form:162
+msgid "Flow  lt/dk."
+msgstr "Debi(lt/dk)"
+
+#: hidrof.form:175
+msgid "Engine power ( kW)."
+msgstr "Motor Gücü(kW)"
+
+#: hidrof.form:188
+msgid "Input pipe diameter (mm.)"
+msgstr "Boru giriş Çapı(mm)"
+
+#: hidrof.form:193
+msgid "Output pipe diameter(mm.)"
+msgstr "Boru Dış Çapı(mm)"
+
+#: hidrof.form:198
+msgid "Cylinder Inner dia.( mm.)"
+msgstr "Silindir İç Çapı(mm.)"
+
+#: hidrof.form:211
+msgid "Cylinder outer dia.(mm.)"
+msgstr "Silindir dış Çapı(mm.)"
+
+#: hidrof.form:215
+msgid "Flambaj Control"
+msgstr "Burkulma Kontrolü"
+
+#: hidrof.form:219 mukavemetli.form:598
+msgid "Connection Form"
+msgstr "Bağlantı formu"
+
+#: hidrof.form:223
+msgid "Bir uç sabit"
+msgstr ""
+
+#: hidrof.form:229
+msgid "both end \njoint"
+msgstr "İki Uç \n eklem"
+
+#: hidrof.form:235
+msgid "First end joint\nsecond end fixed"
+msgstr "ilk bağ. eklem\n2.bağ sabit"
+
+#: hidrof.form:259
+msgid "upper   free\nlower  fixed"
+msgstr "Üst Serbest\nAlt Sabit"
+
+#: hidrof.form:271 mukavemetli.form:638
+msgid "Both end\nfixed"
+msgstr "İki Uç \nSabit"
+
+#: hidrof.form:277 mukavemetli.form:660
+msgid "2.5"
+msgstr "2.5"
+
+#: hidrof.form:287
+msgid "(o less then 2.5)"
+msgstr ""
+
+#: hidrof.form:292 mukavemetli.form:697
+msgid "Check"
+msgstr "Kontrol"
+
+#: hidrof.form:298
+msgid "Rod legth (l) (cm.)"
+msgstr "Rot Uzunluğu(l)(cm)"
+
+#: hidrof.form:313
+msgid "Max.Load.(kgf.)"
+msgstr "Max. Yük(kgf)"
+
+#: hidrof.form:323
+msgid "Rod diameter (mm.)"
+msgstr "Rot Çapı(mm)"
+
+#: hidrof.form:332 kesitli.form:184 konvoy.form:453 vinc.form:825
+msgid "Save to File"
+msgstr "Dosyayı kaydet"
+
+#: ilk.class:1836
+msgid "valv*"
+msgstr ""
+
+#: ilk.class:1911
+msgid "pumpsing*"
+msgstr ""
+
+#: ilk.class:1922
+msgid "elecmo*"
+msgstr ""
+
+#: ilk.class:1933
+msgid "pressu*"
+msgstr ""
+
+#: ilk.class:1944
+msgid "do*"
+msgstr ""
+
+#: ilk.class:1991
+msgid "line*"
+msgstr ""
+
+#: ilk.class:2015
+msgid "doub*"
+msgstr "çift"
+
+#: ilk.class:2164
+msgid "elecmotor*"
+msgstr ""
+
+#: ilk.class:2414
+msgid "lineto*"
+msgstr ""
+
+#: ilk.form:517
+msgid "File"
+msgstr "Dosya"
+
+#: ilk.form:520
+msgid "New"
+msgstr "Yeni"
+
+#: ilk.form:525 pase.form:484
+msgid "Open"
+msgstr "Aç"
+
+#: ilk.form:537
+msgid "Save As"
+msgstr "Farklı Kaydet"
+
+#: ilk.form:542
+msgid "stl save"
+msgstr "Stl Kayıt"
+
+#: ilk.form:546
+msgid "Save as a picture"
+msgstr "Resim olarak kaydet"
+
+#: ilk.form:551
+msgid "Save pdf format"
+msgstr "Pdf olarak kaydet"
+
+#: ilk.form:557
+msgid "Add Picture"
+msgstr "Resim Ekle"
+
+#: ilk.form:563
+msgid "Last files"
+msgstr "Son Açılan Dosyalar"
+
+#: ilk.form:568 pdfkayit.form:15 yazicim.form:144
+msgid "Print"
+msgstr "Yazdır"
+
+#: ilk.form:573
+msgid "System Tray"
+msgstr "Sistem Tepsisi"
+
+#: ilk.form:577
+msgid "Exit"
+msgstr "Çıkış"
+
+#: ilk.form:583
+msgid "Edit"
+msgstr "Düzenle"
+
+#: ilk.form:586
+msgid "Copy"
+msgstr "Kopyala"
+
+#: ilk.form:591
+msgid "Paste"
+msgstr "Yapıştır"
+
+#: ilk.form:596
+msgid "Match properties"
+msgstr "Benzet"
+
+#: ilk.form:601
+msgid "Special Select"
+msgstr "Özel Seçim"
+
+#: ilk.form:605
+msgid "Paste as Block"
+msgstr "Blok yapıştır"
+
+#: ilk.form:610
+msgid "Errors"
+msgstr ""
+
+#: ilk.form:615
+msgid "Update"
+msgstr "Güncelle"
+
+#: ilk.form:620
+msgid "View"
+msgstr "Görüntü"
+
+#: ilk.form:623
+msgid "Zoom"
+msgstr "Yaklaş"
+
+#: ilk.form:628
+msgid "Zoom All"
+msgstr "Tümünü Göster"
+
+#: ilk.form:633
+msgid "Zoom Out"
+msgstr "Uzaklaş"
+
+#: ilk.form:638
+msgid "Zoom In"
+msgstr "Yaklaş"
+
+#: ilk.form:643
+msgid "Scale:1"
+msgstr "Ölçek:1"
+
+#: ilk.form:648
+msgid "Simulation"
+msgstr "Canlandırma"
+
+#: ilk.form:653
+msgid "Properties"
+msgstr "Özellikler"
+
+#: ilk.form:658
+msgid "List drawings"
+msgstr "Çizimi Listele"
+
+#: ilk.form:663
+msgid "Show picture"
+msgstr "Resmi Göster"
+
+#: ilk.form:669
+msgid "Display Coor."
+msgstr "Koor. Göster"
+
+#: ilk.form:676
+msgid "Show Limits"
+msgstr "Çizim Sınırlarını Göster"
+
+#: ilk.form:682
+msgid "Dynamic view"
+msgstr "Önizleme"
+
+#: ilk.form:687
+msgid "Toolbars"
+msgstr "Toolbarlar"
+
+#: ilk.form:691 mikro.form:25
+msgid "Hide"
+msgstr "Gizle"
+
+#: ilk.form:696
+msgid "Show"
+msgstr "Göster"
+
+#: ilk.form:702
+msgid "Opacity"
+msgstr "Donukluk"
+
+#: ilk.form:708 kama.form:186 kapak.form:115 kapi.form:155 vinc.form:814
+msgid "Draw"
+msgstr "Çizim"
+
+#: ilk.form:716
+msgid "Polyline"
+msgstr "Polyline"
+
+#: ilk.form:721
+msgid "Polygon"
+msgstr "Çokgen"
+
+#: ilk.form:726
+msgid "Rectangle"
+msgstr "Dikdörtgen"
+
+#: ilk.form:735
+msgid "Center-Radius"
+msgstr "Merkez-Yarıçap"
+
+#: ilk.form:740
+msgid "Circle 2 Point"
+msgstr "2 Nokta Çember"
+
+#: ilk.form:745
+msgid "Circle 3 Point"
+msgstr "3 Nokta Çember"
+
+#: ilk.form:750
+msgid "Axis"
+msgstr "Eksen"
+
+#: ilk.form:755
+msgid "Ellipse"
+msgstr "Elips"
+
+#: ilk.form:766
+msgid "Center-Angle1-Angle2"
+msgstr "Merkez-1.Açı-2.Açı"
+
+#: ilk.form:771
+msgid "Arc 3 Point"
+msgstr "3 Nokta Yay"
+
+#: ilk.form:782
+msgid "Extrude"
+msgstr "Yükselt"
+
+#: ilk.form:788
+msgid "Dimension"
+msgstr "Ölçü"
+
+#: ilk.form:791
+msgid "Linear"
+msgstr "Doğrusal"
+
+#: ilk.form:796
+msgid "Aligned"
+msgstr "Yaslanmış"
+
+#: ilk.form:801
+msgid "Angular"
+msgstr "Açısal"
+
+#: ilk.form:806
+msgid "Radius"
+msgstr "Yarıçap"
+
+#: ilk.form:811
+msgid "Diameter"
+msgstr "Çap"
+
+#: ilk.form:816
+msgid "Baloon"
+msgstr "Balon"
+
+#: ilk.form:821
+msgid "Welding"
+msgstr "Kaynak"
+
+#: ilk.form:827
+msgid "Modify"
+msgstr "Değişiklik"
+
+#: ilk.form:830
+msgid "Erase"
+msgstr "Sil"
+
+#: ilk.form:835
+msgid "Move"
+msgstr "Taşı"
+
+#: ilk.form:850
+msgid "Mirror"
+msgstr "Aynala"
+
+#: ilk.form:855
+msgid "Offset"
+msgstr "Ötele"
+
+#: ilk.form:860
+msgid "Block"
+msgstr "Blok"
+
+#: ilk.form:865
+msgid "Explode"
+msgstr "Patlat"
+
+#: ilk.form:870
+msgid "Trim-Extend"
+msgstr "Buda-Uzat"
+
+#: ilk.form:875
+msgid "Kesiştir"
+msgstr ""
+
+#: ilk.form:880
+msgid "Fillet"
+msgstr "Yuvarla"
+
+#: ilk.form:885
+msgid "Chamfer"
+msgstr "Pah"
+
+#: ilk.form:890
+msgid "Delete All"
+msgstr "Tümünü Sil"
+
+#: ilk.form:896
+msgid "Inquiry"
+msgstr "Bilgi"
+
+#: ilk.form:903
+msgid "Point Coor."
+msgstr "Koor. Noktası"
+
+#: ilk.form:908
+msgid "Distance"
+msgstr "Mesafe"
+
+#: ilk.form:913
+msgid "Angle"
+msgstr "Açı"
+
+#: ilk.form:919
+msgid "Polar Tracking"
+msgstr "Açısal İzleme"
+
+#: ilk.form:924
+msgid "Object Snap"
+msgstr "Uç Yakalama"
+
+#: ilk.form:929
+msgid "Grid"
+msgstr "Izgara"
+
+#: ilk.form:935
+msgid "Macros"
+msgstr "Makrolar"
+
+#: ilk.form:938
+msgid "Visual Macro"
+msgstr "Görsel Makro"
+
+#: ilk.form:971
+msgid "Calculations"
+msgstr "Hesaplar"
+
+#: ilk.form:974
+msgid "Unit Convert"
+msgstr "Birim Çevirici"
+
+#: ilk.form:979
+msgid "Section Modulüs"
+msgstr "Mukavemet Momenti"
+
+#: ilk.form:984
+msgid "Strength"
+msgstr "Gerilme"
+
+#: ilk.form:989
+msgid "Gear"
+msgstr "Dişli"
+
+#: ilk.form:994
+msgid "Reductor"
+msgstr "Redüktör"
+
+#: ilk.form:999
+msgid "Hydraulic"
+msgstr "Hidrolik"
+
+#: ilk.form:1004
+msgid "Hydraulic analysis"
+msgstr "Hidrolik Analiz"
+
+#: ilk.form:1009
+msgid "Calculator"
+msgstr "Hesap Mak."
+
+#: ilk.form:1014
+msgid "Hydraulic Circuit Elements"
+msgstr "Hidrolik Devre Elemanları"
+
+#: ilk.form:1019 konvoy.form:80
+msgid "Conveyor"
+msgstr "Konveyör"
+
+#: ilk.form:1024
+msgid "Bearing Selection"
+msgstr "Rulman  Seç"
+
+#: ilk.form:1029
+msgid "Seal Selection"
+msgstr "Keçe Seç"
+
+#: ilk.form:1034
+msgid "Wedge Selection"
+msgstr "Kama Seçimi"
+
+#: ilk.form:1039
+msgid "Crane Calculations"
+msgstr "Vinç Hesapları"
+
+#: ilk.form:1044
+msgid "Loads/Moment Calc."
+msgstr "Yük/Moment Hesabı"
+
+#: ilk.form:1049
+msgid "Finite Element Analysis"
+msgstr "Sonlu Eleman Çözümü"
+
+#: ilk.form:1054
+msgid "Triangulation"
+msgstr "Üçgenleme"
+
+#: ilk.form:1059
+msgid "CAM"
+msgstr "CAM"
+
+#: ilk.form:1067
+msgid "Lathe G-Code"
+msgstr "Torna G-code"
+
+#: ilk.form:1072
+msgid "Milling G-Code"
+msgstr "Freze G-Code"
+
+#: ilk.form:1077
+msgid "Moduller"
+msgstr ""
+
+#: ilk.form:1080
+msgid "Door"
+msgstr "Kapı"
+
+#: ilk.form:1085
+msgid "Kapak"
+msgstr ""
+
+#: ilk.form:1091
+msgid "CAM Area Define"
+msgstr "CAM ALANINI BELİRLE"
+
+#: ilk.form:1096
+msgid "CAM area show"
+msgstr "CAM ALANINI Göster"
+
+#: ilk.form:1100
+msgid "Tool Select"
+msgstr "Takım Seç"
+
+#: ilk.form:1105
+msgid "Tool define"
+msgstr "Takım Ata"
+
+#: ilk.form:1110
+msgid "Tool Place"
+msgstr "Takım yeri"
+
+#: ilk.form:1115
+msgid "Material Dimensions"
+msgstr "Malzeme Ölçüleri(mm)"
+
+#: ilk.form:1121
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: ilk.form:1124
+msgid "Drawing Settings"
+msgstr "Çizim Ayarları"
+
+#: ilk.form:1129
+msgid "License"
+msgstr "Lisans"
+
+#: ilk.form:1134 mikro.form:21
+msgid "Help"
+msgstr "Yardım"
+
+#: ilk.form:1139
+msgid "SEÇİM"
+msgstr ""
+
+#: ilk.form:1143
+msgid "Seçimi temizle"
+msgstr ""
+
+#: ilk.form:1148
+msgid "Last Command"
+msgstr "Son Komut"
+
+#: ilk.form:1153
+msgid "Zoom Area"
+msgstr "Alanı Göster"
+
+#: ilk.form:1172
+msgid "3 Point"
+msgstr "3 Nokta"
+
+#: ilk.form:1177
+msgid "2 Point"
+msgstr "2 Nokta"
+
+#: ilk.form:1198
+msgid "Stretch"
+msgstr "Germe"
+
+#: ilk.form:1242
+msgid "Trim"
+msgstr "Buda"
+
+#: ilk.form:1317
+msgid "Array"
+msgstr "Dizi"
+
+#: ilk.form:1322 yazicim.form:103
+msgid "Scale"
+msgstr "Ölçek"
+
+#: ilk.form:1332
+msgid "Cut"
+msgstr "Kes"
+
+#: ilk.form:1337
+msgid "Make Block"
+msgstr "Blok Yap"
+
+#: ilk.form:1348
+msgid "Saglik"
+msgstr ""
+
+#: ilk.form:1357
+msgid "Display"
+msgstr "Göster"
+
+#: ilk.form:1366
+msgid "etiket"
+msgstr ""
+
+#: ilk.form:1385
+msgid "Text Edit"
+msgstr "Yazı Değiştir"
+
+#: ilk.form:1391
+msgid "Windows"
+msgstr "Pencere"
+
+#: ilk.form:1429
+msgid "CLOSE"
+msgstr ""
+
+#: ilk.form:1442
+msgid "Polisag"
+msgstr ""
+
+#: ilk.form:1446
+msgid "pyay"
+msgstr ""
+
+#: ilk.form:1451
+msgid "pciz"
+msgstr ""
+
+#: ilk.form:1456
+msgid "tmm"
+msgstr ""
+
+#: ilk.form:1461
+msgid "iptal"
+msgstr ""
+
+#: ilk.form:1467
+msgid "Dön Menü"
+msgstr ""
+
+#: ilk.form:1471
+msgid "referans"
+msgstr ""
+
+#: ilk.form:1476
+msgid "İptal"
+msgstr ""
+
+#: ilk.form:1679
+msgid "New File"
+msgstr "Yeni Dosya"
+
+#: ilk.form:1700
+msgid "Copy File"
+msgstr "Dosyaya Kopyala"
+
+#: ilk.form:1707
+msgid "Match Properties"
+msgstr "Benzet"
+
+#: ilk.form:1756
+msgid "Zoom Fit"
+msgstr "Tümünü Göster"
+
+#: ilk.form:1771
+msgid "Scale In"
+msgstr "Büyüt"
+
+#: ilk.form:1778
+msgid "Pan"
+msgstr ""
+
+#: ilk.form:1785
+msgid "Scale Out"
+msgstr "Küçült"
+
+#: ilk.form:1799
+msgid "Scale Previous"
+msgstr "Önceki Ölçek"
+
+#: ilk.form:1812
+msgid "Union"
+msgstr "Birleştir"
+
+#: ilk.form:1834
+msgid "Insert Block"
+msgstr "Blok Ekle"
+
+#: ilk.form:1848
+msgid "Standart\nProfiles"
+msgstr "StandartProfiller"
+
+#: ilk.form:1855
+msgid "Block Edit"
+msgstr "Blok Değişiklik"
+
+#: ilk.form:1862
+msgid "groups"
+msgstr ""
+
+#: ilk.form:1875
+msgid "Dimension diagonal"
+msgstr "Eğik Ölçü"
+
+#: ilk.form:1890
+msgid "Dimension align"
+msgstr "Yatay Ölçü"
+
+#: ilk.form:1897
+msgid "Dimension angle"
+msgstr "Açı Ölçü"
+
+#: ilk.form:1918
+msgid "Dimansion Diameter"
+msgstr "Çap Ölçü"
+
+#: ilk.form:1925
+msgid "Dimension Radius"
+msgstr "Yarıçap Ölçü"
+
+#: ilk.form:1932
+msgid "Detail"
+msgstr "Detay"
+
+#: ilk.form:1988
+msgid "Circle Center Radius"
+msgstr "Çember Merkez-Yarıçap"
+
+#: ilk.form:1995
+msgid "Circle 3 Points"
+msgstr "3 Nokta Çember"
+
+#: ilk.form:2002
+msgid "Arc Center/Radius/End"
+msgstr "Yay Merkez/Yarıçap/Son nokta"
+
+#: ilk.form:2009
+msgid "Ellips"
+msgstr "Elips"
+
+#: ilk.form:2016
+msgid "Arc 3 Points"
+msgstr "3 Nota Yay"
+
+#: ilk.form:2024
+msgid "Circle 2 Points"
+msgstr "2 Nokta Çember"
+
+#: ilk.form:2053
+msgid "spline"
+msgstr ""
+
+#: ilk.form:2060
+msgid "Hatch"
+msgstr "Tarama"
+
+#: ilk.form:2082
+msgid "Macro"
+msgstr "Makro"
+
+#: ilk.form:2107
+msgid "Drawing\nSettings"
+msgstr "Çizim\nAyarları"
+
+#: ilk.form:2115
+msgid "Araç"
+msgstr ""
+
+#: ilk.form:2178
+msgid "Extend"
+msgstr "Uzat"
+
+#: ilk.form:2185
+msgid "Intersection"
+msgstr "Kesişim"
+
+#: ilk.form:2220
+msgid "Select All"
+msgstr "Tümünü Seç"
+
+#: ilk.form:2247
+msgid "Router"
+msgstr "Router"
+
+#: ilk.form:2261
+msgid "Lathe"
+msgstr "Torna"
+
+#: ilk.form:2268
+msgid "Cuttig Area"
+msgstr "Kesim Alanı"
+
+#: ilk.form:2282
+msgid "New Tool "
+msgstr "Yeni Takım"
+
+#: ilk.form:2302
+msgid "First End Points"
+msgstr "İlk-Son Nokta"
+
+#: ilk.form:2309
+msgid "Middle Points"
+msgstr "Orta Nokta"
+
+#: ilk.form:2324
+msgid "Center Points"
+msgstr "Merkez Noktası"
+
+#: ilk.form:2332
+msgid "Default"
+msgstr "Öntanımlı"
+
+#: ilk.form:2338
+msgid "Tangent Points"
+msgstr "Teğet noktaları"
+
+#: ilk.form:2345
+msgid "Perpendicular"
+msgstr "Dik uç yakalama"
+
+#: ilk.form:2352
+msgid "tangent"
+msgstr "Tanjant"
+
+#: ilk.form:2374
+msgid "Flow(lt/dk)"
+msgstr "Debi(lt/dk.)"
+
+#: ilk.form:2379
+msgid "1450"
+msgstr "1450"
+
+#: ilk.form:2416
+msgid "İnfo point"
+msgstr "Nokta Bilgisi"
+
+#: ilk.form:2423
+msgid "İnfo angle"
+msgstr "Açı Bilgisi"
+
+#: ilk.form:2433
+msgid "Info"
+msgstr "Bilgi"
+
+#: ilk.form:2440
+msgid "İnfo measurment"
+msgstr "Mesafe Bilgisi"
+
+#: ilk.form:2454
+msgid "Layer Manager"
+msgstr "Ktman Yönetimi"
+
+#: ilk.form:2460
+msgid "Layer"
+msgstr "Katman"
+
+#: ilk.form:2473
+msgid "Color"
+msgstr "Renk"
+
+#: ilk.form:2478
+msgid "Linetype"
+msgstr "Çizgi Tipi"
+
+#: ilk.form:2484
+msgid "Lintype"
+msgstr "Çizgi Kalınlığı"
+
+#: ilk.form:2491
+msgid "LineWidth"
+msgstr "Çizgi Kalınlığı"
+
+#: ilk.form:2498
+msgid "Linewidth"
+msgstr "Çizgi Kalınlığı"
+
+#: ilk.form:2518
+msgid "|"
+msgstr "|"
+
+#: ilk.form:2536
+msgid "ByLayer"
+msgstr "Katman"
+
+#: ilk.form:2541
+msgid "Close File"
+msgstr "Dosyayı Kapat"
+
+#: ilk.form:2552
+msgid "Next"
+msgstr "İleri"
+
+#: ilk.form:2559
+msgid "Undo"
+msgstr "Geri"
+
+#: ilk.form:2589
+msgid "Z0 height"
+msgstr "Z0 Yükseklik"
+
+#: ilk.form:2594
+msgid "Z1 height"
+msgstr "Z1 yükseklik"
+
+#: ilk.form:2605
+msgid "Mouse"
+msgstr "Fare"
+
+#: ilk.form:2610
+msgid "All"
+msgstr "Hepsi"
+
+#: ilk.form:2636
+msgid "OTRACK"
+msgstr "İZLEME"
+
+#: ilk.form:2643
+msgid "OSNAP"
+msgstr "UÇ YAKALAM"
+
+#: ilk.form:2657
+msgid "Last Save:"
+msgstr "Son kayıt:"
+
+#: ilk.form:2667
+msgid "Command Line  :"
+msgstr "Komut Satırı :"
+
+#: ilk.form:2693
+msgid "BLOCK MODIFY"
+msgstr "Blok Değişiklik"
+
+#: ilk.form:2769
+msgid "İPTAL"
+msgstr ""
+
+#: ilk.form:2777
+msgid "CAM AREA DEFINE"
+msgstr "CAM ALANINI BELİRLE"
+
+#: ilk.form:2783
+msgid "Width(mm.)"
+msgstr "Genişlik(mm.)"
+
+#: ilk.form:2797
+msgid "Length(mm.)"
+msgstr "Uzunluk(mm.)"
+
+#: ilk.form:2816
+msgid "TEXT MANAGER"
+msgstr "Yazı Yöneticisi"
+
+#: ilk.form:2824
+msgid "Text Color :"
+msgstr "Yazı Rengi"
+
+#: ilk.form:2831
+msgid "Text \nFont \nSettings"
+msgstr ""
+
+#: ilk.form:2858
+msgid "Font Size"
+msgstr "Yazı Yüksekliği"
+
+#: ilk.form:2869
+msgid "Text Angle"
+msgstr ""
+
+#: ilk.form:2980
+msgid "Select Color"
+msgstr "Renk Seç"
+
+#: ilk.form:3014
+msgid "Value"
+msgstr "Değer :"
+
+#: ilk.form:3072
+msgid "Label31"
+msgstr ""
+
+#: ilk.form:3077
+msgid "Select the same colors"
+msgstr "Renge Göre Seç"
+
+#: ilk.form:3082
+msgid "Select the same layers"
+msgstr "Katmana Göre seç"
+
+#: ilk.form:3087
+msgid "Select the same linetypes"
+msgstr "Çizim Tipine göre seç"
+
+#: ilk.form:3095
+msgid "Special Selection"
+msgstr "Özel Seçim"
+
+#: ilk.form:3115
+msgid "Select all lines"
+msgstr ""
+
+#: ilk.form:3120
+msgid "Select the same blocks"
+msgstr "Bloğa Göre Seç"
+
+#: ilk.form:3125
+msgid "Select all circles"
+msgstr ""
+
+#: ilk.form:3130
+msgid "Select all arcs"
+msgstr ""
+
+#: ilk.form:3135
+msgid "Select all texts"
+msgstr ""
+
+#: ilk.form:3140
+msgid "Select all dimensions"
+msgstr ""
+
+#: ilk.form:3150
+msgid "Search the text"
+msgstr ""
+
+#: ilk.form:3164
+msgid "HATCH"
+msgstr ""
+
+#: ilk.form:3170
+msgid "Select Area"
+msgstr ""
+
+#: ilk.form:3174
+msgid "Select Point"
+msgstr ""
+
+#: ilk.form:3179
+msgid "Select Closed\n Polygon"
+msgstr ""
+
+#: ilk.form:3191
+msgid "Specify Hatch Style"
+msgstr ""
+
+#: ilk.form:3296
+msgid "Select A Picture :"
+msgstr ""
+
+#: kama.form:42
+msgid "Moment of \nrotate(kgf.cm.)"
+msgstr "Döndürme\nmomenti(kgf.cm)"
+
+#: kama.form:54
+msgid "6266"
+msgstr "6266"
+
+#: kama.form:59
+msgid "Axle Dia. (D) mm. : "
+msgstr "Mil Çapı(D)mm.:"
+
+#: kama.form:69
+msgid "Material Safety \npressure  stress\n (kgf/cm^2)"
+msgstr "Emniyetli basma \ngerilmesi(kgf/cm^2)"
+
+#: kama.form:74 kapi.form:133
+msgid "900"
+msgstr "900"
+
+#: kama.form:79
+msgid "Material Safety shear \nstress(kgf/cm^2)"
+msgstr "Emniyetli kayma \ngerilmesi(kgf/cm^2)"
+
+#: kama.form:104
+msgid "Min. Wedge legth (L)mm."
+msgstr "Min. Kama uzunluğu(mm)"
+
+#: kama.form:143
+msgid "t1 ="
+msgstr ""
+
+#: kama.form:148
+msgid "t2="
+msgstr ""
+
+#: kama.form:153
+msgid "B="
+msgstr ""
+
+#: kama.form:158
+msgid "b="
+msgstr ""
+
+#: kama.form:163
+msgid "h="
+msgstr ""
+
+#: kama.form:168
+msgid "H="
+msgstr ""
+
+#: kama.form:180
+msgid "Record Results"
+msgstr "Sonuçları Kaydet"
+
+#: kama.form:192
+msgid "Calculate moment"
+msgstr "Moment Hesapla"
+
+#: kapak.class:89 kapi.class:78
+msgid "*png"
+msgstr ""
+
+#: kapak.form:72 kapi.form:92
+msgid "Height :"
+msgstr "Yükseklik:"
+
+#: kapak.form:77 kapi.form:97
+msgid "Width :"
+msgstr "En:"
+
+#: kapak.form:82 kapi.form:102
+msgid "Thickness :"
+msgstr "Kalınlık :"
+
+#: kapak.form:87 kapi.form:107
+msgid "Pattern"
+msgstr "Desen"
+
+#: kapak.form:92 kapi.form:117
+msgid "Hinge Count :"
+msgstr "Menteşe sayısı"
+
+#: kapak.form:97
+msgid "400"
+msgstr ""
+
+#: kapak.form:109 vinc.form:555
+msgid "18"
+msgstr ""
+
+#: kapak.form:125 kapi.form:447
+msgid "Pattern and window length\ngreater than door length.!!"
+msgstr "Desen ve pencere uzunluğu Kapıdan yüksek.!!"
+
+#: kapak.form:130 kapi.form:452
+msgid "Return to design"
+msgstr "Modüle Dön"
+
+#: kapak.form:143 kapi.form:465
+msgid "WARNING"
+msgstr "UYARI"
+
+#: kapak.form:150
+msgid "Nesting"
+msgstr ""
+
+#: kapak.form:167 kapi.form:139
+msgid "30"
+msgstr ""
+
+#: kapak.form:172 kapi.form:205
+msgid "A  :"
+msgstr "A:"
+
+#: kapak.form:182 kapi.form:291
+msgid "B  :"
+msgstr ""
+
+#: kapak.form:192 kapi.form:301
+msgid "C  :"
+msgstr ""
+
+#: kapak.form:203 kapi.form:311
+msgid "D  :"
+msgstr ""
+
+#: kapak.form:245 kapi.form:353
+msgid "PATTERN"
+msgstr "DESEN"
+
+#: kapak.form:270
+msgid "Material\nDimensions"
+msgstr "Malzeme\nÖlçüleri"
+
+#: toolplace.form:135
+msgid "10"
+msgstr "10"
+
+#: kapak.form:307
+msgid "Vertical count:"
+msgstr ""
+
+#: kapak.form:312
+msgid "Horizantal count:"
+msgstr "Yatay adet."
+
+#: kapak.form:323
+msgid "Use all table."
+msgstr ""
+
+#: kapi.form:77
+msgid "DOOR MODULE"
+msgstr "Kapı Modülü"
+
+#: kapi.form:112
+msgid "Keyhole  :"
+msgstr "Kilit Yuvası"
+
+#: kapi.form:122
+msgid "Window :"
+msgstr "Pencere:"
+
+#: kapi.form:127 pase.form:142
+msgid "2000"
+msgstr "2000"
+
+#: kapi.form:145
+msgid "Nope"
+msgstr "Yok"
+
+#: kapi.form:176
+msgid "Type :"
+msgstr "Tip:"
+
+#: kapi.form:211
+msgid "B :"
+msgstr ""
+
+#: kapi.form:217
+msgid "C :"
+msgstr ""
+
+#: kapi.form:231
+msgid "E :"
+msgstr ""
+
+#: kapi.form:237
+msgid "D :"
+msgstr ""
+
+#: kapi.form:243
+msgid "1100"
+msgstr ""
+
+#: kapi.form:257
+msgid "KEYHOLE"
+msgstr "KİLİT YUVASI"
+
+#: kapi.form:306 pase.form:211 toolplace.form:55 torna.form:124
+msgid "200"
+msgstr "200"
+
+#: kapi.form:359
+msgid "Desen çerçeve ekle"
+msgstr ""
+
+#: kapi.form:402
+msgid "1400"
+msgstr ""
+
+#: kapi.form:417
+msgid "750"
+msgstr ""
+
+#: kapi.form:435
+msgid "WINDOW"
+msgstr "PENCERE"
+
+#: katiman.form:37
+msgid "New Layer"
+msgstr "Yeni Katman"
+
+#: katiman.form:81
+msgid "ComboBox3"
+msgstr ""
+
+#: katiman.form:86 ozellik.form:53
+msgid "ComboBox4"
+msgstr ""
+
+#: katiman.form:91
+msgid "Add"
+msgstr "Ekle"
+
+#: katiman.form:100
+msgid "Layer Name"
+msgstr "Katman Adı"
+
+#: katiman.form:105
+msgid "Line Type"
+msgstr "Çizgi tipi"
+
+#: katiman.form:110
+msgid "Line Width"
+msgstr "Çizgi Kalınlığı"
+
+#: katiman.form:115
+msgid "Line Color"
+msgstr "Çizgi rengi"
+
+#: katiman.form:120
+msgid "Visibility"
+msgstr "Görünüm"
+
+#: katiman.form:139
+msgid "Lock"
+msgstr "Kilit"
+
+#: vinc.form:993
+msgid "Label7"
+msgstr ""
+
+#: kece.form:33
+msgid "Seal code. :"
+msgstr "Keçe Kodu"
+
+#: kece.form:38
+msgid "Draw Seal"
+msgstr "Contayı Çiz"
+
+#: kece.form:50
+msgid "Shaft diameter :"
+msgstr "Mil Çapı :"
+
+#: kece.form:55 rulman.form:86 secenekler.form:244
+msgid "mm."
+msgstr ""
+
+#: kedibas.form:22
+msgid "KediCAD2B Loading"
+msgstr "KediCAD2B Yükleniyor..."
+
+#: kesitli.form:50 mukavemetli.form:224 vinc.form:898
+msgid "Label6"
+msgstr ""
+
+#: kesitli.form:71 mukavemetli.form:237 vinc.form:907
+msgid "Section Type"
+msgstr "Kesit tipi"
+
+#: kesitli.form:75 mukavemetli.form:241 vinc.form:911
+msgid "Round Solid"
+msgstr "Mil"
+
+#: kesitli.form:80 mukavemetli.form:246 vinc.form:916
+msgid "Round Hallow"
+msgstr "Boru"
+
+#: kesitli.form:85 mukavemetli.form:251 vinc.form:921
+msgid "I"
+msgstr ""
+
+#: kesitli.form:90 mukavemetli.form:256 vinc.form:926
+msgid "U"
+msgstr ""
+
+#: kesitli.form:95 mukavemetli.form:261 vinc.form:931
+msgid "Rectangle Solid"
+msgstr "Blok"
+
+#: kesitli.form:100 mukavemetli.form:266 vinc.form:936
+msgid "Rectangle Hallow"
+msgstr "Kutu"
+
+#: kesitli.form:105 mukavemetli.form:341
+msgid "From drawing\n(Closed Polygon)"
+msgstr "Çizimden Seç\n(Kapalı Poligon)"
+
+#: kesitli.form:133
+msgid "Moment of Inertia\nIxx (mm^4)"
+msgstr "Atalet Momenti\nIxx(mm^4)"
+
+#: kesitli.form:138
+msgid "Section Modulüs\n(mm^3)"
+msgstr "Mukavemet Momenti(mm^3)"
+
+#: kesitli.form:143
+msgid "Area (mm^2)"
+msgstr "Alan(mm^2)"
+
+#: kesitli.form:152 mukavemetli.form:328 vinc.form:1011
+msgid "Mass (Kg/m.)"
+msgstr "Yayılı Yük(kg/m)"
+
+#: kesitli.form:169 pase.form:573
+msgid "Clear"
+msgstr "Temizle"
+
+#: kesitli.form:179
+msgid "Moment of Inertia\nIyy (mm^4)"
+msgstr "Atalet Momenti\nIxx(mm^4)"
+
+#: kesitli.form:204 mukavemetli.form:199 vinc.form:998
+msgid "Label9"
+msgstr ""
+
+#: konvoy.form:98
+msgid "Material"
+msgstr "Malzeme"
+
+#: konvoy.form:103
+msgid "Material Section Area:"
+msgstr "Yük Kesit Alanı"
+
+#: konvoy.form:112
+msgid "m^2"
+msgstr ""
+
+#: konvoy.form:117
+msgid "Velocity"
+msgstr "Hız"
+
+#: konvoy.form:126
+msgid "m/sn."
+msgstr ""
+
+#: konvoy.form:138
+msgid "oblique moving"
+msgstr "Eğik Taşıma"
+
+#: konvoy.form:142
+msgid "m."
+msgstr ""
+
+#: konvoy.form:160
+msgid "horizontal"
+msgstr "Yatay"
+
+#: konvoy.form:165
+msgid "vertical"
+msgstr "Dikey"
+
+#: konvoy.form:180
+msgid "horizontal moving"
+msgstr "Yatay Hareket"
+
+#: konvoy.form:190
+msgid "environment"
+msgstr "Çevre"
+
+#: konvoy.form:205
+msgid "Material per hour"
+msgstr "1 Saatteki Malzeme "
+
+#: konvoy.form:210
+msgid "Mass per meter"
+msgstr "1 mt. ağırlığı"
+
+#: konvoy.form:216
+msgid "angle"
+msgstr "açı"
+
+#: konvoy.form:222
+msgid "TextBox3"
+msgstr ""
+
+#: konvoy.form:227
+msgid "kg/m."
+msgstr ""
+
+#: konvoy.form:232
+msgid "t/h"
+msgstr ""
+
+#: konvoy.form:241
+msgid "TextBox1"
+msgstr ""
+
+#: konvoy.form:246
+msgid "Power for vertical moving:"
+msgstr "Dikey İlerleme gücü"
+
+#: konvoy.form:251
+msgid "Power without material:"
+msgstr "Malzemesiz güç:"
+
+#: konvoy.form:256
+msgid "Power for horizontal moving"
+msgstr "Yatay ileleme gücü"
+
+#: konvoy.form:269
+msgid "Power for acceleration"
+msgstr "İvmelendirme gücü"
+
+#: konvoy.form:274
+msgid "BG."
+msgstr ""
+
+#: konvoy.form:300
+msgid "total length"
+msgstr "Toplam Uzunluk"
+
+#: konvoy.form:312
+msgid "gt"
+msgstr ""
+
+#: konvoy.form:318
+msgid "gd"
+msgstr ""
+
+#: konvoy.form:334
+msgid "q1"
+msgstr ""
+
+#: konvoy.form:345
+msgid "qk"
+msgstr ""
+
+#: konvoy.form:361
+msgid "re"
+msgstr ""
+
+#: konvoy.form:372
+msgid "lt"
+msgstr ""
+
+#: konvoy.form:383
+msgid "rot"
+msgstr ""
+
+#: konvoy.form:394
+msgid "rodk"
+msgstr ""
+
+#: konvoy.form:403 mukavemetli.form:674
+msgid "cm."
+msgstr "cm."
+
+#: konvoy.form:412
+msgid "Bandwidth"
+msgstr "Bant Genişliği"
+
+#: konvoy.form:417
+msgid "Radius (min.)"
+msgstr "Yarıçap(mm)"
+
+#: konvoy.form:422
+msgid "Power."
+msgstr "Güç"
+
+#: konvoy.form:440
+msgid "HP."
+msgstr "BG."
+
+#: mikro.form:18
+msgid "Description"
+msgstr "Açıklama"
+
+#: mikro.form:47
+msgid "Komut istemcisi yazılışı\nÇizgi çizdirmek için :\nKedi çizgi x1,y1,x2,y2\nÇember çizdirmek için\nKedi çember yarıçap,x1,y1\n"
+msgstr ""
+
+#: mukavemetli.form:143
+msgid "Bending"
+msgstr "Eğilme"
+
+#: mukavemetli.form:163 vinc.form:1366
+msgid "a(cm.)"
+msgstr "a(cm)"
+
+#: mukavemetli.form:168 vinc.form:1372
+msgid "b(cm.)"
+msgstr ""
+
+#: mukavemetli.form:182
+msgid "Load Type"
+msgstr "Yük Tipi"
+
+#: mukavemetli.form:187 vinc.form:1027
+msgid "Supports"
+msgstr "Destekler"
+
+#: mukavemetli.form:292 vinc.form:962
+msgid "Moment of Inertia\nIxx (cm^4)"
+msgstr "Atalet Momenti\nIxx(cm^4)"
+
+#: mukavemetli.form:305 vinc.form:975
+msgid "Moment of Inertia\nIyy (cm^4)"
+msgstr "Atalet Momenti\nIyy(cm^4)"
+
+#: mukavemetli.form:310 vinc.form:980
+msgid "Section Modulüs\n(cm^3)"
+msgstr "Mukavemet Momenti\n(cm^3)"
+
+#: mukavemetli.form:323 vinc.form:1020
+msgid "Area (cm^2)"
+msgstr "Alan(cm^2)"
+
+#: mukavemetli.form:352 vinc.form:1378
+msgid "Load(kgf.)"
+msgstr "Yük(kgf)"
+
+#: mukavemetli.form:357 vinc.form:1394
+msgid "L(cm.)"
+msgstr ""
+
+#: mukavemetli.form:366 vinc.form:1119
+msgid "2100000"
+msgstr "2100000"
+
+#: mukavemetli.form:371
+msgid "Elasticity\nModule"
+msgstr "Elastisite \nModülü"
+
+#: mukavemetli.form:388 vinc.form:1383
+msgid "Max.Moment(kgf.cm)"
+msgstr "Max. Moment(kgf.cm)"
+
+#: mukavemetli.form:393 vinc.form:1343
+msgid "Strength(kgf/cm^2)"
+msgstr "Gerilme(kgf/cm^2)"
+
+#: mukavemetli.form:398 vinc.form:1348
+msgid "Deflection(mm.)"
+msgstr "Sehim(mm.)"
+
+#: mukavemetli.form:411
+msgid "Torsional"
+msgstr "Burulma"
+
+#: mukavemetli.form:421
+msgid "Power Calculate"
+msgstr "Güç Hesabı"
+
+#: mukavemetli.form:426
+msgid "Shaft dia. (d) calculate"
+msgstr "Mil Çapı Hesapla(d)"
+
+#: mukavemetli.form:438
+msgid "Label32"
+msgstr ""
+
+#: mukavemetli.form:444
+msgid "Shaft Length(L)(cm.)"
+msgstr "Mil Uzunluğu(L)(cm)"
+
+#: mukavemetli.form:460
+msgid "Shaft dia. (d)(cm.)"
+msgstr "Mil Çapı(d)(cm)"
+
+#: mukavemetli.form:465
+msgid "Power (kW.)"
+msgstr "Güç(kW)"
+
+#: mukavemetli.form:478
+msgid "Load (Kgf.)"
+msgstr "Yük(kgf)"
+
+#: mukavemetli.form:483
+msgid "RPM"
+msgstr "D/Dk."
+
+#: mukavemetli.form:492
+msgid "convert "
+msgstr "çevir"
+
+#: mukavemetli.form:512
+msgid "Convert"
+msgstr "Çevir"
+
+#: mukavemetli.form:518
+msgid "rpm to radian"
+msgstr "D/Dk->radyan"
+
+#: mukavemetli.form:523
+msgid "Radian to rpm"
+msgstr "Radyan->d/dk."
+
+#: mukavemetli.form:548
+msgid "Torsional angle(degree)"
+msgstr "Burulma Açısı(derece)"
+
+#: mukavemetli.form:561 rulman.form:120
+msgid "Shaft diameter"
+msgstr "Mil Çapı"
+
+#: mukavemetli.form:566
+msgid "Torsional Moment"
+msgstr "Burulma Momenti"
+
+#: mukavemetli.form:575
+msgid "kgf.cm."
+msgstr ""
+
+#: mukavemetli.form:580
+msgid "Flambaj"
+msgstr "Burkulma"
+
+#: mukavemetli.form:590
+msgid "Specify Section"
+msgstr "Kesit Alanı Belirt"
+
+#: mukavemetli.form:602
+msgid "Both end \njoint"
+msgstr "İki Uç \n eklem"
+
+#: mukavemetli.form:607
+msgid "First end joint\nsecond end\n fixed"
+msgstr "İki Uçda Sabit"
+
+#: mukavemetli.form:628
+msgid "Upper end  free\nlower end fixed"
+msgstr "Bir Uç sabit\nDiğeri serbest"
+
+#: mukavemetli.form:655
+msgid "Safety \ncoefficient"
+msgstr "Emniyet \nKatsayısı"
+
+#: mukavemetli.form:665
+msgid "No less then 2,5"
+msgstr "2.5 ten az olmamalı"
+
+#: mukavemetli.form:679
+msgid "Length (l)"
+msgstr "Uzunluk(L)"
+
+#: mukavemetli.form:684
+msgid "Elasticity \nmodule"
+msgstr "Elastisite \nModülü"
+
+#: mukavemetli.form:709
+msgid "Max Load (kgf.)"
+msgstr "Max. Yük(kgf)"
+
+#: mukavemetli.form:719
+msgid "Power Calculation"
+msgstr "Güç Hesabı"
+
+#: mukavemetli.form:754
+msgid "Radius(mm.)"
+msgstr "Yarıçap(mm)"
+
+#: mukavemetli.form:776
+msgid "Torque(kgf.cm.)"
+msgstr "Tork(kgf.cm)"
+
+#: mukavemetli.form:790
+msgid "Velocity(cm/dk)"
+msgstr "Hız(cm/dk)"
+
+#: olcudeg.form:50
+msgid "Dimension  color"
+msgstr "Ölçü Rengi"
+
+#: olcudeg.form:77 secenekler.form:312
+msgid "Lines / Text "
+msgstr "Çizgi / Yazı"
+
+#: olcudeg.form:108 secenekler.form:339
+msgid "Dimension Text height"
+msgstr "Ölçü Yazı Yüksekliği"
+
+#: olcudeg.form:123
+msgid "All Dimensions Update"
+msgstr "Mevcut çizime uygula."
+
+#: olcudeg.form:133 secenekler.form:329
+msgid "Hassasiyet"
+msgstr ""
+
+#: ozellik.form:75 vinc.form:258
+msgid "ComboBox2"
+msgstr ""
+
+#: pase.form:116
+msgid "Moment per \nstage(kgf.cm.)"
+msgstr "Her adımdaki moment\n(kgf.cm.)"
+
+#: pase.form:127
+msgid "4500"
+msgstr "4500"
+
+#: pase.form:132 rulman.form:46 toolplace.form:110
+msgid "4000"
+msgstr "4000"
+
+#: pase.form:157
+msgid "40"
+msgstr "40"
+
+#: pase.form:162
+msgid "80"
+msgstr "80"
+
+#: pase.form:187 vinc.form:787
+msgid "120"
+msgstr "120"
+
+#: pase.form:202
+msgid "Cylinder"
+msgstr "Silindir"
+
+#: pase.form:216
+msgid "25"
+msgstr "25"
+
+#: pase.form:226
+msgid "Cylinder quantity"
+msgstr "Silindir Adedi"
+
+#: pase.form:231
+msgid "Stroke (mm.)"
+msgstr "Strok(mm)"
+
+#: pase.form:236
+msgid "Up time(sn.)"
+msgstr "Strok Zamanı(sn)"
+
+#: pase.form:241
+msgid "Working \nPressure(Bar)"
+msgstr "Çalışma\nBasıncı(Bar)"
+
+#: pase.form:246
+msgid "Cylindir elevate the F Load"
+msgstr "Kaldırılacak Yük (F)"
+
+#: pase.form:273
+msgid "unsuitable"
+msgstr "UYGUN DEĞİL"
+
+#: pase.form:298
+msgid "PROJECT NAME  :"
+msgstr "PROJE ADI :"
+
+#: pase.form:340
+msgid "M2"
+msgstr ""
+
+#: pase.form:346
+msgid "M3"
+msgstr ""
+
+#: pase.form:352
+msgid "M1"
+msgstr ""
+
+#: pase.form:358
+msgid "W2"
+msgstr ""
+
+#: pase.form:364
+msgid "W3"
+msgstr ""
+
+#: pase.form:370
+msgid "W1"
+msgstr ""
+
+#: pase.form:380
+msgid "Cylinder load(kgf)"
+msgstr "Silindir Yükü(kgf.)"
+
+#: pase.form:394
+msgid "İnner Dia. (mm.)"
+msgstr "İç Çap(mm)"
+
+#: pase.form:400
+msgid "Outer Dia.(mm.)"
+msgstr "Dış Çap(mm)"
+
+#: pase.form:411
+msgid "Flow (l/dk)"
+msgstr "Debi(lt/dk.)"
+
+#: pase.form:417
+msgid "Power(kW)"
+msgstr "Güç(kW)"
+
+#: pase.form:435
+msgid "Have"
+msgstr "Adım"
+
+#: pase.form:453
+msgid "Each cylinder"
+msgstr "Her bir Silindir"
+
+#: pase.form:459
+msgid "All system"
+msgstr "Tüm Sistem"
+
+#: pase.form:464
+msgid "Save To File"
+msgstr "Dosyayı kaydet"
+
+#: pase.form:474
+msgid "Need"
+msgstr "Gereken"
+
+#: pase.form:479
+msgid "Section modulüs(cm^3)"
+msgstr "Mukavemet Momenti(cm^3)"
+
+#: pase.form:501
+msgid "g2"
+msgstr ""
+
+#: pase.form:512
+msgid "g1"
+msgstr "g1"
+
+#: pase.form:524
+msgid "F"
+msgstr ""
+
+#: pase.form:530
+msgid "g3"
+msgstr ""
+
+#: pase.form:541
+msgid "Malzeme :"
+msgstr ""
+
+#: pase.form:563
+msgid "Shaft Diameter(mm.)"
+msgstr "Mil Çapı(mm)"
+
+#: pase.form:579
+msgid "All Clear"
+msgstr "Tamamen Temizle"
+
+#: pase.form:600
+msgid "1.level\n   section"
+msgstr "1.kademe\n kesit"
+
+#: pase.form:605
+msgid "2.level\n   section"
+msgstr "2.kademe\n kesit"
+
+#: pase.form:610
+msgid "3.level\n   section"
+msgstr "3.kademe\n kesiti"
+
+#: pase.form:615
+msgid "Hydraulic Cylinder\n        Axle"
+msgstr "Hidrolik Silindir\n Mili"
+
+#: pase.form:620
+msgid "Mil Malzemesi\n 316 / St 42"
+msgstr ""
+
+#: pase.form:625
+msgid "Stage"
+msgstr "Kademe"
+
+#: pase.form:629
+msgid "Double"
+msgstr "Çift"
+
+#: pase.form:635
+msgid "Single"
+msgstr "Tekil"
+
+#: pdfkayit.form:21 vinc.form:593
+msgid "TextLabel1"
+msgstr ""
+
+#: profile.form:111
+msgid "NPI"
+msgstr ""
+
+#: profile.form:127
+msgid "Select NPI Type :"
+msgstr "NPI Ölçüsü Seç"
+
+#: profile.form:132
+msgid "Specify Profile Drawing point"
+msgstr "Profil Çizim noktasını Seç"
+
+#: profile.form:137
+msgid "Drawing is a block"
+msgstr "Çizim blok olsun"
+
+#: profile.form:141
+msgid "IPE"
+msgstr ""
+
+#: profile.form:168
+msgid "Select IPE Type :"
+msgstr "IPE ölçüsünü Seçin :"
+
+#: profile.form:171
+msgid "HEA"
+msgstr ""
+
+#: profile.form:198
+msgid "Select HEA Type :"
+msgstr "HEA Profil seç:"
+
+#: profile.form:201
+msgid "HEB"
+msgstr ""
+
+#: profile.form:228
+msgid "Select HEB Type :"
+msgstr "HEB Profil seç:"
+
+#: profile.form:231
+msgid "HEM"
+msgstr ""
+
+#: profile.form:258
+msgid "Select HEM Type :"
+msgstr "HEM Profil seç:"
+
+#: profile.form:261
+msgid "NPU"
+msgstr ""
+
+#: profile.form:276
+msgid "Select NPU Type :"
+msgstr "NPU Ölçüsü Seç"
+
+#: profile.form:291
+msgid "ANGLE"
+msgstr "AÇI"
+
+#: profile.form:306
+msgid "Select Angle Type :"
+msgstr "Köşebent Tipini Seç:"
+
+#: profile.form:321
+msgid "SQUARE"
+msgstr "Kutu"
+
+#: profile.form:336
+msgid "Select Square \nType :"
+msgstr "Kutu Ölçüsü Seç:"
+
+#: profile.form:351
+msgid "BOX"
+msgstr "KUTU"
+
+#: profile.form:381
+msgid "BOLT"
+msgstr "Civata"
+
+#: profile.form:385
+msgid "DIN84"
+msgstr ""
+
+#: profile.form:393
+msgid "DIN95"
+msgstr ""
+
+#: profile.form:401
+msgid "DIN912"
+msgstr ""
+
+#: profile.form:409
+msgid "DIN603"
+msgstr ""
+
+#: profile.form:417
+msgid "DIN965"
+msgstr ""
+
+#: profile.form:425
+msgid "DIN964"
+msgstr ""
+
+#: profile.form:433
+msgid "DIN963"
+msgstr ""
+
+#: profile.form:441
+msgid "DIN933"
+msgstr ""
+
+#: profile.form:449
+msgid "DIN966"
+msgstr ""
+
+#: profile.form:457
+msgid "DIN6912"
+msgstr ""
+
+#: profile.form:465
+msgid "DIN7972"
+msgstr ""
+
+#: profile.form:473
+msgid "DIN7984"
+msgstr ""
+
+#: profile.form:481
+msgid "DIN7991"
+msgstr ""
+
+#: profile.form:489
+msgid "DIN7985"
+msgstr ""
+
+#: profile.form:507
+msgid "Click on a picture for select.\nClick again for hide."
+msgstr "Görmek için bir resim seçin\nGizlemek için yeniden tıklayın"
+
+#: profile.form:517
+msgid "Select Bolt \nDimension"
+msgstr "Civatayı Seç:"
+
+#: profile.form:528
+msgid "Drawing is\n a block"
+msgstr "Çizim \nblok olsun"
+
+#: profile.form:532
+msgid "RETAINING\nRING"
+msgstr "Tutucu halka cıvatası "
+
+#: profile.form:565
+msgid "BEARING"
+msgstr "RULMAN"
+
+#: profile.form:668
+msgid "SOMUN"
+msgstr ""
+
+#: profile.form:672
+msgid "DIN439"
+msgstr ""
+
+#: profile.form:685
+msgid "DIN980"
+msgstr ""
+
+#: profile.form:708
+msgid "DIN985"
+msgstr ""
+
+#: rulman.form:37
+msgid "Specify kind of bearing"
+msgstr "Rulman Çeşidini Belirleyin"
+
+#: rulman.form:41
+msgid "200\n300"
+msgstr "200\n300"
+
+#: rulman.form:51
+msgid "6000"
+msgstr ""
+
+#: rulman.form:56
+msgid "22000"
+msgstr ""
+
+#: rulman.form:61
+msgid "51000"
+msgstr ""
+
+#: rulman.form:66
+msgid "stainless"
+msgstr "Paslanmaz"
+
+#: rulman.form:71
+msgid "high \ntemperature"
+msgstr "Yüksek\nSıcaklık"
+
+#: rulman.form:81
+msgid "Diameter : "
+msgstr "Çap:"
+
+#: rulman.form:111
+msgid "Bearing search"
+msgstr "Rulman Ara"
+
+#: rulman.form:115
+msgid " hole diameter"
+msgstr "Delik Çapı:"
+
+#: rulman.form:125
+msgid " shaft + hole diameter"
+msgstr "Mil + Delik Çapı"
+
+#: rulman.form:132
+msgid "Hole Diameter :"
+msgstr "Delik Çapı:"
+
+#: rulman.form:148
+msgid "Draw Bearing"
+msgstr "Rulmanı Çiz"
+
+#: secenekler.form:87
+msgid "General"
+msgstr "Genel"
+
+#: secenekler.form:92
+msgid "Right click behavior"
+msgstr "Sağ tık davranışı"
+
+#: secenekler.form:98
+msgid "Pencere Aç."
+msgstr ""
+
+#: secenekler.form:104
+msgid " Pencere Aç."
+msgstr ""
+
+#: secenekler.form:109
+msgid "Right Click Menu"
+msgstr "Sağ tık Menüsü"
+
+#: secenekler.form:114
+msgid "İsim Listesi"
+msgstr ""
+
+#: secenekler.form:136
+msgid "Select cursor"
+msgstr "İşaretçi Seç"
+
+#: secenekler.form:141
+msgid "Bacground color"
+msgstr "Arkaplan Rengi"
+
+#: secenekler.form:150
+msgid "Select Default \n     Color"
+msgstr "Öntanımlı Renk"
+
+#: secenekler.form:155
+msgid "Toolbars places"
+msgstr "Toolbar yerleşimi"
+
+#: secenekler.form:160
+msgid " on top"
+msgstr "Üstte"
+
+#: secenekler.form:165
+msgid "on side"
+msgstr "Yanda"
+
+#: secenekler.form:168
+msgid "Selection"
+msgstr "Seçim"
+
+#: secenekler.form:176
+msgid "Osnap color"
+msgstr "Uç Yakalama rengi"
+
+#: secenekler.form:181
+msgid "Selceted drawings"
+msgstr "Seçilmiş Çizimler"
+
+#: secenekler.form:190
+msgid "Osnap dimension"
+msgstr "Uç Yakalama büyüklüğü"
+
+#: secenekler.form:195
+msgid "proximity to the \ndrawing for select"
+msgstr "Seçim için çizime\n yakınlık"
+
+#: secenekler.form:209
+msgid "Selection Sign Size"
+msgstr "Seçim işareti büyüklüğü"
+
+#: secenekler.form:218
+msgid "Preselection :"
+msgstr "Ön Seçim"
+
+#: secenekler.form:227
+msgid "Indicate the selected\n drawing color"
+msgstr "Seçilen Çizgi Rengi"
+
+#: secenekler.form:235
+msgid "Other"
+msgstr "Diğer"
+
+#: secenekler.form:239
+msgid "Drawing Unit:"
+msgstr "Çizim birimi"
+
+#: secenekler.form:254
+msgid "Automatic save"
+msgstr "Otomatik kayıt"
+
+#: secenekler.form:259
+msgid "minutes"
+msgstr "dakika"
+
+#: secenekler.form:269
+msgid "monitor hertz"
+msgstr "ekran tazelemesi"
+
+#: secenekler.form:279
+msgid " A4"
+msgstr "A4"
+
+#: secenekler.form:288
+msgid "Page dimensions"
+msgstr "Sayfa ölçüsü"
+
+#: secenekler.form:297
+msgid "Dimension Text color"
+msgstr "Ölçü Yazı Rengi"
+
+#: secenekler.form:302
+msgid "Dimension Lines color"
+msgstr "Ölçü Çizgi rengi"
+
+#: secenekler.form:307
+msgid "Dimension lines extended"
+msgstr "Ölçü çizgilerin çıkıntısı"
+
+#: secenekler.form:356
+msgid "Ok Büyüklüğü"
+msgstr ""
+
+#: secenekler.form:437
+msgid "Save to settings"
+msgstr "Ayarları kaydet"
+
+#: takimata.form:35
+msgid "Tool Diameter(mm)"
+msgstr "Takım Çapı(mm)"
+
+#: takimata.form:62
+msgid "Z axis speed(mm/dk.)"
+msgstr "Dalma Hızı(mm/dk)"
+
+#: takimata.form:67
+msgid "Engraving speed(mm/dk.)"
+msgstr "İşleme hızı(mm/dk)"
+
+#: takimata.form:84
+msgid "outer"
+msgstr "Dış"
+
+#: takimata.form:89
+msgid "Inner"
+msgstr "İç"
+
+#: takimata.form:94
+msgid "Center"
+msgstr "Merkez"
+
+#: takimata.form:101
+msgid "Z step (mm. )"
+msgstr "Z dalma miktarı(mm.)"
+
+#: tekdis.form:63
+msgid "     Results"
+msgstr "Sonuçlar"
+
+#: tekdis.form:67
+msgid "Bölüm Dairesi Çapı(mm.)"
+msgstr ""
+
+#: tekdis.form:76
+msgid "Normal Module"
+msgstr "Normal Modül"
+
+#: tekdis.form:85
+msgid "Diş Adımı(mm.)"
+msgstr ""
+
+#: tekdis.form:102
+msgid "Diş Yüksekliği(mm.)"
+msgstr ""
+
+#: tekdis.form:107
+msgid "Diş Genişliği(mm.)"
+msgstr ""
+
+#: tekdis.form:116
+msgid "Çevre Hızı(m/sn)"
+msgstr ""
+
+#: tekdis.form:121
+msgid "Diş Üstü Çapı(mm.)"
+msgstr ""
+
+#: tekdis.form:130
+msgid "Diş dibi Çapı(mm.)"
+msgstr ""
+
+#: tekdis.form:143
+msgid "Diş Kalınlığı(mm.)"
+msgstr ""
+
+#: tekdis.form:160
+msgid "Diş Basma Yükü(kgf)"
+msgstr ""
+
+#: tekdis.form:165
+msgid "Torque kgfcm.)"
+msgstr "Döndürme Momenti(kgf.cm)"
+
+#: tekdis.form:170
+msgid "Shaft dia.(mm.)"
+msgstr "Mil Çapı(mm.)"
+
+#: tekdis.form:179
+msgid "Alın Modülü"
+msgstr ""
+
+#: tekdis.form:188
+msgid "Alın Adımı(mm.)"
+msgstr ""
+
+#: tekdis.form:197
+msgid "Helis Angle"
+msgstr "Helis Açısı"
+
+#: tekdis.form:206
+msgid "Helis step"
+msgstr "Helis Adımı"
+
+#: tekdis.form:217
+msgid "Gear Type"
+msgstr "Dişli Tipi"
+
+#: tekdis.form:227
+msgid "Dişli Yerleşimi :"
+msgstr ""
+
+#: tekdis.form:237
+msgid "Material :"
+msgstr "Malzeme:"
+
+#: tekdis.form:247
+msgid "Zorlanma Şekli"
+msgstr ""
+
+#: tekdis.form:252
+msgid "Power (BG.)"
+msgstr "Güç(BG.)"
+
+#: tekdis.form:261
+msgid "Input cycle (rpm)"
+msgstr "Giriş hızı(d/dk)"
+
+#: tekdis.form:270
+msgid "Hesapla"
+msgstr ""
+
+#: tekdis.form:280
+msgid "Teeth quantity"
+msgstr "Diş Sayısı"
+
+#: tekdis.form:285
+msgid "Formu Temizle"
+msgstr ""
+
+#: tekdis.form:291
+msgid "Dosyaya Kaydet"
+msgstr ""
+
+#: tekdis.form:301
+msgid "Beta Angle"
+msgstr "Beta Açısı"
+
+#: toolldefine.form:25 toolplace.form:95
+msgid "Tool diameter(mm)"
+msgstr "Takım Çapı(mm)"
+
+#: toolldefine.form:34
+msgid "Engraving speed(mm/Dak.)"
+msgstr "İşleme hızı(mm/dk)"
+
+#: toolldefine.form:43
+msgid "Z speeed(mm/dk.)"
+msgstr "Z hız(mm/dk)"
+
+#: toolldefine.form:62
+msgid "Tool number"
+msgstr "Takım No:"
+
+#: toolldefine.form:75 toolplace.form:140
+msgid "Z step(mm)"
+msgstr "Z dalma miktarı(mm.)"
+
+#: toolplace.form:35
+msgid "Tool2"
+msgstr "Takım2"
+
+#: toolplace.form:40
+msgid "Tool3"
+msgstr "Takım3"
+
+#: toolplace.form:45
+msgid "Tool5"
+msgstr "Takım5"
+
+#: toolplace.form:50
+msgid "Tool6"
+msgstr "Takım6"
+
+#: toolplace.form:60
+msgid "-250"
+msgstr ""
+
+#: toolplace.form:65
+msgid "-120"
+msgstr ""
+
+#: toolplace.form:70
+msgid "X Place"
+msgstr "X Konum"
+
+#: toolplace.form:75
+msgid "Y Place"
+msgstr "Y konum"
+
+#: toolplace.form:80
+msgid "Z Place"
+msgstr "Z konum"
+
+#: toolplace.form:85
+msgid "Tool4"
+msgstr "Takım4"
+
+#: toolplace.form:90
+msgid "Tool1"
+msgstr "Takım1"
+
+#: toolplace.form:105
+msgid "Engraving speed(mm/min)"
+msgstr "İşleme hızı(mm/dk.)"
+
+#: toolplace.form:115
+msgid "Z speeed(mm/min.)"
+msgstr "Z hızı(mm/dk.)"
+
+#: torna.form:28
+msgid "Lathe G-Code  "
+msgstr "Torna G-code"
+
+#: torna.form:40
+msgid "Select axis"
+msgstr "Eksen Seç"
+
+#: torna.form:45
+msgid "Select Axis"
+msgstr "Eksen Seç"
+
+#: torna.form:50
+msgid "Material radius(mm)"
+msgstr "Malzeme Yarıçapı(mm)"
+
+#: torna.form:55 vinc.form:447
+msgid "250"
+msgstr "250"
+
+#: torna.form:60
+msgid "Material length(mm)"
+msgstr "Malzeme Uzunluğu(mm)"
+
+#: torna.form:68
+msgid "Select Drawings"
+msgstr "Çizgi Seç"
+
+#: torna.form:81 vinc.form:235
+msgid "İnputs"
+msgstr "Girdiler"
+
+#: torna.form:104
+msgid "Step (mm.)"
+msgstr "Adım(mm.)"
+
+#: torna.form:109
+msgid "Engraving speed(mm/min.)"
+msgstr "İşleme hızı:(mm/dk.)"
+
+#: torna.form:114
+msgid "Dalma Hızı(mm/min.)"
+msgstr ""
+
+#: torna.form:119
+msgid "Fly speed"
+msgstr "Uçuş hızı(mm/dk)"
+
+#: torna.form:145
+msgid "Save G-Code"
+msgstr "G-Code kaydet"
+
+#: vinc.form:243
+msgid "DTD"
+msgstr ""
+
+#: vinc.form:249
+msgid "Inputs"
+msgstr "Girdiler"
+
+#: vinc.form:253
+msgid "Enviroment"
+msgstr "Çevre"
+
+#: vinc.form:278
+msgid "Hook Load(kgf.)"
+msgstr "Kanca Yükü(kgf.)"
+
+#: vinc.form:289
+msgid "Test Load(kgf.)"
+msgstr "Test Yükü(kgf)"
+
+#: vinc.form:294
+msgid "7000"
+msgstr ""
+
+#: vinc.form:299
+msgid "Tensile Strrength(kgf/cm^2)"
+msgstr "Çekme Gerilmesi(kgf/cm^2)"
+
+#: vinc.form:315
+msgid "3500"
+msgstr ""
+
+#: vinc.form:320
+msgid "Holding Load(kgf.)"
+msgstr "Kaldırma Kuvveti"
+
+#: vinc.form:325
+msgid "Span(m.)"
+msgstr "Açıklık(m.)"
+
+#: vinc.form:330
+msgid "20100"
+msgstr ""
+
+#: vinc.form:335
+msgid "PROJE ADI"
+msgstr ""
+
+#: vinc.form:340
+msgid "DS36K7 "
+msgstr ""
+
+#: vinc.form:343
+msgid "Load ad sections"
+msgstr "Yük ve Kesitler"
+
+#: vinc.form:353
+msgid "TextBox26"
+msgstr ""
+
+#: vinc.form:370
+msgid "dec. section"
+msgstr "Azalan Kesit"
+
+#: vinc.form:375
+msgid "456"
+msgstr ""
+
+#: vinc.form:380
+msgid "540"
+msgstr ""
+
+#: vinc.form:390
+msgid "a(mm.)"
+msgstr "a(mm.)"
+
+#: vinc.form:395
+msgid "b(mm.)"
+msgstr ""
+
+#: vinc.form:400
+msgid "t(mm.)"
+msgstr ""
+
+#: vinc.form:410
+msgid "Total  Length"
+msgstr "Toplam Uzunluk"
+
+#: vinc.form:415
+msgid "Length"
+msgstr "Uzunluk"
+
+#: vinc.form:420
+msgid "Load"
+msgstr "Yük"
+
+#: vinc.form:423
+msgid "Hydraulic Calculations Inputs"
+msgstr "Hidrolik hesabı için girdiler"
+
+#: vinc.form:432
+msgid "Holding  Cylinder count"
+msgstr "Kal.Silindir Adedi"
+
+#: vinc.form:437
+msgid "Hol.Cylinder sroke(mm.)"
+msgstr "Kal.Silindir Strok(mm.)"
+
+#: vinc.form:442
+msgid "1240"
+msgstr ""
+
+#: vinc.form:452
+msgid "Working\npressure(bar)"
+msgstr "Çalışma\nBasıncı(Bar)"
+
+#: vinc.form:457
+msgid "70"
+msgstr ""
+
+#: vinc.form:462
+msgid "Stroke\ntime(sn)"
+msgstr "Strok\nSüresi(sn)"
+
+#: vinc.form:467
+msgid "2080"
+msgstr ""
+
+#: vinc.form:477
+msgid "Rotating\nspeed (rpm)"
+msgstr "Devir Hızı(d/dk)"
+
+#: vinc.form:487
+msgid "Folding Cylindercount"
+msgstr "Kırma Silindir Adedi"
+
+#: vinc.form:492
+msgid "Fol.Cylinder Stroke(mm)"
+msgstr "Kır.Silindiri Strok(mm.)"
+
+#: vinc.form:497
+msgid "1340"
+msgstr ""
+
+#: vinc.form:506
+msgid "cylinder axle length(mm)"
+msgstr "Silindir mil dik uaklığı"
+
+#: vinc.form:511
+msgid "351"
+msgstr ""
+
+#: vinc.form:521
+msgid "258"
+msgstr ""
+
+#: vinc.form:526
+msgid "Telescopic Cylinder \nStrok(mm)"
+msgstr "Teleskopik Silindir\nStrok(mm.)"
+
+#: vinc.form:535
+msgid "Slewing ring"
+msgstr "Döner Tabla Dişlisi"
+
+#: vinc.form:540
+msgid "Gear Tooth count"
+msgstr "Dişli Diş Sayısı"
+
+#: vinc.form:545
+msgid "122"
+msgstr ""
+
+#: vinc.form:550
+msgid "Pinion Tooth count"
+msgstr "Pinyon Diş Sayısı"
+
+#: vinc.form:560
+msgid "Fa (kN)"
+msgstr ""
+
+#: vinc.form:565
+msgid "Mt DTD(kNm.)"
+msgstr ""
+
+#: vinc.form:588
+msgid "Mt kirma(kNm.)"
+msgstr ""
+
+#: vinc.form:601
+msgid "Hydraulic Calculations"
+msgstr "Hidrolik Hesaplar"
+
+#: vinc.form:654
+msgid "Cylinder Force F(kN)"
+msgstr "Silindir Kuvveti F(kN)"
+
+#: vinc.form:672
+msgid "Input Torque(Nm.)"
+msgstr "Giriş Momenti(Nm)"
+
+#: vinc.form:681
+msgid "Folding"
+msgstr "Kırma"
+
+#: vinc.form:687
+msgid "Slewing Ring hydraulic motor"
+msgstr "DTD Hidrolik motoru"
+
+#: vinc.form:692
+msgid "Holdin"
+msgstr "Kaldırma"
+
+#: vinc.form:697
+msgid "SİLİNDİRLER"
+msgstr ""
+
+#: vinc.form:703
+msgid "Jm (kgm^2.)"
+msgstr ""
+
+#: vinc.form:714
+msgid "Cylinder Diameter:(mm.)"
+msgstr "Silindir Çapı(mm.)"
+
+#: vinc.form:719
+msgid "Flow  (lt/dk.)"
+msgstr "Akış(lt/dk)"
+
+#: vinc.form:724
+msgid "Power (kW)"
+msgstr "Güç(kW)"
+
+#: vinc.form:730
+msgid "Output  torku(Nm.)"
+msgstr "Çıkış Momenti(Nm)"
+
+#: vinc.form:763
+msgid "Telescopic"
+msgstr "Teleskopik"
+
+#: vinc.form:768
+msgid "Tork Calculation"
+msgstr "Tork Hesabı"
+
+#: vinc.form:772
+msgid "Accelaration(m/sn^2):"
+msgstr "İvme(m/sn^2):"
+
+#: vinc.form:777
+msgid "Pinion Gear Ratio"
+msgstr "Pinyon Dişli oranı"
+
+#: vinc.form:797
+msgid "Speedz (d/dk.) :"
+msgstr "Devir Hızı(d/dk)"
+
+#: vinc.form:803
+msgid "Torque(Nm.) :"
+msgstr "Döndürme Momenti(Nm)"
+
+#: vinc.form:820
+msgid "Label91"
+msgstr ""
+
+#: vinc.form:873
+msgid "Crane"
+msgstr "Vinç"
+
+#: vinc.form:879
+msgid "Section"
+msgstr "Kesit"
+
+#: vinc.form:1023
+msgid "Load form"
+msgstr "Yükleme Şekli"
+
+#: vinc.form:1037
+msgid "Load Form"
+msgstr "Form Yükle"
+
+#: vinc.form:1042
+msgid "Tekil merkez yük"
+msgstr ""
+
+#: vinc.form:1051
+msgid "Inputs for calculations"
+msgstr "Hesplamalariçin Girdiler"
+
+#: vinc.form:1058
+msgid "1-18 "
+msgstr "1-18"
+
+#: vinc.form:1063
+msgid "0-6 "
+msgstr "0-6"
+
+#: vinc.form:1068
+msgid "19-30 "
+msgstr "19-30"
+
+#: vinc.form:1073
+msgid "31-60 "
+msgstr "31-60"
+
+#: vinc.form:1078
+msgid ">60 "
+msgstr ">60"
+
+#: vinc.form:1083
+msgid "Working cycle \nper hour"
+msgstr "1 Saatteki\nÇevrim sayısı"
+
+#: vinc.form:1089
+msgid "Beam Count"
+msgstr "Kiriş Sayısı"
+
+#: vinc.form:1093
+msgid "one"
+msgstr "Tek"
+
+#: vinc.form:1098
+msgid "Two"
+msgstr "Çift"
+
+#: vinc.form:1109
+msgid "Donam"
+msgstr ""
+
+#: vinc.form:1114
+msgid "Elastisity\nModules"
+msgstr "Elastisite\nModülü"
+
+#: vinc.form:1129
+msgid "Lifting\nrate(cm/dk)"
+msgstr "Kaldırma\nhı(cm/dk)"
+
+#: vinc.form:1134
+msgid "Speed(cm/dk)"
+msgstr "Hız(cm/dk)"
+
+#: vinc.form:1144
+msgid "12000"
+msgstr "12000"
+
+#: vinc.form:1149
+msgid "Clearance(mm)"
+msgstr "Açıklık(mm.)"
+
+#: vinc.form:1154
+msgid "Lifting \nHeight(mm)"
+msgstr "Kaldırma\nYüksekliği(mm)"
+
+#: vinc.form:1164
+msgid "15000"
+msgstr "15000"
+
+#: vinc.form:1189
+msgid "Rope Load(kgf) :"
+msgstr "Halat Yükü(kgf.)"
+
+#: vinc.form:1202
+msgid "Rope diameter(mm.)"
+msgstr "Halat Çapı(mm)"
+
+#: vinc.form:1207
+msgid "Rope Length(m)\n(without diead ropes)"
+msgstr "Halat Uzunluğu(m)\n(ölü halat uzunluğu hariç)"
+
+#: vinc.form:1216
+msgid "Kedi Yürüme Motoru"
+msgstr ""
+
+#: vinc.form:1225
+msgid "equivalent Reel\ndiameter (mm.)"
+msgstr "Denk makarası\nçapı (mm.)"
+
+#: vinc.form:1230
+msgid "Kedi Ray \nAçıklığı(mm)"
+msgstr ""
+
+#: vinc.form:1243
+msgid "Rope Pulley\nDiameter (mm.)"
+msgstr "Halat Makarası Çapı(mm)"
+
+#: vinc.form:1246
+msgid "Step #6"
+msgstr "Adım #6"
+
+#: vinc.form:1250
+msgid "Drum length (mm)"
+msgstr "Tambur Uzunluğu(mm.)"
+
+#: vinc.form:1263
+msgid "Drum Dia.(mm.)"
+msgstr "Tambur Çapı(mm.)"
+
+#: vinc.form:1268
+msgid "Number of winding"
+msgstr "Sarım Sayısı"
+
+#: vinc.form:1277
+msgid "Drum inner dia.(mm.)"
+msgstr "Tambur İç Çapı(mm.)"
+
+#: vinc.form:1286
+msgid "Holding Motor"
+msgstr "Kaldırma Motoru"
+
+#: vinc.form:1294
+msgid "Power(kW.)"
+msgstr "Güç(kW)"
+
+#: vinc.form:1303
+msgid "Holding Moment\n(kgf.cm)"
+msgstr "KaldırmaMomenti\n(kgf.cm)"
+
+#: vinc.form:1312
+msgid "Drum cycle (rpm)"
+msgstr "Tambur Dönüş Hızı(d/dk)"
+
+#: vinc.form:1324
+msgid "Rail clearence(mm.)"
+msgstr "Ray Açıklığı(mm)"
+
+#: vinc.form:1329
+msgid "Başlık Yürüme Motoru"
+msgstr ""
+
+#: vinc.form:1338
+msgid "\nwheel load(kgf.)"
+msgstr "\nTeker Yükü"
+
+#: yazicim.form:59
+msgid "Not:"
+msgstr "Not:"
+
+#: yazicim.form:95
+msgid "Project"
+msgstr "Proje"
+
+#: yazicim.form:116
+msgid "color / white-black"
+msgstr "Renkli / Siyah-Beyaz"
+
+#: yazicim.form:121
+msgid "Portrait/Landscape"
+msgstr "Dikey/Yatay Sayfa"
+
+#: yazicim.form:150
+msgid "left >"
+msgstr "Sola>"
+
+#: yazicim.form:155
+msgid "^ upper"
+msgstr "^Yukarı"
+
+#: yazicim.form:173
+msgid "v down"
+msgstr "v Aşağı"
+
+#: yazicim.form:178
+msgid " < right"
+msgstr "<saga"
+
+#: yazicim.form:183
+msgid "Hide letterhead"
+msgstr "Anteti Gizle"
+
+#: yazicim.form:188
+msgid "Paper Size  : "
+msgstr "Sayfa ölçüsü:"
+
+#: yazicim.form:193
+msgid "Drawing Position :"
+msgstr "Çizim Şekli"
+
+#: yazicim.form:198
+msgid "Remember letterhead."
+msgstr "Antet bilgilerini kaydet."
+
+#: yazicim.form:203
+msgid "Load saved letterhead."
+msgstr "Kaydedilmiş anteti yükle"
+
+#: yazicim.form:213
+msgid "Scale  :"
+msgstr "Ölçek :"
+

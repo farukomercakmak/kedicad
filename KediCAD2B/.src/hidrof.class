@@ -1,0 +1,175 @@
+' Gambas class file
+
+Public alan As Float
+Public hiz As Float
+Public deb As Float
+Public sk As Float
+Public j As Float
+Public K As Float
+Public fyuk As Integer
+Private $sPath As String
+
+Static Public Sub Main()
+
+    Dim hForm As Form
+
+    hForm = New Hidrof
+    hForm.Show
+
+End
+
+
+Public Sub Button3_Click()
+
+    Dim discap, icca As Float
+
+    alan = yuk.Text / basinc.Text
+    icca = Sqr(4 * alan / Pi)
+    icca = icca * 10
+    scap.Text = Format$(icca, "#.###")
+    hiz = strok.Text / sure.Text
+    deb = 3 * alan * hiz / 50
+    debi.Text = Format$((deb), "#.###")
+    mgucu.Text = Format$((basinc.Text * deb / (600 * 0.85)), "#.###")
+    eboru.Text = Format$((Sqr(21 * deb / 1)), "#.###")
+    bboru.Text = Format$((Sqr(21 * deb / 5)), "#.###")
+    discap = Sqr((100 * yuk4.Text * icca ^ 2 + yuk2.Text * basinc2.Text * icca ^ 2) / (100 * yuk4.Text - yuk2.Text * basinc2.Text))
+    discap = discap
+    scap2.Text = Format$((discap), "#.###")
+        Catch
+	ilk.hatayaz("btn3clk " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public Sub Button4_Click()
+
+    If radiobutton1.Value = True Then sk = 2 * pku.Text
+    If radiobutton2.Value = True Then sk = pku.Text
+    If radiobutton3.Value = True Then sk = 0.7 * pku.Text
+    If radiobutton4.Value = True Then sk = 0.5 * pku.Text
+    If radiobutton1.Value = False And radiobutton2.Value = False And radiobutton3.Value = False And radiobutton4.Value = False Then
+        message.Error("Select Connection Form.")
+        Goto cik
+    End If
+    If Not scap.Text Then
+        message.Error("Calculate General Tab.")
+        Goto cik
+    End If
+    j = ((pkolc.Text) / 10) ^ 4 * Pi / 64
+    K = Pi ^ 2 * 2100000 * j / sk ^ 2
+    fyuk = K / (emkat.Text)
+    myuk.Text = Format$((fyuk), "#.#")
+    If fyuk > CFloat(yuk.Text) Then
+        label24.Caption = "Suitable"
+    Else
+        label24.Caption = "NOT Suitable"
+    End If
+cik:
+        Catch
+	ilk.hatayaz("btn4clk " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public Sub Button5_Click()
+
+    Dim dosya As String
+
+    Dim myFile As File
+
+    If Dialog.SaveFile() Then Return
+    dosya = File.Name(Dialog.Path)
+    $sPath = File.Dir(Dialog.Path)
+    myFile = Open $sPath &/ dosya & ".txt" For Create
+    Print #myFile, "   HİDROLİK HESAPLARI SONUÇLARI"
+    Print #myFile, "   "
+    Print #myFile, "   VERİLER "
+    Print #myFile, "Yük :  " & yuk.Text & " kgf."
+    Print #myFile, "Strok :  " & strok.Text & " cm."
+    Print #myFile, "Çıkış Süresi :  " & sure.Text & " sn."
+    Print #myFile, "Çalışma Basıncı :  " & basinc.Text & " bar."
+    Print #myFile, "Maksimum Basınç :  " & basinc2.Text & " bar."
+    Print #myFile, "Emniyet Katsayısı :  " & yuk2.Text
+    Print #myFile, "Mlz.Akma Gerilmesi :  " & yuk4.Text & " kgf/mm^2."
+    Print #myFile, "   "
+    Print #myFile, "   SONUÇLAR"
+    Print #myFile, "Debi :  " & debi.Text & " lt/dk."
+    Print #myFile, "Motor Gücü :  " & mgucu.Text & " kW."
+    Print #myFile, "Emme Boru Çapı:  " & eboru.Text & " mm.."
+    Print #myFile, "Basma Boru Çapı :  " & bboru.Text & " mm."
+    Print #myFile, "Silindir İç Çapı :  " & scap.Text & " mm."
+    Print #myFile, "Silindir Dış Çapı :  " & scap2.Text & " mm."
+    Print #myFile, "   Burkulma Kontrolü "
+    If RadioButton1.Value = True Then Print #myFile, "Bağlantı Şekli : Bir uç Serbest bir uç sabit"
+    If RadioButton2.Value = True Then Print #myFile, "Bağlantı Şekli : İki uç eklemli"
+    If RadioButton3.Value = True Then Print #myFile, "Bağlantı Şekli : Bir uç eklemli bir uç sabit"
+    If RadioButton4.Value = True Then Print #myFile, "Bağlantı Şekli : İki uç sabit"
+    Print #myFile, "Emniyet Katsayısı :  " & emkat.Text
+    Print #myFile, "Piston kolu uzunluğu :  " & pku.Text & " cm."
+    Print #myFile, "Piston kolu Çapı :  " & pkolc.Text & " mm."
+    Print #myFile, "Burkulmaya göre taşınabilir yük. :  " & myuk.Text & " kgf."
+    Print #myFile, "Burkulmaya Göre Sonuç:  " & label24.Caption
+    Close myFile
+        Catch
+	ilk.hatayaz("btn5clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Form_Open()
+
+    yuk.SetFocus
+    Me.Center
+    RadioButton1.Value = True
+    Me.text = "KediCAD 2B Hydraulic Calculation"
+
+End
+
+Public Sub yuk_KeyPress()
+
+    If Key.Code = Key.Enter Then strok.SetFocus
+
+End
+
+Public Sub strok_KeyPress()
+
+    If Key.Code = Key.Enter Then sure.SetFocus
+
+End
+
+Public Sub sure_KeyPress()
+
+    If Key.Code = Key.Enter Then basinc.SetFocus
+
+End
+
+Public Sub basinc_KeyPress()
+
+    If Key.Code = Key.Enter Then Button3_Click
+
+End
+
+Public Sub Button6_Click()
+
+    yuk.text = ""
+    strok.Text = ""
+    sure.Text = ""
+    basinc.Text = ""
+    debi.text = ""
+    mgucu.Text = ""
+    eboru.Text = ""
+    bboru.Text = ""
+    scap.Text = ""
+    scap2.Text = ""
+
+End
+
+Public Sub Wizard1_Cancel()
+
+    hidrof.Close
+    ilk.Show
+
+End
+
+Public Sub Wizard1_Change()
+
+    Button3_Click()
+
+End

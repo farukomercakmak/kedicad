@@ -1,0 +1,417 @@
+' Gambas class file
+
+Public cazgi As Czm
+Public zgercek As Integer
+Public zileri As Integer
+Public gkayit As String
+
+
+Public Sub zkayit(komgeri As String, Optional zid As Float, Optional tid As Float)
+
+    Dim doza As Integer
+    Dim myFile As File
+    Dim sb, tb As String
+
+    tid = 0
+    zileri = 0
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/ileri")
+        Shell "rm " & System.User.Home &/ ".KediCAD/Kayit/ileri"
+    Endif
+    gkayit = System.User.Home &/ ".KediCAD/Kayit/geri"
+    For doza = 0 To ilk.depog.Count - 1
+        sb = sb & "-" & ilk.depog[doza]
+    Next
+    For doza = 0 To tasima.drl.Count - 1
+        tb = tb & "-" & tasima.drl[doza]
+    Next
+    If Exist(gkayit) Then
+        myFile = Open gkayit For Write
+    Else
+        myFile = Open gkayit For Create
+    Endif
+    Seek #myFile, Lof(myFile)
+    If komgeri = "cizgi" Then Print #myFile, "cizgi/" & " " & zid
+    If komgeri = "cember" Then Print #myFile, "cember/" & " " & zid
+    If komgeri = "yay" Then Print #myFile, "yay/" & "-" & zid
+    If komgeri = "olcu" Then Print #myFile, "olcu/" & " " & zid
+    If komgeri = "dortgen" Then Print #myFile, "dortgen/" & sb
+    If komgeri = "poli" Then Print #myFile, "poli/ " & sb
+    If komgeri = "yazi" Then Print #myFile, "yazi/ " & sb
+    If komgeri = "taşı" Then Print #myFile, "taşı/" & sb & " / " & tb
+    If komgeri = "don" Then Print #myFile, "don/" & sb & " / " & tb
+    If komgeri = "don2" Then Print #myFile, "don2/" & sb & " / " & tb
+    If komgeri = "ayna" Then Print #myFile, "ayna/" & sb & " / " & tb
+    If komgeri = "ayna2" Then Print #myFile, "ayna2/" & sb & " / " & tb
+    If komgeri = "ote" Then Print #myFile, "ote/" & tb & " / " & sb
+    If komgeri = "dizi" Then Print #myFile, "dizi/" & sb & " / " & tb
+    If komgeri = "olcek" Then Print #myFile, "olcek/" & sb & " / " & tb
+    If komgeri = "germe" Then Print #myFile, "germe/" & sb & " / " & tb
+    If komgeri = "buda" Then Print #myFile, "buda/" & sb & " / " & tb
+    If komgeri = "trid" Then Print #myFile, "trid/" & sb & " / " & tb
+    If komgeri = "kopya" Then Print #myFile, "kopya/" & sb & " / " & tb
+    If komgeri = "pat" Then Print #myFile, "pat/" & sb
+    If komgeri = "sil" Then Print #myFile, "sil/" & sb & " / " & tb
+    Close #myFile
+    zgercek = zgercek + 1
+    ilk.depot.Clear
+    ilk.depog.Clear
+    ilk.deposay = 0
+    ilk.gkay = 0
+    tasima.drl.Clear
+    Return
+        Catch
+	ilk.hatayaz("zkayit " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public m As String[]
+
+Public Sub gergi()
+
+    Dim myFile As File
+    Dim myLine, stre, kmt, biri, ikisi As String
+    Dim tx, by As Integer
+
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/geri"
+    While Not Eof(myFile)
+        If Lof(myFile) > 0 Then
+            zgercek = zgercek + 1
+            Line Input #myFile, myLine
+        Endif
+    Wend
+    zgercek = zgercek - 1
+    ikayit(myLine)
+    m = Split(myLine, "/")
+    For Each stre In m
+        by = by + 1
+        If by = 1 Then kmt = stre
+        If by = 2 Then biri = stre
+        If by = 3 Then ikisi = stre
+    Next
+
+    If kmt = "taşı" Then tasig(biri, ikisi)
+    If kmt = "cizgi" Then cizik(biri)
+    If kmt = "cember" Then cizik(biri)
+    If kmt = "yay" Then cizik(biri)
+    If kmt = "dortgen" Then cizik(biri)
+    If kmt = "olcu" Then cizik(biri)
+    If kmt = "poli" Then cizik(biri)
+    If kmt = "yazi" Then cizik(biri)
+    If kmt = "don" Then tasig(biri, ikisi)
+    If kmt = "don2" Then tasig2(biri, ikisi)
+    If kmt = "ayna" Then tasig(biri, ikisi)
+    If kmt = "ayna2" Then tasig2(biri, ikisi)
+    If kmt = "ote" Then tasig(biri, ikisi)
+    If kmt = "dizi" Then tasig(biri, ikisi)
+    If kmt = "germe" Then tasig(biri, ikisi)
+    If kmt = "buda" Then tasig(biri, ikisi)
+    If kmt = "trid" Then tasig(biri, ikisi)
+    If kmt = "kopya" Then tasig2(biri, ikisi)
+    If kmt = "pat" Then tasig(biri, ikisi)
+    If kmt = "alan" Then tasig(biri, ikisi)
+    If kmt = "sil" Then tasig(biri, ikisi)
+    liste2.Clear
+    tx = 0
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/geri" For Read
+    While Not Eof(myFile)
+        If Lof(myFile) > 0 Then
+            tx = tx + 1
+            liste2.Add(myLine)
+            Line Input #myFile, myLine
+        Endif
+    Wend
+cik:
+    Close #myFile
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/geri" For Create
+    For tx = 0 To liste2.Count - 1
+        liste2.Index = tx
+        Print #myFile, liste2.Text
+    Next
+    Close #myFile
+    ilk.mesgul = 0
+    ilk.calanilk.Refresh
+    Return
+        Catch
+	ilk.hatayaz("gergi " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub ikayit(sati As String)
+
+    Dim myFile As File
+    Dim myLine As String
+    Dim tx As Integer
+
+    liste.Clear
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/ileri") Then
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/ileri" For Read
+        While Not Eof(myFile)
+            If Lof(myFile) > 0 Then
+                Line Input #myFile, myLine
+                liste.Add(myLine)
+            Endif
+        Wend
+        Close #myFile
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/ileri" For Write
+    Else
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/ileri" For Create
+    Endif
+
+    If liste.Count > 0 Then
+        For tx = 0 To liste.Count - 1
+            liste.Index = tx
+            Print #myFile, liste.Text
+        Next
+    Endif
+    Print #myFile, sati
+    Close #myFile
+    zileri = zileri + 1
+    Return
+        Catch
+	ilk.hatayaz("ikayit " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub gkay(sati As String)
+
+    Dim myFile As File
+    Dim myLine As String
+    Dim tx As Integer
+
+    liste.Clear
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/geri") Then
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/geri" For Read
+        While Not Eof(myFile)
+            If Lof(myFile) > 0 Then
+                Line Input #myFile, myLine
+                liste.Add(myLine)
+            Endif
+        Wend
+        Close #myFile
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/geri" For Write
+    Else
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/geri" For Create
+    Endif
+    If liste.Count > 0 Then
+        For tx = 0 To liste.Count - 1
+            liste.Index = tx
+            Print #myFile, liste.Text
+        Next
+    Endif
+    Print #myFile, sati
+    Close #myFile
+    Return
+        Catch
+	ilk.hatayaz("gkay " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub vergi()
+
+    Dim myFile As File
+    Dim myLine, stre, kmt, biri, ikisi As String
+    Dim tx, by As Integer
+
+    If Not Exist(System.User.Home &/ ".KediCAD/Kayit/ileri") Then Return
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/ileri" For Read
+    While Not Eof(myFile)
+        If Lof(myFile) > 0 Then
+            Line Input #myFile, myLine
+            tx = tx + 1
+            If tx = zileri Then
+                zileri = zileri - 1
+                gkay(myLine)
+                zgercek = zgercek + 1
+                m = Split(myLine, "/")
+                For Each stre In m
+                    by = by + 1
+                    If by = 1 Then kmt = stre
+                    If by = 2 Then biri = stre
+                    If by = 3 Then ikisi = stre
+                Next
+            Endif
+        End If
+    Wend
+    Close #myFile
+
+    If kmt = "taşı" Then tasigi(biri, ikisi)
+    If kmt = "cizgi" Then ciziki(biri)
+    If kmt = "cember" Then ciziki(biri)
+    If kmt = "yay" Then ciziki(biri)
+    If kmt = "dortgen" Then ciziki(biri)
+    If kmt = "olcu" Then ciziki(biri)
+    If kmt = "poli" Then ciziki(biri)
+    If kmt = "yazi" Then ciziki(biri)
+    If kmt = "don" Then tasigi(biri, ikisi)
+    If kmt = "don2" Then tasigi2(biri, ikisi)
+    If kmt = "ayna" Then tasigi(biri, ikisi)
+    If kmt = "ayna2" Then tasigi2(biri, ikisi)
+    If kmt = "ote" Then tasigi(biri, ikisi)
+    If kmt = "dizi" Then tasigi(biri, ikisi)
+    If kmt = "germe" Then tasigi(biri, ikisi)
+    If kmt = "buda" Then tasigi(biri, ikisi)
+    If kmt = "trid" Then tasigi(biri, ikisi)
+    If kmt = "kopya" Then tasigi2(biri, ikisi)
+    If kmt = "pat" Then tasigi(biri, ikisi)
+    If kmt = "alan" Then tasigi(biri, ikisi)
+    If kmt = "sil" Then tasigi(biri, ikisi)
+    liste2.Clear
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/ileri" For Read
+    While Not Eof(myFile)
+        If Lof(myFile) > 0 Then
+            tx = tx + 1
+            Line Input #myFile, myLine
+            liste2.Add(myLine)
+        Endif
+    Wend
+cik:
+    Close #myFile
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/ileri" For Create
+    For tx = 0 To liste2.Count - 2
+        liste2.Index = tx
+        Print #myFile, liste2.Text
+    Next
+    Close #myFile
+    ilk.mesgul = 0
+    ilk.calanilk.Refresh
+    Return
+        Catch
+	ilk.hatayaz("vergi " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub cizik(bir As String)
+
+    Dim stre, snc As String
+
+    m = Split(bir, "-")
+    For Each stre In m
+        snc = Trim$(stre)
+        If snc Then silpak(snc)
+    Next
+    Return
+        Catch
+	ilk.hatayaz("cizik " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub tasig(bir As String, iki As String)
+
+    Dim stre, snc As String
+
+    m = Split(bir, "-")
+    For Each stre In m
+        snc = Trim$(stre)
+        If snc Then silpak(snc)
+    Next
+    m = Split(iki, "-")
+    For Each stre In m
+        snc = Trim$(stre)
+        If snc Then tilpak(snc)
+    Next
+    Return
+        Catch
+	ilk.hatayaz("tasig " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub tasig2(bir As String, iki As String)
+
+    Dim stre, snc As String
+
+    iki = ""
+    m = Split(bir, "-")
+    For Each stre In m
+        snc = Trim$(stre)
+        If snc Then silpak(snc)
+    Next
+    ' m = Split(iki, "-")
+    ' For Each stre In m
+    '         snc = Trim$(stre)
+    '         If snc Then tilpak(snc)
+    ' Next
+    Return
+        Catch
+	ilk.hatayaz("tasig2 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub tilpak(sl As Integer)
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.id = (-1 * sl) Then cazgi.id = -1 * cazgi.id
+    Next
+    Return
+
+End
+
+Public Sub silpak(sl As Integer)
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.id = sl Then cazgi.id = -1 * cazgi.id
+    Next
+    Return
+
+End
+
+Sub ciziki(bir As String)
+
+    Dim stre, snc As String
+
+    m = Split(bir, "-")
+    For Each stre In m
+        snc = Trim$(stre)
+        If snc Then tilpak(snc)
+    Next
+    Return
+        Catch
+	ilk.hatayaz("ciziki " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub tasigi(bir As String, iki As String)
+
+    Dim stre, snc As String
+
+    m = Split(bir, "-")
+    For Each stre In m
+        snc = Trim$(stre)
+        If snc Then tilpak(snc)
+    Next
+    m = Split(iki, "-")
+    For Each stre In m
+        snc = Trim$(stre)
+        If snc Then silpak(snc)
+    Next
+    Return
+        Catch
+	ilk.hatayaz("tasigi " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub tasigi2(bir As String, iki As String)
+
+    Dim stre, snc As String
+
+    iki = ""
+    m = Split(bir, "-")
+    For Each stre In m
+        snc = Trim$(stre)
+        If snc Then tilpak(snc)
+    Next
+    ' m = Split(iki, "-")
+    ' For Each stre In m
+    '         snc = Trim$(stre)
+    '         If snc Then silpak(snc)
+    ' Next
+    Return
+        Catch
+	ilk.hatayaz("tasigi2 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub Form_Open()
+
+    
+
+End

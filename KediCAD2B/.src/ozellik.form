@@ -1,0 +1,57 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,301,550)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  Sticky = True
+  SkipTaskbar = True
+  AutoResize = True
+  { Button43 Button
+    Move(28,483,233,28)
+    Text = ("Close")
+  }
+  { TableView1 TableView
+    Move(0,0,294,483)
+    Font = Font["Bold"]
+    Tracking = True
+    ShowCursor = True
+    Header = GridView.Horizontal
+  }
+  { ComboBox8 ComboBox
+    Move(140,413,99,23)
+  }
+  { ComboBox6 ComboBox
+    Move(140,390,99,23)
+  }
+  { ComboBox3 ComboBox
+    Move(140,302,99,23)
+  }
+  { ComboBox4 ComboBox
+    Move(140,431,99,23)
+    Text = ("ComboBox4")
+  }
+  { ComboBox5 ComboBox
+    Move(140,326,99,23)
+  }
+  { ComboBox1 ComboBox
+    Move(140,196,99,23)
+    Text = ("ComboBox1")
+  }
+  { ColorButton1 ColorButton
+    Move(140,171,99,28)
+  }
+  { ComboBox7 ComboBox
+    Move(140,148,99,23)
+  }
+  { ComboBox2 ComboBox
+    Move(140,217,99,23)
+    Text = ("ComboBox2")
+  }
+  { !TextBox2 ButtonBox
+    Move(84,0,161,28)
+    #Public = True
+  }
+}

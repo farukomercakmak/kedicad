@@ -1,0 +1,466 @@
+' Gambas module file
+
+Public cazgi As Czm
+Public ax3 As Float
+Public ay3 As Float
+Public ax4 As Float
+Public ay4 As Float
+Public ax1 As New Float[]
+Public ay1 As New Float[]
+Public ax2 As New Float[]
+Public ay2 As New Float[]
+Public tlx As Float
+Public tly As Float
+Public nvv As Integer
+Public mvv As Integer
+Public kex As Float
+Public keya As Float
+Public tet As Float
+Public tet2 As Float
+Public ca As Float
+Public ba As Float
+Public asa As Float
+Public clx As Float
+Public cly As Float
+Public d As Float
+Public hx As Float
+Public hy As Float
+
+
+Public Sub pol()
+Dim hs, ms As Integer
+duz.duzen
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then
+            If ms = 0 Then ms = cazgi.id
+            If hs <> 0
+                torba2.uzat4(hs)
+                torba2.yuvarla2(cazgi.id)
+                bas
+                faya.uygu2
+            Endif
+            hs = cazgi.id
+        Endif
+         ilk.calanilk.Refresh
+        Wait 1
+    Next
+    torba2.uzat4(ms)
+    torba2.yuvarla2(hs)
+     bas
+     faya.uygu2
+    ilk.dolas
+    ilk.calanilk.Refresh
+    Return
+           Catch
+	ilk.hatayaz("pol " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub bas()
+
+    With ilk
+        ax1.Clear
+        ay1.Clear
+        ax2.Clear
+        ay2.Clear
+        If .yuvx1 = 0 Then Return
+        If .gx1oku = 0 Then Return
+        .eggec = .gegimoku
+        .bgec = .gboku
+        .x1gec = .gx1oku
+        .y1gec = .gy1oku
+        .x2gec = .gx2oku
+        .y2gec = .gy2oku
+        acimi.aci(.yuvx1, .yuvy1, .yuvx2, .yuvy2)
+         .yuvb = acimi.bb
+          .yuveg = acimi.ege
+        acimi.tem(.bgec, .yuvb, .eggec, .yuveg)     'iki çizginin  kesişme noktası bulunuyor
+        tlx = acimi.tmx
+        tly = acimi.tmy
+        ' ///////       ilk çizgi
+        acimi.aci(.yuvx1, .yuvy1, tlx, tly)     'ilk çizginin 1 noktasının  kesişme noktasına uzaklığı
+        hx = acimi.boy
+        acimi.aci(.yuvx2, .yuvy2, tlx, tly)     'ilk çizginin 2 noktasının  kesişme noktasına uzaklığı
+        hy = acimi.boy
+        ax1.Add(tlx)
+        ay1.Add(tly)
+        If hx < hy         '  1 noktası daha yakınsa uzak 2 noktasını depoya ekle
+            ax2.Add(.yuvx2)
+            ay2.Add(.yuvy2)
+            ax1.Add(.yuvx2)
+            ay1.Add(.yuvy2)
+            ax3 = .yuvx1
+            ay3 = .yuvy1
+            nvv = 1
+        Else                  '  2 noktası daha yakınsa uzak 1 noktasını depoya ekle
+            ax2.Add(.yuvx1)
+            ay2.Add(.yuvy1)
+            ax1.Add(.yuvx1)
+            ay1.Add(.yuvy1)
+            ax3 = .yuvx2
+            ay3 = .yuvy2
+            nvv = 2
+        End If
+        ' ///////       ikinci çizgi
+        acimi.aci(.x1gec, .y1gec, tlx, tly)     'ikinci çizginin 1 noktasının  kesişme noktasına uzaklığı
+        hx = acimi.boy
+        acimi.aci(.x2gec, .y2gec, tlx, tly)     'ikinci çizginin 2 noktasının  kesişme noktasına uzaklığı
+        hy = acimi.boy
+
+        If hx < hy
+            ax2.Add(.x2gec)
+            ay2.Add(.y2gec)
+            ax1.Add(.x2gec)
+            ay1.Add(.y2gec)
+            ax4 = .x1gec
+            ay4 = .y1gec
+            mvv = 1
+        Else
+            ax2.Add(.x1gec)
+            ay2.Add(.y1gec)
+            ax1.Add(.x1gec)
+            ay1.Add(.y1gec)
+            ax4 = .x2gec
+            ay4 = .y2gec
+            mvv = 2
+        End If
+        ax2.Add(tlx)
+        ay2.Add(tly)
+     If asa <> 0 Then
+         doCutEar2()
+    Else
+        doCutEar()
+     Endif
+        
+    End With
+Return
+        Catch
+	ilk.hatayaz("bas " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public lex1 As Float
+Public ley1 As Float
+Public lex2 As Float
+Public ley2 As Float
+Public lex3 As Float
+Public ley3 As Float
+Public lex4 As Float
+Public ley4 As Float
+
+Public Sub doCutEar()
+
+    Dim x1, y1, x2, y2, x1u, y1u, x2u, y2u, acig, eg1, eg2, b1, b2 As Float
+    Dim l, te, te2 As Float
+    Dim t1, t2 As Integer
+    Paint.Brush = Paint.Color(ilk.apla)                     'çizgi seçildi çizgiyi kalın  çiz.
+    Paint.LineWidth = 1
+        If IsFloat(ilk.komutcuk.Text)
+            d = CFloat(ilk.komutcuk.Text) * ilk.olcum
+        Else
+            d = 5
+        End If
+    If asa <> 0 Then d = asa
+    
+    acimi.aci(tlx, tly, ax1[1], ay1[1])
+    acig = acimi.raci + Pi / 2
+    x1u = tlx + d * Cos(acig)        ' Paralel 1. çizgi
+    y1u = tly - d * Sin(acig)
+    x2u = ax1[1] + d * Cos(acig)
+    y2u = ay1[1] - d * Sin(acig)
+
+    acimi.aci(ax1[2], ay1[2], tlx, tly)
+    acig = acimi.raci + Pi / 2
+    x1 = ax1[2] + d * Cos(acig)         ' Paralel 2. çizgi
+    y1 = ay1[2] - d * Sin(acig)
+    x2 = tlx + d * Cos(acig)
+    y2 = tly - d * Sin(acig)
+
+    acimi.aci(x1u, y1u, x2u, y2u)
+    eg2 = acimi.ege
+    b2 = acimi.bb
+    acimi.aci(x1, y1, x2, y2)
+    eg1 = acimi.ege
+    b1 = acimi.bb
+    acimi.tem(b1, b2, eg1, eg2)
+    clx = acimi.tmx       ' Paralel kesişme noktası
+    cly = acimi.tmy
+    acimi.aci(ax1[1], ay1[1], clx, cly)
+    hx = acimi.boy
+    acimi.aci(ax1[1], ay1[1], tlx, tly)
+    hy = acimi.boy
+    If hx > hy Then               'Eğer clx tlx den uzaksa yönü değiştir yeniden hesapla
+        acimi.aci(tlx, tly, ax1[1], ay1[1])
+        acig = acimi.raci + Pi / 2
+        x1u = tlx - d * Cos(acig)        ' Paralel 1. çizgi
+        y1u = tly + d * Sin(acig)
+        x2u = ax1[1] - d * Cos(acig)
+        y2u = ay1[1] + d * Sin(acig)
+
+        acimi.aci(ax1[2], ay1[2], tlx, tly)
+        acig = acimi.raci + Pi / 2
+        x1 = ax1[2] - d * Cos(acig)         ' Paralel 2. çizgi
+        y1 = ay1[2] + d * Sin(acig)
+        x2 = tlx - d * Cos(acig)
+        y2 = tly + d * Sin(acig)
+
+        acimi.aci(x1u, y1u, x2u, y2u)
+        eg2 = acimi.ege
+        b2 = acimi.bb
+        acimi.aci(x1, y1, x2, y2)
+        eg1 = acimi.ege
+        b1 = acimi.bb
+        acimi.tem(b1, b2, eg1, eg2)
+        clx = acimi.tmx       ' Paralel kesişme noktası
+        cly = acimi.tmy
+    Endif
+   
+    With ilk
+
+        acimi.aci(ax1[1], ay1[1], clx, cly)
+        ba = acimi.raci
+        ca = acimi.boy
+        l = Sqr(Abs(ca ^ 2 - d ^ 2))
+        te = ATan(d / l)
+        te2 = ba - te
+        te = ba + te
+        kex = ax1[1] + l * Cos(te)
+        keya = ay1[1] - l * Sin(te)
+        tet = ax1[1] + l * Cos(te2)
+        tet2 = ay1[1] - l * Sin(te2)
+        acimi.aci(ax3, ay3, kex, keya)
+        ba = acimi.boy
+        acimi.aci(ax3, ay3, tet, tet2)
+        ca = acimi.boy
+        If ca > ba
+            lex1 = ax1[1]
+            ley1 = ay1[1]
+            lex2 = kex
+            ley2 = keya
+            Paint.MoveTo(ax1[1], ay1[1])
+            Paint.LineTo(kex, keya)
+            acimi.aci(clx, cly, kex, keya)
+            hx = acimi.raci
+            t1 = 1
+        Else
+            lex1 = ax1[1]
+            ley1 = ay1[1]
+            lex2 = tet
+            ley2 = tet2
+            Paint.MoveTo(ax1[1], ay1[1])
+            Paint.LineTo(tet, tet2)
+            acimi.aci(clx, cly, tet, tet2)
+            hx = acimi.raci
+            t1 = 2
+        End If
+        acimi.aci(ax1[2], ay1[2], clx, cly)
+        ba = acimi.raci
+        ca = acimi.boy
+        l = Sqr(Abs(ca ^ 2 - d ^ 2))
+        te = ATan(d / l)
+        te2 = ba - te
+        te = ba + te
+        kex = ax1[2] + l * Cos(te)
+        keya = ay1[2] - l * Sin(te)
+        tet = ax1[2] + l * Cos(te2)
+        tet2 = ay1[2] - l * Sin(te2)
+        acimi.aci(ax4, ay4, kex, keya)
+        ba = acimi.boy
+        acimi.aci(ax4, ay4, tet, tet2)
+        ca = acimi.boy
+        
+        If ca > ba
+            lex3 = ax1[2]
+            ley3 = ay1[2]
+            lex4 = kex
+            ley4 = keya
+            acimi.aci(clx, cly, kex, keya)
+            hy = acimi.raci
+            t2 = 1
+        Else
+            lex3 = ax1[2]
+            ley3 = ay1[2]
+            lex4 = tet
+            ley4 = tet2
+            acimi.aci(clx, cly, tet, tet2)
+            hy = acimi.raci
+            t2 = 2
+        End If
+        
+        ' If hx > 2 * Pi Then hx = hx - 2 * Pi
+        ' If hy > 2 * Pi Then hy = hy - 2 * Pi
+        ' If hx < 0 Then hx = hx + 2 * Pi
+        ' ' If hy < 0 Then hy = hy + 2 * Pi
+        ' If hx < hy Then
+        
+        If t2 = 2 Then 
+            x1u = hx
+            hx = hy
+            hy = x1u
+            x1u = 5
+        Endif
+        Paint.Stroke
+        Draw.LineStyle = 2
+        Paint.Brush = Paint.Color(Color.Yellow)  
+        If ilk.komutsayi = 37
+             Paint.MoveTo(lex2, ley2)
+            Paint.LineTo(lex4, ley4)
+        Else
+            If hy < hx Then hy = hy + 2 * Pi
+            Paint.Arc(clx, cly, d, - hx, - hy + hx)
+            Paint.Arc(clx, cly, 2)
+        End If
+    End With
+   Paint.Stroke
+Return
+        Catch
+	ilk.hatayaz("docutear " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub doCutEar2()
+
+    Dim x1, y1, x2, y2, x1u, y1u, x2u, y2u, acig, eg1, eg2, b1, b2 As Float
+    Dim l, te, te2 As Float
+    Dim t1, t2 As Integer
+    
+        If IsFloat(ilk.komutcuk.Text)
+            d = CFloat(ilk.komutcuk.Text) * ilk.olcum
+        Else
+            d = 5
+        End If
+    If asa <> 0 Then d = asa
+    
+    acimi.aci(tlx, tly, ax1[1], ay1[1])
+    acig = acimi.raci + Pi / 2
+    x1u = tlx + d * Cos(acig)        ' Paralel 1. çizgi
+    y1u = tly - d * Sin(acig)
+    x2u = ax1[1] + d * Cos(acig)
+    y2u = ay1[1] - d * Sin(acig)
+
+    acimi.aci(ax1[2], ay1[2], tlx, tly)
+    acig = acimi.raci + Pi / 2
+    x1 = ax1[2] + d * Cos(acig)         ' Paralel 2. çizgi
+    y1 = ay1[2] - d * Sin(acig)
+    x2 = tlx + d * Cos(acig)
+    y2 = tly - d * Sin(acig)
+
+    acimi.aci(x1u, y1u, x2u, y2u)
+    eg2 = acimi.ege
+    b2 = acimi.bb
+    acimi.aci(x1, y1, x2, y2)
+    eg1 = acimi.ege
+    b1 = acimi.bb
+    acimi.tem(b1, b2, eg1, eg2)
+    clx = acimi.tmx       ' Paralel kesişme noktası
+    cly = acimi.tmy
+    acimi.aci(ax1[1], ay1[1], clx, cly)
+    hx = acimi.boy
+    acimi.aci(ax1[1], ay1[1], tlx, tly)
+    hy = acimi.boy
+    If hx > hy Then               'Eğer clx tlx den uzaksa yönü değiştir yeniden hesapla
+        acimi.aci(tlx, tly, ax1[1], ay1[1])
+        acig = acimi.raci + Pi / 2
+        x1u = tlx - d * Cos(acig)        ' Paralel 1. çizgi
+        y1u = tly + d * Sin(acig)
+        x2u = ax1[1] - d * Cos(acig)
+        y2u = ay1[1] + d * Sin(acig)
+
+        acimi.aci(ax1[2], ay1[2], tlx, tly)
+        acig = acimi.raci + Pi / 2
+        x1 = ax1[2] - d * Cos(acig)         ' Paralel 2. çizgi
+        y1 = ay1[2] + d * Sin(acig)
+        x2 = tlx - d * Cos(acig)
+        y2 = tly + d * Sin(acig)
+
+        acimi.aci(x1u, y1u, x2u, y2u)
+        eg2 = acimi.ege
+        b2 = acimi.bb
+        acimi.aci(x1, y1, x2, y2)
+        eg1 = acimi.ege
+        b1 = acimi.bb
+        acimi.tem(b1, b2, eg1, eg2)
+        clx = acimi.tmx       ' Paralel kesişme noktası
+        cly = acimi.tmy
+    Endif
+   
+    With ilk
+
+        acimi.aci(ax1[1], ay1[1], clx, cly)
+        ba = acimi.raci
+        ca = acimi.boy
+        l = Sqr(Abs(ca ^ 2 - d ^ 2))
+        te = ATan(d / l)
+        te2 = ba - te
+        te = ba + te
+        kex = ax1[1] + l * Cos(te)
+        keya = ay1[1] - l * Sin(te)
+        tet = ax1[1] + l * Cos(te2)
+        tet2 = ay1[1] - l * Sin(te2)
+        acimi.aci(ax3, ay3, kex, keya)
+        ba = acimi.boy
+        acimi.aci(ax3, ay3, tet, tet2)
+        ca = acimi.boy
+        If ca > ba
+            lex1 = ax1[1]
+            ley1 = ay1[1]
+            lex2 = kex
+            ley2 = keya
+            acimi.aci(clx, cly, kex, keya)
+            hx = acimi.raci
+            t1 = 1
+        Else
+            lex1 = ax1[1]
+            ley1 = ay1[1]
+            lex2 = tet
+            ley2 = tet2
+            acimi.aci(clx, cly, tet, tet2)
+            hx = acimi.raci
+            t1 = 2
+        End If
+        acimi.aci(ax1[2], ay1[2], clx, cly)
+        ba = acimi.raci
+        ca = acimi.boy
+        l = Sqr(Abs(ca ^ 2 - d ^ 2))
+        te = ATan(d / l)
+        te2 = ba - te
+        te = ba + te
+        kex = ax1[2] + l * Cos(te)
+        keya = ay1[2] - l * Sin(te)
+        tet = ax1[2] + l * Cos(te2)
+        tet2 = ay1[2] - l * Sin(te2)
+        acimi.aci(ax4, ay4, kex, keya)
+        ba = acimi.boy
+        acimi.aci(ax4, ay4, tet, tet2)
+        ca = acimi.boy
+        
+        If ca > ba
+            lex3 = ax1[2]
+            ley3 = ay1[2]
+            lex4 = kex
+            ley4 = keya
+            acimi.aci(clx, cly, kex, keya)
+            hy = acimi.raci
+            t2 = 1
+        Else
+            lex3 = ax1[2]
+            ley3 = ay1[2]
+            lex4 = tet
+            ley4 = tet2
+            acimi.aci(clx, cly, tet, tet2)
+            hy = acimi.raci
+            t2 = 2
+        End If
+        If t2 = 2 Then 
+            x1u = hx
+            hx = hy
+            hy = x1u
+            x1u = 5
+        Endif
+    End With
+Return
+        Catch
+	ilk.hatayaz("docutear2 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+

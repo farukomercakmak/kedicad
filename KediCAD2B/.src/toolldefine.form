@@ -1,0 +1,51 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,35,34)
+  Icon = Picture["logo.png"]
+  Stacking = Window.Above
+  SkipTaskbar = True
+  { Label1 Label
+    MoveScaled(0,6,20,3)
+    Text = ("Tool diameter(mm)")
+  }
+  { TextBox1 TextBox
+    MoveScaled(21,6,13,4)
+  }
+  { Label2 Label
+    MoveScaled(0,12,21,3)
+    Text = ("Engraving speed(mm/Dak.)")
+  }
+  { TextBox2 TextBox
+    MoveScaled(21,12,13,4)
+  }
+  { Label3 Label
+    MoveScaled(0,18,20,3)
+    Text = ("Z speeed(mm/dk.)")
+  }
+  { TextBox3 TextBox
+    MoveScaled(21,18,13,4)
+  }
+  { Button1 Button
+    MoveScaled(22,29,11,5)
+    Text = ("Save")
+  }
+  { Button2 Button
+    MoveScaled(1,29,11,5)
+    Text = ("Cancel")
+  }
+  { Label4 Label
+    MoveScaled(0,0,17,3)
+    Text = ("Tool number")
+  }
+  { TextBox4 TextBox
+    MoveScaled(21,0,13,4)
+  }
+  { TextBox5 TextBox
+    MoveScaled(21,23,13,4)
+  }
+  { Label5 Label
+    MoveScaled(0,23,19,3)
+    Text = ("Z step(mm)")
+  }
+}

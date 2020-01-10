@@ -1,0 +1,1648 @@
+' Gambas class file
+
+Public bazgi As Cvb
+Public sx As New Float[]
+Public sy As New Float[]
+Public sn As New Integer[]
+Public drx As String
+Public dry As String
+Public dr As String
+Public gen As Integer
+Public faa As Integer
+Public nu As Float
+Public elas As Integer
+Public prs As New String[]
+Public snir As New String[]
+Public snir2 As New String[]
+Public syuk As New Float[]
+Public trb As Integer
+Public prb As Integer
+Public dugsay As Integer
+Public cazgi As Czm
+Private csp As Csplit
+Public yazgi As Czm
+Public elsay As Integer
+
+
+Public Sub Button24_Click()
+    'Hadi bakalım
+
+    Dim myFile, afile As File
+    Dim myLine As String
+    Dim i, t As Integer
+
+    ilk.olcum = 1
+    Button25.Visible = False
+    ucfea = 0
+    ucgen.bas
+    If ucgen.ket = 1 Then Goto cik  ' Kapalı polygon değil
+    dugsay = dugsay * 8
+    If Not IsDir(System.User.Home &/ "z88y") Then Mkdir System.User.Home &/ "z88y"
+    Shell "rm " & System.User.Home &/ "z88y/*"
+    Wait 0.5
+
+    '/////////    z88i4 dosyası     /////////////////////////
+    myFile = Open System.User.Home &/ "z88y/z88i4.txt" For Create
+    Print #myFile, "5000   1e-3  0.001  0.9  2"
+    Close #myFile
+    '/////////    z88dyn dosyası     /////////////////////////
+    aFile = Open System.User.Home &/ "z88y/z88.dyn" For Create
+    myFile = Open "genel/z88.dyn" For Read
+    If Lof(myFile) > 0 Then
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            Print #aFile, "  " & myLine
+        Wend
+    End If
+    Close #myFile
+    Close #aFile
+
+    '/////////    z88fcd dosyası     /////////////////////////
+    aFile = Open System.User.Home &/ "z88y/z88.fcd" For Create
+    myFile = Open "genel/z88.fcd" For Read
+    If Lof(myFile) > 0 Then
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            Print #aFile, "  " & myLine
+        Wend
+    End If
+    Close #myFile
+    Close #aFile
+    i = 0
+
+    For Each cazgi In ilk.cezmi
+        For Each yazgi In ilk.cezmi
+            If cazgi.komut = 242 Then
+                If yazgi.komut = 242 Then
+                    If cazgi.id <> yazgi.id Then
+                        If cazgi.id > 0
+                            If yazgi.id > 0 Then
+                                If cazgi.x1 = yazgi.x1
+                                    If cazgi.y1 = yazgi.y1 Then
+                                        yazgi.id = - yazgi.id
+                                    Endif
+                                Endif
+                            Endif
+                        Endif
+                    Endif
+                Endif
+            Endif
+        Next
+    Next
+
+    '/////////    ana DOSYA z88ni.txt      /////////////////////////
+    myFile = Open System.User.Home &/ "z88y/z88ni.txt" For Create ' ana DOSYA
+    Print #myFile, "   2 " & (dugsay) & " " & (dugsay / 8) & " " & (dugsay * 2) & " 1 0 0 0 0 0"
+    For Each cazgi In ilk.cezmi
+        If cazgi.komut = 242 Then
+            i = i + 1
+            Print #myFile, " " & i & " 2 " & (cazgi.x1 - ilk.orix) & " " & (- (cazgi.y1 - ilk.oriy))
+        End If
+    Next
+    i = 0
+    t = 0
+    For i = 1 To dugsay
+        t = t + 1
+        Print #myFile, "  " & t & " 7 "
+        Print #myFile, "  " & i & " " & (i + 2) & " " & (i + 4) & " " & (i + 6) & " " & (i + 1) & " " & (i + 3) & " " & (i + 5) & " " & (i + 7)
+        '  1           3                 5            7               2                4              6               8
+        '  1           5                2            6               3                7              4               8
+        i = i + 7
+    Next
+    t = 0
+    Print #myFile, "  1 " & (dugsay / 8) & " " & elas & " " & nu & " 3 " & TextBox13.Text ' MALZEME BİLGİSİ
+    For i = 1 To dugsay
+        t = t + 1
+        Print #myFile, "  " & t & " 7"
+        Print #myFile, "  " & ComboBox3.Text & " E " & ComboBox3.Text & " E"
+        i = i + 3
+    Next
+    Close #myFile
+    i = 0
+    t = 0
+
+    '/////////  SINIR ŞARTLARI VE YÜKLER   z88i2.txt     /////////////////////////
+    myFile = Open System.User.Home &/ "z88y/z88i2.txt" For Create ' sınır şartları  DOSYASI
+    Print #myFile, "  " & CStr(snir2.Count)
+    For i = 0 To snir2.Count - 1
+        If snir2[i] <> ""
+            Print #myFile, "  " & snir2[i]
+        End If
+    Next
+
+    '/////////  MALZEME ÖZELLİKLERİ    z88i3.txt"  /////////////////////////
+    myFile = Open System.User.Home &/ "z88y/z88i3.txt" For Create
+    If ComboBox1.Index = 0 Then Print #myFile, " 3   0   1" '   intord kflag vonmises
+    If ComboBox1.Index = 1 Then Print #myFile, " 3   0   2"  '   intord kflag rankine
+    If ComboBox1.Index = 2 Then Print #myFile, " 3   0   3" '   intord kflag tresca
+    Close #myFile
+
+    txtCommand.Text = "cd " & System.User.Home &/ "z88y"
+    txtCommand_Activate
+
+    txtCommand.Text = "z88x -nitx"   ' z88ni dosyasına göre dxf oluştutuluyor
+    txtCommand_Activate
+    Wait 1
+
+    txtCommand.Text = "z88x -iafx" 'Z88X.DXF To Z88I * .TXT
+    txtCommand_Activate
+    Wait 1
+    txtCommand.Text = "z88x -iatx" 'DXF To Z88I to DXF
+    txtCommand_Activate
+    Wait 1
+
+    txtCommand.Text = "z88x -nifx"   ' DXF ye göre z88ni oluştutuluyor
+    txtCommand_Activate
+    Wait 1
+
+    txtCommand.Text = "z88n"
+    txtCommand_Activate
+    Wait 1
+    txtCommand.Text = "z88x -iatx" 'DXF To Z88I to DXF
+    txtCommand_Activate
+    Wait 1
+    femdos
+    Wait 1
+    For Each cazgi In ilk.cezmi
+        If cazgi.katman = "Z88EIO"
+            cazgi.gor = 1
+        Endif
+    Next
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad = "Z88EIO"
+            bazgi.gor = 1
+        End If
+    Next
+
+    ilk.olcum = 1
+    ilk.tamekran_Click()
+    ilk.calanilk.Refresh
+    kmn("xdisp")
+    kmn("ydisp")
+    kmn("disp")
+    kmn("xdisplay")
+    kmn("ydisplay")
+    kmn("display")
+    kmn("xload")
+    kmn("yload")
+    kmn("loads")
+    kmn("degeleman")
+    kmn("defo")
+    kmn("defox")
+    kmn("defoy")
+
+    Wizard1.Index = 2
+cik:
+        Catch
+	ilk.hatayaz("btn24clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button11_Click()
+    'Hadi bakalım
+
+    Dim myFile As File
+    Dim i As Integer
+
+    Inc Application.Busy
+
+    '/////////  SINIR ŞARTLARI VE YÜKLER   z88i2.txt     /////////////////////////
+    If snir.Count = 0
+        Shell "rm " & System.User.Home &/ "z88y/z88y/*"
+        Message("No boundry", "OK")
+        Goto cik
+    Else
+        myFile = Open System.User.Home &/ "z88y/z88i2.txt" For Create ' sınır şartları  DOSYASI
+        Print #myFile, "  " & CStr(snir2.Count + snir.Count)
+        For i = 0 To snir2.Count - 1
+            If snir2[i] <> ""
+                Print #myFile, "  " & snir2[i]
+            End If
+        Next
+        For i = 0 To snir.Count - 1
+            If snir[i] <> ""
+                Print #myFile, "  " & snir[i] & syuk[i]
+            End If
+        Next
+        Close #myFile
+        myFile = Open System.User.Home &/ "z88y/Z88I2.TXT" For Create ' sınır şartları  DOSYASI
+        Print #myFile, "  " & CStr(snir2.Count + snir.Count)
+        For i = 0 To snir2.Count - 1
+            If snir2[i] <> ""
+                Print #myFile, "  " & snir2[i]
+            End If
+        Next
+        For i = 0 To snir.Count - 1
+            If snir[i] <> ""
+                Print #myFile, "  " & snir[i] & syuk[i]
+            End If
+        Next
+        Close #myFile
+    End If
+
+    txtCommand.Text = "z88f -c"
+    txtCommand_Activate
+    Wait 1
+
+    txtCommand.Text = "z88d"
+    txtCommand_Activate
+    Wait 1
+
+    txtCommand.Text = "z88e"
+    txtCommand_Activate
+    Wait 1
+
+    cizim
+    Button8_Click()
+    Button9_Click()
+    Button2_Click()
+    Button21_Click()
+    Button22_Click()
+    Button20_Click()
+    gorev
+    Button10_Click()
+    day.dxfkay("fea2")
+    ilk.tamekran_Click()
+    Wizard1.Index = 5
+    Dec Application.Busy
+cik:
+        Catch
+	ilk.hatayaz("btn11clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub kmn(snb As String)
+
+    bazgi = New Cvb
+    bazgi.ad = snb
+    bazgi.tip = 1
+    bazgi.renk = Color.White
+    bazgi.kal = 1
+    bazgi.id = dacy.byno
+    bazgi.gor = 0
+    bazgi.kilit = 0
+    ilk.bezmi.Add(bazgi, dacy.byno)
+    dacy.byno = dacy.byno + 1
+    Return
+        Catch
+	ilk.hatayaz("kmn " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub yimmi()
+
+    Dim i, t As Integer
+    Dim kx, ky, ox, oy As Float
+
+    cizem.katman = "defox"
+    For i = 0 To sn.count - 1
+        '   1           5                2            6               3                7              4               8
+        '  1           4                2             5              3                 6
+        If i = 0 Then t = 0
+        If i = 1 Then t = 4
+        If i = 2 Then t = 1
+        If i = 3 Then t = 5
+        If i = 4 Then t = 2
+        If i = 5 Then t = 6
+        If i = 6 Then t = 3
+        If i = 7 Then t = 7
+        For Each cazgi In ilk.cezmi
+            If cazgi.katman = "xdisp" Then
+                If cazgi.x4 = sn[t] Then
+                    If kx > 0 Then
+                        cizem.renk = cazgi.renk
+                        cizem.cizgi(cazgi.x1, cazgi.y1, kx, ky)
+                    Else
+                        ox = cazgi.x1
+                        oy = cazgi.y1
+                    Endif
+                    kx = cazgi.x1
+                    ky = cazgi.y1
+                Endif
+            Endif
+        Next
+    Next
+    cizem.cizgi(ox, oy, kx, ky)
+    cizem.katman = "defoy"
+    kx = 0
+    For i = 0 To sn.count - 1
+        If i = 0 Then t = 0
+        If i = 1 Then t = 4
+        If i = 2 Then t = 1
+        If i = 3 Then t = 5
+        If i = 4 Then t = 2
+        If i = 5 Then t = 6
+        If i = 6 Then t = 3
+        If i = 7 Then t = 7
+        For Each cazgi In ilk.cezmi
+            If cazgi.katman = "ydisp" Then
+                If cazgi.x4 = sn[t] Then
+                    If kx > 0 Then
+                        cizem.renk = cazgi.renk
+                        cizem.cizgi(cazgi.x1, cazgi.y1, kx, ky)
+                    Else
+                        ox = cazgi.x1
+                        oy = cazgi.y1
+                    Endif
+                    kx = cazgi.x1
+                    ky = cazgi.y1
+                Endif
+            Endif
+        Next
+    Next
+    cizem.temiz
+    cizem.katman = "defoy"
+    cizem.renk = Color.Green
+    cizem.cizgi(ox, oy, kx, ky)
+    kx = 0
+    cizem.katman = "defo"
+    cizem.renk = Color.Magenta
+    For i = 0 To sn.count - 1
+        If i = 0 Then t = 0
+        If i = 1 Then t = 4
+        If i = 2 Then t = 1
+        If i = 3 Then t = 5
+        If i = 4 Then t = 2
+        If i = 5 Then t = 6
+        If i = 6 Then t = 3
+        If i = 7 Then t = 7
+        For Each cazgi In ilk.cezmi
+            If cazgi.komut = 242
+                If cazgi.katman = "disp" Then
+                    If cazgi.x4 = sn[t] Then
+                        If kx <> 0 Then
+                            cizem.cizgi(cazgi.x1, cazgi.y1, kx, ky)
+                        Else
+                            ox = cazgi.x1
+                            oy = cazgi.y1
+                        Endif
+                        kx = cazgi.x1
+                        ky = cazgi.y1
+                    Endif
+                Endif
+            Endif
+        Next
+    Next
+    cizem.cizgi(ox, oy, kx, ky)
+    sn.Clear
+    Return
+        Catch
+	ilk.hatayaz("yimmi " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub elem()
+
+    Dim myFile As File
+    Dim myLine As String
+    Dim scv, nbv As Integer
+
+    csp = New Csplit
+    ilk.olcum = 1
+    scv = 99999999
+    If Exist(System.User.Home &/ "z88y/z88o4.txt")
+    Else
+        Message(" No Result", "OK")
+        Goto cik2
+    End If
+    myFile = Open System.User.Home &/ "z88y/z88o4.txt" For Read
+    If Lof(myFile) > 0 Then
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            If myLine = "now the nodal sums for each node" Then nbv = 1
+            If nbv = 0
+                If myLine Like "element #*" Then
+                    myLine = Left$(myLine, -24)
+                    myLine = Right$(myLine, -12)
+                    myLine = Trim$(myLine)
+                    ilk.komyaz.Text = myLine
+                    scv = 1
+                    ' If sx.Count > 7 Then otuz
+                    If sn.Count > 5 Then yimmi
+                    sx.Clear
+                    sy.Clear
+                Endif
+                If scv < 11
+                    If scv > 2 Then
+                        csp.yazi = myLine
+                        csp.takim()
+                        sn.Add(csp.sonuc1)
+                    Endif
+                Endif
+                scv = scv + 1
+            Endif
+        Wend
+    Endif
+    Close #myFile
+cik2:
+
+    If Exist(System.User.Home &/ "z88y/z88o3.txt")
+    Else
+        ' myFile = Open System.User.Home &/ "z88y/z88o3.txt" For Read
+        '    If Lof(myFile) > 0 Then
+        '        While Not Eof(myFile)
+        '            Line Input #myFile, myLine
+        '
+    End If
+    Return
+        Catch
+	ilk.hatayaz("elem " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub cizim()
+
+    Dim myFile As File
+    Dim myLine As String
+    Dim scv, i, ren, mkh As Integer
+    Dim onx, ony, kxr, bxr, kyr, byr, r As Float
+    '///////////////////
+    ilk.olcum = 1
+    csp = New Csplit
+    If Exist(System.User.Home &/ "z88y/z88o2.txt")
+    Else
+        Message(" No Result", "OK")
+        Goto cik2
+    End If
+    myFile = Open System.User.Home &/ "z88y/z88o2.txt" For Read
+    If Lof(myFile) > 0 Then
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            scv = scv + 1
+            If scv > 5
+                csp.yazi = myLine
+                csp.takim()
+                If csp.sonuc2 <> ""
+                    If csp.sonuc3 <> ""
+                        csp.sonuc3 = CFloat(csp.sonuc3) + 3
+                        ListBox1.Add("  " & CFloat(csp.sonuc2) & " / " & CFloat(csp.sonuc3))
+                        If kxr > CFloat(csp.sonuc2) Then kxr = CFloat(csp.sonuc2)  ' en büyük x y ve en küçük x y hesaplanıyor.
+                        If bxr < CFloat(csp.sonuc2) Then bxr = CFloat(csp.sonuc2)
+                        If kyr > CFloat(csp.sonuc3) Then kyr = CFloat(csp.sonuc3)
+                        If byr < CFloat(csp.sonuc3) Then byr = CFloat(csp.sonuc3)
+                    End If
+                End If
+            End If
+        atl:
+        Wend
+    End If
+    Close #myFile
+    ListBox1.Add("kx " & kxr)
+    ListBox1.Add("bx " & bxr)
+    ListBox1.Add("ky " & kyr)
+    ListBox1.Add("by " & byr)
+    scv = 0
+    i = 0
+    usx(Min(bxr, kxr), Max(bxr, kxr))
+    usy(Min(byr, kyr), Max(byr, kyr))
+    If Exist(System.User.Home &/ "z88y/z88o2.txt")
+        myFile = Open System.User.Home &/ "z88y/z88o2.txt" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                scv = scv + 1
+                If scv > 5
+                    csp.yazi = myLine
+                    csp.takim()
+                    If csp.sonuc2 <> ""
+                        If csp.sonuc3 <> ""
+                            csp.sonuc3 = CFloat(csp.sonuc3) + 3
+                            For Each cazgi In ilk.cezmi
+                                If csp.sonuc1 = Right$(cazgi.yazi, -2) Then
+                                    onx = CFloat(csp.sonuc2)
+                                    ony = CFloat(csp.sonuc3)
+                                    For Each yazgi In ilk.cezmi
+                                        If yazgi.komut = 242
+                                            If (yazgi.x1 = cazgi.x1)
+                                                If Abs(Abs(yazgi.y1 - Abs(cazgi.y1)) < 15) Then
+                                                    yazgi.yazi = Right$(cazgi.yazi, -2)
+                                                    r = Abs(Max(bxr, kxr) - Min(bxr, kxr))
+                                                    ren = Color.DarkCyan - ((onx / (r + 1)) + i * 20)
+
+                                                    cizem.katman = "xdisp"
+                                                    cizem.renk = ren
+                                                    cizem.nokta(cazgi.x1 + onx, cazgi.y1, csp.sonuc1)
+
+                                                    r = Abs(Max(byr, kyr) - Min(byr, kyr))
+                                                    ren = Color.DarkCyan - ((ony / (r + 1)) + i * 20)
+                                                    cizem.katman = "ydisp"
+                                                    cizem.nokta(cazgi.x1, cazgi.y1 + ony, csp.sonuc1)
+                                                    mkh = mkh + 1
+                                                    cizem.katman = "disp"
+                                                    cizem.renk = Color.Red
+                                                    acimi.aci(kxr, kyr, onx, ony)
+                                                    r = acimi.boy
+                                                    cizem.nokta(cazgi.x1 + onx, cazgi.y1 + ony, csp.sonuc1, csp.sonuc2, csp.sonuc3)
+                                                    cizem.katman = "disp"
+                                                    cizem.yaz(cazgi.x1 + onx, cazgi.y1 + ony, Round(r, -2), 5)
+                                                    i = i + 1
+                                                    Goto cb
+                                                Endif
+                                            Endif
+                                        Endif
+                                    Next
+                                cb:
+                                Endif
+                            Next
+                        End If
+                    End If
+                End If
+            Wend
+        End If
+        Close #myFile
+    End If
+    elem
+cik2:
+    Return
+        Catch
+	ilk.hatayaz("cizim " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub Button2_Click()
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.katman = "disp"
+            If cazgi.gor = 1
+                cazgi.gor = 0
+            Else
+                cazgi.gor = 1
+            Endif
+        Endif
+    Next
+
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad = "disp"
+            If bazgi.gor = 1
+                bazgi.gor = 0
+                bazgi.kilit = 0
+                Button2.Picture = Picture["simgeler/gorun.png"]
+            Else
+                bazgi.gor = 1
+                bazgi.kilit = 1
+                Button2.Picture = Picture["simgeler/gorunme.png"]
+            End If
+        End If
+    Next
+    ilk.calanilk.Refresh
+        Catch
+	ilk.hatayaz("btn2clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button17_Click()
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.katman = "ydisplay" Or cazgi.katman = "defoy"
+            If cazgi.gor = 1
+                cazgi.gor = 0
+            Else
+                cazgi.gor = 1
+            Endif
+        Endif
+    Next
+
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad = "defoy" Or bazgi.ad = "ydisplay"
+            If bazgi.gor = 1
+                bazgi.gor = 0
+                bazgi.kilit = 0
+                Button17.Picture = Picture["simgeler/gorun.png"]
+            Else
+                bazgi.gor = 1
+                bazgi.kilit = 1
+                Button17.Picture = Picture["simgeler/gorunme.png"]
+            End If
+        End If
+    Next
+    ilk.calanilk.Refresh
+        Catch
+	ilk.hatayaz("btn17clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button18_Click()
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.katman = "defo"
+            If cazgi.gor = 1
+                cazgi.gor = 0
+            Else
+                cazgi.gor = 1
+            Endif
+        Endif
+    Next
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad = "defo"
+            If bazgi.gor = 1
+                bazgi.gor = 0
+                bazgi.kilit = 0
+                Button18.Picture = Picture["simgeler/gorun.png"]
+            Else
+                bazgi.gor = 1
+                bazgi.kilit = 1
+                Button18.Picture = Picture["simgeler/gorunme.png"]
+            End If
+        End If
+    Next
+    ilk.calanilk.Refresh
+        Catch
+	ilk.hatayaz("btn18clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button16_Click()
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.katman = "xdisplay" Or cazgi.katman = "defox"
+            If cazgi.gor = 1
+                cazgi.gor = 0
+            Else
+                cazgi.gor = 1
+            Endif
+        Endif
+    Next
+
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad = "defox" Or bazgi.ad = "xdisplay"
+            If bazgi.gor = 1
+                bazgi.gor = 0
+                bazgi.kilit = 0
+                Button16.Picture = Picture["simgeler/gorun.png"]
+            Else
+                bazgi.gor = 1
+                bazgi.kilit = 1
+                Button16.Picture = Picture["simgeler/gorunme.png"]
+            End If
+        End If
+    Next
+    ilk.calanilk.Refresh
+        Catch
+	ilk.hatayaz("btn16clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Sub gorev()
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.katman <> "degeleman"
+            If cazgi.gor = 1
+                cazgi.gor = 0
+            Else
+                cazgi.gor = 1
+            Endif
+        Endif
+    Next
+
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad <> "degeleman"
+            bazgi.gor = 1
+            bazgi.kilit = 1
+        Else
+            bazgi.gor = 0
+            bazgi.kilit = 0
+        End If
+    Next
+    Return
+        Catch
+	ilk.hatayaz("gorev " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub Button10_Click()
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.katman = "Z88NET" Or cazgi.katman = "z88net"
+            If cazgi.gor = 1
+                cazgi.gor = 0
+            Else
+                cazgi.gor = 1
+            Endif
+        Endif
+    Next
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad = "Z88NET" Or bazgi.ad = "z88net"
+            If bazgi.gor = 1
+                bazgi.gor = 0
+                bazgi.kilit = 0
+                Button10.Picture = Picture["simgeler/gorun.png"]
+            Else
+                bazgi.gor = 1
+                bazgi.kilit = 1
+                Button10.Picture = Picture["simgeler/gorunme.png"]
+            End If
+        End If
+    Next
+    ilk.calanilk.Refresh
+        Catch
+	ilk.hatayaz("btn10clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button21_Click()
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.katman = "Z88PKT" Or cazgi.katman = "z88pkt"
+            If cazgi.gor = 1
+                cazgi.gor = 0
+            Else
+                cazgi.gor = 1
+            Endif
+        Endif
+    Next
+
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad = "Z88PKT"
+            If bazgi.gor = 1
+                bazgi.gor = 0
+                bazgi.kilit = 0
+                Button21.Picture = Picture["simgeler/gorun.png"]
+            Else
+                bazgi.gor = 1
+                bazgi.kilit = 1
+                Button21.Picture = Picture["simgeler/gorunme.png"]
+            End If
+        End If
+    Next
+    ilk.calanilk.Refresh
+        Catch
+	ilk.hatayaz("btn21clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button22_Click()
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.katman = "Z88EIO" Or cazgi.katman = "z88eio"
+            If cazgi.gor = 1
+                cazgi.gor = 0
+            Else
+                cazgi.gor = 1
+            Endif
+        Endif
+    Next
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad = "Z88EIO"
+            If bazgi.gor = 1
+                bazgi.gor = 0
+                bazgi.kilit = 0
+                Button22.Picture = Picture["simgeler/gorun.png"]
+            Else
+                bazgi.gor = 1
+                bazgi.kilit = 1
+                Button22.Picture = Picture["simgeler/gorunme.png"]
+            End If
+        End If
+    Next
+    ilk.calanilk.Refresh
+        Catch
+	ilk.hatayaz("btn22clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public fd As Integer
+
+Public Sub Button20_Click()
+
+    If fd = 0
+        For Each cazgi In ilk.cezmi
+            If cazgi.katman <> 0
+                cazgi.gor = 0
+            Endif
+        Next
+        For Each bazgi In ilk.bezmi
+            bazgi.gor = 0
+            bazgi.kilit = 0
+            Button2.Picture = Picture["simgeler/gorun.png"]
+            Button22.Picture = Picture["simgeler/gorun.png"]
+            Button8.Picture = Picture["simgeler/gorun.png"]
+            Button9.Picture = Picture["simgeler/gorun.png"]
+            Button21.Picture = Picture["simgeler/gorun.png"]
+            Button10.Picture = Picture["simgeler/gorun.png"]
+            Button17.Picture = Picture["simgeler/gorun.png"]
+            Button18.Picture = Picture["simgeler/gorun.png"]
+            Button16.Picture = Picture["simgeler/gorun.png"]
+        Next
+        fd = 1
+        Button20.Text = "HIDE ALL"
+    Else
+        For Each cazgi In ilk.cezmi
+            If cazgi.katman <> 0
+                cazgi.gor = 1
+            Endif
+        Next
+        For Each bazgi In ilk.bezmi
+            bazgi.gor = 1
+            bazgi.kilit = 1
+            Button2.Picture = Picture["simgeler/gorun.png"]
+            Button22.Picture = Picture["simgeler/gorun.png"]
+            Button8.Picture = Picture["simgeler/gorun.png"]
+            Button9.Picture = Picture["simgeler/gorun.png"]
+            Button21.Picture = Picture["simgeler/gorun.png"]
+            Button10.Picture = Picture["simgeler/gorun.png"]
+            Button17.Picture = Picture["simgeler/gorun.png"]
+            Button18.Picture = Picture["simgeler/gorun.png"]
+            Button16.Picture = Picture["simgeler/gorun.png"]
+        Next
+        Button20.Text = "SHOW ALL"
+        fd = 0
+    End If
+    ilk.calanilk.Refresh
+        Catch
+	ilk.hatayaz("btn20clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button8_Click()
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.katman = "xdisplay" Or cazgi.katman = "defox"
+            If cazgi.gor = 1
+                cazgi.gor = 0
+            Else
+                cazgi.gor = 1
+            Endif
+        Endif
+    Next
+
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad = "xdisp" Or bazgi.ad = "xdisplay"
+            If bazgi.gor = 1
+                bazgi.gor = 0
+                bazgi.kilit = 0
+                Button8.Picture = Picture["simgeler/gorun.png"]
+            Else
+                bazgi.gor = 1
+                bazgi.kilit = 1
+                Button8.Picture = Picture["simgeler/gorunme.png"]
+            End If
+        End If
+    Next
+    ilk.calanilk.Refresh
+        Catch
+	ilk.hatayaz("btn8clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button9_Click()
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.katman = "ydisplay" Or cazgi.katman = "defoy"
+            If cazgi.gor = 1
+                cazgi.gor = 0
+            Else
+                cazgi.gor = 1
+            Endif
+        Endif
+    Next
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad = "ydisp" Or bazgi.ad = "ydisplay"
+            If bazgi.gor = 1
+                bazgi.gor = 0
+                bazgi.kilit = 0
+                Button9.Picture = Picture["simgeler/gorun.png"]
+            Else
+                bazgi.gor = 1
+                bazgi.kilit = 1
+                Button9.Picture = Picture["simgeler/gorunme.png"]
+            End If
+        End If
+    Next
+    ilk.calanilk.Refresh
+        Catch
+	ilk.hatayaz("btn9clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub usx(alt As Float, ust As Float)
+
+    Dim i As Integer
+    Dim adim, r, rx, ro, ren As Float
+
+    ilk.bolok = ilk.bolok + 5
+    r = Abs(ust - alt)
+    adim = r / 10
+    ListBox1.Add("rx " & r)
+    ListBox1.Add("adım x " & adim)
+    rx = alt
+    cizem.katman = "xdisplay"
+    While rx < ust
+        rx = rx + adim
+        ren = Color.DarkCyan - ((rx / (r + 1)) + i * 20)
+        ro = Round(rx, -5)
+        cizem.renk = ren
+        cizem.kalin = 10
+        cizem.cizgi(ilk.orix, (- i * 15) + ilk.oriy, 25 + ilk.orix, (- i * 15) + ilk.oriy)
+        sdp.Add(dacy.kyno - 1)
+        cizem.yaz(25 + ilk.orix, (- i * 15) + ilk.oriy, ro, 5)
+        sdp.Add(dacy.kyno - 1)
+        i = i + 1
+    Wend
+    cizem.yaz(ilk.orix, (- i * 15) + ilk.oriy - 50, "x disp. ", 10)
+    cizem.yaz(ilk.orix, (- i * 15) + ilk.oriy - 30, "max x= " & ust, 5)
+    cizem.yaz(ilk.orix, (- i * 15) + ilk.oriy - 15, "min x= " & alt, 5)
+    ilk.bolok = ilk.bolok + 2
+    Return
+        Catch
+	ilk.hatayaz("usx " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub usy(alt As Float, ust As Float)
+
+    Dim i As Integer
+    Dim adim, r, rx, ro, ren As Float
+
+    ilk.bolok = ilk.bolok + 5
+    r = Abs(ust - alt)
+    adim = r / 10
+    ListBox1.Add("ry " & r)
+    ListBox1.Add("adım y " & adim)
+    rx = alt
+    cizem.temiz
+    cizem.katman = "ydisplay"
+
+    While rx < ust
+        rx = rx + adim
+        ren = Color.DarkCyan - ((rx / (r + 1)) + i * 20)
+        cizem.renk = ren
+        ro = Round(rx, -4)
+        cizem.kalin = 10
+        cizem.cizgi(100 + ilk.orix, (- i * 15) + ilk.oriy, 125 + ilk.orix, (- i * 15) + ilk.oriy)
+        sdp.Add(dacy.kyno - 1)
+        cizem.yaz(130 + ilk.orix, (- i * 15) + ilk.oriy, ro, 5)
+        sdp.Add(dacy.kyno - 1)
+        i = i + 1
+    Wend
+    cizem.yaz(100 + ilk.orix, (- i * 15) + ilk.oriy - 50, "y disp.", 10)
+    cizem.yaz(100 + ilk.orix, (- i * 15) + ilk.oriy - 30, "max y= " & ust, 5)
+    cizem.yaz(100 + ilk.orix, (- i * 15) + ilk.oriy - 15, "min y= " & alt, 5)
+    ilk.bolok = ilk.bolok + 2
+    Return
+        Catch
+	ilk.hatayaz("usy " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub Button14_Click()
+    ' z88i5 dosyasına
+
+    If TextBox1.Text <> "" Then
+        If TextBox6.Text <> "" Then
+            prb = prb + 1
+            prs.Add("fla " & prb & " " & CStr(TextBox6.Text) & " " & CStr(TextBox1.Text) & " " & CStr(TextBox8.Text) & " " & CStr(TextBox9.Text) & " " & CStr(TextBox10.Text), CInt(TextBox6.Text))
+        Else
+            Message("plase specify an element point", "OK")
+        Endif
+    Else
+        Message("plase specify a pressure value", "OK")
+    Endif
+    fea.textbox5.text = ""
+    fea.textbox7.text = ""
+    fea.textbox6.text = ""
+    fea.textbox8.text = ""
+    fea.textbox9.text = ""
+    fea.textbox10.text = ""
+        Catch
+	ilk.hatayaz("btn14clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub RadioButton7_Click()
+
+    If RadioButton1.Value = True
+        PictureBox1.Visible = True
+        PictureBox1.Picture = Picture["grafik/yukxeksi.png"]
+    Else If RadioButton4.Value = True
+        PictureBox1.Visible = True
+        PictureBox1.Picture = Picture["grafik/yukyeksi.png"]
+    End If
+    TextBox2.Text = -1 * CFloat(TextBox2.Text)
+
+End
+
+Public Sub RadioButton6_Click()
+
+    If RadioButton1.Value = True
+        PictureBox1.Visible = True
+        PictureBox1.Picture = Picture["grafik/yukxarti.png"]
+    Else If RadioButton4.Value = True
+        PictureBox1.Visible = True
+        PictureBox1.Picture = Picture["grafik/yukyarti.png"]
+    End If
+
+End
+
+Public Sub RadioButton1_Click()
+
+    TextBox12.Visible = False
+    DrawingArea1.Visible = False
+    TextBox12.Text = 0
+    If RadioButton6.Value = True
+        PictureBox1.Visible = True
+        PictureBox1.Picture = Picture["grafik/yukxarti.png"]
+    Else If RadioButton7.Value = True
+        PictureBox1.Visible = True
+        PictureBox1.Picture = Picture["grafik/yukxeksi.png"]
+    End If
+
+End
+
+Public Sub RadioButton4_Click()
+
+    TextBox12.Visible = False
+    DrawingArea1.Visible = False
+    TextBox12.Text = 90
+    If RadioButton6.Value = True
+        PictureBox1.Visible = True
+        PictureBox1.Picture = Picture["grafik/yukyarti.png"]
+    Else If RadioButton7.Value = True
+        PictureBox1.Visible = True
+        PictureBox1.Picture = Picture["grafik/yukyeksi.png"]
+    End If
+
+End
+
+Public Sub RadioButton5_Click()
+
+    TextBox12.Text = 135
+    TextBox12.Visible = True
+    DrawingArea1.Visible = True
+    PictureBox1.Visible = False
+
+End
+
+Public Sub Button4_Click()
+    ' z88i2 dosyasına
+
+    Dim vb, sb As String
+    Dim yk, xk, tet, tyk As Float
+
+    tet = Rad(TextBox12.text)
+    tyk = 10 * CFloat(TextBox2.text) + 3
+
+    If TextBox2.Text <> "" Then
+        If TextBox11.Text <> "" Then
+            If TextBox12.text = 0 Then
+                vb = "1"
+                sb = "x"
+            Else If TextBox12.text = 90 Then
+                vb = "2"
+                sb = "y"
+                tyk = (-1) * tyk
+            Else
+                xk = Round((-1 * tyk * Cos(tet)), -2)
+                yk = Round((-1 * tyk * Sin(tet)), -2)
+            Endif
+            If xk = 0
+                trb = trb + 1
+                snir.Add(TextBox11.Text & " " & vb & " 1 ")
+                syuk.Add(tyk)
+                ' rbd   sıra        düğüm no             eksen    sınır      değer
+                ListBox2.Add(TextBox11.Text & " " & sb & " " & tyk & " N ")
+            Else
+                trb = trb + 1
+                snir.Add(TextBox11.Text & " 1 1 ")
+                syuk.Add(xk)
+                ' rbd   sıra        düğüm no     xekseni  sınır  değer
+                ListBox2.Add(TextBox11.Text & " x " & xk & " N ")
+                trb = trb + 1
+                snir.Add(TextBox11.Text & " 2 1 ")
+                syuk.Add(yk)
+                ListBox2.Add(TextBox11.Text & " y " & yk & " N ")
+            Endif
+        Else
+            Message("plase specify a point", "OK")
+        Endif
+    Else
+        Message("plase specify a load value", "OK")
+    Endif
+    fea.textbox5.text = ""
+    fea.textbox11.text = ""
+    fea.textbox7.text = ""
+    fea.textbox6.text = ""
+    fea.textbox8.text = ""
+    fea.textbox9.text = ""
+    fea.textbox10.text = ""
+    ilk.calanilk.Refresh
+    RadioButton6.Value = True
+    RadioButton7.Value = False
+        Catch
+	ilk.hatayaz("btn4clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub TextBox12_Change()
+
+    If TextBox12.Text <> ""
+        If CFloat(TextBox12.Text) > 360 Then TextBox12.Text = 360
+        If CFloat(TextBox12.Text) < 0 Then TextBox12.Text = 0
+    Endif
+    DrawingArea1.Refresh
+
+End
+
+Public Sub DrawingArea1_Draw()
+
+    Paint.Brush = Paint.Color(Color.RGB(255, 31, 31))
+    Paint.LineWidth = 3
+    Paint.MoveTo(150, 75)
+    Paint.LineTo(75, 75)
+    Paint.MoveTo(85, 72)
+    Paint.LineTo(75, 75)
+    Paint.MoveTo(85, 78)
+    Paint.LineTo(75, 75)
+    If TextBox12.Text <> ""
+        If CFloat(TextBox12.Text) >= 0
+            Paint.Translate(75, 75)
+            Paint.Rotate(Rad(TextBox12.Text))
+            Paint.Translate(-75, -75)
+        End If
+    End If
+    Paint.Stroke
+        Catch
+	ilk.hatayaz("dwgar1draw " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ComboBox2_Change()
+
+    If ComboBox2.Index = 0 Then
+        elas = 200000
+        nu = 0.3
+    Else If ComboBox2.Index = 1
+        elas = 69000
+        nu = 0.33
+    Else If ComboBox2.Index = 2
+        elas = 110000
+        nu = 0.35
+    Else If ComboBox2.Index = 2
+        elas = 190000
+        nu = 0.27
+    Endif
+
+
+End
+
+Public Sub Form_Open()
+
+    Dim myFile, afile As File
+    Dim myLine As String
+    Dim i As Integer
+
+    tem.kontrol
+    fd = 0
+    grns = 1
+    If ilk.depo1.Count > 0
+        '  //////////      katmanları oluştur.
+        kmn("yuk")
+        ComboBox2.Add("Steel", 0)
+        ComboBox2.Add("Aliminium 11**", 1)
+        ComboBox2.Add("Brass-Bronze")
+        ComboBox2.Add("Stainless Steel")
+        ComboBox2_Change()
+        RadioButton1_Click()
+        gen = 2
+        ComboBox1.Add("Von Mises stresses", 0)
+        ComboBox1.Add("Rankine stresses", 1)
+        ComboBox1.Add("Tresca stresses", 2)
+        ComboBox3.Add("2", 0)
+        ComboBox3.Add("3", 1)
+        ComboBox3.Add("4", 2)
+        ComboBox3.Add("5", 3)
+        ComboBox3.Add("6", 4)
+        ComboBox3.Add("7", 5)
+        ComboBox3.Add("8", 6)
+        ComboBox3.Add("9", 7)
+        ComboBox3.Add("10", 8)
+        If Not IsDir(System.User.Home &/ "z88y") Then Mkdir System.User.Home &/ "z88y"
+        Shell "rm " & System.User.Home &/ "z88y/*"
+        Wait 0.5
+        '/////////    z88dyn dosyası     /////////////////////////
+        aFile = Open System.User.Home &/ "z88y/z88.dyn" For Create ' ana DOSYA
+        myFile = Open "genel/z88.dyn" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                Print #aFile, "  " & myLine
+            Wend
+        End If
+        Close #myFile
+        Close #aFile
+
+        '/////////    z88fcd dosyası     /////////////////////////
+        aFile = Open System.User.Home &/ "z88y/z88.fcd" For Create ' ana DOSYA
+        myFile = Open "genel/z88.fcd" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                Print #aFile, "  " & myLine
+            Wend
+        End If
+        Close #myFile
+        Close #aFile
+        i = 0
+    End If
+    ComboBox3.Index = 1
+    If System.User.Name <> "ulusoy"
+        '/////   FEA GPL sayfasını yükle
+        ' fea.TextEdit1.Move(0, 0)
+        ' myFile = Open "gnugpl.txt" For Read
+        '     While Not Eof(myFile)
+        '         Line Input #myFile, myLine
+        '         fea.TextEdit1.Text = fea.TextEdit1.Text & myLine & Chr$(10)
+        '     Wend
+        ' Close #myFile
+        ' fea.TextEdit1.Select(0, 0)
+        ' fea.TextEdit1.Move(0, 0)
+
+        myFile = Open "Legal_disclaimer.txt" For Read
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            fea.Textarea1.Text = fea.Textarea1.Text & myLine & Chr$(10)
+        Wend
+        Close #myFile
+        fea.Textarea1.Select(0, 0)
+    End If
+        Catch
+	ilk.hatayaz("fopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Form_Close()
+
+    $hProcess.Kill
+    gen = 0
+    grns = 0
+
+End
+
+Public Sub Wizard1_Cancel()
+
+    Form_Close()
+
+End
+
+Public Sub Button5_Click()
+    ' z88i2 dosyasına
+
+    If TextBox5.Text <> "" Then
+        trb = trb + 1
+        snir2.Add(TextBox5.Text & " 1 2 0")
+        ' düğüm no xekseni yük/yer değer
+        ListBox3.Add(TextBox5.Text & " x destek")
+    Else
+        Message("plase specify a point", "OK")
+    Endif
+
+    fea.textbox5.text = ""
+    fea.textbox7.text = ""
+    fea.textbox6.text = ""
+    fea.textbox8.text = ""
+    fea.textbox9.text = ""
+    fea.textbox10.text = ""
+    ilk.calanilk.Refresh
+        Catch
+	ilk.hatayaz("btn5clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button6_Click()
+    ' z88i2 dosyasına
+
+    If TextBox5.Text <> "" Then
+        trb = trb + 1
+        snir2.Add(TextBox5.Text & " 2 2 0")
+        ' düğüm no xekseni yük/yer değer
+        ListBox3.Add(TextBox5.Text & " y destek")
+    Else
+        Message("plase specify a point", "OK")
+    Endif
+    fea.textbox5.text = ""
+    fea.textbox7.text = ""
+    fea.textbox6.text = ""
+    fea.textbox8.text = ""
+    fea.textbox9.text = ""
+    fea.textbox10.text = ""
+    ilk.calanilk.Refresh
+        Catch
+	ilk.hatayaz("btn6clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button7_Click()
+    ' z88i2 dosyasına
+
+    If TextBox5.Text <> "" Then
+        trb = trb + 1
+        snir2.Add(TextBox5.Text & " 1 2 0")
+        trb = trb + 1
+        snir2.Add(TextBox5.Text & " 2 2 0")
+        ListBox3.Add(TextBox5.Text & " x-y destek")
+    Else
+        Message("plase specify a point", "OK")
+    Endif
+
+    fea.textbox5.text = ""
+    fea.textbox7.text = ""
+    fea.textbox6.text = ""
+    fea.textbox8.text = ""
+    fea.textbox9.text = ""
+    fea.textbox10.text = ""
+    ilk.calanilk.Refresh
+        Catch
+	ilk.hatayaz("btn7clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub TabStrip1_Click()
+
+End
+
+Public Sub femdos()
+
+    ilk.kaci = System.User.Home &/ "z88y/z88x.dxf"
+    dacy.dxf     '! !  dosya açma
+    ilk.olcum = 1
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad = "defox" Or bazgi.ad = "xdisplay"
+            If bazgi.gor = 1
+                bazgi.gor = 0
+                bazgi.kilit = 0
+                Button16.Picture = Picture["simgeler/gorun.png"]
+            Else
+                bazgi.gor = 1
+                bazgi.kilit = 1
+                Button16.Picture = Picture["simgeler/gorunme.png"]
+            End If
+        End If
+    Next
+    Return
+        Catch
+	ilk.hatayaz("femdos " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub Button12_Click()
+
+    fea.textbox5.text = ""
+    fea.textbox7.text = ""
+    fea.textbox6.text = ""
+    ilk.calanilk.Refresh
+
+End
+
+Public Sub Button13_Click()
+
+    fea.textbox5.text = ""
+    fea.textbox7.text = ""
+    fea.textbox6.text = ""
+    ilk.calanilk.Refresh
+
+End
+
+Public grns As Integer
+Public komut As Integer
+Public nodex As New Float[]
+Public nodey As New Float[]
+Public sdp As New Float[]
+
+Public Sub CheckBox1_Click()
+
+    If Panel1.Visible = False Then
+        Panel1.Visible = True
+    Else
+        Panel1.Visible = False
+    Endif
+
+
+End
+
+Public Sub Wizard1_Change()
+
+    fea.textbox5.text = ""
+    fea.textbox7.text = ""
+    fea.textbox6.text = ""
+    ilk.calanilk.Refresh
+
+End
+
+'////////////////konsole ///////////////
+
+'////////////////konsole ///////////////
+
+'////////////////konsole ///////////////
+
+Private $hProcess As Process
+Private $sText As String
+
+Public Sub _new()
+
+    $hProcess = Exec ["bash", "--noediting"] For Input Output As "Process"
+
+End
+
+Public Sub Process_Read()
+
+    Dim sStr As String
+
+    'Debug Eof(Last);; Lof(Last);;
+    'While Not sStr
+    Read #$hProcess, sStr, -256
+    'Wend
+    'Error sStr
+    $sText = $sText & sStr
+    'Debug Quote(sStr)
+    UpdateConsole
+
+End
+
+Public Sub Process_Error(sStr As String)
+
+    $sText = $sText & sStr
+    UpdateConsole
+
+End
+
+Private Sub UpdateConsole()
+
+    Dim iPos As Integer
+    Dim sStr As String
+
+    While Len($sText)
+
+        iPos = InStr($sText, "\n")
+        If iPos = 0 Then iPos = Len($sText)
+
+        sStr = Normalize(Left$($sText, iPos))
+        'Debug sStr
+        $sText = Mid$($sText, iPos + 1)
+
+        txtConsole.Pos = txtConsole.Length
+        txtConsole.Insert(sStr)
+
+    Wend
+
+End
+
+Public Sub Process_Kill()
+
+    'hProcess = NULL
+    Try Me.Close
+
+End
+
+Public Sub txtCommand_Activate()
+
+    Dim sLig As String
+
+    sLig = txtCommand.Text & gb.NewLine
+
+    'txtConsole.Pos = txtConsole.Length
+    'txtConsole.Insert("# " & sLig)
+    txtCommand.Clear
+
+    sLig = Conv$(sLig, Desktop.Charset, System.Charset)
+
+    Print #$hProcess, sLig;
+
+End
+
+Static Private Function Normalize(sStr As String) As String
+
+    Dim sNorm As String
+    Dim iInd As Integer
+    Dim iCar As Integer
+    Dim bEsc As Boolean
+
+    For iInd = 1 To Len(sStr)
+
+        iCar = Asc(sStr, iInd)
+
+        If iCar = 27 Then
+            bEsc = True
+            Continue
+        Endif
+
+        If bEsc Then
+            If iCar < 32 Then bEsc = False
+            Continue
+        Endif
+
+        If iCar < 32 And iCar <> 10 Then iCar = 32
+
+        sNorm = sNorm & Chr$(iCar)
+
+    Next
+
+    Return Conv$(sNorm, System.Charset, Desktop.Charset)
+Catch
+    Return
+
+End
+
+Public Sub btnCtrlC_Click()
+
+    Print #$hProcess, Chr$(3);
+
+End
+
+Public Sub btnCtrlD_Click()
+
+    Print #$hProcess, Chr$(4);
+
+End
+
+Public Sub btnCtrlZ_Click()
+
+    Print #$hProcess, Chr$(26);
+
+End
+'/////////  BASINÇLAR    z88i5.txt    /////////////////////////
+'If prs.Count = 0
+'Else
+'    myFile = Open System.User.Home &/ "z88y/z88i5.txt" For Create ' i5 DOSYASI
+'       For i = 0 To prs.Count - 1
+'           If prs[i] <> ""
+''               Print #myFile, prs[i]
+'          End If
+''       Next
+'   Close #myFile
+'   cizem.katman= "z88fla"
+'   cizem.yaz(ilk.orix + 50, 160 + ilk.oriy, "z88i5.txt " & CStr(prs.Count - 1), 5)
+'End If
+
+Public fgh As Integer
+
+Public Sub Button1_Click()
+
+End
+
+Public Sub Wizard1_Click()
+
+    If System.User.Name <> "ulusoy"
+        If CheckBox2.Value = True
+        Else
+            Wizard1.Index = 0
+            Message("Please read and agree Legal_disclaimer", "OK")
+        End If
+    End If
+
+End
+
+Public Sub CheckBox2_Click()
+
+    If System.User.Name <> "ulusoy"
+        Message("Always compare FE calculations With analytical rough calculations, results Of experiments, plausibility considerations And other tests without exception!", " OK ")
+    End If
+
+End
+
+Public ucfea As Integer
+
+Public Sub Button25_Click()
+
+    Dim myFile As File
+    Dim i As Integer
+
+    ilk.olcum = 1
+    '/////////  SINIR ŞARTLARI VE YÜKLER   z88i2.txt     /////////////////////////
+    myFile = Open System.User.Home &/ "z88y/Z88I2.TXT" For Create ' sınır şartları  DOSYASI
+    Print #myFile, "  " & CStr(snir2.Count)
+    For i = 0 To snir2.Count - 1
+        If snir2[i] <> ""
+            Print #myFile, "  " & snir2[i]
+        End If
+    Next
+    myFile = Open System.User.Home &/ "z88y/z88i2.txt" For Create ' sınır şartları  DOSYASI
+    Print #myFile, "  " & CStr(snir2.Count)
+    For i = 0 To snir2.Count - 1
+        If snir2[i] <> ""
+            Print #myFile, "  " & snir2[i]
+        End If
+    Next
+    txtCommand.Text = "cd " & System.User.Home &/ "z88y"
+    txtCommand_Activate
+
+    txtCommand.Text = "z88x -iatx" 'Z88I To  DXF
+    txtCommand_Activate
+    Wait 1
+    txtCommand.Text = "z88x -iafx" 'Z88I To  DXF
+    txtCommand_Activate
+    Wait 1
+    femdos   '!!!!!!!!!!!!!!!!!!!!!!!!!!!!kayıt
+    For Each bazgi In ilk.bezmi
+        If bazgi.ad = "Z88EIO"
+            bazgi.gor = 1
+        End If
+    Next
+
+    ilk.olcum = 1
+    ilk.tamekran_Click()
+    ilk.olcum = 1
+    ilk.calanilk.Refresh
+    kmn("xdisp")
+    kmn("ydisp")
+    kmn("disp")
+    kmn("xdisplay")
+    kmn("ydisplay")
+    kmn("display")
+    kmn("xload")
+    kmn("yload")
+    kmn("loads")
+    kmn("degeleman")
+    kmn("defo")
+    kmn("defox")
+    kmn("defoy")
+
+    Wizard1.Index = 4
+        Catch
+	ilk.hatayaz("btn25clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button15_Click()
+
+    
+
+End

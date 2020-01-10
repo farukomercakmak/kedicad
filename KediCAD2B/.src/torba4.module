@@ -1,0 +1,759 @@
+' Gambas module file
+
+Public bazgi As Cvb
+Public cazgi As Czm
+Public bnox As Float
+Public bnoy As Float
+
+
+Public Sub dikis(zx2 As Float, zy2 As Float)
+
+    Dim buyukx, buyuky, kucukx, kucuky, tex, tey, zx1, zy1 As Float
+
+    ilk.mesgul = 1
+    zx1 = ilk.vex1
+    zy1 = ilk.vey1
+    buyukx = Max(zx2, zx1)
+    kucukx = Min(zx2, zx1)
+    buyuky = Max(zy2, zy1)
+    kucuky = Min(zy2, zy1)
+    acimi.aci(zx1, zy1, zx2, zy2)
+    If zx1 <> kucukx
+        For Each cazgi In ilk.cezmi
+            If cazgi.komut = 1
+                If cazgi.id < 1 Then Goto dn1
+                If cazgi.kilit = 1 Then Goto dn1
+                tex = (acimi.bb - cazgi.b * ilk.olcum) / (cazgi.egim - acimi.ege + 0.00001)
+                tey = ((acimi.ege * cazgi.b * ilk.olcum) - (cazgi.egim * acimi.bb)) / (-1 * (cazgi.egim - acimi.ege + 0.00001))
+                If cazgi.x1 * ilk.olcum > kucukx Or cazgi.x2 * ilk.olcum > kucukx
+                    If cazgi.y1 * ilk.olcum > kucuky Or cazgi.y2 * ilk.olcum > kucuky
+                        If cazgi.x1 * ilk.olcum < buyukx Or cazgi.x2 * ilk.olcum < buyukx
+                            If cazgi.y1 * ilk.olcum < buyuky Or cazgi.y2 * ilk.olcum < buyuky
+                                If tex < buyukx
+                                    If tex > kucukx
+                                        If tey < buyuky
+                                            If tey > kucuky
+                                                ilk.depo1.add(cazgi.id, cazgi.id)
+                                                ilk.depot.Add(cazgi.id, ilk.deposay)
+                                                ilk.deposay = ilk.deposay + 1
+                                            Endif
+                                        Endif
+                                    Endif
+                                Endif
+                            Endif
+                        Endif
+                    Endif
+                Endif
+            Endif
+        dn1:
+        Next
+    Else
+        For Each cazgi In ilk.cezmi
+            If cazgi.komut = 1
+                If cazgi.id < 1 Then Goto dn
+                If cazgi.kilit = 1 Then Goto dn
+                tex = (acimi.bb - cazgi.b * ilk.olcum) / (cazgi.egim - acimi.ege + 0.00001)
+                tey = ((acimi.ege * cazgi.b * ilk.olcum) - (cazgi.egim * acimi.bb)) / (-1 * (cazgi.egim - acimi.ege + 0.00001))
+                If cazgi.x1 * ilk.olcum > kucukx And cazgi.x2 * ilk.olcum > kucukx
+                    If cazgi.y1 * ilk.olcum > kucuky And cazgi.y2 * ilk.olcum > kucuky
+                        If cazgi.x1 * ilk.olcum < buyukx And cazgi.x2 * ilk.olcum < buyukx
+                            If cazgi.y1 * ilk.olcum < buyuky And cazgi.y2 * ilk.olcum < buyuky
+                                If tex < buyukx
+                                    If tex > kucukx
+                                        If tey < buyuky
+                                            If tey > kucuky
+                                                ilk.depo1.add(cazgi.id, cazgi.id)
+                                                ilk.depot.Add(cazgi.id, ilk.deposay)
+                                                ilk.deposay = ilk.deposay + 1
+                                            Endif
+                                        Endif
+                                    Endif
+                                Endif
+                            Endif
+                        Endif
+                    Endif
+                Endif
+            Endif
+        dn:
+        Next
+    Endif
+
+    If zx2 > zx1
+        For Each cazgi In ilk.cezmi
+            If cazgi.id < 0 Then Goto gecgit
+            If cazgi.gor <> 0 Then Goto gecgit
+            If cazgi.kilit <> 0 Then Goto gecgit
+            If cazgi.x1 * ilk.olcum < buyukx
+                If cazgi.x1 * ilk.olcum > kucukx
+                    If cazgi.y1 * ilk.olcum < buyuky
+                        If cazgi.y1 * ilk.olcum > kucuky
+                            ilk.dept1.Add(cazgi.id, cazgi.id)
+                        Endif
+                    Endif
+                Endif
+            Endif
+            If cazgi.x2 * ilk.olcum < buyukx
+                If cazgi.x2 * ilk.olcum > kucukx
+                    If cazgi.y2 * ilk.olcum < buyuky
+                        If cazgi.y2 * ilk.olcum > kucuky
+                            ilk.dept2.Add(cazgi.id, cazgi.id)
+                        End If
+                    Endif
+                Endif
+            Endif
+            If cazgi.x1 * ilk.olcum < buyukx
+                If cazgi.x1 * ilk.olcum > kucukx
+                    If cazgi.y1 * ilk.olcum < buyuky
+                        If cazgi.y1 * ilk.olcum > kucuky
+                            If cazgi.x2 * ilk.olcum < buyukx
+                                If cazgi.x2 * ilk.olcum > kucukx
+                                    If cazgi.y2 * ilk.olcum < buyuky
+                                        If cazgi.y2 * ilk.olcum > kucuky
+                                            ilk.depo1.add(cazgi.id, cazgi.id)
+                                            ilk.depot.Add(cazgi.id, ilk.deposay)
+                                            ilk.deposay = ilk.deposay + 1
+                                        End If
+                                    End If
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+        gecgit:
+        Next
+    End If
+    If zx2 <= zx1
+        For Each cazgi In ilk.cezmi
+            If cazgi.id > 0 Then
+                If cazgi.gor <> 0 Then Goto gecgit2
+                If cazgi.kilit <> 0 Then Goto gecgit2
+                If cazgi.x1 * ilk.olcum < buyukx
+                    If cazgi.x1 * ilk.olcum > kucukx
+                        If cazgi.y1 * ilk.olcum < buyuky
+                            If cazgi.y1 * ilk.olcum > kucuky
+                                ilk.dept1.Add(cazgi.id, cazgi.id)
+                            End If
+                        End If
+                    End If
+                End If
+                If cazgi.x2 * ilk.olcum < buyukx
+                    If cazgi.x2 * ilk.olcum > kucukx
+                        If cazgi.y2 * ilk.olcum < buyuky
+                            If cazgi.y2 * ilk.olcum > kucuky
+                                ilk.dept2.Add(cazgi.id, cazgi.id)
+                            End If
+                        End If
+                    End If
+                End If
+                If cazgi.x1 * ilk.olcum < buyukx
+                    If cazgi.x1 * ilk.olcum > kucukx
+                        If cazgi.y1 * ilk.olcum < buyuky
+                            If cazgi.y1 * ilk.olcum > kucuky
+                                ilk.depo1.add(cazgi.id, cazgi.id)
+                                ilk.depot.Add(cazgi.id, ilk.deposay)
+                                ilk.deposay = ilk.deposay + 1
+                            End If
+                        End If
+                    End If
+                End If
+                If cazgi.x2 * ilk.olcum < buyukx
+                    If cazgi.x2 * ilk.olcum > kucukx
+                        If cazgi.y2 * ilk.olcum < buyuky
+                            If cazgi.y2 * ilk.olcum > kucuky
+                                ilk.depo1.add(cazgi.id, cazgi.id)
+                                ilk.depot.Add(cazgi.id, ilk.deposay)
+                                ilk.deposay = ilk.deposay + 1
+                            End If
+                        End If
+                    End If
+                End If
+                If cazgi.x3 * ilk.olcum < buyukx
+                    If cazgi.x3 * ilk.olcum > kucukx
+                        If cazgi.y3 * ilk.olcum < buyuky
+                            If cazgi.y3 * ilk.olcum > kucuky
+                                ilk.depo1.add(cazgi.id, cazgi.id)
+                                ilk.depot.Add(cazgi.id, ilk.deposay)
+                                ilk.deposay = ilk.deposay + 1
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+        gecgit2:
+        Next
+    End If
+
+    If ilk.depo1.Count < 1
+        ilk.dolas
+        ilk.kare = 0
+    End If
+    ilk.mesgul = 0
+    ilk.vey1 = 0
+    ilk.vex1 = 0
+    Return
+       Catch
+	ilk.hatayaz("dikis " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub bnok(mousex As Float, mousey As Float)
+Dim dnv, ilkx, ilky, sonx, sony As Float
+    bnox = 0
+    bnoy = 0
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then
+            ilkx = Min(cazgi.x4, cazgi.x5)
+            sonx = Max(cazgi.x4, cazgi.x5)
+            ilky = Min(cazgi.y4, cazgi.y5)
+            sony = Max(cazgi.y4, cazgi.y5)
+            acimi.aci(ilkx, ilky, sonx, sony)
+            dnv = Abs((mousey - mousex * acimi.ege - acimi.bb) / Sqr(1.5 * Abs(acimi.ege + 1.0001))) 
+            If dnv < (5 * ilk.olcum) Then
+                bnox = mousex
+                bnoy = mousey
+                ilk.sapta = 5
+                idem = cazgi.id
+            Endif
+            
+            acimi.aci(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, mousex, mousey)
+            If acimi.boy < (5 * ilk.olcum) Then
+                bnox = cazgi.x1 * ilk.olcum
+                bnoy = cazgi.y1 * ilk.olcum
+                ilk.sapta = 1
+                idem = cazgi.id
+            Endif
+            acimi.aci(cazgi.x2 * ilk.olcum, cazgi.y2 * ilk.olcum, mousex, mousey)
+            If acimi.boy < (5 * ilk.olcum) Then
+                bnox = cazgi.x2 * ilk.olcum
+                bnoy = cazgi.y2 * ilk.olcum
+                ilk.sapta = 2
+                idem = cazgi.id
+            Endif
+            acimi.aci(cazgi.x3 * ilk.olcum, cazgi.y3 * ilk.olcum, mousex, mousey)
+            If acimi.boy < (5 * ilk.olcum) Then
+                bnox = cazgi.x3 * ilk.olcum
+                bnoy = cazgi.y3 * ilk.olcum
+                ilk.sapta = 3
+                idem = cazgi.id
+            Endif
+            acimi.aci(cazgi.x4 * ilk.olcum, cazgi.y4 * ilk.olcum, mousex, mousey)
+            If acimi.boy < (10 * ilk.olcum) Then
+                bnox = cazgi.x4 * ilk.olcum
+                bnoy = cazgi.y4 * ilk.olcum
+                ilk.sapta = 4
+                idem = cazgi.id
+            Endif
+             acimi.aci(cazgi.yazix * ilk.olcum, cazgi.yaziy * ilk.olcum, mousex, mousey)
+            If acimi.boy < (10 * ilk.olcum) Then
+                bnox = cazgi.yazix * ilk.olcum
+                bnoy = cazgi.yaziy * ilk.olcum
+                ilk.sapta = 6
+                idem = cazgi.id
+            Endif
+        Endif
+        scx = bnox
+        scy = bnoy
+    Next
+    Return
+       Catch
+	ilk.hatayaz("bnok " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public derf As New Collection
+Public idem As Integer
+Public scx As Float
+Public scy As Float
+
+Public Sub bossec()
+
+    Dim zv, zu, zt, zs, azv, dnv As Float
+    Dim ir, re As Integer
+    dnv = 999
+    re = 9999999
+    derf.Clear
+    With ilk
+        .sapta = 0
+        For Each cazgi In ilk.cezmi
+            If cazgi.id = .yuvid
+                zu = Hyp(.tzx1 - cazgi.x1 * .olcum, .tzy1 - cazgi.y1 * .olcum)
+                zt = Hyp(.tzx1 - cazgi.x2 * .olcum, .tzy1 - cazgi.y2 * .olcum)
+                zv = Hyp(.tzx1 - cazgi.x3 * .olcum, .tzy1 - cazgi.y3 * .olcum)
+                zs = Hyp(.tzx1 - cazgi.x4 * .olcum, .tzy1 - cazgi.y4 * .olcum)
+                azv = Hyp(.tzx1 - cazgi.x5 * .olcum, .tzy1 - cazgi.y5 * .olcum)
+                ' dnv = Hyp(.tzx1 - cazgi.x5 * .olcum, .tzy1 - cazgi.y5 * .olcum)
+                
+                derf.Add(zu, 0)
+                derf.Add(zt, 1)
+                derf.Add(zv, 2)
+                derf.Add(zs, 3)
+                derf.Add(azv, 4)
+                derf.Add(dnv, 5)
+                
+                For ir = 0 To derf.count - 1
+                    If CFloat(derf[ir]) < re
+                        re = CFloat(derf[ir])
+                        .sapta = ir + 1
+                        If .sapta = 1 Then
+                            scx = cazgi.x1
+                            scy = cazgi.y1
+                        Else If .sapta = 2 Then
+                            scx = cazgi.x2
+                            scy = cazgi.y2
+                        Else If .sapta = 3 Then
+                            scx = cazgi.x3
+                            scy = cazgi.y3
+                        Else If .sapta = 4 Then
+                            scx = cazgi.x4
+                            scy = cazgi.y4
+                        Else If .sapta = 5 Then
+                            scx = cazgi.x5
+                            scy = cazgi.y5
+                        Endif
+                    End If
+                Next
+                idem = cazgi.id
+            End If
+        Next
+       
+    End With
+    Return
+       Catch
+	ilk.hatayaz("bossec " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub bossec2()
+
+    Dim zz1, zy1, zz2, zy2, aci1, aci2, aci3, tetam, yari As Float
+
+    ilk.mesgul = 1
+    cazgi = New Czm
+    With ilk
+        If .tzx2 <> 0
+            For Each cazgi In ilk.cezmi
+                If cazgi.id = idem Then
+                    cizem.aktar(cazgi.id)
+                    If cazgi.komut = 1
+                        If .sapta = 1
+                            cizem.cizgi(.tzx2, .tzy2, cazgi.x2 * .olcum, cazgi.y2 * .olcum)
+                            .sil(idem)
+                        Else If .sapta = 2
+                            cizem.cizgi(cazgi.x1 * .olcum, cazgi.y1 * .olcum, .tzx2, .tzy2)
+                            .sil(idem)
+                        Else If .sapta = 3
+                            aci2 = .tzx2 - cazgi.x3 * .olcum
+                            aci3 = .tzy2 - cazgi.y3 * .olcum
+                            zz1 = (cazgi.x1 * .olcum + aci2)
+                            zy1 = (cazgi.y1 * .olcum + aci3)
+                            zz2 = (cazgi.x2 * .olcum + aci2)
+                            zy2 = (cazgi.y2 * .olcum + aci3)
+                            cizem.cizgi(zz1, zy1, zz2, zy2)
+                            .sil(idem)
+                        End If
+                    Else If cazgi.komut = 60 Then
+                        cizem.altyazi = cazgi.x4
+                        cizem.italik = cazgi.egim
+                        cizem.bold = cazgi.y6
+                        cizem.font = cazgi.fnt
+                        If .sapta = 1
+                            cizem.yaz(.tzx2, .tzy2, cazgi.yazi, cazgi.x6, cazgi.y4)
+                            .sil(idem)
+                        Else If .sapta = 2
+                            zz1 = .tzy2 - (cazgi.y1 * .olcum + cazgi.x6 * .olcum)
+                            cizem.yaz(cazgi.x1 * .olcum, cazgi.y1 * .olcum, cazgi.yazi, zz1, cazgi.y4)
+                            .sil(idem)
+                        End If
+                    Else If cazgi.komut = 100 Or cazgi.komut = 105 Then
+'                         Message(.sapta)
+                        If .sapta = 1
+                            .birx = .tzx2
+                            .biry = .tzy2
+                            .ikix = cazgi.x2 * .olcum
+                            .ikiy = cazgi.y2 * .olcum
+                            .ucx = cazgi.x3 * .olcum
+                            .ucy = cazgi.y3 * .olcum
+                            .komutsayi = 100
+                            olcucur.olcukayit
+                            .sil(idem)
+                        Else If .sapta = 2
+                            .birx = cazgi.x1 * .olcum
+                            .biry = cazgi.y1 * .olcum
+                            .ikix = .tzx2
+                            .ikiy = .tzy2
+                            .ucx = cazgi.x3 * .olcum
+                            .ucy = cazgi.y3 * .olcum
+                            .komutsayi = 100
+                            olcucur.olcukayit
+                            .sil(idem)
+                        Else If .sapta = 6 Or .sapta = 3  '
+                            .birx = cazgi.x1 * .olcum
+                            .biry = cazgi.y1 * .olcum
+                            .ikix = cazgi.x2 * .olcum
+                            .ikiy = cazgi.y2 * .olcum
+                            .ucx = cazgi.x3 * .olcum
+                            .ucy = cazgi.y3 * .olcum
+                            .komutsayi = 100
+                            olcucur.olcukayit(1)
+                            .sil(idem)
+                        Else If .sapta = 5 Or .sapta = 4 ' yazidegis
+                            .birx = cazgi.x1 * .olcum
+                            .biry = cazgi.y1 * .olcum
+                            .ikix = cazgi.x2 * .olcum
+                            .ikiy = cazgi.y2 * .olcum
+                             If cazgi.komut = 105 
+                                .ucx = .tzx2
+                                .ucy = cazgi.y3 * .olcum
+                            Else
+                                .ucx = cazgi.x3 * .olcum
+                                .ucy = .tzy2 
+                            Endif
+                            .komutsayi = 100
+                            olcucur.olcukayit()
+                            .sil(idem)
+                        End If
+                    Else If cazgi.komut = 120 Then 
+                        
+                        If .sapta = 1
+                            .birx = .tzx2
+                            .biry = .tzy2
+                            .ikix = cazgi.x2 * .olcum
+                            .ikiy = cazgi.y2 * .olcum
+                            .ucx = cazgi.x3 * .olcum
+                            .ucy = cazgi.y3 * .olcum
+                            .komutsayi = 120
+                            olcucur.olcukayit
+                            .sil(idem)
+                        Else If .sapta = 2
+                            .birx = cazgi.x1 * .olcum
+                            .biry = cazgi.y1 * .olcum
+                            .ikix = .tzx2
+                            .ikiy = .tzy2
+                            .ucx = cazgi.x3 * .olcum
+                            .ucy = cazgi.y3 * .olcum
+                            .komutsayi = 120
+                            olcucur.olcukayit
+                        Else If .sapta = 3
+                            .birx = cazgi.x1 * .olcum
+                            .biry = cazgi.y1 * .olcum
+                            .ikix = cazgi.x2 * .olcum
+                            .ikiy = cazgi.y2 * .olcum
+                            .ucx = .tzx2
+                            .ucy = .tzy2
+                            .komutsayi = 120
+                            olcucur.olcukayit
+                            .sil(idem)
+                        End If
+                    Else If cazgi.komut = 110
+                        If .sapta = 1 Then  'x1 y1 değişiyor
+                            olcucur.acikma3(.tzx2, .tzy2, cazgi.yaricap, cazgi.teta, cazgi.r, cazgi.yazix, cazgi.yaziy, cazgi.yazi, cazgi.kalinlik, cazgi.blok)
+                            .sil(idem)
+                        Else If .sapta = 4 Then 'yarıçap değişiyor
+                            yari = Hyp(.tzx2 - cazgi.x1 * .olcum, .tzy2 - cazgi.y1 * .olcum)
+                            aci1 = cazgi.yazix * .olcum - .tzx2
+                            aci2 = cazgi.yaziy * .olcum - .tzy2
+                            olcucur.acikma3(cazgi.x1, cazgi.y1, yari, cazgi.teta, cazgi.r, cazgi.yazix - aci1, cazgi.yaziy - aci2, cazgi.yazi, cazgi.kalinlik, cazgi.blok)
+                            .sil(idem)
+                        Else If .sapta = 3 Then ' 1. açı  değişiyor
+                            acimi.aci(cazgi.x1 * .olcum, cazgi.y1 * .olcum, .tzx2, .tzy2)
+                            tetam = acimi.raci
+                            aci1 = Deg(tetam - .roku)
+                            olcucur.acikma3(cazgi.x1, cazgi.y1, cazgi.yaricap, cazgi.r, tetam, cazgi.yazix, cazgi.yaziy, aci1, cazgi.kalinlik, cazgi.blok)
+                            .sil(idem)
+                        Else If .sapta = 2 Then ' 2. açı  değişiyor
+                            acimi.aci(cazgi.x1 * .olcum, cazgi.y1 * .olcum, .tzx2, .tzy2)
+                            tetam = acimi.raci
+                            aci1 = Deg(.tetaoku - tetam)
+                            olcucur.acikma3(cazgi.x1, cazgi.y1, cazgi.yaricap, tetam, cazgi.teta, cazgi.yazix, cazgi.yaziy, aci1, cazgi.kalinlik, cazgi.blok)
+                            .sil(idem)
+                        End If
+                    Else If cazgi.komut = 25 Then
+                        If .sapta = 1 Then  'x1 y1 değişiyor
+                            cizem.cember(.tzx2, .tzy2, cazgi.yaricap)
+                            .sil(idem)
+                        Else If .sapta > 1 Then 'yarıçap değişiyor
+                            yari = Hyp(.tzx2 - cazgi.x1 * .olcum, .tzy2 - cazgi.y1 * .olcum) / .olcum
+                            cizem.cember(cazgi.x1 * .olcum, cazgi.y1 * .olcum, yari)
+                            .sil(idem)
+                        End If
+                    Else If cazgi.komut = 20
+                        If .sapta = 1 Then  'x1 y1 değişiyor
+                            cizem.yay(.tzx2, .tzy2, cazgi.yaricap, cazgi.teta, cazgi.r)
+                            .sil(idem)
+                        Else If .sapta = 4 Then 'yarıçap değişiyor
+                            yari = Hyp(.tzx2 - cazgi.x1 * .olcum, .tzy2 - cazgi.y1 * .olcum) / .olcum
+                            cizem.yay(cazgi.x1 * .olcum, cazgi.y1 * .olcum, yari, cazgi.teta, cazgi.r)
+                            .sil(idem)
+                        Else If .sapta = 3 Then ' 1. açı  değişiyor
+                            acimi.aci(cazgi.x1 * .olcum, cazgi.y1 * .olcum, .tzx2, .tzy2)
+                            tetam = acimi.raci
+                            cizem.yay(cazgi.x1 * .olcum, cazgi.y1 * .olcum, cazgi.yaricap, cazgi.r, tetam)
+                            .sil(idem)
+                        Else If .sapta = 2 Then ' 2. açı  değişiyor
+                            acimi.aci(cazgi.x1 * .olcum, cazgi.y1 * .olcum, .tzx2, .tzy2)
+                            tetam = acimi.raci
+                            cizem.yay(cazgi.x1 * .olcum, cazgi.y1 * .olcum, cazgi.yaricap, tetam, cazgi.teta)
+                            .sil(idem)
+                        End If
+                    End If
+                End If
+            Next
+            gerde.zkayit("trid", .idoku, (dacy.kyno - 1))
+        End If
+        
+    End With
+    ilk.mesgul = 0
+    ilk.dolas
+    Return
+       Catch
+	ilk.hatayaz("bossec2 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public cizx1 As Float
+Public cizy1 As Float
+Public cizx2 As Float
+Public cizy2 As Float
+
+Public Sub dizin()
+
+    Dim baris, karis, k As Integer
+    Dim cx1, cy1 As Float
+    Dim abl, pkm As String
+
+    pen.liste.clear
+    pen.liste2.clear
+    For Each cazgi In ilk.cezmi
+           If ilk.depo1.Exist(cazgi.id)
+                If cazgi.blok <> 0 Then
+                    If pen.liste.find(cazgi.blok) = -1 Then
+                        pen.liste.add(cazgi.blok) 
+                        pen.liste2.add(cazgi.blok & tasima.dzm) 
+                        tasima.dzm = tasima.dzm + 1
+                    Endif
+                Endif
+           Endif
+    Next
+    With ilk
+        For Each cazgi In ilk.cezmi
+            If ilk.depo1.Exist(cazgi.id)
+                If cazgi.blok = 0 Then
+                    abl = 0
+                 Else
+                        If cazgi.blok <> pkm
+                            For k = 0 To pen.liste.count - 1
+                                pen.liste.index = k
+                                pen.liste2.index = k
+                                If cazgi.blok = pen.liste.Text Then
+                                    abl = pen.liste2.Text
+                                    pkm = pen.liste.Text
+                                Endif
+                            Next
+                        Endif
+                 End If
+                tasima.drl.Add(cazgi.id)
+                For karis = 0 To dizim.sasay - 1
+                    For baris = 0 To dizim.sasay
+                        cizem.aktar(cazgi.id)
+                        cizem.bloku = abl
+                        If cazgi.komut = 1 Then
+                            cizx1 = cazgi.x1 * .olcum + baris * CFloat(dizim.satirara.Text)
+                            cizy1 = cazgi.y1 * .olcum - karis * CFloat(dizim.sutunara.Text)
+                            cizx2 = cazgi.x2 * .olcum + baris * CFloat(dizim.satirara.Text)
+                            cizy2 = cazgi.y2 * .olcum - karis * CFloat(dizim.sutunara.Text)
+                            cizem.cizgi(cizx1, cizy1, cizx2, cizy2)
+                        End If
+                        If cazgi.komut = 25 Then
+                            cx1 = cazgi.x1 * .olcum + baris * CFloat(dizim.satirara.Text)
+                            cy1 = cazgi.y1 * .olcum - karis * CFloat(dizim.sutunara.Text)
+                            cizem.cember(cx1, cy1, cazgi.yaricap)
+                        End If
+                        If cazgi.komut = 20 Then
+                            cx1 = cazgi.x1 * .olcum + baris * CFloat(dizim.satirara.Text)
+                            cy1 = cazgi.y1 * .olcum - karis * CFloat(dizim.sutunara.Text)
+                            cizem.yay(cx1, cy1, cazgi.yaricap, cazgi.teta, cazgi.r)
+                        End If
+                    Next
+                Next
+            End If
+        Next
+        ilk.dolas
+    End With
+    Return
+       Catch
+	ilk.hatayaz("dizin " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub mizin(dx1 As Float, dy1 As Float, adem As Integer)
+
+    Dim x6oku, y6oku As Float
+    Dim karis, eh As Integer
+    Dim abl As String
+    Dim zx, zy, x4oku, y4oku, x5oku, y5oku, acig, r, r2, acig2, aci, aci3, acig3, aci4 As Float
+
+    aci = 360 / adem
+    With ilk
+        dx1 = dx1 / ilk.olcum
+        dy1 = dy1 / ilk.olcum
+        zx = dx1
+        zy = dy1
+        For Each cazgi In ilk.cezmi
+            If cazgi.blok = 0 Then
+                abl = cazgi.blok
+            Else
+                eh = eh + 1
+                abl = cazgi.blok & eh
+            End If
+            If dizim.ici.Exist(cazgi.id)
+                r = 0
+                r2 = 0
+                acig = 0
+                x4oku = 0
+                y4oku = 0
+                x5oku = 0
+                y5oku = 0
+                acimi.aci(zx, zy, cazgi.x1 * .olcum, cazgi.y1 * .olcum)
+                acig2 = acimi.daci
+                acig = acig2 + aci
+                r = acimi.boy
+                acimi.aci(zx, zy, cazgi.x2 * .olcum, cazgi.y2 * .olcum)
+                r2 = acimi.boy
+                acig3 = acimi.daci
+            cim:
+                For karis = 1 To (adem)
+                    acig = acig2 + karis * aci
+                    aci3 = acig3 + karis * aci
+                    aci4 = aci3 - cazgi.r
+                    x4oku = dx1 + (r * (Cos(Rad(acig))))
+                    y4oku = dy1 - (r * (Sin(Rad(acig))))
+                    If dizim.CheckBox1.Value = False
+                        x5oku = cazgi.x1 - cazgi.x2
+                        y5oku = cazgi.y1 - cazgi.y2
+                        x6oku = x4oku - x5oku
+                        y6oku = y4oku - y5oku
+                    Else
+                        x6oku = dx1 + (r2 * (Cos(Rad(aci3))))
+                        y6oku = dy1 - (r2 * (Sin(Rad(aci3))))
+                    End If
+                    cizem.aktar(cazgi.id)
+                    cizem.bloku = abl
+                    If cazgi.komut = 1
+                        cizem.cizgi(x4oku, y4oku, x6oku, y6oku)
+                        ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                        ilk.gkay = ilk.gkay + 1
+                    Else If cazgi.komut = 25
+                        cizem.cember(x4oku, y4oku, cazgi.yaricap)
+                        ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                        ilk.gkay = ilk.gkay + 1
+                    Else If cazgi.komut = 20
+                        acimi.aci(zx, zy, cazgi.x1 * .olcum, cazgi.y1 * .olcum)
+                        acig = acimi.raci + karis * Rad(aci)
+                        r = acimi.boy
+                        x4oku = dx1 + (r * (Cos(acig)))
+                        y4oku = dy1 - (r * (Sin(acig)))
+                        acimi.aci(zx, zy, cazgi.x2 * .olcum, cazgi.y2 * .olcum)
+                        acig2 = acimi.raci + karis * Rad(aci)
+                        r = acimi.boy
+                        x5oku = dx1 + (r * (Cos(acig2)))
+                        y5oku = dy1 - (r * (Sin(acig2)))
+                        acimi.aci(zx, zy, cazgi.x3 * .olcum, cazgi.y3 * .olcum)
+                        aci3 = acimi.raci + karis * Rad(aci)
+                        r = acimi.boy
+                        x6oku = dx1 + (r * (Cos(aci3)))
+                        y6oku = dy1 - (r * (Sin(aci3)))
+                        ilk.birx = x4oku
+                        ilk.biry = y4oku
+                        ilk.ikix = x5oku
+                        ilk.ikiy = y5oku
+                        ilk.ucx = x6oku
+                        ilk.ucy = y6oku
+                        ilk.yaricap = cazgi.yaricap * .olcum
+                        cmbr.yayciii(cazgi.renk, cazgi.kalinlik, cazgi.sekil, abl)
+                        ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+                        ilk.gkay = ilk.gkay + 1
+                    End If
+                Next
+            End If
+        Next
+        For Each cazgi In ilk.cezmi
+            If dizim.ici.Exist(cazgi.id) Then .sil(cazgi.id)
+        Next
+    End With
+    ilk.bolok = ilk.bolok + 5 + ilk.depo1.count
+    ilk.dolas
+    Return
+       Catch
+	ilk.hatayaz("mizin " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub kizin(dx1 As Float, dy1 As Float, adem As Integer)
+
+    Dim x6oku, y6oku, ilkol As Float
+    Dim karis As Integer
+
+    Dim zx, zy, x4oku, y4oku, x5oku, y5oku, acig, r, r2, acig2, aci, aci3, acig3, aci4 As Float
+
+    ilkol = ilk.olcum
+    aci = 360 / adem
+    With ilk
+        dx1 = dx1 / ilk.olcum
+        dy1 = dy1 / ilk.olcum
+        zx = dx1
+        zy = dy1
+        For Each cazgi In ilk.cezmi
+            If dizim.ici.Exist(cazgi.id)
+                r = 0
+                r2 = 0
+                acig = 0
+                x4oku = 0
+                y4oku = 0
+                x5oku = 0
+                y5oku = 0
+                acimi.aci(zx, zy, cazgi.x1 * .olcum, cazgi.y1 * .olcum)
+                acig2 = acimi.daci
+                acig = acig2 + aci
+                r = acimi.boy
+                acimi.aci(zx, zy, cazgi.x2 * .olcum, cazgi.y2 * .olcum)
+                acig3 = acimi.daci
+                r2 = acimi.boy
+            cim:
+                For karis = 1 To (adem)
+                    acig = acig2 + karis * aci
+                    aci3 = acig3 + karis * aci
+                    aci4 = aci3 - cazgi.teta
+                    x4oku = dx1 + (r * (Cos(Rad(acig))))
+                    y4oku = dy1 - (r * (Sin(Rad(acig))))
+                    If dizim.CheckBox1.Value = False
+                        x5oku = cazgi.x1 - cazgi.x2
+                        y5oku = cazgi.y1 - cazgi.y2
+                        x6oku = x4oku - x5oku
+                        y6oku = y4oku - y5oku
+                    Else
+                        x6oku = dx1 + (r2 * (Cos(Rad(aci3))))
+                        y6oku = dy1 - (r2 * (Sin(Rad(aci3))))
+                    End If
+                    If cazgi.komut = 1
+                        Paint.MoveTo(x4oku, y4oku)
+                        Paint.LineTo(x6oku, y6oku)
+                    Else If cazgi.komut = 25
+                        Paint.Arc(x4oku, y4oku, cazgi.yaricap)
+                    Else If cazgi.komut = 20
+                        If cazgi.y7 <> 0 Then
+                            Paint.Arc(x4oku, y4oku, cazgi.yaricap, cazgi.teta + aci4, cazgi.r - cazgi.teta + aci4)
+                        Else
+                            If cazgi.r < cazgi.teta Then cazgi.r = cazgi.r + 2 * Pi
+                            Paint.Arc(x4oku, y4oku, cazgi.yaricap, - cazgi.teta + aci4, - cazgi.r + cazgi.teta + aci4)
+                        Endif
+                    End If
+                Next
+            End If
+        Next
+    End With
+    Return
+       Catch
+	ilk.hatayaz("kizin " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

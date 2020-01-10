@@ -1,0 +1,1235 @@
+' Gambas module file
+
+Public snx As Float
+Public sny As Float
+Public tmk As Integer
+Public cazgi As Czm
+Public earCounter As Integer
+Public tribool As Boolean
+Public earbool As Boolean
+Public arebool As Boolean
+Public conbool As Boolean
+Public earHasBeenCut As Boolean
+Public ccw As Boolean
+Public concaveCount As Integer
+Public npoints As Integer
+Public idpoints As New Integer[]
+Public xpoints As New Float[]
+Public ypoints As New Float[]
+Public ptType As New Float[]
+Public depo As New Integer[]
+Public areasum As Float
+Public nokx As Integer[]
+Public noky As Integer[]
+Public hk As Integer
+Public hkx As Integer
+Public hky As Integer
+Public rk As Integer
+Public rkx As Integer
+Public rky As Integer
+Public tex As New Float[]
+Public tey As New Float[]
+Public ax1 As New Float[]
+Public ay1 As New Float[]
+Public ax2 As New Float[]
+Public ay2 As New Float[]
+Public axid As New Float[]
+Public xid As New Float[]
+Public xcz As Integer
+Public mnx As Float
+Public mxx As Float
+Public gyx As Float
+Public gyy As Float
+Public gyi As Integer
+Public jet As Integer
+Public birx As Float
+Public biry As Float
+Public ikix As Float
+Public ikiy As Float
+Public ket As Integer
+
+
+Public Sub bas()
+    Dim t As Integer
+    Dim jetk As Long
+
+    tex.Clear
+    tey.Clear
+    hk = 0
+    hkx = 0
+    hky = 0
+    rk = 0
+    rkx = 0
+    rky = 0
+    earCounter = 0
+    concaveCount = 0
+    ilk.ListBox8.Clear
+    xpoints.Add(ax1[0])
+    ypoints.Add(ay1[0])
+    xpoints.Add(ax2[0])
+    ypoints.Add(ay2[0])
+    birx = ax1[0]
+    biry = ay1[0]
+    ikix = ax2[0]
+    ikiy = ay2[0]
+    ax1.Remove(0)
+    ay1.Remove(0)
+    ax2.Remove(0)
+    ay2.Remove(0)
+bas3:
+    If Abs(ikix - birx) < 2 And Abs(ikiy - biry) < 2 Then
+        altr(ikix, ikiy)
+        Goto atla
+    Else
+        jetk = jet
+        altr(ikix, ikiy)
+        If jetk = jet Then
+            secend(ikix, ikiy)
+            Goto atla
+        Endif
+        Goto bas3
+    Endif
+atla:
+    npoints = xpoints.Count
+    For t = 0 To npoints
+        ptType.Clear
+        classifyPoints()
+        doCutEar()
+    Next
+    If fea.ucfea = 1
+        ciz2
+    Else
+        ciz
+    Endif
+cik:
+    tem.temizlik
+    xpoints.Clear
+    ypoints.Clear
+    tem.temizlik
+    ax1.Clear
+    ay1.Clear
+    tex.Clear
+    tey.Clear
+
+    Return
+       Catch
+	ilk.hatayaz("bas " & Error.Text, Error.Where & "--" & Error.code)
+End
+Sub secend(xs1 As Float, ys1 As Float)
+
+    Dim jetk As Float
+
+    If snx = 0
+        jetk = jet
+        ava(xs1, ys1)
+        If jetk = jet Then
+            message(" Kapalı poligon değil", "tmm")
+
+            Goto cik
+        End If
+    Else
+        jetk = jet
+        ava(snx, sny)
+        If jetk = jet Then
+            message(" Kapalı poligon değil", "tmm")
+            Goto cik
+        End If
+    End If
+    Goto atla
+atla:
+    Return
+       Catch
+	ilk.hatayaz("secend " & Error.Text, Error.Where & "--" & Error.code)
+cik:
+    ptType.Clear
+    xpoints.Clear
+    ypoints.Clear
+    tex.Clear
+    tey.Clear
+    ilk.depo1.Clear
+    ilk.dolas
+
+End
+
+Sub ava(xs As Float, ys As Float)
+
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id)
+            If (cazgi.x1 = xs And cazgi.y1 = ys)
+                If cazgi.komut = 1
+                    xpoints.Add(cazgi.x1)
+                    ypoints.Add(cazgi.y1)
+                Else If cazgi.komut = 20
+                    icle.bol(cazgi.teta, cazgi.r, cazgi.yaricap, cazgi.x1, cazgi.y1)
+                End If
+                snx = cazgi.x2
+                sny = cazgi.y2
+                jet = jet + 5
+            End If
+            If (cazgi.x2 = xs And cazgi.y2 = ys)
+                If cazgi.komut = 1
+
+                    xpoints.Add(cazgi.x2)
+                    ypoints.Add(cazgi.y2)
+                Else If cazgi.komut = 20
+                    icle.bol(cazgi.teta, cazgi.r, cazgi.yaricap, cazgi.x1, cazgi.y1)
+                End If
+                snx = cazgi.x1
+                sny = cazgi.y1
+                jet = jet + 5
+            End If
+        End If
+    Next
+    Return
+    Catch
+	ilk.hatayaz("ava " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Sub altr(xs As Float, ys As Float)
+
+    Dim t As Integer
+
+    For t = 0 To ax1.Count - 1
+        If (xs = ax1[t]) And (ys = ay1[t]) Then
+            ikix = ax2[t]
+            ikiy = ay2[t]
+            xpoints.Add(ax2[t])
+            ypoints.Add(ay2[t])
+            ax1.Remove(t)
+            ay1.Remove(t)
+            ax2.Remove(t)
+            ay2.Remove(t)
+            jet = jet + 1
+            Goto cik
+        Else If (xs = ax2[t]) And (ys = ay2[t]) Then
+            ikix = ax1[t]
+            ikiy = ay1[t]
+            xpoints.Add(ax1[t])
+            ypoints.Add(ay1[t])
+            ax1.Remove(t)
+            ay1.Remove(t)
+            ax2.Remove(t)
+            ay2.Remove(t)
+            jet = jet + 1
+            Goto cik
+        Endif
+    Next
+cik:
+    Return
+    Catch
+	ilk.hatayaz("altr " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub classifyPoints()
+
+    Dim i As Integer
+
+    ptType.Clear
+    polygonClockwise
+    If earCounter = 0
+        If ccw = False
+            xpoints.Reverse
+            ypoints.Reverse
+        End If
+    End If
+    For i = 0 To (npoints - 2)
+        If i = 0
+            convex(xpoints[npoints - 2], ypoints[npoints - 2], xpoints[i], ypoints[i], xpoints[i + 1], ypoints[i + 1])
+            If conbool = True Then
+                ptType.Add(1, i)    ' Dışbükey
+            Else
+                ptType.Add(-1, i)          ' içbükey
+                concaveCount = concaveCount + 1
+            Endif
+        Else
+            convex(xpoints[i - 1], ypoints[i - 1], xpoints[i], ypoints[i], xpoints[i + 1], ypoints[i + 1])
+            If conbool = True Then
+                ptType.Add(1, i)         ' Dışbükey
+            Else
+                ptType.Add(-1, i)          ' içbükey
+                concaveCount = concaveCount + 1
+            Endif
+        End If
+    Next
+    Return
+    Catch
+	ilk.hatayaz("classifyPoints " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub convex(x1 As Float, y1 As Float, x2 As Float, y2 As Float, x3 As Float, y3 As Float)
+
+    area(x1, y1, x2, y2, x3, y3)
+    If areasum < 0
+        conbool = False
+    Else
+        conbool = True
+    End If
+    Return
+    Catch
+	ilk.hatayaz("convex " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub area(x1 As Float, y1 As Float, x2 As Float, y2 As Float, x3 As Float, y3 As Float)
+
+    areasum = 0
+    areasum = areasum + x1 * (y3 - y2)
+    areasum = areasum + x2 * (y1 - y3)
+    areasum = areasum + x3 * (y2 - y1)
+    Return
+    Catch
+	ilk.hatayaz("area " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub polygonClockwise()
+
+    Dim i As Integer
+    Dim aa, bb, cc, b, c, theta As Float
+    Dim convex_turn As Float
+    Dim convex_sum As Float
+
+    convex_sum = 0
+
+    For i = 0 To (npoints - 3)
+        aa = Hyp((xpoints[i + 2] - xpoints[i]), (ypoints[i + 2] + ypoints[i]))
+        bb = Hyp((xpoints[i + 1] - xpoints[i]), (ypoints[i + 1] + ypoints[i]))
+        cc = Hyp((xpoints[i + 2] - xpoints[i + 1]), (ypoints[i + 2] + ypoints[i + 1]))
+        b = Sqr(bb)
+        c = Sqr(cc)
+        theta = ACos((bb + cc - aa) / ((2 * b * c) - 0.00001))
+        convex(xpoints[i], ypoints[i], xpoints[i + 1], ypoints[i + 1], xpoints[i + 2], ypoints[i + 2])
+        If conbool = True Then
+            convex_turn = Pi - theta
+            convex_sum = convex_sum + convex_turn
+        Else
+            convex_sum = convex_sum - (Pi - theta)
+        End If
+    Next
+    If convex_sum < (Pi)
+        ccw = False
+    Else
+        ccw = True
+    End If
+    Return
+    Catch
+	ilk.hatayaz("polygonClockwise " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub doCutEar()
+
+    Dim i As Integer
+
+    earHasBeenCut = False
+    For i = 0 To (npoints - 2)
+        If ptType[i] = 1 Then     ' convex uç
+            If i = 0 Then
+                ear(xpoints[npoints - 2], ypoints[npoints - 2], xpoints[0], ypoints[0], xpoints[1], ypoints[1])
+                If earbool = True Then   ' kulak
+                    cutEar(0)             ' kulağı kes
+                    xpoints.Remove(0)
+                    ypoints.Remove(0)
+                    npoints = npoints - 1
+                    earHasBeenCut = True     ' Kesim yapıldı
+                    Goto cik
+                End If
+            Else
+                ear(xpoints[i - 1], ypoints[i - 1], xpoints[i], ypoints[i], xpoints[i + 1], ypoints[i + 1])
+                If earbool = True Then  ' kulak
+                    cutEar(i)            ' kulağı kes
+                    xpoints.Remove(i)
+                    ypoints.Remove(i)
+                    npoints = npoints - 1
+                    earHasBeenCut = True    ' Kesim yapıldı
+                    Goto cik
+                End If
+            End If
+        End If
+    Next
+cik:
+    Return
+    Catch
+	ilk.hatayaz("doCutEar " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ear(x1 As Float, y1 As Float, x2 As Float, y2 As Float, x3 As Float, y3 As Float)
+
+    If concaveCount > 0 Then
+        triangleContainsPoint(x1, y1, x2, y2, x3, y3)
+        If tribool = True Then   ' nokta var
+            earbool = False      ' kulak değil
+        Else
+            earbool = True          ' kulak
+        End If
+    Else
+        earbool = True
+    End If
+    Return
+    Catch
+	ilk.hatayaz("Ear " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub triangleContainsPoint(x1 As Float, y1 As Float, x2 As Float, y2 As Float, x3 As Float, y3 As Float)
+
+    Dim i As Integer
+    Dim area1, area2, area3 As Float
+    Dim noPointInTriangle As Integer
+
+    For i = 0 To (npoints - 2)
+        If ptType[i] = -1
+            If (((xpoints[i] <> x1) And (ypoints[i] <> y1)) Or ((xpoints[i] <> x2) And (ypoints[i] <> y2)) Or ((xpoints[i] <> x3) And (ypoints[i] <> y3)))
+                area(x1, y1, x2, y2, xpoints[i], ypoints[i])
+                area1 = areasum
+                area(x2, y2, x3, y3, xpoints[i], ypoints[i])
+                area2 = areasum
+                area(x3, y3, x1, y1, xpoints[i], ypoints[i])
+                area3 = areasum
+                If (area1 > 0) And (area2 > 0) And (area3 > 0) Then noPointInTriangle = 1 ' Nokta var
+                If (area1 < 0) And (area2 < 0) And (area3 < 0) Then noPointInTriangle = 1  ' Nokta var
+            End If
+        End If
+    Next
+
+    If noPointInTriangle = 1   ' Nokta varsa
+        tribool = True             'var
+    Else
+        tribool = False              ' yok
+    End If
+
+    Return
+    Catch
+	ilk.hatayaz("triangleContainsPoint " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public vcb As Integer
+Public talax As Float
+
+Public Sub ciz()
+
+    Dim i, tn, hlv As Integer
+    Dim abx, acx, adx, aex, afx As Float
+    Dim aby, acy, ady, aey, afy As Float
+    Dim brx, bry, ikx, iky, usx, usy As Float
+
+    For i = 0 To tex.Count - 9 Step 3
+        hlv = hlv + 1
+        brx = tex[i]
+        bry = tey[i]
+        ikx = tex[i + 1]
+        iky = tey[i + 1]
+        usx = tex[i + 2]
+        usy = tey[i + 2]
+        abx = (brx + ikx) / 2 + Abs(brx - ikx) / 1000
+        aby = (bry + iky) / 2 - Abs(bry - iky) / 1000
+        acx = (brx + abx) / 2 + Abs(brx - abx) / 1000
+        acy = (bry + aby) / 2 - Abs(bry - aby) / 1000
+        adx = (abx + ikx) / 2 + Abs(abx - ikx) / 1000
+        ady = (aby + iky) / 2 - Abs(aby - iky) / 1000
+        aex = (ikx + usx) / 2 + Abs(ikx - usx) / 1000
+        aey = (iky + usy) / 2 - Abs(iky - usy) / 1000
+        afx = (usx + brx) / 2 + Abs(usx - brx) / 1000
+        afy = (usy + bry) / 2 - Abs(usy - bry) / 1000
+        tmk = tmk + 1
+
+        vcb = vcb + 1
+        cizem.katman = "fea"
+        cizem.nokta(brx, bry, vcb, tmk)  ' N 1
+        cizem.katman = "fea"
+        vcb = vcb + 1
+        cizem.nokta(acx, acy, vcb, tmk) ' N 2
+        vcb = vcb + 1
+        cizem.katman = "fea"
+        cizem.nokta(abx, aby, vcb, tmk) ' N 3
+
+        vcb = vcb + 1
+        cizem.katman = "fea"
+        cizem.nokta(adx, ady, vcb, tmk) '  ' N4
+
+        vcb = vcb + 1
+        cizem.katman = "fea"
+        cizem.nokta(ikx, iky, vcb, tmk) '  N5
+
+        vcb = vcb + 1
+        cizem.katman = "fea"
+        cizem.nokta(aex, aey, vcb, tmk) '  N6
+
+        vcb = vcb + 1
+        cizem.katman = "fea"
+        cizem.nokta(usx, usy, vcb, tmk) '  N7
+
+        vcb = vcb + 1
+        cizem.katman = "fea"
+        cizem.nokta(afx, afy, vcb, tmk) ' N8
+
+        ilk.bolok = ilk.bolok + 2
+        aln(tex[i], tey[i], tex[i + 1], tey[i + 1], tex[i + 2], tey[i + 2])
+        talax = talax + alax
+        tn = tn + 1
+        cazgi = New Czm
+        cazgi.id = dacy.kyno
+        cazgi.komut = 238
+        cazgi.x1 = brx / ilk.olcum
+        cazgi.y1 = bry / ilk.olcum
+        cazgi.x2 = abx / ilk.olcum
+        cazgi.y2 = aby / ilk.olcum
+        cazgi.x3 = ikx / ilk.olcum
+        cazgi.y3 = iky / ilk.olcum
+        cazgi.x7 = aex / ilk.olcum
+        cazgi.y7 = aey / ilk.olcum
+        cazgi.x8 = usx / ilk.olcum
+        cazgi.y8 = usy / ilk.olcum
+        cazgi.x9 = afx / ilk.olcum
+        cazgi.y9 = afy / ilk.olcum
+        cazgi.x4 = tmk
+        cazgi.y4 = alax
+        cazgi.renk = Color.White
+        cazgi.blok = ilk.bolok
+        cazgi.sekil = 1
+        cazgi.kalinlik = 1
+        cazgi.katman = "fea"
+        cazgi.x6 = tmk
+        cazgi.y6 = i + 2
+        ilk.cezmi.Add(cazgi, dacy.kyno)
+        dacy.kyno = dacy.kyno + 1
+    Next
+    fea.dugsay = hlv
+
+    Return
+    Catch
+	ilk.hatayaz("ciz " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ciz2()
+
+    Dim i, tn, hlv As Integer
+    Dim abx, aex, afx As Float
+    Dim aby, aey, afy As Float
+    Dim brx, bry, ikx, iky, usx, usy As Float
+
+    tmk = 0
+    For i = 0 To (tex.Count - 9) Step 3
+        hlv = hlv + 1
+        tmk = tmk + 1
+        brx = tex[i]
+        bry = tey[i]
+        ikx = tex[i + 1]
+        iky = tey[i + 1]
+        usx = tex[i + 2]
+        usy = tey[i + 2]
+        abx = Abs(brx + ikx) / 2
+        aby = Abs(bry + iky) / 2
+        aex = Abs(ikx + usx) / 2
+        aey = Abs(iky + usy) / 2
+        afx = Abs(brx + usx) / 2
+        afy = Abs(bry + usy) / 2
+
+        vcb = vcb + 1
+        cizem.katman = "Z88NET"
+        cizem.nokta(brx, bry, vcb, tmk)  ' N 1
+        cizem.yaz(brx, bry, "P " & vcb, 5)
+        vcb = vcb + 1
+        cizem.nokta(abx, aby, vcb, tmk) ' N 2
+        cizem.yaz(abx, aby, "P " & vcb, 5)
+        vcb = vcb + 1
+        cizem.nokta(ikx, iky, vcb, tmk) '  N3
+        cizem.yaz(ikx, iky, "P " & vcb, 5)
+        vcb = vcb + 1
+        cizem.nokta(aex, aey, vcb, tmk) '  N4
+        cizem.yaz(aex, aey, "P " & vcb, 5)
+        vcb = vcb + 1
+        cizem.nokta(usx, usy, vcb, tmk) '  N5
+        cizem.yaz(usx, usy, "P " & vcb, 5)
+        vcb = vcb + 1
+        cizem.nokta(afx, afy, vcb, tmk) ' N6
+        cizem.yaz(afx, afy, "P " & vcb, 5)
+        ilk.bolok = ilk.bolok + 2
+        aln(tex[i], tey[i], tex[i + 1], tey[i + 1], tex[i + 2], tey[i + 2])
+        talax = talax + alax
+        tn = tn + 1
+        cazgi = New Czm
+        cazgi.id = dacy.kyno
+        cazgi.komut = 238
+        cazgi.x1 = brx / ilk.olcum
+        cazgi.y1 = bry / ilk.olcum
+        cazgi.x2 = abx / ilk.olcum
+        cazgi.y2 = aby / ilk.olcum
+        cazgi.x3 = ikx / ilk.olcum
+        cazgi.y3 = iky / ilk.olcum
+        cazgi.x7 = aex / ilk.olcum
+        cazgi.y7 = aey / ilk.olcum
+        cazgi.x8 = usx / ilk.olcum
+        cazgi.y8 = usy / ilk.olcum
+        cazgi.x9 = afx / ilk.olcum
+        cazgi.y9 = afy / ilk.olcum
+        cazgi.x4 = tmk
+        cazgi.y4 = alax
+        cazgi.renk = Color.White
+        cazgi.blok = ilk.bolok
+        cazgi.sekil = 1
+        cazgi.kalinlik = 1
+        cazgi.katman = "fea"
+        cazgi.x6 = tmk
+        cazgi.y6 = i + 2
+        ilk.cezmi.Add(cazgi, dacy.kyno)
+        dacy.kyno = dacy.kyno + 1
+    Next
+    fea.dugsay = hlv
+    Return
+    Catch
+	ilk.hatayaz("ciz2 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public alax As Float
+
+Public Sub aln(x1 As Float, y1 As Float, x2 As Float, y2 As Float, x3 As Float, y3 As Float)
+
+    alax = 0
+    alax = x1 * (y3 - y2)
+    alax = alax + x2 * (y1 - y3)
+    alax = alax + x3 * (y2 - y1)
+    alax = alax / 2
+    Return
+    Catch
+	ilk.hatayaz("aln " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub cutEar(index As Integer)
+
+    Dim ex As New Float[]
+    Dim ey As New Float[]
+    Dim ax, bx, cx, fx, gx, dx, hx, mx, ix, jx, kx, lx As Float
+    Dim ay, by, cy, fy, gy, dy, hy, my, iy, jy, ky, ly As Float
+    Dim a1x, a2x, a3x, a4x, a5x, a6x, a7x, a8x, a9x, a10x, a11x, a12x, a13x, a14x, a15x, a16x, a17x, a18x, a19x, a20x, a21x, a22x, a23x, a24x, a25x, a26x, a27x, a28x, a29x, a30x As Float
+    Dim a1y, a2y, a3y, a4y, a5y, a6y, a7y, a8y, a9y, a10y, a11y, a12y, a13y, a14y, a15y, a16y, a17y, a18y, a19y, a20y, a21y, a22y, a23y, a24y, a25y, a26y, a27y, a28y, a29y, a30y As Float
+
+    If index = 0
+        ex.Add(xpoints[npoints - 2], 0)
+        ey.Add(ypoints[npoints - 2], 0)
+        ex.Add(xpoints[index], 1)
+        ey.Add(ypoints[index], 1)
+        ex.Add(xpoints[index + 1], 2)
+        ey.Add(ypoints[index + 1], 2)
+
+    Else If (index > 0) And (index < (npoints - 2))
+        ex.Add(xpoints[index - 1], 0)
+        ey.Add(ypoints[index - 1], 0)
+        ex.Add(xpoints[index], 1)
+        ey.Add(ypoints[index], 1)
+        ex.Add(xpoints[index + 1], 2)
+        ey.Add(ypoints[index + 1], 2)
+
+    Else If index = (npoints - 2)
+        ex.Add(xpoints[index - 1], 0)
+        ey.Add(ypoints[index - 1], 0)
+        ex.Add(xpoints[index], 1)
+        ey.Add(ypoints[index], 1)
+        ex.Add(xpoints[0], 2)
+        ey.Add(ypoints[0], 2)
+    End If
+    'If xcz = 1
+    tex.add(ex[0])
+    tey.add(ey[0])
+    tex.add(ex[1])
+    tey.add(ey[1])
+    tex.add(ex[2])
+    tey.add(ey[2])
+
+    Goto cik
+    'End If
+    ax = (ex[1] + ex[2]) / 2
+    ay = (ey[1] + ey[2]) / 2
+    bx = (ex[0] + ex[1]) / 2
+    by = (ey[0] + ey[1]) / 2
+    cx = (ex[0] + ex[2]) / 2
+    cy = (ey[0] + ey[2]) / 2
+    hx = (ex[0] + ax) / 2
+    hy = (ey[0] + ay) / 2
+
+    tex.add(ex[1])
+    tey.add(ey[1])
+    tex.add(ax)
+    tey.add(ay)
+    tex.add(bx)
+    tey.add(by)
+
+    tex.add(bx)
+    tey.add(by)
+    tex.add(ax)
+    tey.add(ay)
+    tex.add(hx)
+    tey.add(hy)
+
+    tex.add(bx)
+    tey.add(by)
+    tex.add(hx)
+    tey.add(hy)
+    tex.add(ex[0])
+    tey.add(ey[0])
+
+    tex.add(ex[0])
+    tey.add(ey[0])
+    tex.add(hx)
+    tey.add(hy)
+    tex.add(cx)
+    tey.add(cy)
+
+    tex.add(hx)
+    tey.add(hy)
+    tex.add(ax)
+    tey.add(ay)
+    tex.add(cx)
+    tey.add(cy)
+
+    tex.add(ax)
+    tey.add(ay)
+    tex.add(ex[2])
+    tey.add(ey[2])
+    tex.add(cx)
+    tey.add(cy)
+    Goto cik
+
+    ax = (ex[1] + ex[2]) / 2
+    ay = (ey[1] + ey[2]) / 2
+    fx = (ex[1] + ax) / 2
+    fy = (ey[1] + ay) / 2
+    hx = (ex[0] + ax) / 2
+    hy = (ey[0] + ay) / 2
+    bx = (ex[0] + ex[1]) / 2
+    by = (ey[0] + ey[1]) / 2
+    dx = (ex[1] + bx) / 2
+    dy = (ey[1] + by) / 2
+    mx = (ex[0] + bx) / 2
+    my = (ey[0] + by) / 2
+    cx = (ex[0] + ex[2]) / 2
+    cy = (ey[0] + ey[2]) / 2
+    ix = (ex[0] + cx) / 2
+    iy = (ey[0] + cy) / 2
+    kx = (ex[2] + cx) / 2
+    ky = (ey[2] + cy) / 2
+    lx = (ex[2] + ax) / 2
+    ly = (ey[2] + ay) / 2
+
+    jx = (ax + cx) / 2
+    jy = (ay + cy) / 2
+    gx = (ax + bx) / 2
+    gy = (ay + by) / 2
+
+    a1x = (gx + hx) / 2
+    a1y = (gy + hy) / 2
+    a2x = (bx + hx) / 2
+    a2y = (by + hy) / 2
+    a3x = (bx + mx) / 2
+    a3y = (by + my) / 2
+    a4x = (ex[0] + mx) / 2
+    a4y = (ey[0] + my) / 2
+    a5x = (ex[0] + hx) / 2
+    a5y = (ey[0] + hy) / 2
+    a6x = (hx + ax) / 2
+    a6y = (hy + ay) / 2
+    a7x = (ex[0] + ix) / 2
+    a7y = (ey[0] + iy) / 2
+    a8x = (ix + hx) / 2
+    a8y = (iy + hy) / 2
+    a9x = (ix + cx) / 2
+    a9y = (iy + cy) / 2
+    a10x = (cx + hx) / 2
+    a10y = (cy + hy) / 2
+    a11x = (jx + hx) / 2
+    a11y = (jy + hy) / 2
+    a12x = (jx + cx) / 2
+    a12y = (jy + cy) / 2
+    a13x = (jx + ax) / 2
+    a13y = (jy + ay) / 2
+    a14x = (lx + ax) / 2
+    a14y = (ly + ay) / 2
+    a15x = (lx + jx) / 2
+    a15y = (ly + jy) / 2
+    a16x = (kx + jx) / 2
+    a16y = (ky + jy) / 2
+    a17x = (kx + cx) / 2
+    a17y = (ky + cy) / 2
+    a18x = (kx + lx) / 2
+    a18y = (ky + ly) / 2
+    a19x = (ex[2] + kx) / 2
+    a19y = (ey[2] + ky) / 2
+    a20x = (ex[2] + lx) / 2
+    a20y = (ey[2] + ly) / 2
+    a21x = (ex[1] + fx) / 2
+    a21y = (ey[1] + fy) / 2
+    a22x = (ex[1] + dx) / 2
+    a22y = (ey[1] + dy) / 2
+    a23x = (fx + dx) / 2
+    a23y = (fy + dy) / 2
+    a24x = (gx + dx) / 2
+    a24y = (gy + dy) / 2
+    a25x = (gx + fx) / 2
+    a25y = (gy + fy) / 2
+    a26x = (gx + bx) / 2
+    a26y = (gy + by) / 2
+    a27x = (gx + ax) / 2
+    a27y = (gy + ay) / 2
+    a28x = (fx + ax) / 2
+    a28y = (fy + ay) / 2
+    a29x = (bx + dx) / 2
+    a29y = (by + dy) / 2
+    a30x = (mx + hx) / 2
+    a30y = (my + hy) / 2
+
+    tex.add(ex[1])
+    tey.add(ey[1])
+    tex.add(a22x)
+    tey.add(a22y)
+    tex.add(a21x)
+    tey.add(a21y)
+
+    tex.add(a21x)
+    tey.add(a21y)
+    tex.add(a22x)
+    tey.add(a22y)
+    tex.add(a23x)
+    tey.add(a23y)
+
+    tex.add(fx)
+    tey.add(fy)
+    tex.add(a21x)
+    tey.add(a21y)
+    tex.add(a23x)
+    tey.add(a23y)
+
+    tex.add(a23x)
+    tey.add(a23y)
+    tex.add(a22x)
+    tey.add(a22y)
+    tex.add(dx)
+    tey.add(dy)
+
+    tex.add(fx)
+    tey.add(fy)
+    tex.add(a23x)
+    tey.add(a23y)
+    tex.add(a25x)
+    tey.add(a25y)
+
+    tex.add(a25x)
+    tey.add(a25y)
+    tex.add(a28x)
+    tey.add(a28y)
+    tex.add(fx)
+    tey.add(fy)
+
+    tex.add(a28x)
+    tey.add(a28y)
+    tex.add(a25x)
+    tey.add(a25y)
+    tex.add(a27x)
+    tey.add(a27y)
+
+    tex.add(a27x)
+    tey.add(a27y)
+    tex.add(ax)
+    tey.add(ay)
+    tex.add(a28x)
+    tey.add(a28y)
+
+    tex.add(a23x)
+    tey.add(a23y)
+    tex.add(a22x)
+    tey.add(a22y)
+    tex.add(dx)
+    tey.add(dy)
+
+    tex.add(a24x)
+    tey.add(a24y)
+    tex.add(a23x)
+    tey.add(a23y)
+    tex.add(dx)
+    tey.add(dy)
+
+    tex.add(a25x)
+    tey.add(a25y)
+    tex.add(a23x)
+    tey.add(a23y)
+    tex.add(a24x)
+    tey.add(a24y)
+
+    tex.add(a24x)
+    tey.add(a24y)
+    tex.add(gx)
+    tey.add(gy)
+    tex.add(a25x)
+    tey.add(a25y)
+
+    tex.add(a27x)
+    tey.add(a27y)
+    tex.add(a25x)
+    tey.add(a25y)
+    tex.add(gx)
+    tey.add(gy)
+
+    tex.add(a24x)
+    tey.add(a24y)
+    tex.add(dx)
+    tey.add(dy)
+    tex.add(a29x)
+    tey.add(a29y)
+
+    tex.add(a24x)
+    tey.add(a24y)
+    tex.add(a29x)
+    tey.add(a29y)
+    tex.add(a26x)
+    tey.add(a26y)
+
+    tex.add(a24x)
+    tey.add(a24y)
+    tex.add(a26x)
+    tey.add(a26y)
+    tex.add(gx)
+    tey.add(gy)
+
+    tex.add(a26x)
+    tey.add(a26y)
+    tex.add(a29x)
+    tey.add(a29y)
+    tex.add(bx)
+    tey.add(by)
+
+    tex.add(ax)
+    tey.add(ay)
+    tex.add(a27x)
+    tey.add(a27y)
+    tex.add(a6x)
+    tey.add(a6y)
+
+    tex.add(a27x)
+    tey.add(a27y)
+    tex.add(gx)
+    tey.add(gy)
+    tex.add(a6x)
+    tey.add(a6y)
+
+    tex.add(a6x)
+    tey.add(a6y)
+    tex.add(gx)
+    tey.add(gy)
+    tex.add(a1x)
+    tey.add(a1y)
+
+    tex.add(a1x)
+    tey.add(a1y)
+    tex.add(gx)
+    tey.add(gy)
+    tex.add(a26x)
+    tey.add(a26y)
+
+    tex.add(a6x)
+    tey.add(a6y)
+    tex.add(a1x)
+    tey.add(a1y)
+    tex.add(hx)
+    tey.add(hy)
+
+    tex.add(hx)
+    tey.add(hy)
+    tex.add(a1x)
+    tey.add(a1y)
+    tex.add(a2x)
+    tey.add(a2y)
+
+    tex.add(a2x)
+    tey.add(a2y)
+    tex.add(a1x)
+    tey.add(a1y)
+    tex.add(a26x)
+    tey.add(a26y)
+
+    tex.add(a2x)
+    tey.add(a2y)
+    tex.add(a26x)
+    tey.add(a26y)
+    tex.add(bx)
+    tey.add(by)
+
+    tex.add(bx)
+    tey.add(by)
+    tex.add(a2x)
+    tey.add(a2y)
+    tex.add(a3x)
+    tey.add(a3y)
+
+    tex.add(a2x)
+    tey.add(a2y)
+    tex.add(a3x)
+    tey.add(a3y)
+    tex.add(a30x)
+    tey.add(a30y)
+
+    tex.add(a2x)
+    tey.add(a2y)
+    tex.add(a30x)
+    tey.add(a30y)
+    tex.add(hx)
+    tey.add(hy)
+
+    tex.add(hx)
+    tey.add(hy)
+    tex.add(a30x)
+    tey.add(a30y)
+    tex.add(a5x)
+    tey.add(a5y)
+
+    tex.add(a30x)
+    tey.add(a30y)
+    tex.add(a3x)
+    tey.add(a3y)
+    tex.add(mx)
+    tey.add(my)
+
+    tex.add(a30x)
+    tey.add(a30y)
+    tex.add(mx)
+    tey.add(my)
+    tex.add(a5x)
+    tey.add(a5y)
+
+    tex.add(a5x)
+    tey.add(a5y)
+    tex.add(mx)
+    tey.add(my)
+    tex.add(a4x)
+    tey.add(a4y)
+
+    tex.add(a5x)
+    tey.add(a5y)
+    tex.add(a4x)
+    tey.add(a4y)
+    tex.add(ex[0])
+    tey.add(ey[0])
+
+    tex.add(a5x)
+    tey.add(a5y)
+    tex.add(ex[0])
+    tey.add(ey[0])
+    tex.add(a7x)
+    tey.add(a7y)
+
+    tex.add(a5x)
+    tey.add(a5y)
+    tex.add(a7x)
+    tey.add(a7y)
+    tex.add(ix)
+    tey.add(iy)
+
+    tex.add(a5x)
+    tey.add(a5y)
+    tex.add(ix)
+    tey.add(iy)
+    tex.add(a8x)
+    tey.add(a8y)
+
+    tex.add(a5x)
+    tey.add(a5y)
+    tex.add(a8x)
+    tey.add(a8y)
+    tex.add(hx)
+    tey.add(hy)
+
+    tex.add(a8x)
+    tey.add(a8y)
+    tex.add(ix)
+    tey.add(iy)
+    tex.add(a9x)
+    tey.add(a9y)
+
+    tex.add(a8x)
+    tey.add(a8y)
+    tex.add(a9x)
+    tey.add(a9y)
+    tex.add(a10x)
+    tey.add(a10y)
+
+    tex.add(a8x)
+    tey.add(a8y)
+    tex.add(a10x)
+    tey.add(a10y)
+    tex.add(hx)
+    tey.add(hy)
+
+    tex.add(a10x)
+    tey.add(a10y)
+    tex.add(a9x)
+    tey.add(a9y)
+    tex.add(cx)
+    tey.add(cy)
+
+    tex.add(hx)
+    tey.add(hy)
+    tex.add(a10x)
+    tey.add(a10y)
+    tex.add(a11x)
+    tey.add(a11y)
+
+    tex.add(a10x)
+    tey.add(a10y)
+    tex.add(cx)
+    tey.add(cy)
+    tex.add(a12x)
+    tey.add(a12y)
+
+    tex.add(a10x)
+    tey.add(a10y)
+    tex.add(a12x)
+    tey.add(a12y)
+    tex.add(a11x)
+    tey.add(a11y)
+
+    tex.add(a11x)
+    tey.add(a11y)
+    tex.add(a6x)
+    tey.add(a6y)
+    tex.add(hx)
+    tey.add(hy)
+
+    tex.add(a6x)
+    tey.add(a6y)
+    tex.add(a11x)
+    tey.add(a11y)
+    tex.add(jx)
+    tey.add(jy)
+
+    tex.add(a11x)
+    tey.add(a11y)
+    tex.add(a12x)
+    tey.add(a12y)
+    tex.add(jx)
+    tey.add(jy)
+
+    tex.add(a6x)
+    tey.add(a6y)
+    tex.add(jx)
+    tey.add(jy)
+    tex.add(a13x)
+    tey.add(a13y)
+
+    tex.add(a6x)
+    tey.add(a6y)
+    tex.add(a13x)
+    tey.add(a13y)
+    tex.add(ax)
+    tey.add(ay)
+
+    tex.add(cx)
+    tey.add(cy)
+    tex.add(a17x)
+    tey.add(a17y)
+    tex.add(a12x)
+    tey.add(a12y)
+
+    tex.add(a12x)
+    tey.add(a12y)
+    tex.add(a17x)
+    tey.add(a17y)
+    tex.add(a16x)
+    tey.add(a16y)
+
+    tex.add(a16x)
+    tey.add(a16y)
+    tex.add(a17x)
+    tey.add(a17y)
+    tex.add(kx)
+    tey.add(ky)
+
+    tex.add(a12x)
+    tey.add(a12y)
+    tex.add(a16x)
+    tey.add(a16y)
+    tex.add(jx)
+    tey.add(jy)
+
+    tex.add(jx)
+    tey.add(jy)
+    tex.add(a16x)
+    tey.add(a16y)
+    tex.add(a15x)
+    tey.add(a15y)
+
+    tex.add(jx)
+    tey.add(jy)
+    tex.add(a15x)
+    tey.add(a15y)
+    tex.add(a13x)
+    tey.add(a13y)
+
+    tex.add(a15x)
+    tey.add(a15y)
+    tex.add(a16x)
+    tey.add(a16y)
+    tex.add(a18x)
+    tey.add(a18y)
+
+    tex.add(a18x)
+    tey.add(a18y)
+    tex.add(a16x)
+    tey.add(a16y)
+    tex.add(kx)
+    tey.add(ky)
+
+    tex.add(a18x)
+    tey.add(a18y)
+    tex.add(kx)
+    tey.add(ky)
+    tex.add(a19x)
+    tey.add(a19y)
+
+    tex.add(ax)
+    tey.add(ay)
+    tex.add(a13x)
+    tey.add(a13y)
+    tex.add(a14x)
+    tey.add(a14y)
+
+    tex.add(a14x)
+    tey.add(a14y)
+    tex.add(a13x)
+    tey.add(a13y)
+    tex.add(a15x)
+    tey.add(a15y)
+
+    tex.add(a14x)
+    tey.add(a14y)
+    tex.add(a15x)
+    tey.add(a15y)
+    tex.add(lx)
+    tey.add(ly)
+
+    tex.add(lx)
+    tey.add(ly)
+    tex.add(a15x)
+    tey.add(a15y)
+    tex.add(a18x)
+    tey.add(a18y)
+
+    tex.add(lx)
+    tey.add(ly)
+    tex.add(a18x)
+    tey.add(a18y)
+    tex.add(a20x)
+    tey.add(a20y)
+
+    tex.add(a20x)
+    tey.add(a20y)
+    tex.add(a18x)
+    tey.add(a18y)
+    tex.add(a19x)
+    tey.add(a19y)
+
+    tex.add(a20x)
+    tey.add(a20y)
+    tex.add(a19x)
+    tey.add(a19y)
+    tex.add(ex[2])
+    tey.add(ey[2])
+cik:
+    earCounter = earCounter + 1
+    Return
+    Catch
+	ilk.hatayaz("cutEar " & Error.Text, Error.Where & "--" & Error.code)
+End

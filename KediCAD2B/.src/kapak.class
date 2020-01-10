@@ -1,0 +1,455 @@
+' Gambas class file
+
+Private csp As Csplit
+Public cazgi As Czm
+Public bazgi As Cvb
+Public dznx As Float
+Public dzny As Float
+Public enx As Float
+Public boyy As Float
+
+
+Public Sub Form_Open()
+
+    Dim msFile As String
+
+    Me.Move(0, 0, 580, 400)
+    Me.Center
+    bazgi = New Cvb
+    bazgi.ad = "kapak"
+    bazgi.tip = 1
+    bazgi.renk = Color.Orange
+    bazgi.kal = 2
+    bazgi.kilit = 0
+    bazgi.id = 1
+    ilk.bezmi.Add(bazgi, dacy.byno)
+    dacy.byno = dacy.byno + 1
+    bazgi = New Cvb
+    bazgi.ad = "kapan"
+    bazgi.tip = 1
+    bazgi.renk = Color.Orange
+    bazgi.kal = 2
+    bazgi.kilit = 0
+    bazgi.id = 1
+    ilk.bezmi.Add(bazgi, dacy.byno)
+    dacy.byno = dacy.byno + 1
+
+    bazgi = New Cvb
+    bazgi.ad = "mentese"
+    bazgi.tip = 2
+    bazgi.renk = Color.DarkGreen
+    bazgi.kal = 1
+    bazgi.kilit = 0
+    bazgi.id = 1
+    ilk.bezmi.Add(bazgi, dacy.byno)
+    dacy.byno = dacy.byno + 1
+    bazgi = New Cvb
+    bazgi.ad = "menpan"
+    bazgi.tip = 2
+    bazgi.renk = Color.DarkGreen
+    bazgi.kal = 1
+    bazgi.kilit = 0
+    bazgi.id = 1
+    ilk.bezmi.Add(bazgi, dacy.byno)
+    dacy.byno = dacy.byno + 1
+
+    bazgi = New Cvb
+    bazgi.ad = "desen"
+    bazgi.tip = 1
+    bazgi.renk = Color.Blue
+    bazgi.kal = 1
+    bazgi.kilit = 0
+    bazgi.id = 1
+    ilk.bezmi.Add(bazgi, dacy.byno)
+    bazgi = New Cvb
+    bazgi.ad = "depan"
+    bazgi.tip = 1
+    bazgi.renk = Color.Blue
+    bazgi.kal = 1
+    bazgi.kilit = 0
+    bazgi.id = 1
+    ilk.bezmi.Add(bazgi, dacy.byno)
+    dacy.byno = dacy.byno + 1
+    Panel1.Move(0, 0, 580, 400)
+    Panel2.Move(0, 0, 580, 400)
+    ComboBox2.Add("Nope")
+    ComboBox2.Add("2")
+    ComboBox1.Add("2100x2800")
+    ComboBox1.Add("1600x3000")
+    listed.Add("")
+    For Each msFile In Dir(system.User.Home &/ ".KediCAD/desen/kapak")
+        If msFile Like ("*png") Then listed.Add(msFile)
+    Next
+    listed.Sorted = True
+        Catch
+	ilk.hatayaz("fopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button5_Click()
+
+    ' If (CFloat(TextBox9.Text) + CFloat(TextBox13.Text)) > CFloat(TextBox1.Text) Then
+    '     Panel4.Visible = True
+    ' Else
+    kapakcizim
+    '     Endif
+    Me.Close
+
+End
+Sub kapakcizim()
+
+    Dim en, boy, basx, basy, kfx, kfy, a, b, c, d, e, f As Float
+    Dim cx, cy, i, j As Integer
+
+    ilk.bolok = ilk.bolok + 2
+    ilk.olcum = 1
+    en = ilk.orix + CFloat(TextBox2.Text)
+    boy = ilk.oriy - CFloat(TextBox1.Text)
+    basx = ilk.orix
+    basy = ilk.oriy
+    '/////////// KAPI ÇERÇEVE ÇİZİMİ ///////////////
+    cizem.katman = "kapak"
+    cizem.bloku = "kapak1" & ilk.bolok
+    cizem.cizgi(basx, basy, en, basy)
+    cizem.cizgi(en, basy, en, boy)
+    cizem.cizgi(en, boy, basx, boy)
+    cizem.cizgi(basx, boy, basx, basy)
+
+    '/////////// MENTEŞE ÇİZİMİ ///////////////
+    cizem.katman = "mentese"
+    If ComboBox2.Text = 2
+        cizem.cizgi(en, basy - 50, en - 5, basy - 50)
+        cizem.cizgi(en - 5, basy - 50, en - 5, basy - 100)
+        cizem.cizgi(en - 5, basy - 100, en, basy - 100)
+        cizem.cizgi(en, boy + 50, en - 5, boy + 50)
+        cizem.cizgi(en - 5, boy + 50, en - 5, boy + 100)
+        cizem.cizgi(en - 5, boy + 100, en, boy + 100)
+    Endif
+    '  DESEN ALAN ÇERÇEVESİ
+    ' cizem.cizgi(dznx, dzny, dznx + enx, dzny)
+    ' cizem.cizgi(dznx + enx, dzny, dznx + enx, dzny - boyy)
+    ' cizem.cizgi(dznx + enx, dzny - boyy, dznx, dzny - boyy)
+    ' cizem.cizgi(dznx, dzny - boyy, dznx, dzny)
+    If Label20.Text Then
+        ilk.bolok = ilk.bolok + 2
+        ilk.ylc = Label20.Text
+        vinc.eklem("kapak1" & ilk.bolok, dznx, dzny)
+        For Each cazgi In ilk.cezmi
+            If (cazgi.blok) = "kapak1" & ilk.bolok Then cazgi.gor = 2
+        Next
+        kfx = enx / vinc.anx
+        kfy = boyy / vinc.any
+        buyut(kfx, kfy, dznx, dzny, "kapak1" & ilk.bolok, "kapak1" & (ilk.bolok + 2))
+    Endif
+    If nestvar = 1
+        boy = CFloat(TextBox1.Text)
+        b = boy + CFloat(TextBox5.Text)
+        a = CFloat(TextBox2.Text) + CFloat(TextBox4.Text)
+        csp = New Csplit
+        csp.yazi = ComboBox1.Text
+        csp.iks
+        c = csp.sonuc1
+        d = csp.sonuc2
+        cx = c / a
+        cy = d / b
+        e = cx * cy
+        cx = c / b
+        cy = d / a
+        f = cx * cy
+        If f > e Then  ' 90 derce yerleşim
+            cx = c / b
+            cy = d / a
+            dondur3(90, 700, 700, "kapak", "kapan")
+            dondur3(90, 700, 700, "mentese", "menpan")
+            dondur3(90, 700, 700, "desen", "depan")
+            e = b
+            f = a
+            For i = 0 To cx
+                For j = 0 To cy
+                    kopi(e, f, "kapan", "kapak")
+                    kopi(e, f, "menpan", "mentese")
+                    kopi(e, f, "depan", "desen")
+                    f = j * a
+                Next
+                e = i * b
+                f = a
+            Next
+        Else   ' normal yerleşim..
+            cx = c / a
+            cy = d / b
+            e = a
+            f = b
+            Message(cx & " x " & cy, b & " x " & c)
+            For i = 0 To cx
+                For j = 0 To cy
+                    kopi(e, f, "kapak", "kapan")
+                    kopi(e, f, "mentese", "menpan")
+                    kopi(e, f, "desen", "depan")
+                    f = j * b
+                Next
+                e = i * a
+                f = b
+            Next
+        Endif
+    Endif
+    ilk.tamekran_Click
+    Return
+        Catch
+	ilk.hatayaz("cizgi " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub kopi(xf As Float, yf As Float, bnkc As String, abnkc As String)
+
+    Dim zz1, zy1, zz2, zy2 As Float
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.katman = bnkc
+            If cazgi.gor = 0
+                cizem.aktar(cazgi.id)
+                cizem.katman = abnkc
+                zz1 = cazgi.x1 + xf
+                zy1 = cazgi.y1 + yf
+                zz2 = (cazgi.x2 + xf)
+                zy2 = (cazgi.y2 + yf)
+                If cazgi.komut = 1 Then cizem.cizgi(zz1, zy1, zz2, zy2)
+                If cazgi.komut = 20 Then cizem.yay(zz1, zy1, cazgi.yaricap, cazgi.teta, cazgi.r)
+                If cazgi.komut = 25 Then cizem.cember(zz1, zy1, cazgi.yaricap)
+                If cazgi.komut = 60 Then
+                    cizem.font = cazgi.fnt
+                    cizem.yaz(zz1, zy1, cazgi.yazi, cazgi.x6, cazgi.y4)
+                Endif
+            Endif
+        Endif
+    Next
+    Return
+        Catch
+	ilk.hatayaz("kopi " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub dondur3(aci As Float, zx As Float, zy As Float, bnkc As String, abnkc As String)
+
+    Dim x4oku, y4oku, x5oku, y5oku, x6oku, y6oku, acig, r, r2, acig2, aci3, acig3, aci1, aci2 As Float
+
+    aci = Rad(aci)
+
+    While aci > (2 * Pi)
+        aci = aci - (2 * Pi)
+    Wend
+    While aci < 0
+        aci = aci + (2 * Pi)
+    Wend
+    For Each cazgi In ilk.cezmi
+        If cazgi.gor = 0
+            If cazgi.katman = bnkc
+                cizem.aktar(cazgi.id)
+                cizem.katman = abnkc
+                cizem.gor = cazgi.gor
+                acimi.aci(cazgi.x1, cazgi.y1, zx, zy)
+                r = acimi.boy
+                acig2 = acimi.raci - Pi
+                acig = acig2 + aci
+                acimi.aci(cazgi.x2, cazgi.y2, zx, zy)
+                r2 = acimi.boy
+                acig3 = acimi.raci - Pi
+                aci3 = acig3 + aci
+                x4oku = zx + (r * Cos(acig))
+                y4oku = zy - (r * Sin(acig))
+                If cazgi.komut = 1
+                    x5oku = zx + (r2 * Cos(aci3))
+                    y5oku = zy - (r2 * Sin(aci3))
+                    If x4oku = x5oku And y4oku = y5oku Then Goto dvm
+                    cizem.cizgi(x4oku, y4oku, x5oku, y5oku)
+                    ilk.sil(cazgi.id)
+                    Goto dvm
+                Endif
+                If cazgi.komut = 25 Then
+                    cizem.cember(x4oku, y4oku, cazgi.yaricap)
+                    ilk.sil(cazgi.id)
+                    Goto dvm
+                Endif
+                If cazgi.komut = 20
+                    acimi.aci(zx, zy, cazgi.x1, cazgi.y1)
+                    acig = acimi.raci + aci
+                    r = acimi.boy
+                    x4oku = zx + (r * (Cos(acig)))
+                    y4oku = zy - (r * (Sin(acig)))
+                    acimi.aci(zx, zy, cazgi.x2, cazgi.y2)
+                    acig2 = acimi.raci + aci
+                    r = acimi.boy
+                    x5oku = zx + (r * (Cos(acig2)))
+                    y5oku = zy - (r * (Sin(acig2)))
+                    acimi.aci(zx, zy, cazgi.x3, cazgi.y3)
+                    aci3 = acimi.raci + aci
+                    r = acimi.boy
+                    x6oku = zx + (r * (Cos(aci3)))
+                    y6oku = zy - (r * (Sin(aci3)))
+                    acimi.aci(x4oku, y4oku, x5oku, y5oku)
+                    aci1 = acimi.raci
+                    acimi.aci(x4oku, y4oku, x6oku, y6oku)
+                    aci2 = acimi.raci
+                    cizem.yay(x4oku, y4oku, cazgi.yaricap, aci1, aci2)
+                    ilk.sil(cazgi.id)
+                    Goto dvm
+                Endif
+                If cazgi.komut = 60
+                    cizem.font = cazgi.fnt
+                    cizem.yaz(x4oku, y4oku, cazgi.yazi, cazgi.x6, cazgi.y4)
+                    ilk.sil(cazgi.id)
+                End If
+            End If
+        End If
+    dvm:
+
+    Next
+
+    Return
+        Catch
+	ilk.hatayaz("dondur3 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub buyut(kfx As Float, kfy As Float, ax As Float, ay As Float, blke As String, ablke As String)
+
+    Dim ax1, ay1, ax2, ay2 As Float
+
+    cizem.katman = "desen"
+    For Each cazgi In ilk.cezmi
+        If cazgi.blok = blke
+            cizem.renk = Color.Blue
+            cizem.kalin = 1
+            cizem.bloku = ablke
+            ax1 = cazgi.x1 * kfx + ax * (1 - kfx)
+            ay1 = cazgi.y1 * kfy + ay * (1 - kfy)
+            If cazgi.komut = 1
+                ax2 = cazgi.x2 * kfx + ax * (1 - kfx)
+                ay2 = cazgi.y2 * kfy + ay * (1 - kfy)
+                '             If ax1 = ax2 And ay1 = ay2 Then Goto dvm
+                cizem.cizgi(ax1, ay1, ax2, ay2)
+            Endif
+            If cazgi.komut = 25
+                ax2 = cazgi.yaricap * Min(kfy, kfx)
+                cizem.cember(ax1, ay1, ax2)
+            Endif
+            If cazgi.komut = 20
+                ax2 = cazgi.yaricap * Min(kfy, kfx)
+                cizem.yay(ax1, ay1, ax2, cazgi.teta, cazgi.r)
+            Endif
+            If cazgi.komut = 60
+                ax2 = (cazgi.x6) * kfx
+                cizem.yaz(ax1, ay1, cazgi.yazi, ax2, cazgi.y4)
+            End If
+        End If
+
+    Next
+    Return
+        Catch
+	ilk.hatayaz("buyut " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub Button1_Click()
+
+    desenolcu
+    Panel2.Visible = True
+
+End
+
+Public Sub listed_Click()
+
+    PictureBox5.Picture = Picture[System.User.Home &/ ".KediCAD/desen/kapak" &/ listed.Text]
+    Label20.Text = System.User.Home &/ ".KediCAD/desen/kapak" &/ Left(listed.Text, -3) & "blk"
+    '     Message(System.User.Home &/ listed.Text & ".png")
+
+End
+
+Public Sub Button3_Click()
+
+    Panel2.Visible = False
+
+End
+
+Sub desenolcu()
+
+    Dim a, b, c, d As Float
+
+    a = CFloat(TextBox9.Text)
+    b = CFloat(TextBox10.Text)
+    c = CFloat(TextBox11.Text)
+    d = CFloat(TextBox12.Text)
+    enx = CFloat(TextBox2.Text) - (b + c)
+    boyy = CFloat(TextBox1.Text) - (a + d)
+    dznx = ilk.orix + b
+    dzny = ilk.oriy - d
+    label17.Text = "Pattern Area :"
+    label18.Text = "width=" & enx
+    label19.Text = "height=" & boyy
+    Return
+        Catch
+	ilk.hatayaz("desenolcu " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub TextBox9_Change()
+
+    desenolcu
+
+End
+
+Public Sub TextBox10_Change()
+
+    desenolcu
+
+End
+
+Public Sub TextBox11_Change()
+
+    desenolcu
+
+End
+
+Public Sub TextBox12_Change()
+
+    desenolcu
+
+End
+
+Public Sub Button9_Click()
+
+    kapakcizim
+    Panel4.Visible = False
+
+End
+
+Public Sub Button8_Click()
+
+    Panel4.Visible = False
+
+End
+
+Public Sub Button2_Click()
+
+    Panel1.Visible = True
+
+End
+
+Public Sub CheckBox2_Click()
+
+    If CheckBox2.Value Then
+        textbox6.Enabled = False
+        textbox7.Enabled = False
+    Else
+        textbox6.Enabled = True
+        textbox7.Enabled = True
+    Endif
+
+End
+
+Public nestvar As Integer
+
+Public Sub Button4_Click()
+
+    Panel1.Visible = False
+    nestvar = 1
+
+End

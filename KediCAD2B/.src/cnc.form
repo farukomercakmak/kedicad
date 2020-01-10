@@ -1,0 +1,189 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,123,60)
+  Icon = Picture["logo.png"]
+  Stacking = Window.Above
+  SkipTaskbar = True
+  { Button10 Button
+    MoveScaled(14,20,6,5)
+    Font = Font["Helvetica,12"]
+    Background = &H007FFF&
+    Foreground = &H00007F&
+    ToolTip = ("The Output file will have the same name, but with an \".ngc\" extension")
+    Text = ("Add to order")
+    Default = True
+  }
+  { TextBox1 TextBox
+    MoveScaled(20,5,10,3)
+    ToolTip = ("Surface of material = 0 mm")
+    Text = ("15.0")
+    Alignment = Align.Center
+  }
+  { TextLabel7 TextLabel
+    MoveScaled(0,4,17,5)
+    Text = ("Engraving depth(mm)")
+  }
+  { TextLabel8 TextLabel
+    MoveScaled(31,12,15,5)
+    Text = ("Safety Heigth (mm)")
+  }
+  { TextBox2 TextBox
+    MoveScaled(46,11,9,5)
+    ToolTip = ("Tool will clear the surface by this amount, or not, if it's negative Beware!")
+    Text = ("5.0")
+    Alignment = Align.Center
+  }
+  { TextBox3 TextBox
+    MoveScaled(20,9,10,3)
+    ToolTip = ("Feedrate for G1  G2 G3  X & Y moves")
+    Text = ("4200")
+    Alignment = Align.Center
+  }
+  { TextLabel9 TextLabel
+    MoveScaled(0,10,14,3)
+    Text = ("Speed mm/min")
+  }
+  { TextBox4 TextBox
+    MoveScaled(20,13,10,3)
+    ToolTip = ("Feed rate for Z going down")
+    Text = ("1000")
+    Alignment = Align.Center
+  }
+  { TextLabel10 TextLabel
+    MoveScaled(0,14,20,3)
+    Text = ("Depth Speed mm/min")
+  }
+  { Button3 Button
+    MoveScaled(31,0,24,5)
+    Text = ("Open G-Code File")
+  }
+  { Button1 Button
+    MoveScaled(24,42,21,4)
+    Text = ("Save Code")
+  }
+  { Button2 Button
+    MoveScaled(0,42,6,4)
+    Picture = Picture["icon:/32/right"]
+  }
+  { Button4 Button
+    MoveScaled(7,42,6,4)
+    Picture = Picture["icon:/22/forward"]
+  }
+  { Button6 Button
+    MoveScaled(20,20,14,5)
+    Background = &HFF007F&
+    Text = ("Generate Cod")
+  }
+  { ListBox2 ListBox
+    MoveScaled(0,25,45,17)
+  }
+  { Button7 Button
+    MoveScaled(45,30,5,5)
+    ToolTip = ("Move up")
+    Text = ("^")
+  }
+  { Button8 Button
+    MoveScaled(45,37,5,5)
+    ToolTip = ("Move down")
+    Text = ("v")
+  }
+  { Button9 Button
+    MoveScaled(50,33,5,7)
+    ToolTip = ("Delete")
+    Picture = Picture["standart/draw-eraser.png"]
+  }
+  { Separator4 Separator
+    MoveScaled(52,46,3,35.7143)
+    Background = &HFFFF00&
+  }
+  { DrawingArea1 DrawingArea
+    MoveScaled(59,0,71,43)
+    Background = Color.Foreground
+    Tracking = True
+    { g01 ListBox
+      MoveScaled(1,7,11,24)
+      Visible = False
+    }
+    { f1 ListBox
+      MoveScaled(14,7,10,24)
+      Visible = False
+    }
+    { zz1 ListBox
+      MoveScaled(26,8,11,23)
+      Visible = False
+    }
+  }
+  { g00 ListBox
+    MoveScaled(87,43,13,15)
+    Visible = False
+  }
+  { TextBox5 TextBox
+    MoveScaled(46,6,9,5)
+    Text = ("5000")
+  }
+  { Label3 Label
+    MoveScaled(31,6,14,4)
+    Text = ("No engraving\nSpeed")
+  }
+  { Button5 Button
+    MoveScaled(14,42,7,4)
+  }
+  { ComboBox1 ComboBox
+    MoveScaled(18,0,12,5)
+    Text = ("ComboBox1")
+  }
+  { Label1 Label
+    MoveScaled(0,1,14,3)
+    Text = ("Select Tool")
+  }
+  { Label2 Label
+    MoveScaled(35,21,24,4)
+    Font = Font["Arial,Bold,+1"]
+    Text = ("Label2")
+  }
+  { Slider1 Slider
+    MoveScaled(1,46,37,3)
+  }
+  { Label4 Label
+    MoveScaled(38,45,11,4)
+  }
+  { TextBox6 TextBox
+    MoveScaled(20,17,10,3)
+    Text = ("5")
+  }
+  { Label5 Label
+    MoveScaled(1,17,13,4)
+    Text = ("Z Step(mm.)")
+  }
+  { PictureBox1 PictureBox
+    MoveScaled(52,46,3,4)
+    Background = &HFF7F00&
+    Picture = Picture["simgeler/cozum/edik.png"]
+  }
+  { Separator3 Separator
+    MoveScaled(50,59,7,1)
+  }
+  { RadioButton1 RadioButton
+    MoveScaled(45,25,15,4)
+    Text = ("yolları göster")
+  }
+  { ListBox3 ListBox
+    MoveScaled(67,21,19,28)
+    Visible = False
+  }
+  { Button11 Button
+    MoveScaled(0,20,14,5)
+    Font = Font["Bold,+1"]
+    Background = &HFFDF7F&
+    Text = ("Add to order")
+  }
+  { ListBox4 ListBox
+    MoveScaled(65,18,19,28)
+    Visible = False
+  }
+  { ListBox1 ListBox
+    MoveScaled(59,1,49,43)
+    ToolTip = ("Text as written to Output File")
+  }
+}

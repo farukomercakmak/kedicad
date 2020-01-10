@@ -1,0 +1,64 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(46.2857,0,75,64)
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  SkipTaskbar = True
+  { PictureBox1 PictureBox
+    MoveScaled(51.7143,0.8571,21.8571,22.8571)
+    Stretch = True
+  }
+  { Label1 Label
+    MoveScaled(0,62.1429,68.2857,2.7143)
+  }
+  { Button1 Button
+    MoveScaled(62,60,11.2857,3.5714)
+    Text = ("OPEN")
+    Picture = Picture["standart/open.png"]
+  }
+  { Button2 Button
+    MoveScaled(1.8571,60.2857,13.1429,3.5714)
+    Text = ("CANCEL")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+  { TextBox1 TextBox
+    MoveScaled(0,56.8571,73.5714,3.5714)
+    ReadOnly = True
+  }
+  { ivwExplorer IconView
+    MoveScaled(0,5.2857,51,52)
+    Mode = Select.Multiple
+    Editable = True
+  }
+  { Button3 Button
+    MoveScaled(31,60,11,4)
+    Text = ("DELETE")
+    Picture = Picture["simgeler/sil.png"]
+  }
+  { TextArea1 TextArea
+    MoveScaled(51,25,21.8571,26.2857)
+  }
+  { Button4 Button
+    MoveScaled(0,0,9,4)
+    Text = ("ANTET ")
+  }
+  { Button5 Button
+    MoveScaled(9,0,12,4)
+    Text = ("HYDRAULIC")
+  }
+  { Button6 Button
+    MoveScaled(22,0,26,4)
+    Text = ("BLOCKS")
+  }
+  { ListBox1 ListBox
+    MoveScaled(54,49,14,7)
+    Visible = False
+  }
+  { DrawingArea1 DrawingArea
+    MoveScaled(61,40,17,8)
+    Visible = False
+    Background = Color.Foreground
+  }
+}

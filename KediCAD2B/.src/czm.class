@@ -1,0 +1,88 @@
+' Gambas class file
+
+Public id As Integer  '0
+Public komut As Integer '1
+Public x1 As Float '2
+Public y1 As Float '3
+Public x2 As Float '4
+Public y2 As Float '5
+Public x3 As Float '4
+Public y3 As Float '5
+Public x4 As Float  '22
+Public y4 As Float  '23
+Public x5 As Float  '24
+Public y5 As Float  '25
+Public x6 As Float  '26
+Public y6 As Float  '27
+Public x7 As Float  '26
+Public y7 As Float  '27
+Public x8 As Float  '26
+Public y8 As Float  '27
+Public x9 As Float  '26
+Public y9 As Float  '27
+Public yazix As Float '6
+Public yaziy As Float '7
+Public r As Float '8
+Public uzun As Float '9
+Public b As Float '10
+Public egim As Float '11
+Public teta As Float '12
+Public yaricap As Float '13
+Public sekil As Integer '14
+Public renk As Integer '15
+Public kalinlik As Integer '16
+Public blok As String   '17
+Public katman As String  '18
+Public yazi As String  '19
+Public fnt As String  '20
+Public z As Float  '21
+Public uc As Float  '22
+Public z1 As Float  '23
+Public gor As Integer  '24
+Public kilit As Integer  '25
+Public grup As String '26
+Public xf As Float '27
+Public yf As Float '28
+Public aci As Float '29
+Public kfx As Float '30
+Public czx As Integer[] '31
+Public czy As Integer[] '32
+Public Function acirad(xx As Float, yy As Float, xx2 As Float, yy2 As Float) As Float
+Dim frky As Float = yy2 - yy
+Dim frkx As Float = xx - xx2
+If frkx = 0 Then frkx = 0.000000001
+Return Atn(frky / frkx)
+End
+Public Function acideg(xx As Float, yy As Float, xx2 As Float, yy2 As Float) As Float
+Dim dere As Float
+dere = acirad(xx, yy, xx2, yy2) 
+dere = Deg(dere)
+Return dere
+End
+Public Function egim1(xx As Float, yy As Float, xx2 As Float, yy2 As Float) As Float
+Dim frky As Float = yy2 - yy
+Dim frkx As Float = xx2 - xx
+Dim ege As Float
+If frkx = 0 Then frkx = 0.000000001
+ege = (frky / frkx)
+Return ege
+End
+Public Function b1(xx As Float, yy As Float, xx2 As Float, yy2 As Float) As Float
+Dim ege As Float
+Dim frky As Float = yy2 - yy
+Dim frkx As Float = xx2 - xx
+' y = egim * x +b
+' b = y- (egim * x)
+If frkx = 0 Then frkx = 0.000000001
+ege = (frky / frkx)
+ege = yy - (ege * xx)
+Return ege
+End
+Public Function boy(xx As Float, yy As Float, xx2 As Float, yy2 As Float) As Float
+Dim ege As Float
+Dim frky As Float = yy2 - yy
+Dim frkx As Float = xx2 - xx
+If frky = 0 Then frky = 0.000000001
+ege = Abs(Hyp(frkx, frky))
+Return ege
+End

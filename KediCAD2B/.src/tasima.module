@@ -1,0 +1,212 @@
+' Gambas module file
+
+Public cazgi As New Czm
+Public dzm As Integer
+Public drl As New Integer[]
+Public ilx As Float
+Public ily As Float
+Private csp As New Csplit
+
+Public Sub tasir()
+
+    Dim abl, pkm As String
+    Dim zz1, zy1, zz2, zy2, zz3, zy3, aci2, aci3, ok As Float
+    Dim aci As Float
+    Dim k As Integer
+    
+    aci = cazgi.acideg(ilk.birx, ilk.biry, ilk.ikix, ilk.ikiy)
+    csp.yazi = ilk.komutcuk.Text
+    csp.virg
+    drl.Clear
+    dzm = dzm + 1
+    ilk.bolok = ilk.bolok + 2
+    ilk.mesgul = 1
+    aci2 = ilk.ikix - ilk.birx
+    aci3 = ilk.ikiy - ilk.biry
+    If ilk.hadi = 0.001 Then
+        If csp.sonuc2
+            ilx = (ilk.birx - cizimci.obix - csp.sonuc1)
+            ily = (ilk.biry - cizimci.obiy + csp.sonuc2)
+        Else
+            ilx = (ilk.birx - cizimci.obix)
+            ily = (ilk.biry - cizimci.obiy)
+        Endif
+    Endif
+    pen.liste.clear
+    pen.liste2.clear
+    For Each cazgi In ilk.cezmi
+           If ilk.depo1.Exist(cazgi.id)
+                If cazgi.blok <> 0 Then
+                    If pen.liste.find(cazgi.blok) = -1 Then
+                        pen.liste.add(cazgi.blok) 
+                        pen.liste2.add(cazgi.blok & "t" & dzm) 
+                        dzm = dzm + 1
+                    Endif
+                Endif
+           Endif
+    Next
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id)
+            drl.Add(cazgi.id)
+            If ilk.gidis = 0 Then
+                zz1 = cazgi.x1 * ilk.olcum + aci2
+                zy1 = cazgi.y1 * ilk.olcum + aci3
+                zz2 = zz1 + (cazgi.x2 - cazgi.x1) * ilk.olcum
+                zy2 = zy1 + (cazgi.y2 - cazgi.y1) * ilk.olcum
+                zz3 = cazgi.x3 * ilk.olcum + aci2
+                zy3 = cazgi.y3 * ilk.olcum + aci3
+                Goto cik
+            Else If ilk.gidis <> 0 Then
+                If ilk.hadi = 0.001 Then
+                    zz1 = cazgi.x1 * ilk.olcum - ilx
+                    zy1 = cazgi.y1 * ilk.olcum - ily
+                    zz2 = zz1 + (cazgi.x2 - cazgi.x1) * ilk.olcum
+                    zy2 = zy1 + (cazgi.y2 - cazgi.y1) * ilk.olcum
+                    zz3 = cazgi.x3 * ilk.olcum - ilx
+                    zy3 = cazgi.y3 * ilk.olcum - ily
+                    Goto cik
+                Endif
+
+                If Abs(ilk.mousex - ilk.birx) < Abs(ilk.mousey - ilk.biry) Then
+                    If ilk.mousey > ilk.biry Then
+                        zz1 = cazgi.x1 * ilk.olcum
+                        zy1 = cazgi.y1 * ilk.olcum + ilk.hadi
+                        zz2 = cazgi.x2 * ilk.olcum
+                        zy2 = cazgi.y2 * ilk.olcum + ilk.hadi
+                        zz3 = cazgi.x1 * ilk.olcum
+                        zy3 = cazgi.y1 * ilk.olcum + ilk.hadi
+                        Goto cik
+                    Else
+                        zz1 = cazgi.x1 * ilk.olcum
+                        zy1 = cazgi.y1 * ilk.olcum - ilk.hadi
+                        zz2 = cazgi.x2 * ilk.olcum
+                        zy2 = cazgi.y2 * ilk.olcum - ilk.hadi
+                        zz3 = cazgi.x1 * ilk.olcum
+                        zy3 = cazgi.y1 * ilk.olcum - ilk.hadi
+                        Goto cik
+                    End If
+                Else If Abs(ilk.mousex - ilk.birx) > Abs(ilk.mousey - ilk.biry) Then
+                    If ilk.mousex < ilk.birx Then
+                        zz1 = cazgi.x1 * ilk.olcum - ilk.hadi
+                        zy1 = cazgi.y1 * ilk.olcum
+                        zz2 = cazgi.x2 * ilk.olcum - ilk.hadi
+                        zy2 = cazgi.y2 * ilk.olcum
+                        zz3 = cazgi.x1 * ilk.olcum
+                        zy3 = cazgi.y1 * ilk.olcum - ilk.hadi
+                        Goto cik
+                    Else
+                        zz1 = cazgi.x1 * ilk.olcum + ilk.hadi
+                        zy1 = cazgi.y1 * ilk.olcum
+                        zz2 = cazgi.x2 * ilk.olcum + ilk.hadi
+                        zy2 = cazgi.y2 * ilk.olcum
+                        zz3 = cazgi.x1 * ilk.olcum
+                        zy3 = cazgi.y1 * ilk.olcum + ilk.hadi
+                        Goto cik
+                    End If
+                End If
+            End If
+        cik:
+            If cazgi.blok = 0 Then
+                abl = 0
+            Else
+                If ilk.komutsayi = 55 Or ilk.komutsayi = 56
+                If cazgi.blok <> pkm
+                    For k = 0 To pen.liste.count - 1
+                        pen.liste.index = k
+                        pen.liste2.index = k
+                        If cazgi.blok = pen.liste.Text Then
+                            abl = pen.liste2.Text
+                            pkm = pen.liste.Text
+                        Endif
+                    Next
+                Endif
+                Else
+                    abl = cazgi.blok
+                Endif
+            End If
+            cizem.aktar(cazgi.id)
+            cizem.bloku = abl
+            If cazgi.komut = 20 Then
+                cizem.yay(zz1, zy1, cazgi.yaricap, cazgi.teta, cazgi.r)
+            Else If cazgi.komut = 25 Then
+                cizem.cember(zz1, zy1, cazgi.yaricap)
+            Else If cazgi.komut = 60 Then
+                cizem.altyazi = cazgi.x4
+                cizem.italik = cazgi.egim
+                cizem.bold = cazgi.x6
+                cizem.font = cazgi.fnt
+                cizem.yaz(zz1, zy1, cazgi.yazi, cazgi.x6, cazgi.y4)
+            Else If cazgi.komut = 100
+                olcucur.yaziyuk = cazgi.y6
+                zz3 = cazgi.yazix * ilk.olcum + aci2
+                zy3 = cazgi.yaziy * ilk.olcum + aci3
+                olcucur.olcudegis(cazgi.komut, zz1, zy1, zz2, zy2, zz3, zy3, cazgi.teta, cazgi.yazi, cazgi.y6)
+                If ilk.komutsayi = 51 Or ilk.komutsayi = 52 Then ilk.sil(cazgi.id)
+            Else If cazgi.komut = 105
+                olcucur.yaziyuk = cazgi.y6
+                olcucur.olcudegis(cazgi.komut, zz1, zy1, zz2, zy2, zz3, zy3, cazgi.teta, cazgi.yazi, cazgi.y6)
+                If ilk.komutsayi = 51 Or ilk.komutsayi = 52 Then ilk.sil(cazgi.id)
+            Else If cazgi.komut = 120
+                olcucur.olcudegis(cazgi.komut, zz1, zy1, zz2, zy2, zz3, zy3, cazgi.x6, cazgi.yazi, cazgi.y6)
+                If ilk.komutsayi = 51 Or ilk.komutsayi = 52 Then ilk.sil(cazgi.id)
+            Else If cazgi.komut = 110
+                olcucur.yaziyuk = cazgi.y6
+                zz2 = cazgi.yazix * ilk.olcum + aci2
+                zy2 = cazgi.yaziy * ilk.olcum + aci3
+                olcucur.acikma3(zz1, zy1, cazgi.yaricap, cazgi.teta, cazgi.r, zz2, zy2, cazgi.yazi, cazgi.kalinlik, abl)
+                If ilk.komutsayi = 51 Or ilk.komutsayi = 52 Then ilk.sil(cazgi.id)
+            Else If cazgi.komut = 190
+                torbasecim.okg(cazgi.komut)
+                olcucur.yaziyuk = cazgi.x6
+                zz2 = cazgi.yazix * ilk.olcum + aci2
+                zy2 = cazgi.yaziy * ilk.olcum + aci3
+                olcucur.rolc(cazgi.komut, zz1, zy1, zz2, zy2, cazgi.yaricap, cazgi.yazi, zz3, zy3, cazgi.teta, abl)
+                 If ilk.komutsayi = 51 Or ilk.komutsayi = 52 Then ilk.sil(cazgi.id)
+            Else If cazgi.komut = 200
+                olcucur.yaziyuk = cazgi.x6
+                zz2 = cazgi.yazix * ilk.olcum + aci2
+                zy2 = cazgi.yaziy * ilk.olcum + aci3
+                olcucur.rolc(cazgi.komut, zz1, zy1, zz2, zy2, cazgi.yaricap, cazgi.yazi, zz3, zy3, cazgi.teta, abl)
+                If ilk.komutsayi = 51 Or ilk.komutsayi = 52 Then ilk.sil(cazgi.id)
+            Else If cazgi.komut = 29
+                 zz1 = cazgi.x1 * ilk.olcum + aci2 
+                 zy1 = cazgi.y1 * ilk.olcum + aci3 
+                 zz2 = cazgi.x3 * ilk.olcum + aci2
+                 zy2 = cazgi.y3 * ilk.olcum + aci3 
+                 zz3 = cazgi.x8 * ilk.olcum + aci2
+                 zy3 = cazgi.y8 * ilk.olcum + aci3 
+                cizem.tara(cazgi.fnt, zz1, zy1, zz2, zy2, zz3, zy3)
+            Else If cazgi.komut = 1
+                cizem.cizgi(zz1, zy1, zz2, zy2)
+            Else If cazgi.komut = 6
+                ok = ilk.komutsayi
+                ilk.komutsayi = 6
+                cizem.cizgi(zz1, zy1, zz2, zy2)
+                ilk.komutsayi = ok
+            Else If cazgi.komut = 242
+                cizem.nokta(zz1, zy1, cazgi.yazi)
+            Else
+            End If
+            ilk.depog.Add(dacy.kyno - 1, ilk.gkay)
+            ilk.gkay = ilk.gkay + 1
+        End If
+    Next
+    ilk.bolok = ilk.bolok + 5 + ilk.depo1.count
+    If ilk.komutsayi = 51 Or ilk.komutsayi = 52
+        gerde.zkayit("taşı")
+        ilk.oyna = "taşı"
+        ilk.sildepo
+        ilk.depo1.clear
+        ilk.dolas
+    End If
+    If ilk.komutsayi = 55 Or ilk.komutsayi = 56
+        gerde.zkayit("kopya")
+        ilk.oyna = "kopyala"
+    End If
+    ilk.komutcuk.Clear
+    ilk.mesgul = 0
+    ilk.calanilk.Refresh
+
+       Catch
+	ilk.hatayaz("tasir " & Error.Text, Error.Where & "--" & Error.code)
+End

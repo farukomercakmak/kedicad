@@ -1,0 +1,167 @@
+' Gambas class file
+
+Public izgam As Integer
+Public t1 As Integer
+Public t2 As Integer
+Public t3 As Integer
+Public t4 As Integer
+
+
+Public Sub Button1_Click()
+
+    Dim myFile As File
+
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/uccu" For Create
+    If CheckBox1.Value = True Then
+        torba2.c1 = 1
+        Print #myFile, 1
+    Else
+        torba2.c1 = 2
+        Print #myFile, 2
+    End If
+    If CheckBox2.Value = True Then
+        torba2.c2 = 1
+        Print #myFile, 1
+    Else
+        torba2.c2 = 2
+        Print #myFile, 2
+    End If
+    If CheckBox3.Value = True Then
+        torba2.c3 = 1
+        Print #myFile, 1
+    Else
+        torba2.c3 = 2
+        Print #myFile, 2
+    End If
+    If CheckBox4.Value = True Then
+        torba2.c4 = 1
+        Print #myFile, 1
+    Else
+        torba2.c4 = 2
+        Print #myFile, 2
+    End If
+    If CheckBox5.Value = True Then
+        torba2.c5 = 1
+        Print #myFile, 1
+    Else
+        torba2.c5 = 2
+        Print #myFile, 2
+    End If
+    If CheckBox6.Value = True Then
+        torba2.c6 = 1
+        Print #myFile, 1
+    Else
+        torba2.c6 = 2
+        Print #myFile, 2
+    End If
+    If CheckBox7.Value = True Then
+        torba2.c7 = 1
+        Print #myFile, 1
+    Else
+        torba2.c7 = 2
+        Print #myFile, 2
+    End If
+    If CheckBox11.Value = True Then
+        torba2.c8 = 1
+        Print #myFile, 1
+    Else
+        torba2.c8 = 2
+        Print #myFile, 2
+    End If
+    Print #myFile, izga.Text
+    Close myFile
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/track" For Create
+    If CheckBox8.Value = True Then
+        t1 = 1
+        Print #myFile, 1
+    Else
+        t1 = 2
+        Print #myFile, 2
+    End If
+    If CheckBox9.Value = True Then
+        t2 = 1
+        Print #myFile, 1
+    Else
+        t2 = 2
+        Print #myFile, 2
+    End If
+    If CheckBox10.Value = True Then
+        t3 = 1
+        Print #myFile, 1
+    Else
+        t3 = 2
+        Print #myFile, 2
+    End If
+    Print #myFile, TextBox1.text
+    If TextBox1.text <> ""
+        t4 = CInt(TextBox1.text)
+    Else
+        t4 = 0
+    End If
+    
+    Close myFile
+    ilk.Show
+    Me.Close
+    Catch
+	ilk.hatayaz("btn1clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Form_Open()
+
+    Me.Center
+    Me.text = "KediCAD 2B "
+    If torba2.c1 <> 1  ' baş son nokta
+        CheckBox1.Value = False
+    Else
+        CheckBox1.Value = True
+    End If
+    If torba2.c2 <> 1   ' orta nokta
+        CheckBox2.Value = False
+    Else
+        CheckBox2.Value = True
+    End If
+    If torba2.c3 <> 1    ' merkez
+        CheckBox3.Value = False
+    Else
+        CheckBox3.Value = True
+    End If
+    If torba2.c4 <> 1    ' teğet
+        CheckBox4.Value = False
+    Else
+        CheckBox4.Value = True
+    End If
+    If torba2.c5 <> 1    ' dik
+        CheckBox5.Value = False
+    Else
+        CheckBox5.Value = True
+    End If
+    If torba2.c6 <> 1    ' en yakın
+        CheckBox6.Value = False
+    Else
+        CheckBox6.Value = True
+    End If
+    If torba2.c7 <> 1     '  quadrant
+        CheckBox7.Value = False
+    Else
+        CheckBox7.Value = True
+    End If
+    izga.Text = izgam
+    If t1 <> 1     '  quadrant
+        CheckBox8.Value = False
+    Else
+        CheckBox8.Value = True
+    End If
+    If t2 <> 1     '  quadrant
+        CheckBox9.Value = False
+    Else
+        CheckBox9.Value = True
+    End If
+    If t3 <> 1     '  kesişim
+        CheckBox11.Value = False
+    Else
+        CheckBox11.Value = True
+    End If
+    TextBox1.Text = t4
+    Catch
+	ilk.hatayaz("formopen " & Error.Text, Error.Where & "--" & Error.code)
+End

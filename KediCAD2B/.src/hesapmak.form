@@ -1,0 +1,127 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(381,49,217,266)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  { Frame12 Frame
+    Move(0,-7,210,266)
+    Text = ("Calculater")
+    { aze TextBox
+      Move(0,24,203,35)
+      Font = Font["10"]
+      Alignment = Align.Right
+    }
+    { Frame5 Frame
+      Move(0,56,210,210)
+      { bir Button
+        Move(7,35,42,35)
+        Foreground = Color.Foreground
+        Text = ("1")
+      }
+      { iki Button
+        Move(56,35,42,35)
+        Foreground = Color.Foreground
+        Text = ("2")
+      }
+      { uc Button
+        Move(105,35,42,35)
+        Foreground = Color.Foreground
+        Text = ("3")
+      }
+      { dort Button
+        Move(7,77,42,35)
+        Foreground = Color.Foreground
+        Text = ("4")
+      }
+      { bes Button
+        Move(56,77,42,35)
+        Foreground = Color.Foreground
+        Text = ("5")
+      }
+      { alti Button
+        Move(105,77,42,35)
+        Foreground = Color.Foreground
+        Text = ("6")
+      }
+      { sekiz Button
+        Move(56,119,42,35)
+        Foreground = Color.Foreground
+        Text = ("8")
+      }
+      { dokuz Button
+        Move(105,119,42,35)
+        Foreground = Color.Foreground
+        Text = ("9")
+      }
+      { arti Button
+        Move(154,35,35,35)
+        Foreground = Color.Foreground
+        Text = ("+")
+      }
+      { eksi Button
+        Move(154,77,35,35)
+        Foreground = Color.Foreground
+        Text = ("-")
+      }
+      { carp Button
+        Move(154,119,35,35)
+        Foreground = Color.Foreground
+        Text = ("x")
+      }
+      { bol Button
+        Move(154,161,35,35)
+        Foreground = Color.Foreground
+        Text = ("/")
+      }
+      { sifir Button
+        Move(7,161,42,35)
+        Foreground = Color.Foreground
+        Text = ("0")
+      }
+      { esit Button
+        Move(105,161,42,35)
+        Foreground = Color.Foreground
+        Text = ("=")
+      }
+      { ce Button
+        Move(147,7,42,28)
+        Foreground = Color.Foreground
+        Text = ("CE")
+      }
+      { yedi Button
+        Move(7,119,42,35)
+        Foreground = Color.Foreground
+        Text = ("7")
+      }
+      { Button2 Button
+        Move(56,161,42,35)
+        Foreground = Color.Foreground
+        Text = (",")
+      }
+      { PictureBox2 PictureBox
+        Move(56,7,35,28)
+        Picture = Picture["simgeler/xkare.png"]
+        Border = Border.Sunken
+      }
+      { PictureBox1 PictureBox
+        Move(14,7,35,28)
+        Picture = Picture["simgeler/kokx.png"]
+        Border = Border.Sunken
+      }
+    }
+  }
+  { TextBox1 TextBox
+    Move(231,84,140,35)
+  }
+  { TextBox2 TextBox
+    Move(231,133,140,35)
+  }
+  { TextBox3 TextBox
+    Move(231,14,231,35)
+  }
+  { Button1 Button
+    Move(392,84,84,42)
+  }
+}

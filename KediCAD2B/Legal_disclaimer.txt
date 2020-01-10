@@ -1,0 +1,36 @@
+LICENSE
+Software Products: Z88
+Licensor: Chair for Engineering Design and CAD ("LCAD"), University of Bayreuth, Germany
+
+This is a legal agreement between you, the end user, and Chair for Engineering Design and CAD, Universitaetsstr. 30, 95447 Bayreuth, Germany.
+By installing, by downloading or by agreeing to the integrated conditions of this End-User License Agreement, you are agreeing to be bound 
+by the terms of this agreement. If you do not agree to the terms of this agreement, promptly return the Software and the accompanying items 
+(including written materials and binders or other containers) to the place you obtained them for a full refund.
+
+1. Grant of license
+This LCAD license agreement (license) permits you to use a copy of the Software acquired with this license on any computer in multiple number 
+of installations. The Software is in use on a computer when it is loaded into the temporary memory or installed into the permanent memory 
+(e.g. hard disk, CD ROM, or other storage device) of that computer.
+
+2. Copyright
+The Software is owned by LCAD and is protected by copyright laws, international treaty provisions, and other national laws. Therefore, you 
+must treat the Software like any other copyrighted material (e.g. a book). There is no right to use trademarks, pictures, documentation, e.g.
+without naming LCAD.
+
+3. Other restrictions
+You may not rent or lease the Software, but you may transfer your rights under this LCAD license agreement on a permanent basis provided you 
+transfer all copies of the Software and all written materials, and the recipient agrees to the terms of this agreement. You may not reverse 
+engineer, decompile or disassemble the Software. Any transfer must include the most recent update and all prior versions. The Software is for 
+calculation Finite-Element-Structures; there is no warranty for accuracy of the given results.
+
+4. Warranties
+LCAD gives no warrants; the Software will perform substantially in accordance with the accompanying documentation. Any implied warranties on 
+the Software are not given.
+
+5. No liability for consequential damages
+In no event shall LCAD be liable for any other damages whatsoever (including, without limitation, damages for loss of business profits, 
+business interruption, loss of business information, or other pecuniary loss, personal damage) arising out of the use of or inability to use 
+this Software product, even if LCAD has been advised of the possibility of such damages.
+
+6. Governing Law
+This Agreement shall be governed exclusively by and be construed in accordance with the laws of Germany, without giving effect to conflict of laws.

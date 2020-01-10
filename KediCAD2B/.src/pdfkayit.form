@@ -1,0 +1,23 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,110,77)
+  Icon = Picture["logo.png"]
+  { btnPrintImage Button
+    MoveScaled(95,0,12,4)
+    Text = ("Print")
+    Picture = Picture["icon:/16/print"]
+  }
+  { TextLabel1 TextLabel
+    MoveScaled(41,0,54,3)
+    Text = ("TextLabel1")
+  }
+  { DrawingArea1 DrawingArea
+    MoveScaled(1,4,108,73)
+    Background = Color.TextBackground
+    Tracking = True
+  }
+  { prtImage #Printer
+    #MoveScaled(103,9)
+  }
+}

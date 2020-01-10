@@ -1,0 +1,230 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(728,0,462,420)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Utility = True
+  { Wizard1 Wizard
+    Move(0,0,444,408)
+    Count = 3
+    Index = 0
+    Text = ("Input Values")
+    { Button3 Button
+      Move(0,280,104,32)
+      Visible = False
+      Text = ("Calculate")
+      Picture = Picture["standart/accessories-calculator.png"]
+    }
+    { Label1 Label
+      Move(8,8,126,24)
+      Text = ("Load (kg.)")
+    }
+    { Label11 Label
+      Move(0,240,184,32)
+      Text = ("Ultimate stress(kgf/mm^2)")
+    }
+    { Label23 Label
+      Move(8,160,168,24)
+      Text = ("Max. Pressure (bar)")
+    }
+    { Label30 Label
+      Move(8,200,160,24)
+      Text = ("Safety coefficient")
+    }
+    { Label4 Label
+      Move(8,128,176,24)
+      Text = ("Working pressure(bar)")
+    }
+    { Label3 Label
+      Move(8,88,120,24)
+      Text = ("Time(second)")
+    }
+    { Label2 Label
+      Move(8,40,96,24)
+      Text = ("Stroke(cm)")
+    }
+    { yuk TextBox
+      Move(184,0,72,32)
+    }
+    { strok TextBox
+      Move(184,40,72,32)
+    }
+    { sure TextBox
+      Move(184,80,72,32)
+    }
+    { basinc TextBox
+      Move(184,120,72,32)
+    }
+    { yuk4 TextBox
+      Move(184,240,72,32)
+      Text = ("35")
+    }
+    { yuk2 TextBox
+      Move(184,200,72,32)
+      Text = ("2")
+    }
+    { basinc2 TextBox
+      Move(184,160,72,32)
+      Text = ("300")
+    }
+    { PictureBox1 PictureBox
+      Move(272,0,144,240)
+      Picture = Picture["res/hidana.png"]
+      Stretch = True
+    }
+    { Button6 Button
+      Move(329,273,98,35)
+      Picture = Picture["standart/gtk-clear.png"]
+    }
+    Index = 1
+    Text = ("Results")
+    { Frame2 Frame
+      Move(0,0,304,304)
+      Text = ("Results")
+      { Label5 Label
+        Move(8,32,102,24)
+        Text = ("Flow  lt/dk.")
+      }
+      { debi TextBox
+        Move(200,24,96,32)
+      }
+      { mgucu TextBox
+        Move(200,66,96,32)
+      }
+      { Label6 Label
+        Move(6,60,144,30)
+        Text = ("Engine power ( kW).")
+      }
+      { eboru TextBox
+        Move(200,108,96,32)
+      }
+      { bboru TextBox
+        Move(200,144,96,32)
+      }
+      { Label7 Label
+        Move(8,112,186,24)
+        Text = ("Input pipe diameter (mm.)")
+      }
+      { Label8 Label
+        Move(6,144,192,24)
+        Text = ("Output pipe diameter(mm.)")
+      }
+      { Label9 Label
+        Move(6,186,174,30)
+        Text = ("Cylinder Inner dia.( mm.)")
+      }
+      { scap TextBox
+        Move(200,186,96,32)
+      }
+      { scap2 TextBox
+        Move(200,222,96,32)
+      }
+      { Label12 Label
+        Move(6,222,174,30)
+        Text = ("Cylinder outer dia.(mm.)")
+      }
+    }
+    Index = 2
+    Text = ("Flambaj Control")
+    { Frame3 Frame
+      Move(0,0,416,160)
+      Text = ("Connection Form")
+      { Label19 Label
+        Move(28,280,70,21)
+        Text = ("Bir uç sabit")
+      }
+      { RadioButton2 RadioButton
+        Move(102,114,88,40)
+        Font = Font["-1"]
+        Text = ("both end \njoint")
+      }
+      { RadioButton3 RadioButton
+        Move(192,112,136,48)
+        Font = Font["-1"]
+        Text = ("First end joint\nsecond end fixed")
+      }
+      { PictureBox4 PictureBox
+        Move(232,16,72,102)
+        Picture = Picture["res/hid3.png"]
+        Stretch = True
+      }
+      { PictureBox3 PictureBox
+        Move(128,16,66,102)
+        Picture = Picture["res/hid2.png"]
+        Stretch = True
+      }
+      { PictureBox2 PictureBox
+        Move(7,14,72,108)
+        Picture = Picture["res/hid1.png"]
+        Stretch = True
+      }
+      { RadioButton1 RadioButton
+        Move(0,120,104,40)
+        Font = Font["9"]
+        Text = ("upper   free\nlower  fixed")
+      }
+      { PictureBox5 PictureBox
+        Move(344,8,66,102)
+        Picture = Picture["res/hid4.png"]
+        Stretch = True
+      }
+      { RadioButton4 RadioButton
+        Move(336,112,88,40)
+        Font = Font["-1"]
+        Text = ("Both end\nfixed")
+      }
+    }
+    { emkat TextBox
+      Move(136,160,48,32)
+      Text = ("2.5")
+    }
+    { Label20 Label
+      Move(0,168,126,24)
+      Text = ("Safety coefficient")
+    }
+    { Label21 Label
+      Move(192,168,182,21)
+      Text = ("(o less then 2.5)")
+    }
+    { Button4 Button
+      Move(200,240,120,40)
+      Text = ("Check")
+      Picture = Picture["standart/ok.png"]
+    }
+    { Label22 Label
+      Move(0,200,136,32)
+      Text = ("Rod legth (l) (cm.)")
+    }
+    { pku TextBox
+      Move(136,200,48,32)
+    }
+    { Label24 Label
+      Move(200,192,200,40)
+      Font = Font["14,Bold"]
+      Border = Border.Etched
+    }
+    { Label25 Label
+      Move(0,294,133,42)
+      Text = ("Max.Load.(kgf.)")
+    }
+    { myuk TextBox
+      Move(352,232,72,40)
+      ReadOnly = True
+    }
+    { Label27 Label
+      Move(0,240,138,24)
+      Text = ("Rod diameter (mm.)")
+    }
+    { pkolc TextBox
+      Move(136,240,48,32)
+    }
+    { Button5 Button
+      Move(301,294,133,35)
+      Text = ("Save to File")
+      Picture = Picture["standart/save.png"]
+    }
+    Index = 0
+  }
+}

@@ -1,0 +1,428 @@
+' Gambas module file
+
+Public cazgi As Czm
+Public osx As Float
+Public osy As Float
+
+
+Public Sub isle(rty As Integer, denge As String, ide As Integer)
+    Dim hx, hy, gfg, sfg As Float
+    With ozellik
+        If IsFloat(denge) Then sfg = CFloat(denge)
+        For Each cazgi In ilk.cezmi
+            If cazgi.id = ide
+                cizem.aktar(cazgi.id)
+                If .TableView1[2, 1].Text = "Line (1)" Then
+                    If rty = 4 ' Açı değişiyor
+                        done.dondur2(CFloat(denge))
+                    Else If rty = 3  ' uzunluk değişiyor
+                        hx = cazgi.x1 + sfg * Cos(Rad(cazgi.teta))
+                        hy = cazgi.y1 - sfg * Sin(Rad(cazgi.teta))
+                        cizem.cizgi(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, hx * ilk.olcum, hy * ilk.olcum)
+                    Else If rty = 8   ' blok değişiyor
+                        cazgi.blok = denge
+                        Goto cik
+                    Else If rty = 10   ' çizgi tipi değişiyor
+                        cazgi.sekil = denge
+                        Goto cik
+                    Else If rty = 11   ' çizgi kalınlığı değişiyor
+                        cazgi.kalinlik = denge
+                        Goto cik
+                    Else If rty = 12   ' x1 değişiyor
+                        cizem.cizgi(sfg * ilk.olcum, cazgi.y1 * ilk.olcum, cazgi.x2 * ilk.olcum, cazgi.y2 * ilk.olcum)
+                    Else If rty = 13   ' y1 değişiyor
+                        cizem.cizgi(cazgi.x1 * ilk.olcum, sfg * ilk.olcum, cazgi.x2 * ilk.olcum, cazgi.y2 * ilk.olcum)
+                    Else If rty = 14   ' x2 değişiyor
+                        cizem.cizgi(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, sfg * ilk.olcum, cazgi.y2 * ilk.olcum)
+                    Else If rty = 15   ' y2 değişiyor
+                        cizem.cizgi(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, cazgi.x2 * ilk.olcum, sfg * ilk.olcum)
+                    Else
+                        Goto cik
+                    End If
+
+                Else If .TableView1[2, 1].Text = "Arc (20)" Then
+                    If rty = 5   ' Yarıçap değişiyor
+                        cizem.yay(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, sfg, cazgi.teta, cazgi.r)
+                    Else If rty = 6   ' Çap değişiyor
+                        cizem.yay(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, sfg / 2, cazgi.teta, cazgi.r)
+                    Else If rty = 15  ' baş.açısı değişiyor
+                        cizem.yay(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, cazgi.yaricap, Rad(sfg), cazgi.r)
+                    Else If rty = 7  ' baş.açısı değişiyor
+                        cizem.yay(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, cazgi.yaricap, Rad(sfg), cazgi.r)
+                    Else If rty = 16  ' bitiş açısı değişiyor
+                        cizem.yay(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, cazgi.yaricap, cazgi.teta, Rad(sfg))
+                    Else If rty = 8   ' blok değişiyor
+                        cazgi.blok = denge
+                        Goto cik
+                    Else If rty = 12   ' x1 değişiyor
+                        cizem.yay(sfg * ilk.olcum, cazgi.y1 * ilk.olcum, cazgi.yaricap, cazgi.teta, cazgi.r)
+                    Else If rty = 13   ' y1 değişiyor
+                        cizem.yay(cazgi.x1 * ilk.olcum, sfg * ilk.olcum, cazgi.yaricap, cazgi.teta, cazgi.r)
+                    End If
+                Else If .TableView1[2, 1].Text = "Circle  (25)" Then
+                    If rty = 5   ' Yarıçap değişiyor
+                        cizem.cember(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, sfg)
+                    Else If rty = 6   ' Çap değişiyor
+                        cizem.cember(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, sfg / 2)
+                    Else If rty = 8   ' blok değişiyor
+                        cazgi.blok = denge
+                        Goto cik
+                    Else If rty = 12   ' x1 değişiyor
+                        cizem.cember(sfg * ilk.olcum, cazgi.y1 * ilk.olcum, cazgi.yaricap)
+                    Else If rty = 13   ' y1 değişiyor
+                        cizem.cember(cazgi.x1 * ilk.olcum, - sfg * ilk.olcum, cazgi.yaricap)
+                    Else
+                        Goto cik
+                    End If
+                    ilk.sil(cazgi.id)
+                Else If .TableView1[2, 1].Text = "Text (60)" Then
+                    gfg = 1
+                    cizem.altyazi = cazgi.x4
+                    cizem.italik = cazgi.egim
+                    cizem.bold = cazgi.y6
+                    cizem.font = cazgi.fnt
+                    If rty = 12   ' x1 değişiyor
+                        cizem.yaz(sfg * ilk.olcum, cazgi.y1 * ilk.olcum, cazgi.yazi, cazgi.y4)
+                    Else If rty = 13   ' y1 değişiyor
+                        cizem.yaz(cazgi.x1 * ilk.olcum, sfg * ilk.olcum, cazgi.yazi, cazgi.y4)
+                    Else If rty = 16   ' yazı değişiyor
+                        cizem.yaz(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, denge, cazgi.y4)
+                    Else If rty = 17   ' yazı yüksekliği değişiyor
+                        cizem.yaz(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, cazgi.yazi, sfg, cazgi.y4)
+                    Else
+                        Goto cik
+                    End If
+                    ilk.sil(cazgi.id)
+                Else If .TableView1[2, 1].Text Like "*(100)" Then
+                    If rty = 3 Then   ' x1 değişiyor
+                        cazgi.yazi = sfg
+                    Endif
+                    If rty = 17 Then
+                        cazgi.y6 = sfg
+                    Endif
+                    
+                Else If .TableView1[2, 1].Text = "120" Then
+                    If rty = 3 Then   ' x1 değişiyor
+                        cazgi.yazi = sfg
+                    Endif
+                    If rty = 17 Then
+                        cazgi.y6 = sfg
+                    Endif
+                Else If .TableView1[2, 1].Text Like "Diamet*" Then
+                    If rty = 3 Then   ' x1 değişiyor
+                        cazgi.yazi = sfg
+                    Endif
+                    If rty = 17 Then
+                        cazgi.y6 = sfg
+                    Endif
+                Else If .TableView1[2, 1].Text Like "Radius*" Then
+                    If rty = 3 Then   ' x1 değişiyor
+                        cazgi.yazi = sfg
+                    Endif
+                    If rty = 17 Then
+                        cazgi.y6 = sfg
+                    Endif
+                Endif
+                ilk.depo1.Clear
+            cik:
+                degisim(ide)
+                ilk.tw1 = 5
+            Endif
+        Next
+    End With
+Return
+       Catch
+	ilk.hatayaz("isle " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub degisim(ide As Integer)
+    Dim i As Integer
+    With ozellik
+        .Combobox4.Visible = False
+        .Combobox3.Visible = False
+        .Combobox5.Visible = False
+        .Combobox6.Visible = False
+        .Combobox8.Clear
+        .Combobox7.Clear
+        .Combobox7.Add("0")
+        ilk.tw1 = 5
+        For i = 0 To ilk.katmer.Count - 1
+            .Combobox8.Add(ilk.katmer[i].Text)
+        Next
+        .Combobox8.Visible = True
+        For Each cazgi In ilk.cezmi
+            If cazgi.id > 0
+                If cazgi.blok <> 0 Then
+                    If .Combobox7.Find(cazgi.blok) = -1 Then .Combobox7.Add(cazgi.blok)
+                Endif
+            Endif
+        Next
+        taze
+        For Each cazgi In ilk.cezmi
+            If cazgi.id = ide
+            ilk.depo1.Clear
+            ilk.depo1.Add(cazgi.id, cazgi.id)
+                osx = cazgi.x1 * ilk.olcum
+                osy = cazgi.y1 * ilk.olcum
+                .TableView1[1, 1].Text = cazgi.id
+                .TableView1[3, 1].Text = Format$(cazgi.uzun, "#,#")
+                .TableView1[4, 1].Text = Format$((cazgi.teta), "#,###")
+                .TableView1[5, 1].Text = Format$(cazgi.yaricap, "#,#")
+                .TableView1[6, 1].Text = Format$(cazgi.yaricap * 2, "#,#")
+                .TableView1[7, 1].Text = Format$(Deg(cazgi.r), "#,#")
+                .Combobox7.Move(150, .TableView1[8, 0].Y + 20)
+                .Combobox7.Index = .Combobox7.Find(cazgi.blok)
+                .ColorButton1.Value = cazgi.renk
+                .Combobox8.Move(150, .TableView1[19, 0].Y + 20)
+                .Combobox8.Index = .Combobox8.Find(cazgi.katman)
+                .ColorButton1.Move(150, .TableView1[9, 0].Y + 20)
+                .TableView1[9, 1].Text = cazgi.renk
+                .Combobox1.Move(150, .TableView1[10, 0].Y + 20)
+                .TableView1[10, 1].Text = cazgi.sekil
+                .Combobox2.Move(150, .TableView1[11, 0].Y + 20)
+                .TableView1[11, 1].Text = cazgi.kalinlik
+                .TableView1[12, 1].Text = Format$(cazgi.x1, "#,#")
+                .TableView1[13, 1].Text = Format$(cazgi.y1, "#,#")
+                .TableView1[14, 1].Text = Format$(cazgi.x2, "#,#")
+                .TableView1[15, 1].Text = Format$(cazgi.y2, "#,#")
+                .TableView1[17, 1].Text = Format$(cazgi.y6, "#,#")
+                .TableView1[16, 1].Text = cazgi.yazi
+                If cazgi.x6 > 0 Then
+                    .TableView1[17, 1].Text = cazgi.x6
+                Endif
+                .TableView1[18, 1].Text = Format$(cazgi.yazix, "#,#")
+                .TableView1[19, 1].Text = Format$(cazgi.yaziy, "#,#")
+                If cazgi.komut = 1 Then
+                    .TableView1[2, 1].Text = "Line (1)"
+                Else If cazgi.komut = 20 Then
+                    .TableView1[2, 1].Text = "Arc (20)"
+                    .TableView1[3, 1].Text = Format$(cazgi.yaricap * (cazgi.teta - cazgi.r), "#.#")
+                    .TableView1[4, 0].Text = ""
+                    .TableView1[4, 1].Text = ""
+                    .TableView1[12, 0].Text = "Center X "
+                    .TableView1[13, 0].Text = "Cenrer Y"
+                    .TableView1[15, 0].Text = "Start Angle"
+                    .TableView1[15, 1].Text = Format$(Deg(cazgi.teta), "#,#")
+                    .TableView1[16, 0].Text = "End Angle"
+                    .TableView1[16, 1].Text = Format$(Deg(cazgi.r), "#,#")
+                Else If cazgi.komut = 25 Then
+                    .TableView1[2, 1].Text = "Circle  (25)"
+                    .TableView1[7, 1].Text = ""
+                    .TableView1[7, 0].Text = ""
+                    .TableView1[12, 0].Text = "Center X "
+                    .TableView1[13, 0].Text = "Cenrer Y"
+                    .TableView1[3, 1].Text = Format$(cazgi.yaricap * 2 * Pi, "#.#")
+                Else If cazgi.komut = 60 Then
+                    .Combobox4.Visible = True
+                    .Combobox3.Visible = True
+                    .Combobox5.Visible = True
+                    .Combobox6.Visible = True
+                    .TableView1[3, 0].Text = ""
+                    .TableView1[4, 0].Text = ""
+                    .TableView1[2, 1].Text = "Text (60)"
+                    .TableView1[14, 0].Text = "Italic"
+                    .TableView1[14, 1].Text = ""
+                    .Combobox5.Move(150, .TableView1[15, 0].Y + 20)
+                    .TableView1[15, 0].Text = "Underline"
+                    .TableView1[15, 1].Text = ""
+                    .Combobox6.Move(150, .TableView1[18, 0].Y + 20)
+                    .TableView1[18, 0].Text = "Bold "
+                    .TableView1[18, 1].Text = ""
+                    .Combobox3.Move(150, .TableView1[14, 0].Y + 20)
+                    If cazgi.egim = 1 Then .ComboBox3.Index = 1
+                    If cazgi.x4 = 1 Then .ComboBox5.Index = 1
+                    If cazgi.y6 = 1 Then .ComboBox6.Index = 1
+                    .TableView1[19, 1].Text = ""
+                    .Combobox4.Move(150, .TableView1[4, 0].Y + 20)
+                    .ComboBox4.Find(cazgi.fnt)
+                    .TableView1[4, 0].Text = "Font"
+                    .TableView1[4, 1].Text = cazgi.fnt
+                    .TableView1[17, 1].Text = Format$(cazgi.x6, "#.#")
+                Else If cazgi.komut = 100 Or cazgi.komut = 105 Then
+                    .TableView1[2, 1].Text = "Linear Dim. (100)"
+                    .TableView1[3, 0].Text = "Text"
+                    .TableView1[3, 1].Text = cazgi.yazi
+                    .TableView1[4, 0].Text = "Text X"
+                    .TableView1[4, 1].Text = cazgi.yazix
+                    .TableView1[5, 0].Text = "Text Y"
+                    .TableView1[5, 1].Text = cazgi.yaziy
+                    .TableView1[17, 0].Text = "Text Height"
+                    .TableView1[17, 1].Text = cazgi.y6
+                    .TableView1[18, 1].Text = ""
+                Else If cazgi.komut = 120 Then
+                    .TableView1[2, 1].Text = "Aligned Dim (120)"
+                    .TableView1[3, 0].Text = "Text"
+                    .TableView1[3, 1].Text = cazgi.yazi
+                    .TableView1[4, 0].Text = "Text X"
+                    .TableView1[4, 1].Text = cazgi.yazix
+                    .TableView1[5, 0].Text = "Text Y"
+                    .TableView1[5, 1].Text = cazgi.yaziy
+                    .TableView1[17, 0].Text = "Text Height"
+                    .TableView1[17, 1].Text = cazgi.y6
+                    .TableView1[7, 1].Text = ""
+                Else If cazgi.komut = 110 Then
+                    .TableView1[2, 1].Text = "Angular Dim (110)"
+                    .TableView1[3, 0].Text = "Text"
+                    .TableView1[3, 1].Text = cazgi.yazi
+                    .TableView1[4, 0].Text = "Text X"
+                    .TableView1[4, 1].Text = cazgi.yazix
+                    .TableView1[5, 0].Text = "Text Y"
+                    .TableView1[5, 1].Text = cazgi.yaziy
+                    .TableView1[17, 0].Text = "Text Height"
+                    .TableView1[17, 1].Text = cazgi.y6
+                Else If cazgi.komut = 190 Then
+                    .TableView1[2, 1].Text = "Radius Dim (190)"
+                    .TableView1[3, 0].Text = "Text"
+                    .TableView1[3, 1].Text = cazgi.yazi
+                    .TableView1[4, 0].Text = "Text X"
+                    .TableView1[4, 1].Text = cazgi.yazix
+                    .TableView1[5, 0].Text = "Text Y"
+                    .TableView1[5, 1].Text = cazgi.yaziy
+                    .TableView1[17, 0].Text = "Text Height"
+                    .TableView1[17, 1].Text = cazgi.y6
+                Else If cazgi.komut = 200 Then
+                    .TableView1[2, 1].Text = "Diameter Dim (200)"
+                    .TableView1[3, 0].Text = "Text"
+                    .TableView1[3, 1].Text = cazgi.yazi
+                    .TableView1[4, 0].Text = "Text X"
+                    .TableView1[4, 1].Text = cazgi.yazix
+                    .TableView1[5, 0].Text = "Text Y"
+                    .TableView1[5, 1].Text = cazgi.yaziy
+                    .TableView1[17, 0].Text = "Text Height"
+                    .TableView1[17, 1].Text = cazgi.y6
+                Else
+                    .TableView1[2, 1].Text = cazgi.komut
+                    .TableView1[7, 1].Text = ""
+                    .TableView1[7, 0].Text = ""
+                    .TableView1[12, 0].Text = "Center X "
+                    .TableView1[13, 0].Text = "Cenrer Y"
+                    .TableView1[3, 1].Text = Format$(cazgi.yaricap * 2 * Pi, "#.#")
+                End If
+                If cazgi.grup Then
+                    .TableView1[20, 1].Text = "ad=" & cazgi.grup & "/kfx=" & cazgi.kfx & "/yf=" & Round(cazgi.yf) & "/aci=" & Round(cazgi.aci)
+                Else
+                    .TableView1[20, 1].Text = "bos"
+                End If
+            End If
+        Next
+        ilk.calanilk.Refresh
+    End With
+    Return
+       Catch
+	ilk.hatayaz("degisim " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub taze()
+
+    With ozellik
+        .TableView1[1, 0].Text = "Record No"
+        .TableView1[2, 0].Text = "Drawing"
+        .TableView1[3, 0].Text = "Length"
+        .TableView1[4, 0].Text = "Angle(Horizantal)"
+        .TableView1[5, 0].Text = "Radius"
+        .TableView1[6, 0].Text = "Diameter"
+        .TableView1[7, 0].Text = "Start Angle"
+        .TableView1[8, 0].Text = "Block"
+        .TableView1[9, 0].Text = "Color"
+        .TableView1[10, 0].Text = "LineType"
+        .TableView1[11, 0].Text = "LineWidth"
+        .TableView1[12, 0].Text = "X1 "
+        .TableView1[13, 0].Text = "Y1 "
+        .TableView1[14, 0].Text = "X2 "
+        .TableView1[15, 0].Text = "Y2 "
+        .TableView1[16, 0].Text = "Text"
+        .TableView1[17, 0].Text = "Text Height"
+        .TableView1[18, 0].Text = "Text X"
+        .TableView1[19, 0].Text = "Layer"
+        .TableView1[20, 0].Text = "grup"
+        .TableView1[1, 1].Text = ""
+        .TableView1[2, 1].Text = ""
+        .TableView1[3, 1].Text = ""
+        .TableView1[4, 1].Text = ""
+        .TableView1[5, 1].Text = ""
+        .TableView1[6, 1].Text = ""
+        .TableView1[7, 1].Text = ""
+        .TableView1[8, 1].Text = ""
+        .TableView1[9, 1].Text = ""
+        .TableView1[10, 1].Text = ""
+        .TableView1[11, 1].Text = ""
+        .TableView1[12, 1].Text = ""
+        .TableView1[13, 1].Text = ""
+        .TableView1[14, 1].Text = ""
+        .TableView1[15, 1].Text = ""
+        .TableView1[16, 1].Text = ""
+        .TableView1[17, 1].Text = ""
+        .TableView1[18, 1].Text = ""
+        .TableView1[19, 1].Text = ""
+        .TableView1[20, 1].Text = ""
+    End With
+Return
+       Catch
+	ilk.hatayaz("taze " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub birles()
+
+    With ilk
+        .bolok = .bolok + Rnd(2, 10) + 1
+        For Each cazgi In ilk.cezmi
+            If ilk.depo1.Exist(cazgi.id)
+                cazgi.blok = .bolok
+            End If
+        Next
+        tem.temizlik
+    End With
+    Return
+       Catch
+	ilk.hatayaz("birles " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public besek As Float
+Public berenk As Integer
+Public bekal As Integer
+Public bekat As String
+Public yuks As String
+
+Public Sub benze1()
+
+    besek = ilk.sekilgec
+    berenk = ilk.renkgec
+    bekal = ilk.kalingec
+    bekat = ilk.katgec
+    yuks = ilk.x6gec
+    yazyuk = ilk.y6gec / ilk.olcum
+    Return
+End
+Public yazyuk As Float
+Public Sub benze2()
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.id > 0
+            If cazgi.id = ilk.idgec Then
+                cazgi.renk = berenk
+                cazgi.katman = bekat
+                cazgi.kalinlik = bekal
+                cazgi.sekil = besek
+                If cazgi.komut > 80 Then
+                    cazgi.y6 = yazyuk
+                Endif
+                If cazgi.komut = 60 Then
+                    cizem.renk = berenk
+                    cizem.katman = bekat
+                    cizem.kalin = bekal
+                    cizem.sekil = besek
+                    cizem.yaz(cazgi.x1 * ilk.olcum, cazgi.y1 * ilk.olcum, cazgi.yazi, yuks, cazgi.y4)
+                    ilk.sil(cazgi.id)
+                Endif
+            Endif
+        Endif
+    Next
+    Return
+       Catch
+	ilk.hatayaz("benze2 " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

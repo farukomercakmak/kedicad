@@ -1,0 +1,548 @@
+' Gambas module file
+
+Public tmk As Integer
+Public cazgi As Czm
+Public earCounter As Integer
+Public tribool As Boolean
+Public earbool As Boolean
+Public arebool As Boolean
+Public conbool As Boolean
+Public earHasBeenCut As Boolean
+Public ccw As Boolean
+Public concaveCount As Integer
+Public npoints As Integer
+Public inm As Integer
+Public hx1 As New Float[]
+Public hy1 As New Float[]
+Public idpoints As New Integer[]
+Public xpoints As New Float[]
+Public ypoints As New Float[]
+Public ptType As New Float[]
+Public depo As New Integer[]
+Public areasum As Float
+Public nokx As Integer[]
+Public noky As Integer[]
+Public hk As Integer
+Public hkx As Integer
+Public hky As Integer
+Public rk As Integer
+Public rkx As Integer
+Public rky As Integer
+Public tex As New Float[]
+Public tey As New Float[]
+Public ax1 As New Float[]
+Public ay1 As New Float[]
+Public ax2 As New Float[]
+Public ay2 As New Float[]
+Public ax3 As New Float[]
+Public ay3 As New Float[]
+Public axid As New Float[]
+Public xid As New Float[]
+Public birx As Float
+Public biry As Float
+Public ikix As Float
+Public ikiy As Float
+Public jet As Integer
+
+Public Sub bol(r As Float, t As Float, y As Float, x1 As Float, y1 As Float)
+
+    Dim yar, tx, intx, inty, xon, yon As Float
+
+    yar = 15 / (y + 0.0001)
+    For tx = r To t Step yar
+        intx = x1 + y * Cos(tx)
+        inty = y1 - y * Sin(tx)
+        If xon <> 0 Then
+            ax1.Add(Round(xon, 0))
+            ay1.Add(Round(yon, 0))
+            ax2.Add(Round(intx, 0))
+            ay2.Add(Round(inty, 0))
+        End If
+        xon = intx
+        yon = inty
+    Next
+    intx = x1 + y * Cos(t)
+    inty = y1 - y * Sin(t)
+    ax1.Add(Round(xon, 0))
+    ay1.Add(Round(yon, 0))
+    ax2.Add(Round(intx, 0))
+    ay2.Add(Round(inty, 0))
+
+    Return
+Catch
+    ilk.hatayaz("dortge " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub bas()
+
+    Dim ts, ida As Integer
+
+    ts = ilk.tasec
+    ilk.tasec = 1000000000
+    torbasecim.secim
+    ida = torbasecim.fdrl
+    ilk.tasec = ts
+    torbasecim.okg(ida)
+    ax1.Add(ilk.x1oku)
+    ay1.Add(ilk.y1oku)
+    ax2.Add(ilk.x2oku)
+    ay2.Add(ilk.y2oku)
+    For Each cazgi In ilk.cezmi
+        If cazgi.id < 0 Then Goto gec
+        If cazgi.id <> ida Then
+            ' If ilk.x1oku = cazgi.x1 And cazgi.y1 = ilk.y1oku Or ilk.x2oku = cazgi.x1 And cazgi.y1 = ilk.y2oku Or ilk.x1oku = cazgi.x2 And cazgi.y2 = ilk.y1oku Or ilk.x2oku = cazgi.x2 And cazgi.y2 = ilk.y2oku
+            '
+            ' Endif
+        Endif
+    gec:
+    Next
+
+    abbas
+    Return
+Catch
+    ilk.hatayaz("dortge " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+End
+
+Public Sub abbas()
+
+    Dim t As Integer
+    Dim jetk As Long
+
+    tex.Clear
+    tey.Clear
+    ptType.Clear
+    xpoints.Clear
+    ypoints.Clear
+    tex.Clear
+    tey.Clear
+    ax1.Clear
+    ay1.Clear
+    ax2.Clear
+    ay2.Clear
+    hk = 0
+    hkx = 0
+    hky = 0
+    rk = 0
+    rkx = 0
+    rky = 0
+    earCounter = 0
+    concaveCount = 0
+    For Each cazgi In ilk.cezmi    ' enküçük x ve y yi buluyoruz.
+        If ilk.depo1.Exist(cazgi.id)
+            If cazgi.komut = 1
+                ax1.Add(Round(cazgi.x1, 0))
+                ay1.Add(Round(cazgi.y1, 0))
+                ax2.Add(Round(cazgi.x2, 0))
+                ay2.Add(Round(cazgi.y2, 0))
+            Else If cazgi.komut = 20
+                bol(cazgi.teta, cazgi.r, cazgi.yaricap, cazgi.x1, cazgi.y1)
+
+            End If
+        End If
+    Next
+    xpoints.Add(ax1[0])
+    ypoints.Add(ay1[0])
+    xpoints.Add(ax2[0])
+    ypoints.Add(ay2[0])
+    birx = ax1[0]
+    biry = ay1[0]
+    ikix = ax2[0]
+    ikiy = ay2[0]
+    ax1.Remove(0)
+    ay1.Remove(0)
+    ax2.Remove(0)
+    ay2.Remove(0)
+bas2:
+    If Abs(ikix - birx) < 2 And Abs(ikiy - biry) < 2 Then
+        altr(ikix, ikiy)
+        Goto atla
+    Else
+        jetk = jet
+        altr(ikix, ikiy)
+        If jetk = jet Then
+            Goto cik
+        Endif
+        Goto bas2
+    Endif
+atla:
+    npoints = xpoints.Count
+    For t = 0 To npoints
+        ptType.Clear
+        classifyPoints()
+        doCutEar()
+    Next
+cik:
+    ptType.Clear
+    xpoints.Clear
+    ypoints.Clear
+    tex.Clear
+    tey.Clear
+Catch
+    ilk.hatayaz("dortge " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Sub altr(xs As Float, ys As Float)
+
+    Dim t As Integer
+
+    For t = 0 To ax1.Count - 1
+        If (xs = ax1[t]) And (ys = ay1[t]) Then
+            ikix = ax2[t]
+            ikiy = ay2[t]
+            xpoints.Add(ax2[t])
+            ypoints.Add(ay2[t])
+            ax1.Remove(t)
+            ay1.Remove(t)
+            ax2.Remove(t)
+            ay2.Remove(t)
+            jet = jet + 1
+            Goto cik
+        Else If (xs = ax2[t]) And (ys = ay2[t]) Then
+            ikix = ax1[t]
+            ikiy = ay1[t]
+            xpoints.Add(ax1[t])
+            ypoints.Add(ay1[t])
+            ax1.Remove(t)
+            ay1.Remove(t)
+            ax2.Remove(t)
+            ay2.Remove(t)
+            jet = jet + 1
+            Goto cik
+        Endif
+    Next
+cik:
+    Return
+Catch
+    ilk.hatayaz("dortge " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Public Sub classifyPoints()
+
+    Dim i As Integer
+
+    ptType.Clear
+    polygonClockwise
+    If earCounter = 0
+        If ccw = False
+            xpoints.Reverse
+            ypoints.Reverse
+        End If
+    End If
+
+    For i = 0 To (npoints - 2)
+        If i = 0
+            convex(xpoints[npoints - 2], ypoints[npoints - 2], xpoints[i], ypoints[i], xpoints[i + 1], ypoints[i + 1])
+            If conbool = True Then
+                ptType.Add(1, i)    ' Dışbükey
+            Else
+                ptType.Add(-1, i)          ' içbükey
+                concaveCount = concaveCount + 1
+            Endif
+        Else
+            convex(xpoints[i - 1], ypoints[i - 1], xpoints[i], ypoints[i], xpoints[i + 1], ypoints[i + 1])
+            If conbool = True Then
+                ptType.Add(1, i)         ' Dışbükey
+            Else
+                ptType.Add(-1, i)          ' içbükey
+                concaveCount = concaveCount + 1
+            Endif
+        End If
+    Next
+    Return
+Catch
+    ilk.hatayaz("dortge " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Public Sub convex(x1 As Float, y1 As Float, x2 As Float, y2 As Float, x3 As Float, y3 As Float)
+
+    area(x1, y1, x2, y2, x3, y3)
+    If areasum < 0
+        conbool = False
+    Else
+        conbool = True
+    End If
+    Return
+Catch
+    Return
+
+End
+
+Public Sub area(x1 As Float, y1 As Float, x2 As Float, y2 As Float, x3 As Float, y3 As Float)
+
+    areasum = 0
+    areasum = areasum + x1 * (y3 - y2)
+    areasum = areasum + x2 * (y1 - y3)
+    areasum = areasum + x3 * (y2 - y1)
+    Return
+Catch
+    ilk.hatayaz("dortge " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Public Sub polygonClockwise()
+
+    Dim i As Integer
+    Dim aa, bb, cc, b, c, theta As Float
+    Dim convex_turn As Float
+    Dim convex_sum As Float
+
+    convex_sum = 0
+
+    For i = 0 To (npoints - 3)
+        aa = ((xpoints[i + 2] - xpoints[i]) * (xpoints[i + 2] - xpoints[i])) + ((-1 * ypoints[i + 2] + ypoints[i]) * (-1 * ypoints[i + 2] + ypoints[i]))
+        bb = ((xpoints[i + 1] - xpoints[i]) * (xpoints[i + 1] - xpoints[i])) + ((- 1 * ypoints[i + 1] + ypoints[i]) * (-1 * ypoints[i + 1] + ypoints[i]))
+        cc = ((xpoints[i + 2] - xpoints[i + 1]) * (xpoints[i + 2] - xpoints[i + 1])) + ((-1 * ypoints[i + 2] + ypoints[i + 1]) * (-1 * ypoints[i + 2] + ypoints[i + 1]))
+        b = Sqr(bb)
+        c = Sqr(cc)
+        theta = ACos((bb + cc - aa) / ((2 * b * c) - 0.00001))
+        convex(xpoints[i], ypoints[i], xpoints[i + 1], ypoints[i + 1], xpoints[i + 2], ypoints[i + 2])
+        If conbool = True Then
+            convex_turn = Pi - theta
+            convex_sum = convex_sum + convex_turn
+        Else
+            convex_sum = convex_sum - (Pi - theta)
+        End If
+    Next
+    aa = Hyp((xpoints[1] - xpoints[npoints - 2]), (-1 * ypoints[1] + ypoints[npoints - 2]))
+    bb = Hyp((xpoints[0] - xpoints[npoints - 2]), (-1 * ypoints[0] + ypoints[npoints - 2]))
+    cc = Hyp((xpoints[1] - xpoints[0]), (-1 * ypoints[1] + ypoints[0]))
+    b = Sqr(bb)
+    c = Sqr(cc)
+    theta = ACos((bb + cc - aa) / ((2 * b * c) - 0.000001))
+    convex(xpoints[npoints - 2], ypoints[npoints - 2], xpoints[0], ypoints[0], xpoints[1], ypoints[1])
+    If conbool = True Then
+        convex_turn = Pi - theta
+        convex_sum = convex_sum + convex_turn
+    Else
+        convex_sum = convex_sum - (Pi - theta)
+    End If
+
+    If convex_sum < (Pi)
+        ccw = False
+    Else
+        ccw = True
+    End If
+    Return
+Catch
+    ilk.hatayaz("dortge " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Public Sub doCutEar()
+
+    Dim x1, y1, x2, y2, x1u, y1u, x2u, y2u, d, acig, eg1, eg2, b1, b2 As Float
+    Dim idr, i, cx As Integer
+
+    If ilk.birx = 0
+        If ilk.mousex < xpoints[0] * ilk.olcum
+            d = 10 / ilk.olcum
+        Else
+            d = -10 / ilk.olcum
+        End If
+    Else
+        If ilk.birx < xpoints[0] * ilk.olcum
+            d = 10 / ilk.olcum
+        Else
+            d = - 10 / ilk.olcum
+        End If
+    End If
+    For idr = 0 To xpoints.count - 1
+        If idr = 0
+            acimi.aci(xpoints[npoints - 2], ypoints[npoints - 2], xpoints[0], ypoints[0])
+            acig = acimi.raci + Pi / 2
+            x1u = xpoints[npoints - 2] + d * Cos(acig)
+            y1u = ypoints[npoints - 2] - d * Sin(acig)
+            x2u = xpoints[0] + d * Cos(acig)
+            y2u = ypoints[0] - d * Sin(acig)
+        Else
+            acimi.aci(xpoints[idr - 1], ypoints[idr - 1], xpoints[idr], ypoints[idr])
+            acig = acimi.raci + Pi / 2
+            If ptType[i] = 1 Then    '(xpoints[i - 1], ypoints[i - 1], xpoints[i], ypoints[i], xpoints[i + 1], ypoints[i + 1])
+                x1u = xpoints[idr - 1] + d * Cos(acig)
+                y1u = ypoints[idr - 1] - d * Sin(acig)
+                x2u = xpoints[idr] + d * Cos(acig)
+                y2u = ypoints[idr] - d * Sin(acig)
+            Else
+                x1u = xpoints[idr - 1] - d * Cos(acig)
+                y1u = ypoints[idr - 1] + d * Sin(acig)
+                x2u = xpoints[idr] - d * Cos(acig)
+                y2u = ypoints[idr] + d * Sin(acig)
+            End If
+        End If
+        If cx = 1
+            acimi.aci(x1u, y1u, x2u, y2u)
+            eg2 = acimi.ege
+            b2 = acimi.bb
+            acimi.aci(x1, y1, x2, y2)
+            eg1 = acimi.ege
+            b1 = acimi.bb
+            acimi.tem(b1, b2, eg1, eg2)
+            ax1.Add(acimi.tmx)
+            ay1.Add(acimi.tmy)
+        End If
+        If cx = 0 Then cx = 1
+        x1 = x1u
+        y1 = y1u
+        x2 = x2u
+        y2 = y2u
+    Next
+    ax1.Add(ax1[0])
+    ay1.Add(ay1[0])
+    For idr = 1 To ax1.Count - 1
+        Draw.Line(ax1[idr] * ilk.olcum, ay1[idr] * ilk.olcum, ax1[idr - 1] * ilk.olcum, ay1[idr - 1] * ilk.olcum)
+    Next
+    For idr = 1 To ax1.Count - 1
+        ' Draw.Line(ax1[idr] * ilk.olcum, ay1[idr] * ilk.olcum, ax1[idr - 1] * ilk.olcum, ay1[idr - 1] * ilk.olcum)
+    Next
+cik:
+    Return
+Catch
+    ilk.hatayaz("dortge " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Sub kirinim()
+
+    Dim bx1 As New Float[]
+    Dim by1 As New Float[]
+    Dim nx1 As New Float[]
+    Dim ny1 As New Float[]
+
+    Dim i, s As Integer
+
+    hx1.Clear
+    hy1.Clear
+    bx1 = ax1
+    by1 = ay1
+
+    For i = 0 To bx1.Count - 2
+        ktrl(bx1[i], by1[i], bx1[i + 1], by1[i + 1])
+    Next
+    nx1 = hx1
+    ny1 = hy1
+    s = nx1.Count - 2
+
+    Draw.LineWidth = 2
+    For i = 0 To hx1.Count - 2 Step 4
+        Draw.Foreground = Color.Cyan
+        Draw.Line(hx1[i], hy1[i], hx1[i + 1], hy1[i + 1])
+        Draw.Foreground = Color.magenta
+        Draw.Circle(hx1[i], hy1[i], 3)
+    Next
+
+    Draw.Foreground = Color.Red
+    Draw.LineWidth = 1
+    Return
+Catch
+    ilk.hatayaz("dortge " & Error.Text, Error.Where & "--" & Error.code)
+    Draw.LineWidth = 2
+    For i = 0 To hx1.Count - 2 Step 2
+        Draw.Foreground = Color.Cyan
+        Draw.Line(hx1[i], hy1[i], hx1[i + 1], hy1[i + 1])
+        Draw.Foreground = Color.magenta
+        Draw.Circle(hx1[i], hy1[i], 3)
+        Draw.Circle(hx1[i + 1], hy1[i + 1], 3)
+    Next
+
+    Draw.Foreground = Color.Red
+    Draw.LineWidth = 1
+    
+    Return
+End
+
+Sub ktrl(brx As Float, bry As Float, ikx As Float, iky As Float)
+
+    Dim cx1 As New Float[]
+    Dim cy1 As New Float[]
+    Dim i As Integer
+    Dim tsx, tsy, bbir, biki, eg1, eg2 As Float
+
+    cx1 = ax1
+    cy1 = ay1
+    acimi.aci(brx, bry, ikx, iky)
+    bbir = acimi.bb
+    eg1 = acimi.ege
+    hx1.Add(brx)
+    hy1.Add(bry)
+    For i = 0 To cx1.Count - 2
+        If cx1[i] <> brx And cy1[i] <> bry And cx1[i + 1] <> ikx And cy1[i + 1] <> iky
+            acimi.aci(cx1[i], cy1[i], cx1[i + 1], cy1[i + 1])
+            biki = acimi.bb
+            eg2 = acimi.ege
+            acimi.tem(biki, bbir, eg2, eg1)
+            tsx = acimi.tmx
+            tsy = acimi.tmy
+            If tsx > Min(brx, ikx)
+                If tsx < Max(brx, ikx)
+                    If tsy > Min(bry, iky)
+                        If tsy < Max(bry, iky)
+                            If Not hx1.Exist(tsx)
+                                If Not hy1.Exist(tsy)
+                                    hx1.Add(tsx)
+                                    hy1.Add(tsy)
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+        End If
+    Next
+    hx1.Add(ikx)
+    hy1.Add(iky)
+    Return
+Catch
+    ilk.hatayaz("dortge " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Sub htrl(brx As Float, bry As Float, ikx As Float, iky As Float)
+
+    Dim cx1 As New Float[]
+    Dim cy1 As New Float[]
+    Dim i As Integer
+    Dim tsx, tsy, bbir, biki, eg1, eg2 As Float
+
+    cx1 = xpoints
+    cy1 = ypoints
+    acimi.aci(brx, bry, ikx, iky)
+    bbir = acimi.bb
+    eg1 = acimi.ege
+    For i = 0 To cx1.Count - 2
+        If cx1[i] <> brx And cy1[i] <> bry And cx1[i + 1] <> ikx And cy1[i + 1] <> iky
+            acimi.aci(cx1[i], cy1[i], cx1[i + 1], cy1[i + 1])
+            biki = acimi.bb
+            eg2 = acimi.ege
+            acimi.tem(biki, bbir, eg2, eg1)
+            tsx = acimi.tmx
+            tsy = acimi.tmy
+            If tsx > Min(brx, ikx)
+                If tsx < Max(brx, ikx)
+                    If tsy > Min(bry, iky)
+                        If tsy < Max(bry, iky)
+                            hx1.Remove(inm)
+                            hy1.Remove(inm)
+                        End If
+                    End If
+                End If
+            End If
+        End If
+    Next
+    Return
+Catch
+    ilk.hatayaz("dortge " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End

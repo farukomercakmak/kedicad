@@ -1,0 +1,82 @@
+' Gambas module file
+
+Public bazgi As Cvb
+
+Public Sub yukleme()
+
+    Dim bs As String
+
+    With ilk
+        bazgi = New Cvb
+        bazgi.ad = "0"
+        bazgi.tip = 1
+        bazgi.renk = Color.White
+        bazgi.kal = 1
+        bazgi.kilit = 0
+        bazgi.id = dacy.byno
+        .bezmi.Add(bazgi, dacy.byno)
+        dacy.byno = dacy.byno + 1
+        bazgi = New Cvb
+        bazgi.ad = "olcu"
+        bazgi.tip = 1
+        bazgi.renk = Color.White
+        bazgi.kal = 1
+        bazgi.kilit = 0
+        bazgi.id = dacy.byno
+        .bezmi.Add(bazgi, dacy.byno)
+        dacy.byno = dacy.byno + 1
+        For Each bazgi In ilk.bezmi
+            ilk.katmer.Add(bazgi.ad)
+        Next
+
+        .kaci = "Cizim 1"
+        .tarih = Now
+        .sekil.Add("ByLayer")
+        .sekil.Add("1 _________")
+        .sekil.Add("2 ---------")
+        .sekil.Add("3 .........")
+        .sekil.Add("4 _ . _ . _")
+        .sekil.Add("5 _ .. _ ..")
+        ozellik.combobox1.Add("ByLayer")
+        ozellik.combobox1.Add("1 _________")
+        ozellik.combobox1.Add("2 ---------")
+        ozellik.combobox1.Add("3 .........")
+        ozellik.combobox1.Add("4 _ . _ . _")
+        ozellik.combobox1.Add("5 _ .. _ ..")
+        ozellik.combobox2.Add("ByLayer")
+        ozellik.combobox2.Add("1")
+        ozellik.combobox2.Add("2")
+        ozellik.combobox2.Add("3")
+        ozellik.combobox2.Add("4")
+        ozellik.combobox2.Add("5")
+        ozellik.combobox2.Add("6")
+        ozellik.combobox2.Add("7")
+        ozellik.combobox2.Add("8")
+        ozellik.combobox2.Add("9")
+        ozellik.combobox3.Add("Normal")
+        ozellik.combobox3.Add("İtalic")
+        ozellik.combobox5.Add("Normal")
+        ozellik.combobox5.Add("Underline")
+        ozellik.combobox6.Add("Normal")
+        ozellik.combobox6.Add("Bold")
+        For Each bs In Fonts
+            ozellik.ComboBox4.add(bs)
+        Next
+        .kalin.Add("ByLayer")
+        .kalin.Add("1")
+        .kalin.Add("2")
+        .kalin.Add("3")
+        .kalin.Add("4")
+        .kalin.Add("5")
+        .kalin.Add("6")
+        .kalin.Add("7")
+        .kalin.Add("8")
+        .kalin.Add("9")
+
+        .label1.text = "Scale = " & 1
+        .Button15.Foreground = color.Red
+
+    End With
+    Return
+
+End

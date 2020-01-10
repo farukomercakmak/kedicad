@@ -1,0 +1,176 @@
+' Gambas module file
+
+Public sim As Integer
+Public sazgi As Czm
+Public cazgi As Czm
+
+
+Public Sub kontrol()
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.id < 0 Then Goto gec
+        For Each sazgi In ilk.cezmi
+            If sazgi.id < 0 Then Goto atl
+            If sazgi.komut = 100 Then Goto atl
+            If sazgi.komut = 105 Then Goto atl
+            If sazgi.komut = 110 Then Goto atl
+            If sazgi.komut = 120 Then Goto atl
+            If sazgi.komut = 190 Then Goto atl
+            If sazgi.komut = 200 Then Goto atl
+            If cazgi.id > 0 Then
+                If sazgi.id > 0 Then
+                    If cazgi.x1 = sazgi.x1
+                        If cazgi.y1 = sazgi.y1
+                            If cazgi.x2 = sazgi.x2
+                                If cazgi.y2 = sazgi.y2 Then
+                                    If cazgi.id <> sazgi.id Then sazgi.id = - sazgi.id
+                                Endif
+                            Endif
+                        Endif
+                    Endif
+                    If cazgi.x2 = sazgi.x1
+                        If cazgi.y2 = sazgi.y1
+                            If cazgi.x1 = sazgi.x2
+                                If cazgi.y1 = sazgi.y2
+                                    If cazgi.id <> sazgi.id Then sazgi.id = - sazgi.id
+                                Endif
+                            Endif
+                        Endif
+                    Endif
+                Endif
+            Endif
+        atl:
+        Next
+    gec:
+    Next
+    Return
+       Catch
+	ilk.hatayaz("kontrol " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub temizlik()
+
+    konum.sira = 0
+    konum.id1 = 0
+    If sim = 1
+        sim = 0
+    Else
+        sim = 1
+    End If
+    torba4.scx = 0
+    torba4.scy = 0
+    yuru.yuac = 0
+    torba2.musx = 0
+    torba2.musy = 0
+    torba2.tusx = 0
+    torba2.tusy = 0
+    torba2.bcc = 0
+    torbasecim.noksecx1 = 0
+    torbasecim.noksecy1 = 0
+    With ilk
+        .noksecx3 = 0
+        .noksecy3 = 0
+        .mnhe = 0
+        .ppp = 0
+        .scd = 0
+        .baca = 0
+        ilk.mesgul = 0
+        .depot.Clear
+        .meruc2_Click
+        .cimar = False
+        .Panel20.Visible = False
+        .tw1 = 0
+        If .fsde Then .fsde.Border = 0
+        doney.sbn = 0
+        .taga = 0
+        .ikix = 0
+        .ikiy = 0
+        .birx = 0
+        .biry = 0
+        .ucx = 0
+        .ucy = 0
+        .tzx1 = 0
+        .tzy1 = 0
+        .tzx2 = 0
+        .tzy2 = 0
+        .yurux1 = 0
+        .yuruy1 = 0
+        .yurux2 = 0
+        .yuruy2 = 0
+        .osec = 0
+        .idgec = 0
+        .x1gec = 0
+        .TextBox2.Move(-500, -500)
+        .TextBox2.Visible = False
+        .depot.Clear
+        .depog.Clear
+        .deposay = 0
+        .gkay = 0
+        .isr = 0
+        .blokoku = 0
+        .gidis = 0
+        .komutsayi = 0
+        .x1oku = 0
+        .y1oku = 0
+        .x2oku = 0
+        .y2oku = 0
+        .idoku = 0
+        .komutcuk.SetFocus
+        .pasti = 0
+        .depot.Clear
+        .dept1.Clear
+        .dept2.Clear
+        .x1 = 0
+        .x2 = 0
+        .y2 = 0
+        .blok = 0
+        .kare = 0
+        .zx1 = 0
+        .zy1 = 0
+        .zx2 = 0
+        .zy2 = 0
+        .vira = 0
+        .umx2 = 0
+        .umy2 = 0
+        .umx1 = 0
+        .umy1 = 0
+        .gx1oku = 0
+        .gy1oku = 0
+        .gx2oku = 0
+        .gy2oku = 0
+        .gboku = 0
+        .gegimoku = 0
+        .gtetaoku = 0
+        .yuvid = 0
+        .yuvx1 = 0
+        .yuvx2 = 0
+        .yuvy2 = 0
+        .yuvteta = 0
+        .yuvx1 = 0
+        .yuvy1 = 0
+        .yuvx2 = 0
+        .yuvy2 = 0
+        .yuveg = 0
+        .yuvb = 0
+        .komutcuk.Text = ""
+        .y1oku = 0
+        .x2oku = 0
+        .y2oku = 0
+        .tuvid = 0
+        .tuvteta = 0
+        .tuvx1 = 0
+        .tuvy1 = 0
+        .tuvx2 = 0
+        .tuvy2 = 0
+        .tuveg = 0
+        .tuvb = 0
+        .isaretx = 0
+        .isarety = 0
+        .komutcuk.Text = ""
+        .komyaz.text = "Komut Satırı :"
+        .meruc2_Click
+    End With
+    Return
+       Catch
+	ilk.hatayaz("temizlik " & Error.Text, Error.Where & "--" & Error.code)
+End

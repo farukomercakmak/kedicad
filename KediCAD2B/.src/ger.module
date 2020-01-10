@@ -1,0 +1,93 @@
+' Gambas module file
+
+Public cazgi As Czm
+
+Public Sub germe()
+
+    Dim nbn As Integer
+    Dim zz1, zy1, zz2, zy2, farkx, farky As Float
+
+    ilk.mesgul = 1
+    With ilk
+        nbn = .gidis
+        farkx = (.ikix - .birx)
+        farky = (.ikiy - .biry)
+        For Each cazgi In .cezmi
+            If .depo1.Exist(cazgi.id)
+                zz1 = cazgi.x1 * .olcum
+                zy1 = cazgi.y1 * .olcum
+                zz2 = cazgi.x2 * .olcum
+                zy2 = cazgi.y2 * .olcum
+                If .gidis = 0 Then
+                    If .dept1.Exist(cazgi.id) Then
+                        zz1 = cazgi.x1 * .olcum + farkx
+                        zy1 = cazgi.y1 * .olcum + farky
+                    Endif
+                    If .dept2.Exist(cazgi.id) Then
+                        zz2 = cazgi.x2 * .olcum + farkx
+                        zy2 = cazgi.y2 * .olcum + farky
+                    Endif
+                Else If .gidis <> 0 Then
+                    If Abs(.mousex - .birx) < Abs(.mousey - .biry) Then
+                        If .mousey > .biry Then
+                            If .dept1.Exist(cazgi.id) Then
+                                zz1 = cazgi.x1 * .olcum
+                                zy1 = cazgi.y1 * .olcum + .hadi
+                            Endif
+                            If .dept2.Exist(cazgi.id) Then
+                                zz2 = cazgi.x2 * .olcum
+                                zy2 = cazgi.y2 * .olcum + .hadi
+                            Endif
+                        Else
+                            If .dept1.Exist(cazgi.id) Then
+                                zz1 = cazgi.x1 * .olcum
+                                zy1 = cazgi.y1 * .olcum - .hadi
+                            Endif
+                            If .dept2.Exist(cazgi.id) Then
+                                zz2 = cazgi.x2 * .olcum
+                                zy2 = cazgi.y2 * .olcum - .hadi
+                            Endif
+                        End If
+                    Else If Abs(.mousex - .birx) > Abs(.mousey - .biry) Then
+                        If .mousex < .birx Then
+                            If .dept1.Exist(cazgi.id) Then
+                                zz1 = cazgi.x1 * .olcum - .hadi
+                                zy1 = cazgi.y1 * .olcum
+                            Endif
+                            If .dept2.Exist(cazgi.id) Then
+                                zz2 = cazgi.x2 * .olcum - .hadi
+                                zy2 = cazgi.y2 * .olcum
+                            Endif
+                        Else
+                            If .dept1.Exist(cazgi.id) Then
+                                zz1 = cazgi.x1 * .olcum + .hadi
+                                zy1 = cazgi.y1 * .olcum
+                            Endif
+                            If .dept2.Exist(cazgi.id) Then
+                                zz2 = cazgi.x2 * .olcum + .hadi
+                                zy2 = cazgi.y2 * .olcum
+                            Endif
+                        End If
+                    End If
+                End If
+                cizem.aktar(cazgi.id)
+                If cazgi.komut = 1 Then
+                    cizem.cizgi(zz1, zy1, zz2, zy2)
+                    .sil(cazgi.id)
+                Else If cazgi.komut = 20 Then
+                    cizem.yay(zz1, zy1, cazgi.yaricap, cazgi.teta, cazgi.r)
+                    .sil(cazgi.id)
+                Else If cazgi.komut = 25 Then
+                    cizem.cember(zz1, zy1, cazgi.yaricap)
+                    .sil(cazgi.id)
+                End If
+            End If
+        Next
+        .mesgul = 0
+        .dolas
+    End With
+    Return
+        Catch
+	ilk.hatayaz("germe " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

@@ -1,0 +1,425 @@
+' Gambas module file
+
+Public cazgi As Czm
+Public yazgi As Czm
+Public ide As Integer
+Public tx As Float
+Public ty As Float
+Public mx As Float
+Public my As Float
+Public abx As New Float[]
+Public aby As New Float[]
+Public abx2 As New Float[]
+Public aby2 As New Float[]
+Public ide1 As New Integer[]
+Public ide2 As New Integer[]
+
+
+Public Sub tarama()
+Dim i, c, d As Integer
+Dim xvar, yvar As Integer
+    ilk.komyaz.Text = "Analyzing spaces() :"
+
+      '1- en yakın çizgiyi seç
+      '2- çizgi ile kesişen başka çizgi bul..kesişim noktasını al
+      '3- bu işlemi ilk çizgiye kadar sürdür..
+      '4- kesişim noktalarından bir alan oluştur..
+      '5- poliline çiz.  içinin rengini değiştir..
+      ide = 0
+      abx.Clear
+      aby.Clear
+      ide1.Clear
+      abx2.Clear
+      aby2.Clear
+      ide2.Clear
+    fsira.ax1.Clear
+    fsira.ay1.Clear
+    fsira.aid.Clear
+    fsira.ax2.Clear
+    fsira.ay2.Clear
+    fsira.aid2.Clear
+ide = acimi.cizgiuzak(ilk.birx, ilk.biry)
+kesim(ide)
+d = abx.Count 
+For c = 0 To d - 1
+For i = 0 To d - 1
+    kesim(ide1[i])
+Next
+Next
+d = abx.Count 
+For i = 0 To d - 1
+    kesim(ide1[i])
+Next
+d = abx.Count 
+For i = 0 To d - 1
+    kesim(ide1[i])
+Next
+d = abx.Count 
+For i = 0 To d - 1
+    kesim(ide1[i])
+Next
+
+For i = 0 To abx.Count - 1
+    For c = 0 To abx2.Count - 1
+         If abx2[c] = abx[i] Then xvar = 1
+         If aby2[c] = aby[i] Then yvar = 1
+    Next
+    If abx2.Exist(abx[i]) Then xvar = 1
+    If aby2.Exist(aby[i]) Then yvar = 1
+    If xvar = 1
+         If yvar = 1 Then 
+             Message("var")
+         Goto atl
+    Endif
+    Endif
+    atl:
+    xvar = 0
+    yvar = 0
+Next
+If abx.Count < 2
+    ilk.depo1.Clear
+    ide = acimi.cizgiuzak(ilk.birx, ilk.biry)
+    fsira.tumsira(ide)
+    For i = 0 To fsira.aid2.Count - 1
+        abx.Add(fsira.ax2[i])
+        aby.Add(fsira.ay2[i])
+        ide1.Add(fsira.aid2[i])
+        ilk.depo1.Add(fsira.aid2[i], fsira.aid2[i])
+    Next
+    ' Message(ide1.count)
+    ' Message(ilk.depo1.count)
+    ' ucg.bas
+    fsira.ax2.Clear
+    fsira.ay2.Clear
+    fsira.aid2.Clear
+Endif
+
+If abx.Count > 2
+    taramak
+Else
+    Message("çizim sınırları belirlenemedi...")
+Endif
+ilk.dolas
+ilk.calanilk.refresh
+Return
+       Catch
+	ilk.hatayaz("tarama " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+
+Sub kesim(idef As Integer)
+Dim tmx, tmy As Float
+Dim xvar, yvar, idvar, i, tvar As Integer
+torba2.yuvarla5(idef)
+With ilk
+     For Each cazgi In .cezmi
+         If cazgi.id <> idef
+         If cazgi.id > -1
+            If cazgi.komut = 1
+                torbasecim.fgec(cazgi.id)  
+                xvar = 0
+                yvar = 0
+                tvar = 0
+                idvar = 0
+                acimi.aci(.yuvx1, .yuvy1, .yuvx2, .yuvy2)
+                .yuvb = acimi.bb
+                 .yuveg = acimi.ege
+                acimi.tem(.yuvb, .bgec, .yuveg, .eggec)
+                tmx = acimi.tmx 
+                tmy = acimi.tmy 
+                For i = 0 To abx.Count - 1
+                    If abx[i] = Round(tmx) Then xvar = 1
+                    If aby[i] = Round(tmy) Then yvar = 1
+                    If ide1[i] = cazgi.id Then idvar = 1
+                    If xvar = 1
+                        If yvar = 1
+                            If idvar = 1 Then tvar = 1
+                        Endif
+                    Endif
+                    If tvar = 0 Then
+                        xvar = 0
+                        yvar = 0
+                        idvar = 0
+                    Endif
+                Next
+                If tvar = 1 Then Goto atl
+                If .eggec < -1000 Then tmx = .x1gec
+                If .eggec > 1000 Then tmx = .x1gec
+                If tmx <= Max(.x1gec, .x2gec)
+                If tmx >= Min(.x1gec, .x2gec)
+                If tmy <= Max(.y1gec, .y2gec)
+                If tmy >= Min(.y1gec, .y2gec)
+                
+                If tmx <= Max(.yuvx1, .yuvx2)
+                If tmx >= Min(.yuvx1, .yuvx2)
+                If tmy <= Max(.yuvy1, .yuvy2)
+                If tmy >= Min(.yuvy1, .yuvy2)
+                        ide1.Add(cazgi.id)
+                        abx.Add(Round(tmx))
+                        aby.Add(Round(tmy))
+                Endif
+                Endif
+                Endif
+                Endif
+                
+                Endif
+                Endif
+                Endif
+                Endif
+               
+            Endif
+         Endif
+         Endif
+          atl:
+    Next
+End With
+Return
+       Catch
+	ilk.hatayaz("kesim " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Sub sonekle(idef As Integer)
+torbasecim.fgec(idef)
+For Each cazgi In ilk.cezmi
+     If cazgi.id <> ide
+         If cazgi.id > -1
+         If ide1.Exist(cazgi.id)
+         Else
+            If Round(cazgi.x2) = Round(ilk.x1gec / ilk.olcum) And Round(cazgi.y2) = Round(ilk.y1gec / ilk.olcum)
+                abx.Add(cazgi.x1 * ilk.olcum)
+                aby.Add(cazgi.y1 * ilk.olcum)
+                ide1.Add(cazgi.id)
+                abx.Add(cazgi.x2 * ilk.olcum)
+                aby.Add(cazgi.y2 * ilk.olcum)
+                ide1.Add(cazgi.id)
+                ide = cazgi.id
+            Endif
+            If Round(cazgi.x1) = Round(ilk.x1gec / ilk.olcum) And Round(cazgi.y1) = Round(ilk.y1gec / ilk.olcum) 
+                abx.Add(cazgi.x1 * ilk.olcum)
+                aby.Add(cazgi.y1 * ilk.olcum)
+                ide1.Add(cazgi.id)
+                abx.Add(cazgi.x2 * ilk.olcum)
+                aby.Add(cazgi.y2 * ilk.olcum)
+                ide1.Add(cazgi.id)
+                ide = cazgi.id
+            Endif
+            If Round(cazgi.x2) = Round(ilk.x2gec / ilk.olcum) And Round(cazgi.y2) = Round(ilk.y2gec / ilk.olcum)
+                abx.Add(cazgi.x1 * ilk.olcum)
+                aby.Add(cazgi.y1 * ilk.olcum)
+                ide1.Add(cazgi.id)
+                abx.Add(cazgi.x2 * ilk.olcum)
+                aby.Add(cazgi.y2 * ilk.olcum)
+                ide1.Add(cazgi.id) 
+                ide = cazgi.id
+            Endif
+            If Round(cazgi.x1) = Round(ilk.x2gec / ilk.olcum) And Round(cazgi.y1) = Round(ilk.y2gec / ilk.olcum)
+                abx.Add(cazgi.x1 * ilk.olcum)
+                aby.Add(cazgi.y1 * ilk.olcum)
+                ide1.Add(cazgi.id)
+                abx.Add(cazgi.x2 * ilk.olcum)
+                aby.Add(cazgi.y2 * ilk.olcum)
+                ide1.Add(cazgi.id) 
+                ide = cazgi.id
+            Endif
+        Endif
+        Endif
+    Endif
+Next  
+Return
+       Catch
+	ilk.hatayaz("sonekle " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+
+
+Sub taramak()
+Dim i As Integer
+    Dim brx, bry, ikx, iky, usx, usy As Float
+    Dim ad As String
+ucg.ucgtem
+'     For i = 0 To abx.Count - 1
+'         fsira.ax1.Add(abx[i])
+'         fsira.ay1.Add(aby[i])
+'         fsira.aid.Add(ide1[i])
+'     Next
+' fsira.sirala  ' ax1 ay1 ide1 dekileri sırala
+' For i = 0 To fsira.aid2.Count - 1
+'     ucg.xpoints.Add(fsira.ax2[i])
+'     ucg.ypoints.Add(fsira.ay2[i])
+'     ucg.xid.Add(fsira.aid2[i])
+' Next
+' fsira.ax2.Clear
+' fsira.ay2.Clear
+' fsira.aid2.Clear
+' ilk.ListBox8.Clear
+ucg.bas
+' ucg.npoints = ucg.xpoints.Count
+' 
+' For i = 0 To ucg.npoints
+'         ucg.ptType.Clear
+'         ucg.classifyPoints
+'         ucg.doCutEar
+' Next
+ ilk.bolok = ilk.bolok + 2
+    If ilk.taraid = 1 Then
+        ad = "Pattern/2.png" 
+    Else If ilk.taraid = 2 Then
+        ad = "Pattern/3.png" 
+    Else If ilk.taraid = 3 Then
+        ad = "Pattern/4.png" 
+    Else If ilk.taraid = 4 Then
+        ad = "Pattern/5.png" 
+    Else If ilk.taraid = 5 Then
+        ad = "Pattern/6.png" 
+    Else If ilk.taraid = 6 Then
+        ad = "Pattern/7.png" 
+    Else If ilk.taraid = 7 Then
+        ad = "Pattern/8.png" 
+    Else If ilk.taraid = 8 Then
+        ad = "Pattern/9.png" 
+    Else If ilk.taraid = 9 Then
+        ad = "Pattern/10.png" 
+    Else If ilk.taraid = 10 Then
+        ad = "Pattern/11.png" 
+    Else If ilk.taraid = 11 Then
+        ad = "Pattern/12.png" 
+    Else If ilk.taraid = 12 Then
+        ad = "Pattern/13.png" 
+    Else If ilk.taraid = 13 Then
+        ad = "Pattern/14.png"
+    Else If ilk.taraid = 14 Then
+        ad = "Pattern/15.png"
+    Else If ilk.taraid = 15 Then
+        ad = "Pattern/16.png"
+    Else If ilk.taraid = 16 Then
+        ad = "Pattern/17.png"
+    Else If ilk.taraid = 17 Then
+        ad = "Pattern/18.png"
+    Else If ilk.taraid = 18 Then
+        ad = "sstm/right.png" 
+    Else If ilk.taraid = 19 Then
+        ad = "sstm/text-italic.png"
+    Else If ilk.taraid = 20 Then
+        ad = "Pattern/e22.png"
+    Else If ilk.taraid = 0 Then
+        ad = "Pattern/12.png"
+    Endif
+    Message(ucg.tex.Count)
+For i = 0 To (ucg.tex.Count - 3) Step 3
+        cizem.bloku = ilk.bolok 
+        brx = ucg.tex[i]
+        bry = ucg.tey[i]
+        ikx = ucg.tex[i + 1]
+        iky = ucg.tey[i + 1]
+        usx = ucg.tex[i + 2]
+        usy = ucg.tey[i + 2]
+        cizem.tara(ad, brx, bry, ikx, iky, usx, usy)
+'         Message(ad)
+Next
+Return
+       Catch
+	ilk.hatayaz("taramak " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub uzasa()
+Dim tex, tey, r, z, t, bx, by, kx, ky, tnx, tny, tnx1, tny1, gf As Float
+
+r = 999999999999
+With ilk
+If .komgec = 1
+    For Each cazgi In ilk.cezmi
+        If cazgi.id < 0 Then Goto gec
+        If cazgi.x1 > cazgi.x2 
+            bx = cazgi.x1 * .olcum
+            kx = cazgi.x2 * .olcum
+        Else
+            bx = cazgi.x2 * .olcum
+            kx = cazgi.x1 * .olcum
+        End If
+        If cazgi.y1 > cazgi.y2 
+            by = cazgi.y1 * .olcum
+            ky = cazgi.y2 * .olcum
+        Else
+            by = cazgi.y2 * .olcum
+            ky = cazgi.y1 * .olcum
+        End If
+        If cazgi.id <> .idgec 
+        If cazgi.x1 * .olcum <> .x1gec 
+        If cazgi.y1 * .olcum <> .y1gec 
+        If cazgi.x2 * .olcum <> .x1gec 
+        If cazgi.y2 * .olcum <> .y1gec 
+        If cazgi.x1 * .olcum <> .x2gec 
+        If cazgi.y1 * .olcum <> .y2gec 
+        If cazgi.x2 * .olcum <> .x2gec 
+        If cazgi.y2 * .olcum <> .y2gec Then 
+            If cazgi.komut = 1
+                If .eggec > -1000 
+                If .eggec < 1000
+                    tex = (.bgec - cazgi.b * .olcum) / (cazgi.egim - .eggec + 0.00001)
+                Else
+                    tex = .x1gec
+                End If
+                End If
+                tey = ((.eggec * cazgi.b * .olcum) - (cazgi.egim * .bgec)) / - (cazgi.egim - .eggec + 0.00001)
+                If tex < bx 
+                If tex > kx 
+                If tey < by 
+                If tey > ky 
+                    z = Hyp(.x1gec - tex, .y1gec - tey)
+                    If r > z Then
+                        r = z
+                        tnx = tex
+                        tny = tey
+                        gf = 1
+                        tnx1 = .x2gec
+                        tny1 = .y2gec
+                    Endif
+                    t = Hyp(.x2gec - tex, .y2gec - tey)
+                    If r > t Then
+                        r = t
+                        tnx = tex
+                        tny = tey
+                        gf = 2
+                        tnx1 = .x1gec
+                        tny1 = .y1gec
+                    Endif
+                End If
+                End If
+                End If
+                End If
+            End If
+        End If
+        End If
+        End If
+        End If
+        End If
+        End If
+        End If
+        End If
+        End If
+        gec:
+    Next
+End If
+If tnx > 0 
+If tny > 0 
+If tnx1 > 0 
+If tny1 > 0
+        If gf = 1
+            cizi.cizgi(tnx, tny, tnx1, tny1)
+        Else If gf = 2
+            cizi.cizgi(tnx1, tny1, tnx, tny)
+        End If
+        .sil(.idgec)
+End If
+End If
+End If
+End If
+End With
+Return
+       Catch
+	ilk.hatayaz("uzasa " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

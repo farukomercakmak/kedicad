@@ -1,0 +1,239 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,888,544)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  { Menu4 Menu
+    Text = ("Dosya")
+    { Menu5 Menu
+      Text = ("Proje Aç")
+    }
+    { Menu7 Menu
+      Text = ("Projeyi kaydet")
+    }
+    { Menu6 Menu
+      Text = ("Çalıştırma dosyasını Kaydet")
+    }
+  }
+  { Menu3 Menu
+    Text = ("Menu3")
+    Visible = False
+    { Menu1 Menu
+      Text = ("Taşı")
+    }
+    { Menu2 Menu
+      Text = ("kopyala")
+    }
+  }
+  { TabStrip1 TabStrip
+    Move(98,0,792,520)
+    Tracking = True
+    Count = 3
+    Index = 0
+    Text = ("Visual")
+    { Button16 Button
+      Move(704,272,84,21)
+      Text = ("Arc")
+    }
+    { Button15 Button
+      Move(700,245,84,21)
+      Text = ("Circle")
+    }
+    { Button14 Button
+      Move(704,224,84,21)
+      Text = ("Line")
+    }
+    { Button2 Button
+      Move(704,0,84,28)
+      Text = ("Text")
+    }
+    { Button1 Button
+      Move(704,24,84,35)
+      Text = ("Textbox")
+    }
+    { Button4 Button
+      Move(704,56,84,28)
+      Text = ("Button")
+    }
+    { Button5 Button
+      Move(704,80,84,35)
+      Text = ("CheckBox")
+    }
+    { Button6 Button
+      Move(704,120,84,35)
+      Text = ("Combobox")
+    }
+    { Button7 Button
+      Move(704,160,84,28)
+      Text = ("List")
+    }
+    { Button8 Button
+      Move(704,192,84,28)
+      Text = ("Picture")
+    }
+    { TextBox9 TextBox
+      Move(704,304,72,32)
+    }
+    { DrawingArea1 DrawingArea
+      Move(0,0,704,480)
+    }
+    Index = 1
+    Text = ("Codes")
+    { Button11 Button
+      Move(518,0,40,32)
+      Enabled = False
+      Picture = Picture["standart/media-record.png"]
+    }
+    { ComboBox1 ComboBox
+      Move(0,0,512,32)
+    }
+    { TextArea1 TextArea
+      Move(0,35,560,448)
+    }
+    { ComboBox2 ComboBox
+      Move(568,0,224,32)
+    }
+    { ListBox2 ListBox
+      Move(568,32,224,441)
+    }
+    Index = 2
+    Text = ("gbs file")
+    { txtConsole TextArea
+      Move(426,30,366,450)
+      Font = Font["Monospace,10"]
+    }
+    { txtCommand TextBox
+      Move(432,0,312,30)
+      Font = Font["Monospace,10"]
+      Expand = True
+    }
+    { Button10 Button
+      Move(744,0,40,32)
+      Picture = Picture["standart/gtk-clear.png"]
+    }
+    { ListBox3 ListBox
+      Move(0,0,48,473)
+    }
+    { ListBox4 ListBox
+      Move(48,0,372,480)
+    }
+    Index = 0
+  }
+  { Button9 Button
+    Move(56,0,32,32)
+    Picture = Picture["icon:/medium/quit"]
+  }
+  { Label4 Label
+    Move(8,32,40,16)
+    Text = ("Group")
+  }
+  { TextBox4 TextBox
+    Move(6,48,90,30)
+  }
+  { Label1 Label
+    Move(21,77,42,14)
+    Text = ("Name")
+  }
+  { TextBox1 TextBox
+    Move(6,96,90,30)
+  }
+  { TextBox2 TextBox
+    Move(18,282,78,30)
+  }
+  { Label2 Label
+    Move(6,282,16,32)
+    Text = ("X")
+  }
+  { Label3 Label
+    Move(6,312,16,32)
+    Text = ("Y")
+  }
+  { TextBox3 TextBox
+    Move(18,312,78,30)
+  }
+  { TextBox5 TextBox
+    Move(6,144,90,30)
+  }
+  { Label5 Label
+    Move(16,128,56,16)
+    Text = ("Text")
+  }
+  { Button3 Button
+    Move(0,0,32,32)
+    Picture = Picture["standart/media-playback-start.png"]
+  }
+  { ListBox1 ListBox
+    Move(0,344,96,168)
+  }
+  { Label6 Label
+    Move(16,224,64,24)
+    Text = ("Height")
+  }
+  { TextBox6 TextBox
+    Move(6,192,84,30)
+  }
+  { Label7 Label
+    Move(16,176,80,16)
+    Text = ("Width")
+  }
+  { TextBox7 TextBox
+    Move(6,246,90,30)
+  }
+  { Button12 Button
+    Move(28,0,32,32)
+    Picture = Picture["standart/filesave.png"]
+  }
+  { Panel1 Panel
+    Move(161,231,392,152)
+    Visible = False
+    Background = Color.Background
+    { Label8 Label
+      Move(8,8,96,24)
+      Text = ("Macro name :")
+    }
+    { TextBox8 TextBox
+      Move(112,8,264,32)
+    }
+    { CheckBox1 CheckBox
+      Move(16,48,304,24)
+      Text = ("Load this macro when KediCAD opening.")
+      Value = CheckBox.True
+    }
+    { Label9 Label
+      Move(8,80,376,40)
+      Text = ("You can run this macro with it's name. \nWrite macro name to Command line.")
+    }
+    { Button13 Button
+      Move(301,112,88,40)
+      Text = ("Save")
+    }
+    { Button18 Button
+      Move(8,120,64,32)
+      Text = ("Cancel")
+    }
+  }
+  { Panel3 Panel
+    Move(936,24,301,490)
+    Visible = False
+    Background = Color.Background
+    { DirChooser1 DirChooser
+      Move(0,28,301,434)
+    }
+    { Button17 Button
+      Move(231,462,70,28)
+      Text = ("TAMAM")
+    }
+    { Label11 Label
+      Move(0,469,224,14)
+    }
+    { Label10 Label
+      Move(0,0,304,24)
+      Font = Font["+2"]
+      Background = Color.SelectedBackground
+      Foreground = Color.Foreground
+      Text = ("Bir Dizin Seçin")
+      Alignment = Align.Center
+    }
+  }
+}

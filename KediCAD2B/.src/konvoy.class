@@ -1,0 +1,233 @@
+' Gambas class file
+
+Private $sPath As String
+Public alan As Float
+Public yigma As Float
+Public birimyuk As Float
+Public yuk As Float
+Public alfa As Float
+Public bana As Float
+Public c1 As Float
+Public re As Float
+Public le As Float
+Public gt As Float
+Public gd As Float
+Public lt As Float
+Public ld As Float
+Public rod As Float
+Public rot As Float
+Public qk As Float
+Public q1 As Float
+Public n1 As Float
+Public mu2 As Float
+Public dguc As Float
+Public asi As Float
+Public iguc As Float
+Public yguc As Float
+Public i As Integer
+
+Static Public Sub Main()
+
+    Dim hForm As Form
+
+    hForm = New Konvoy
+    hForm.Show
+
+End
+
+Public Sub Form_Open()
+
+    Me.text = "KediCAD 2B KONVEYÖR HESABI"
+    mlz.Add("Alçı taşı", 0)
+    mlz.Add("Kil", 1)
+    mlz.Add("Döküm Kumu", 2)
+    mlz.Add("Kok", 3)
+    mlz.Add("Buğday Unu", 4)
+    mlz.Add("Hızar Talaşı", 5)
+    mlz.Add("Demir cevheri", 6)
+    mlz.Add("Kömür", 7)
+    mlz.Add("Çimento", 8)
+    ortam.Add("kuru tozsuz", 0)
+    ortam.Add("nemli tozlu", 1)
+    ortam.Add("Açık alan", 2)
+
+End
+
+Public Sub Button1_Click()
+
+    TabStrip1.Index = 1
+    If mlz.text = "Alçı taşı" Then yigma = 1.3
+    If mlz.text = "Kil" Then yigma = 1.3
+    If mlz.text = "Döküm Kumu" Then yigma = 1.4
+    If mlz.text = "Kok" Then yigma = 0.4
+    If mlz.text = "Buğday Unu" Then yigma = 0.5
+    If mlz.text = "Hızar Talaşı" Then yigma = 0.2
+    If mlz.text = "Demir cevheri" Then yigma = 2.2
+    If mlz.text = "Kömür" Then yigma = 0.7
+    If mlz.text = "Çimento" Then yigma = 1.15
+    birimyuk = 1000 * kesit.Text * yigma
+    yuk = 3.6 * birimyuk * hiz.Text
+    If yatay.Text <> "" Then asi = dikey.Text / yatay.Text
+    If dikey.Text <> "" Then asi = dikey.Text / yatay.Text
+    If dikey.Text <> "" Then alfa = Deg(ATan(asi))
+    If alfa > 0
+        If alfa < 10 Then c1 = 1
+    Endif
+    If alfa > 10
+        If alfa < 15 Then c1 = 0.95
+    Endif
+    If alfa > 15
+        If alfa < 20 Then c1 = 0.90
+    Endif
+    If alfa > 20 Then c1 = 0.85
+    Q.Text = Format$(yuk, "#.##")
+    qq.Text = Format$(birimyuk, "#.##")
+    aci.Text = Format$(alfa, "#.##")
+    bana = 100 / 18 * Sqr(yuk / (hiz.Text * yigma * c1))
+    bant.Text = Format$(bana, "#.#")
+    egri.text = Format$(12 * bana / 100, "#.##")
+    If dikey.Text <> "" Then re = dikey.Text / (asi)
+    le = egik.Text + Abs(re) + 25
+    If yigma < 1 Then
+        If bana < 40 Then lt = 1500
+        If bana > 40 And bana < 50 Then lt = 1500
+        If bana > 50 And bana < 65 Then lt = 1500
+        If bana > 65 And bana < 80 Then lt = 1400
+        If bana > 80 And bana < 100 Then lt = 1400
+        If bana > 100 And bana < 120 Then lt = 1300
+        If bana > 120 And bana < 140 Then lt = 1200
+        If bana > 140 Then lt = 1100
+    Else If yigma > 1 And yigma < 2 Then
+        If bana < 40 Then lt = 1400
+        If bana > 40 And bana < 50 Then lt = 1400
+        If bana > 50 And bana < 65 Then lt = 1300
+        If bana > 65 And bana < 80 Then lt = 1300
+        If bana > 80 And bana < 100 Then lt = 1200
+        If bana > 100 And bana < 120 Then lt = 1200
+        If bana > 120 And bana < 140 Then lt = 1100
+        If bana > 140 Then lt = 1100
+    Else If yigma > 2 Then
+        If bana < 40 Then lt = 1300
+        If bana > 40 And bana < 50 Then lt = 1300
+        If bana > 50 And bana < 65 Then lt = 1200
+        If bana > 65 And bana < 80 Then lt = 1200
+        If bana > 80 And bana < 100 Then lt = 1100
+        If bana > 100 And bana < 120 Then lt = 1100
+        If bana > 120 And bana < 140 Then lt = 1000
+        If bana > 140 Then lt = 1000
+    End If
+    If bana < 30 Then i = 4
+    If bana > 30 And bana < 40 Then i = 5
+    If bana > 40 And bana < 50 Then i = 6
+    If bana > 50 And bana < 65 Then i = 7
+    If bana > 65 And bana < 80 Then i = 8
+    If bana > 80 And bana < 100 Then i = 10
+    If bana > 100 Then i = 12
+    If mlz.text = "Alçı taşı" Then
+        rod = 3
+        rot = 1
+    End If
+    If mlz.text = "Kil" Then
+        rod = 1.5
+        rot = 1
+    End If
+    If mlz.text = "Döküm Kumu" Then
+        rod = 2
+        rot = 1
+    End If
+    If mlz.text = "Kok" Then
+        rod = 1.5
+        rot = 1
+    End If
+    If mlz.text = "Buğday Unu" Then
+        rod = 1.5
+        rot = 1
+    End If
+    If mlz.text = "Hızar Talaşı" Then
+        rod = 1.2
+        rot = 1
+    End If
+    If mlz.text = "Demir cevheri" Then
+        rod = 6
+        rot = 1.5
+    End If
+    If mlz.text = "Kömür" Then
+        rod = 3
+        rot = 1.0
+    End If
+    If mlz.text = "Çimento" Then
+        rod = 2
+        rot = 1.0
+    End If
+    ld = 2 * lt
+    gt = 10 * (bana / 100) + 3
+    gd = 10 * (bana / 100) + 7
+    qk = 1.1 * (bana / 100) * (yigma * i + rot + rod)
+    q1 = 2 * (qk + (gt / lt) + (gd / ld))
+    n1 = 0.03 * q1 * le * hiz.Text / 75
+    n1gucu.Text = Format$(n1, "#.##")
+    If ortam.text = "kuru tozsuz" Then mu2 = 0.019
+    If ortam.text = "nemli tozlu" Then mu2 = 0.021
+    If ortam.text = "Açık alan" Then mu2 = 0.04
+    yguc = mu2 * yuk * le / 270
+    If dikey.Text <> "" Then dguc = yuk * dikey.Text / 270
+    iguc = yuk * (hiz.Text) ^ 2 / 2650
+    kguc.Text = Format$(iguc + dguc + yguc + n1, "#.##")
+    dgucu.Text = Format$(dguc, "#.##")
+    yegucu.Text = Format$(yguc, "#.##")
+    igucu.Text = Format$(iguc, "#.##")
+    yol.Text = Format$(le, "#.##")
+    gtk.Text = Format$(gt, "#.##")
+    gdk.Text = Format$(gd, "#.##")
+    q1k.Text = Format$(q1, "#.##")
+    qkk.Text = Format$(qk, "#.##")
+    rek.Text = Format$(re, "#.##")
+    ltk.Text = Format$(lt, "#.##")
+    rotk.Text = Format$(rot, "#.##")
+    rodk.Text = Format$(rod, "#.##")
+Catch
+
+End
+
+Public Sub Button2_Click()
+
+    Me.Close
+    ilk.Show
+
+End
+
+Public Sub Button3_Click()
+
+    Dim dosya As String
+
+    Dim myFile As File
+
+    If Dialog.SaveFile() Then Return
+    dosya = File.Name(Dialog.Path)
+    $sPath = File.Dir(Dialog.Path)
+    myFile = Open $sPath &/ dosya & ".txt" For Create
+    Print #myFile, "   KONVEYÖR HESAP  SONUÇLARI"
+    Print #myFile, "   "
+    Print #myFile, "   VERİLER "
+    Print #myFile, "Taşınacak Malzeme :  " & mlz.Text
+    Print #myFile, "Çalışma Ortamı :  " & ortam.Text
+    Print #myFile, "Kesit alanı :  " & kesit.Text & " m^2"
+    Print #myFile, "Hız :  " & hiz.Text & " m/sn"
+    Print #myFile, "Yatay taşıma uzunluğu :  " & egik.Text & " m."
+    Print #myFile, "   EĞİK TAŞIMA KISMI İÇİN "
+    Print #myFile, "Yatay taşıma uzunluğu :  " & yatay.Text & " m."
+    Print #myFile, "Dikey taşıma uzunluğu :  " & dikey.Text & " m."
+    Print #myFile, "   "
+    Print #myFile, "   SONUÇLAR "
+    Print #myFile, "Bant Genişliği :  " & bant.Text & " cm."
+    Print #myFile, "Eğrilik Yarıçapı :  " & egri.Text & " cm."
+    Print #myFile, "Gerkli Motor Gücü :  " & kguc.Text & " BG."
+    Print #myFile, "1 Saatte Taşınacak Malzeme :  " & Q.Text & " ton"
+    Print #myFile, "1m. Banttaki Malzeme Ağırlığı :  " & qq.Text & " kg."
+    Print #myFile, "Boşta Çalışma İçin Gereken Güç :  " & n1gucu.Text & " BG."
+    Print #myFile, "Dikey Taşıma İçin Gereken Güç :  " & dgucu.Text & " BG."
+    Print #myFile, "Yatay Taşıma İçin Gereken Güç :  " & yegucu.Text & " BG."
+    Print #myFile, "İvmelendirme İçin Gereken Güç :  " & igucu.Text & " BG."
+    Close myFile
+
+End

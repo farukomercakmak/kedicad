@@ -1,0 +1,621 @@
+' Gambas class file
+
+Private $sPath As String
+Public v As Float
+Public d As Float
+Public c As Float
+Public z As Float
+Public p As Float
+Public ksi As Float
+Public onmod As Float
+Public amod As Integer
+Public acap As Integer
+Public almod As Float
+Public t1 As Float
+Public t2 As Float
+Public t3 As Float
+Public t4 As Float
+Public radi1 As Float
+Public radi2 As Float
+Public radi3 As Float
+Public radi4 As Float
+Public radi5 As Float
+Public mod1 As Float
+Public mod2 As Float
+Public mod3 As Float
+Public mod4 As Float
+Public mod5 As Float
+Public tks1 As Float
+Public tks2 As Float
+Public tks3 As Float
+Public tks4 As Float
+Public kes1 As Float
+Public kes2 As Float
+Public kes3 As Float
+Public kes4 As Float
+Public hea1 As Float
+Public hea2 As Float
+Public hea3 As Float
+Public hea4 As Float
+Public pin1 As Float
+Public pin2 As Float
+Public pin3 As Float
+Public pin4 As Float
+Public ptaksim1 As Float
+Public ptaksim2 As Float
+Public ptaksim3 As Float
+Public ptaksim4 As Float
+Public ctaksim1 As Float
+Public ctaksim2 As Float
+Public ctaksim3 As Float
+Public ctaksim4 As Float
+
+Static Public Sub Main()
+
+    Dim hForm As Form
+
+    hForm = New Disci
+    hForm.Show
+
+End
+
+Public Sub Wizard1_Cancel()
+
+    disci.close
+    ilk.Show
+
+End
+
+Public Sub Form_Open()
+
+    Me.Center
+    Me.text = "KediCAD 2B GEAR CALCULATION"
+
+End
+
+Public Sub Button5_Click()
+
+    Dim to1, to2, to3, to4, g1, g2, g3, g4, hz1, hz2, hz3, hz4, hz5, ac1, ac2, ac3, ac4 As Float
+
+    Wizard1.Index = 2
+    pin1 = CFloat(p1.Text)
+    pin2 = CFloat(p2.Text)
+    If cark3.Text <> "" Then pin3 = CFloat(p3.Text)
+    If cark4.Text <> "" Then pin4 = CFloat(p4.Text)
+    mod1 = CFloat(m1.Text)
+    mod2 = CFloat(m2.Text)
+    If cark3.Text <> "" Then mod3 = CFloat(m3.Text)
+    If cark4.Text <> "" Then mod4 = CFloat(m4.Text)
+
+    If m1.Text = "" Or gen1.Text = "" Or m2.Text = "" Or gen2.Text = ""
+        message("Missing data", "OK")
+        Goto cik
+    End If
+    to1 = CFloat(cark1.Text) / CFloat(p1.Text)
+    to2 = CFloat(cark2.Text) / CFloat(p2.Text)
+    If cark3.Text <> "" Then to3 = CFloat(cark3.Text) / CFloat(p3.Text)
+    If cark4.Text <> "" Then to4 = CFloat(cark4.Text) / CFloat(p4.Text)
+    hiz1.Text = mcikis.Text
+    hz1 = CFloat(mcikis.Text)
+    hz2 = hz1 / to1
+    hz3 = hz2 / to2
+    If cark3.Text <> "" Then hz4 = hz3 / to3
+    If cark4.Text <> "" Then hz5 = hz4 / to4
+    hiz2.Text = Format$(hz2, "#.##")
+    hiz3.Text = Format$(hz3, "#.##")
+    If cark3.Text <> "" Then hiz4.Text = Format$(hz4, "#.##")
+    If cark4.Text <> "" Then hiz5.Text = Format$(hz5, "#.##")
+    g1 = CFloat(gen1.Text) / CFloat(m1.Text)
+    g2 = CFloat(gen2.Text) / CFloat(m2.Text)
+    If cark3.Text <> "" Then g3 = CFloat(gen3.Text) / CFloat(m3.Text)
+    If cark4.Text <> "" Then g4 = CFloat(gen4.Text) / CFloat(m4.Text)
+    t1 = 9550 * CFloat(mguc.Text) * 1000 / (CFloat(mcikis.Text))
+    t2 = 9550 * CFloat(mguc.Text) * 1000 / hz2
+    If cark3.Text <> "" Then t3 = 9550 * CFloat(mguc.Text) * 1000 / hz3
+    If cark4.Text <> "" Then t4 = 9550 * CFloat(mguc.Text) * 1000 / hz4
+    tork1.Text = Format$(t1 / 1000, "#.##")
+    tork2.Text = Format$(t2 / 1000, "#.##")
+    If cark3.Text <> "" Then tork3.Text = Format$(t3 / 1000, "#.##")
+    If cark4.Text <> "" Then tork4.Text = Format$(t4 / 1000, "#.##")
+    dip1.Text = Format$((CFloat(m1.Text) ^ 3 * CFloat(p1.Text) * CFloat(pko1.Text) * CFloat(cekme1.Text) * g1) / (2 * t1 * CFloat(din1.Text) * CFloat(sekil.Text) * Cos(CFloat(aci1.Text) * Pi / 180)), "#.##")
+    dip2.Text = Format$((CFloat(m2.Text) ^ 3 * CFloat(p2.Text) * CFloat(pko2.Text) * CFloat(cekme2.Text) * g2) / (2 * t2 * CFloat(din2.Text) * CFloat(sekil.Text) * Cos(CFloat(aci2.Text) * Pi / 180)), "#.##")
+    If cark3.Text <> "" Then dip3.Text = Format$((CFloat(m3.Text) ^ 3 * CFloat(p3.Text) * CFloat(pko3.Text) * CFloat(cekme3.Text) * g3) / (2 * t3 * CFloat(din3.Text) * CFloat(sekil.Text) * Cos(CFloat(aci3.Text) * Pi / 180)), "#.##")
+    If cark4.Text <> "" Then dip4.Text = Format$((CFloat(m4.Text) ^ 3 * CFloat(p4.Text) * CFloat(pko4.Text) * CFloat(cekme4.Text) * g4) / (2 * t4 * CFloat(din4.Text) * CFloat(sekil.Text) * Cos(CFloat(aci4.Text) * Pi / 180)), "#.##")
+    ez1.Text = Format$((CFloat(m1.Text) ^ 3 * CFloat(p1.Text) ^ 2 * CFloat(basma1.Text) ^ 2 * CFloat(pko1.Text) * g1 * to1 / (20 * (to1 + 1) * t1 * CFloat(elas.Text) * CFloat(din1.Text) * Cos(CFloat(aci1.Text) * Pi / 180) ^ 4)), "#.##")
+    ez2.Text = Format$((CFloat(m2.Text) ^ 3 * CFloat(p2.Text) ^ 2 * CFloat(basma2.Text) ^ 2 * CFloat(pko2.Text) * g2 * to2 / (20 * (to2 + 1) * t2 * CFloat(elas.Text) * CFloat(din2.Text) * Cos(CFloat(aci2.Text) * Pi / 180) ^ 4)), "#.##")
+    If cark3.Text <> "" Then ez3.Text = Format$((CFloat(m3.Text) ^ 3 * CFloat(p3.Text) ^ 2 * CFloat(basma3.Text) ^ 2 * CFloat(pko3.Text) * g3 * to3 / (20 * (to3 + 1) * t3 * CFloat(elas.Text) * CFloat(din3.Text) * Cos(CFloat(aci3.Text) * Pi / 180) ^ 4)), "#.##")
+    If cark4.Text <> "" Then ez4.Text = Format$((CFloat(m4.Text) ^ 3 * CFloat(p4.Text) ^ 2 * CFloat(basma4.Text) ^ 2 * CFloat(pko4.Text) * g4 * to4 / (20 * (to4 + 1) * t4 * CFloat(elas.Text) * CFloat(din4.Text) * Cos(CFloat(aci4.Text) * Pi / 180) ^ 4)), "#.##")
+    ddmo1.Text = Format$(((2 * CFloat(cal1.Text) * t1 * CFloat(din1.Text) * CFloat(sekil.Text) * Cos(CFloat(aci1.Text) * Pi / 180)) / ((CFloat(p1.Text) * g1 * CFloat(pko1.Text) * CFloat(cekme1.Text)))) ^ (1 / 3), "#.##")
+    ddmo2.Text = Format$(((2 * CFloat(cal2.Text) * t2 * CFloat(din2.Text) * CFloat(sekil.Text) * Cos(CFloat(aci2.Text) * Pi / 180)) / ((CFloat(p2.Text) * g2 * CFloat(pko2.Text) * CFloat(cekme2.Text)))) ^ (1 / 3), "#.##")
+    If cark3.Text <> "" Then ddmo3.Text = Format$(((2 * CFloat(cal3.Text) * t3 * CFloat(din3.Text) * CFloat(sekil.Text) * Cos(CFloat(aci3.Text) * Pi / 180)) / ((CFloat(p3.Text) * g3 * CFloat(pko3.Text) * CFloat(cekme3.Text)))) ^ (1 / 3), "#.#")
+    If cark4.Text <> "" Then ddmo4.Text = Format$(((2 * CFloat(cal4.Text) * t4 * CFloat(din4.Text) * CFloat(sekil.Text) * Cos(CFloat(aci4.Text) * Pi / 180)) / ((CFloat(p4.Text) * g4 * CFloat(pko4.Text) * CFloat(cekme4.Text)))) ^ (1 / 3), "#.#")
+    amo1.Text = Format$(2.2 * ((2 * CFloat(cal1.Text) * t1 * CFloat(elas.Text) * CFloat(din1.Text) * (Cos(CFloat(aci1.Text) * Pi / 180)) ^ 4 * (to1 + 1)) / (CFloat(p1.Text) ^ 2 * CFloat(pko1.Text) * g1 * CFloat(basma1.Text) ^ 2 * to1)) ^ (1 / 3), "#.#")
+    amo2.Text = Format$(2.2 * ((2 * CFloat(cal2.Text) * t2 * CFloat(elas.Text) * CFloat(din2.Text) * (Cos(CFloat(aci2.Text) * Pi / 180)) ^ 4 * (to2 + 1)) / (CFloat(p2.Text) ^ 2 * CFloat(pko2.Text) * g2 * CFloat(basma2.Text) ^ 2 * to2)) ^ (1 / 3), "#.#")
+    If cark3.Text <> "" Then amo3.Text = Format$(2.2 * ((2 * CFloat(cal3.Text) * t3 * CFloat(elas.Text) * CFloat(din3.Text) * (Cos(CFloat(aci3.Text) * Pi / 180)) ^ 4 * (to3 + 1)) / (CFloat(p3.Text) ^ 2 * CFloat(pko3.Text) * g3 * CFloat(basma3.Text) ^ 2 * to3)) ^ (1 / 3), "#.#")
+    If cark4.Text <> "" Then amo4.Text = Format$(2.2 * ((2 * CFloat(cal4.Text) * t4 * CFloat(elas.Text) * CFloat(din4.Text) * (Cos(CFloat(aci4.Text) * Pi / 180)) ^ 4 * (to4 + 1)) / (CFloat(p4.Text) ^ 2 * CFloat(pko4.Text) * g4 * CFloat(basma4.Text) ^ 2 * to4)) ^ (1 / 3), "#.#")
+
+    mod1 = (2 * t1) / (CFloat(m1.Text) * CFloat(p1.Text) * Cos(20 * Pi / 180))
+    mod2 = (2 * t2) / (CFloat(m2.Text) * CFloat(p2.Text) * Cos(20 * Pi / 180))
+    If cark3.Text <> "" Then mod3 = (2 * t3) / (CFloat(m3.Text) * CFloat(p3.Text) * Cos(20 * Pi / 180))
+    If cark4.Text <> "" Then mod4 = (2 * t4) / (CFloat(m4.Text) * CFloat(p4.Text) * Cos(20 * Pi / 180))
+    cev1.Text = Format$(mod1, "#.#")
+    cev2.Text = Format$(mod2, "#.#")
+    If cark3.Text <> "" Then cev3.Text = Format$(mod3, "#.#")
+    If cark4.Text <> "" Then cev4.Text = Format$(mod4, "#.#")
+
+    radi1 = (mod1 * Tan(20 * Pi / 180))
+    radi2 = (mod2 * Tan(20 * Pi / 180))
+    If cark3.Text <> "" Then radi3 = (mod3 * Tan(20 * Pi / 180))
+    If cark4.Text <> "" Then radi4 = (mod4 * Tan(20 * Pi / 180))
+
+    rad1.Text = Format$(radi1, "#.#")
+    rad2.Text = Format$(radi2, "#.#")
+    If cark3.Text <> "" Then rad3.Text = Format$(radi3, "#.#")
+    If cark4.Text <> "" Then rad4.Text = Format$(radi4, "#.#")
+    ac1 = CFloat(aci1.Text)
+    ac2 = CFloat(aci2.Text)
+    If cark3.Text <> "" Then ac3 = CFloat(aci3.Text)
+    If cark4.Text <> "" Then ac4 = CFloat(aci4.Text)
+    tks1 = radi1 * Tan(ac1 * Pi / 180)
+    tks2 = radi2 * Tan(ac2 * Pi / 180)
+    If cark3.Text <> "" Then tks3 = radi3 * Tan(ac3 * Pi / 180)
+    If cark4.Text <> "" Then tks4 = radi4 * Tan(ac4 * Pi / 180)
+
+    eks1.Text = Format$(tks1, "#.#")
+    eks2.Text = Format$(tks2, "#.#")
+    If cark3.Text <> "" Then eks3.Text = Format$(tks3, "#.#")
+    If cark4.Text <> "" Then eks4.Text = Format$(tks4, "#.#")
+    kes1 = CFloat(m1.Text) / Cos(CFloat(aci1.Text) * Pi / 180)
+    kes2 = CFloat(m2.Text) / Cos(CFloat(aci2.Text) * Pi / 180)
+    If cark3.Text <> "" Then kes3 = CFloat(m3.Text) / Cos(CFloat(aci3.Text) * Pi / 180)
+    If cark4.Text <> "" Then kes4 = CFloat(m4.Text) / Cos(CFloat(aci4.Text) * Pi / 180)
+    akm1.Text = Format$(kes1, "#.#")
+    akm2.Text = Format$(kes2, "#.#")
+    If cark3.Text <> "" Then akm3.Text = Format$(kes3, "#.#")
+    If cark4.Text <> "" Then akm4.Text = Format$(kes4, "#.#")
+    hea1 = kes1 * (pin1 + CFloat(cark1.Text)) / 2
+    hea2 = kes2 * (pin2 + CFloat(cark2.Text)) / 2
+    If cark3.Text <> "" Then hea3 = kes3 * (pin3 + CFloat(cark3.Text)) / 2
+    If cark4.Text <> "" Then hea4 = kes4 * (pin4 + CFloat(cark4.Text)) / 2
+    ea1.Text = Format$(hea1, "#.##")
+    ea2.Text = Format$(hea2, "#.##")
+    If cark3.Text <> "" Then ea3.Text = Format$(hea3, "#.##")
+    If cark4.Text <> "" Then ea4.Text = Format$(hea4, "#.##")
+cik:
+Catch
+    ilk.hatayaz("btn5clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button6_Click()
+
+    Dim mmaxa1, mmaxb1, mmaxa2, mmaxb2, mmaxa3, mmaxb3, mmaxa4, mmaxb4, mmaxa5, mmaxb5 As Float
+    Dim ff1, ff2, ff3, ff4, bilem, fcrb1, fcrb2, fcrb3, fcrb4, fr1, fr2, fr3, fr4, fr5, fe1, fe2, fe3 As Float
+    Dim fe4, fe5, fc1, fc2, fc3, fc4, fc5, fcb1, fcb2, fcb3, fcb4, fcb5, acev1, acev2, acev3, acev4 As Float
+    Dim acev5, bcev1, bcev2, bcev3, bcev4, arad1, arad2, arad3, arad4, arad5, brad1, brad2 As Float
+    Dim brad3, brad4, abil1, abil2, abil3, abil4, abil5, bbil1, bbil2, bbil3, bbil4, bbil5 As Float
+    Dim tek1, tek2, tek3, tek4, tek5, ft1, ft2, ft3, ft4, fk1, fk2, fk3, fk4 As Float
+
+    If a1.Text = "" Or b1.Text = "" Or c1.Text = "" Or a2.Text = "" Or b2.Text = "" Or c2.Text = "" Or emnegil.Text = "" Or emnburul.text = ""
+        message("Missing data", "OK")
+        Goto cik
+    End If
+    bilem = Hyp(CFloat(emnegil.Text), 3 * CFloat(emnburul.Text))
+    ff1 = radi1  'Fr1
+    ff2 = radi1
+    ff3 = radi3
+    ff4 = radi3
+    ft1 = tks1  'Fe1
+    ft2 = tks1
+    ft3 = tks3
+    ft4 = tks3
+    fk1 = mod1  'Fç1
+    fk2 = mod2
+    fk3 = mod3
+    fk4 = mod4
+    fr1 = 0
+    fr2 = radi2
+    fr3 = radi2
+    If a3.Text <> "" Then fr4 = radi4
+    If a4.Text <> "" Then fr5 = 0
+    fcrb1 = Hyp(ff1, fk1)
+    fcrb2 = Hyp(ff2, fk2)
+    If a3.Text <> "" Then fcrb3 = Hyp(ff3, fk3)
+    If a4.Text <> "" Then fcrb4 = Hyp(ff4, fk4)
+    fe1 = 0
+    fe2 = tks1
+    fe3 = tks1
+    If a3.Text <> "" Then fe4 = tks3
+    If a4.Text <> "" Then fe5 = 0
+    fc1 = 0
+    fc2 = mod2
+    fc3 = mod2
+    If a3.Text <> "" Then fc4 = mod4
+    If a4.Text <> "" Then fc5 = 0
+
+    fcb1 = 0
+    fcb2 = Hyp(fr2, fc2)
+    If a3.Text <> "" Then fcb3 = Hyp(fr3, fc3)
+    If a4.Text <> "" Then fcb4 = Hyp(fr4, fc4)
+    fcb5 = Hyp(fr5, fc5)
+
+    arad1 = (ff1 + CFloat(c1.Text) + CFloat(b1.Text) - fr1 * CFloat(c1.Text)) / (CFloat(c1.Text) + CFloat(b1.Text) + CFloat(a1.Text))
+    arad2 = (ff2 + CFloat(c2.Text) + CFloat(b2.Text) - fr2 * CFloat(c2.Text)) / (CFloat(c2.Text) + CFloat(b2.Text) + CFloat(a2.Text))
+    If a3.Text <> "" Then arad3 = (ff3 + CFloat(c3.Text) + CFloat(b3.Text) - fr3 * CFloat(c3.Text)) / (CFloat(c3.Text) + CFloat(b3.Text) + CFloat(a3.Text))
+    If a4.Text <> "" Then arad4 = (ff4 + CFloat(c4.Text) + CFloat(b4.Text) - fr4 * CFloat(c4.Text)) / (CFloat(c4.Text) + CFloat(b4.Text) + CFloat(a4.Text))
+    If cark4.Text <> "" Then arad5 = (radi5 + CFloat(b5.Text) - fr5 * CFloat(c5.Text)) / (CFloat(c5.Text) + CFloat(b5.Text) + CFloat(a5.Text))
+
+    acev1 = ((fk1 + CFloat(c1.Text)) + fc1 * CFloat(c1.Text)) / (CFloat(c1.Text) + CFloat(b1.Text) + CFloat(a1.Text))
+    acev2 = ((fk2 + CFloat(c2.Text)) + fc2 * CFloat(c2.Text)) / (CFloat(c2.Text) + CFloat(b2.Text) + CFloat(a2.Text))
+    If a3.Text <> "" Then acev3 = ((fk3 + CFloat(c3.Text)) + fc3 * CFloat(c3.Text)) / (CFloat(c3.Text) + CFloat(b3.Text) + CFloat(a3.Text))
+    If a4.Text <> "" Then acev4 = ((fk4 + CFloat(c4.Text)) + fc4 * CFloat(c4.Text)) / (CFloat(c4.Text) + CFloat(b4.Text) + CFloat(a4.Text))
+    If cark4.Text <> "" Then acev5 = (mod5 + fc5 * CFloat(c5.Text)) / (CFloat(c5.Text) + CFloat(b5.Text) + CFloat(a5.Text))
+
+    abil1 = Hyp(acev1, arad1)
+    abil2 = Hyp(acev2, arad2)
+    If a3.Text <> "" Then abil3 = Hyp(acev3, arad3)
+    If a4.Text <> "" Then abil4 = Hyp(acev4, arad4)
+    If cark4.Text <> "" Then abil5 = Hyp(acev5, arad5)
+
+    brad1 = ff1 - fr1 - arad1
+    brad2 = ff2 - fr2 - arad2
+    If a3.Text <> "" Then brad3 = ff3 - fr3 - arad3
+    If a4.Text <> "" Then brad4 = ff4 - fr4 - arad4
+
+    bcev1 = fk1 + fe1 - acev1
+    bcev2 = fk2 + fe2 - acev2
+    If a3.Text <> "" Then bcev3 = fk3 + fe3 - acev3
+    If a3.Text <> "" Then bcev4 = fk4 + fe4 - acev4
+
+    bbil1 = Hyp(bcev1, brad1)
+    bbil2 = Hyp(bcev2, brad2)
+    If a3.Text <> "" Then bbil3 = Hyp(bcev3, brad3)
+    If a4.Text <> "" Then bbil4 = Hyp(bcev4, brad4)
+
+    tek1 = mod1 - ft1
+    tek2 = mod2 - ft2
+    If a3.Text <> "" Then tek3 = mod3 - ft3
+    If a4.Text <> "" Then tek4 = mod4 - ft4
+    If cark4.Text <> "" Then tek5 = mod5 - fe5
+
+    mmaxa1 = CFloat(a1.Text) * abil1
+    mmaxa2 = CFloat(a2.Text) * abil2
+    If a3.Text <> "" Then mmaxa3 = CFloat(a3.Text) * abil3
+    If a4.Text <> "" Then mmaxa4 = CFloat(a4.Text) * abil4
+    If cark4.Text <> "" Then mmaxa5 = CFloat(a5.Text) * abil5
+
+    mmaxb1 = CFloat(b1.Text) * bbil1
+    mmaxb2 = CFloat(b2.Text) * bbil2
+    If a3.Text <> "" Then mmaxb3 = CFloat(b3.Text) * bbil3
+    If a4.Text <> "" Then mmaxb4 = CFloat(b4.Text) * bbil4
+    If cark4.Text <> "" Then mmaxb5 = CFloat(b5.Text) * bbil5
+
+    mileg1.Text = Format$(((1024 * mmaxa1 ^ 2 + 768 * t1 ^ 2) / (Pi ^ 2 * bilem ^ 2)) ^ (1 / 6), "#.#")
+    mileg2.Text = Format$(((1024 * mmaxa2 ^ 2 + 768 * t2 ^ 2) / (Pi ^ 2 * bilem ^ 2)) ^ (1 / 6), "#.#")
+    If a3.Text <> "" Then mileg3.Text = Format$(((1024 * mmaxa3 ^ 2 + 768 * t3 ^ 2) / (Pi ^ 2 * bilem ^ 2)) ^ (1 / 6), "#.#")
+    If a4.Text <> "" Then mileg4.Text = Format$(((1024 * mmaxa4 ^ 2 + 768 * t4 ^ 2) / (Pi ^ 2 * bilem ^ 2)) ^ (1 / 6), "#.#")
+
+    milbur1.Text = Format$(((1024 * mmaxb1 ^ 2 + 768 * t1 ^ 2) / (Pi ^ 2 * bilem ^ 2)) ^ (1 / 6), "#.#")
+    milbur2.Text = Format$(((1024 * mmaxb2 ^ 2 + 768 * t2 ^ 2) / (Pi ^ 2 * bilem ^ 2)) ^ (1 / 6), "#.#")
+    If a3.Text <> "" Then milbur3.Text = Format$(((1024 * mmaxb3 ^ 2 + 768 * t3 ^ 2) / (Pi ^ 2 * bilem ^ 2)) ^ (1 / 6), "#.#")
+    If a4.Text <> "" Then milbur4.Text = Format$(((1024 * mmaxb4 ^ 2 + 768 * t4 ^ 2) / (Pi ^ 2 * bilem ^ 2)) ^ (1 / 6), "#.#")
+cik:
+Catch
+    ilk.hatayaz("btn6clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ppk1_Activate()
+
+    Dim ukav, akav, pkr, sif As Float
+
+    pkr = CFloat(ppk1.Text)
+    ukav = ATan((Tan(CFloat(kavaci.Text * Pi / 180) / Cos(CFloat(aci1.Text) * Pi / 180)))) * 180 / Pi
+    akav = (ACos((hea1 * Cos(ukav * Pi / 180) / pkr))) * 180 / Pi
+    sif = ((Tan(akav * Pi / 180) - (akav * Pi / 180)) - (Tan(ukav * Pi / 180) - (ukav * Pi / 180))) / (2 * Tan(CFloat(kavaci.Text) * Pi / 180))
+    cpk1.Text = Format$((pin1 + CFloat(cark1.Text)) * sif, "#.##")
+    ptaksim1 = pin1 * kes1
+    ctaksim1 = CFloat(cark1.Text) * kes1
+    pbd1.Text = Format$(ptaksim1, "#.##")
+    cbd1.Text = Format$(ctaksim1, "#.##")
+
+    pddc1.Text = Format$(ptaksim1 * Cos(ukav * Pi / 180), "#.##")
+    cddc1.Text = Format$(ctaksim1 * Cos(ukav * Pi / 180), "#.##")
+Catch
+    ilk.hatayaz("ppk1_Activate " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ppk2_Activate()
+
+    Dim ukav, akav, pkr, sif As Float
+
+    pkr = CFloat(ppk1.Text)
+    ukav = ATan((Tan(CFloat(kavaci.Text * Pi / 180) / Cos(CFloat(aci1.Text) * Pi / 180)))) * 180 / Pi
+    akav = (ACos((hea1 * Cos(ukav * Pi / 180) / pkr))) * 180 / Pi
+    sif = ((Tan(akav * Pi / 180) - (akav * Pi / 180)) - (Tan(ukav * Pi / 180) - (ukav * Pi / 180))) / (2 * Tan(CFloat(kavaci.Text) * Pi / 180))
+    cpk2.Text = Format$((pin2 + CFloat(cark2.Text)) * sif, "#.##")
+    ptaksim2 = pin2 * kes2
+    ctaksim2 = CFloat(cark2.Text) * kes2
+    pbd2.Text = Format$(ptaksim2, "#.##")
+    cbd2.Text = Format$(ctaksim2, "#.##")
+    pddc2.Text = Format$(ptaksim2 * Cos(ukav * Pi / 180), "#.##")
+    cddc2.Text = Format$(ctaksim2 * Cos(ukav * Pi / 180), "#.##")
+Catch
+    ilk.hatayaz("ppk2_Activate " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ppk3_Activate()
+
+    Dim ukav, akav, pkr, sif As Float
+
+    pkr = CFloat(ppk1.Text)
+    ukav = ATan((Tan(CFloat(kavaci.Text * Pi / 180) / Cos(CFloat(aci1.Text) * Pi / 180)))) * 180 / Pi
+    akav = (ACos((hea1 * Cos(ukav * Pi / 180) / pkr))) * 180 / Pi
+    sif = ((Tan(akav * Pi / 180) - (akav * Pi / 180)) - (Tan(ukav * Pi / 180) - (ukav * Pi / 180))) / (2 * Tan(CFloat(kavaci.Text) * Pi / 180))
+    If cark3.Text <> "" Then cpk3.Text = Format$((pin3 + CFloat(cark3.Text)) * sif, "#.##")
+    If cark3.Text <> "" Then ptaksim3 = pin3 * kes3
+    If cark3.Text <> "" Then ctaksim3 = CFloat(cark3.Text) * kes3
+    If cark3.Text <> "" Then pbd3.Text = Format$(ptaksim3, "#.##")
+    If cark3.Text <> "" Then cbd3.Text = Format$(ctaksim3, "#.##")
+    If cark3.Text <> "" Then pddc3.Text = Format$(ptaksim3 * Cos(ukav * Pi / 180), "#.##")
+    If cark3.Text <> "" Then cddc3.Text = Format$(ctaksim3 * Cos(ukav * Pi / 180), "#.##")
+Catch
+    ilk.hatayaz("ppk3_Activate " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ppk4_Activate()
+
+    Dim ukav, akav, pkr, sif As Float
+
+    pkr = CFloat(ppk1.Text)
+    ukav = ATan((Tan(CFloat(kavaci.Text * Pi / 180) / Cos(CFloat(aci1.Text) * Pi / 180)))) * 180 / Pi
+    akav = (ACos((hea1 * Cos(ukav * Pi / 180) / pkr))) * 180 / Pi
+    sif = ((Tan(akav * Pi / 180) - (akav * Pi / 180)) - (Tan(ukav * Pi / 180) - (ukav * Pi / 180))) / (2 * Tan(CFloat(kavaci.Text) * Pi / 180))
+    If cark4.Text <> "" Then cpk4.Text = Format$((pin4 + CFloat(cark4.Text)) * sif, "#.##")
+
+    If cark4.Text <> "" Then ptaksim4 = pin4 * kes4
+    If cark4.Text <> "" Then ctaksim4 = CFloat(cark4.Text) * kes4
+    If cark4.Text <> "" Then pbd4.Text = Format$(ptaksim4, "#.##")
+    If cark4.Text <> "" Then cbd4.Text = Format$(ctaksim4, "#.##")
+    If cark4.Text <> "" Then pddc4.Text = Format$(ptaksim4 * Cos(ukav * Pi / 180), "#.##")
+    If cark4.Text <> "" Then cddc4.Text = Format$(ctaksim4 * Cos(ukav * Pi / 180), "#.##")
+Catch
+    ilk.hatayaz("ppk4_Activate " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub pk1_Activate()
+
+    Dim pkr As Float
+    Dim ckr As Float
+
+    pkr = CFloat(pk1.Text)
+    ckr = 1 - pkr
+    ck1.Text = 1 - pkr
+    pdu1.Text = Format$(ptaksim1 + 2 * CFloat(m1.Text) * (1 + pkr), "#.##")
+    cdu1.Text = Format$(ctaksim1 + 2 * CFloat(m1.Text) * (1 + ckr), "#.##")
+Catch
+    ilk.hatayaz("pk1_Activate " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public Sub pk2_Activate()
+
+    Dim pkr As Float
+    Dim ckr As Float
+
+    pkr = CFloat(pk2.Text)
+    ckr = 1 - pkr
+    ck2.Text = 1 - pkr
+    pdu2.Text = Format$(ptaksim2 + 2 * CFloat(m2.Text) * (1 + pkr), "#.##")
+    cdu2.Text = Format$(ctaksim2 + 2 * CFloat(m2.Text) * (1 + ckr), "#.##")
+Catch
+    ilk.hatayaz("pk2_Activate " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub pk3_Activate()
+
+    Dim pkr As Float
+    Dim ckr As Float
+
+    If cark3.Text <> "" Then pkr = CFloat(pk3.Text)
+    If cark3.Text <> "" Then ckr = 1 - pkr
+    If cark3.Text <> "" Then ck3.Text = 1 - pkr
+    If cark3.Text <> "" Then pkr = CFloat(pk3.Text)
+    If cark3.Text <> "" Then ck3.Text = 1 - pkr
+    If cark3.Text <> "" Then pdu3.Text = Format$(ptaksim3 + 2 * CFloat(m3.Text) * (1 + pkr), "#.##")
+    If cark3.Text <> "" Then cdu3.Text = Format$(ctaksim3 + 2 * CFloat(m3.Text) * (1 + ckr), "#.##")
+Catch
+    ilk.hatayaz("pk3_Activate " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub pk4_Activate()
+
+    Dim pkr As Float
+    Dim ckr As Float
+
+    If cark4.Text <> "" Then pkr = CFloat(pk4.Text)
+    If cark4.Text <> "" Then ckr = 1 - pkr
+    If cark4.Text <> "" Then ck4.Text = 1 - pkr
+    If cark4.Text <> "" Then pkr = CFloat(pk4.Text)
+    If cark4.Text <> "" Then ck4.Text = 1 - pkr
+    If cark4.Text <> "" Then pdu4.Text = Format$(ptaksim4 + 2 * CFloat(m4.Text) * (1 + pkr), "#.##")
+    If cark4.Text <> "" Then cdu4.Text = Format$(ctaksim4 + 2 * CFloat(m4.Text) * (1 + ckr), "#.##")
+Catch
+    ilk.hatayaz("pk4_Activate " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button8_Click()
+
+    Dim dosya As String
+
+    Dim myFile As File
+
+    If Dialog.SaveFile() Then Return
+    dosya = File.Name(Dialog.Path)
+    $sPath = File.Dir(Dialog.Path)
+    myFile = Open $sPath &/ dosya & ".txt" For Create
+    Print #myFile, "   DİŞLİ HESABI SONUÇLARI" & ilk.kaci
+    Print #myFile, "   "
+    Print #myFile, " ---- VERİLER  --------- "
+    Print #myFile, " Motor Gücü : " & mguc.text & " kW."
+    Print #myFile, " Motor Devri : " & mcikis.text & " d/d"
+    Print #myFile, " Elastisite Modülü : " & elas.text & " N/mm^2"
+    Print #myFile, " Kavrama Açısı : " & kavaci.text & " derece"
+    Print #myFile, " Şekil Faktörü : " & sekil.text
+    Print #myFile, "      "
+    Print #myFile, " 1. KADEME "
+    Print #myFile, " Modül : " & m1.text
+    Print #myFile, " Çark Diş Sayısı : " & cark1.text
+    Print #myFile, " Pinyon Diş Sayısı : " & p1.text
+    Print #myFile, " Pinyon Genişliği : " & gen1.text & " mm."
+    Print #myFile, " Eğiklik Açısı : " & aci1.text & " derece"
+    Print #myFile, " Profil Kavrama Oranı : " & pko1.text & " derece"
+    Print #myFile, " Emniyetli Çekme Gerilmesi : " & cekme1.text & " N/mm^2"
+    Print #myFile, " Emniyetli Basma Gerilmesi : " & basma1.text & " N/mm^2"
+    Print #myFile, " Çalışma Emniyet Katsayısı : " & cal1.text
+    Print #myFile, " Dinamik Yük Katsayısı : " & din1.text
+    Print #myFile, "      "
+    Print #myFile, " 2. KADEME "
+    Print #myFile, " Modül : " & m2.text
+    Print #myFile, " Çark Diş Sayısı : " & cark2.text
+    Print #myFile, " Pinyon Diş Sayısı : " & p2.text
+    Print #myFile, " Pinyon Genişliği : " & gen2.text & " mm."
+    Print #myFile, " Eğiklik Açısı : " & aci2.text & " derece"
+    Print #myFile, " Profil Kavrama Oranı : " & pko2.text & " derece"
+    Print #myFile, " Emniyetli Çekme Gerilmesi : " & cekme2.text & " N/mm^2"
+    Print #myFile, " Emniyetli Basma Gerilmesi : " & basma2.text & " N/mm^2"
+    Print #myFile, " Çalışma Emniyet Katsayısı : " & cal2.text
+    Print #myFile, " Dinamik Yük Katsayısı : " & din2.text
+    If cark3.Text <> ""
+        Print #myFile, "      "
+        Print #myFile, " 3. KADEME "
+        Print #myFile, " Modül : " & m3.text
+        Print #myFile, " Çark Diş Sayısı : " & cark3.text
+        Print #myFile, " Pinyon Diş Sayısı : " & p3.text
+        Print #myFile, " Pinyon Genişliği : " & gen3.text & " mm."
+        Print #myFile, " Eğiklik Açısı : " & aci3.text & " derece"
+        Print #myFile, " Profil Kavrama Oranı : " & pko3.text & " derece"
+        Print #myFile, " Emniyetli Çekme Gerilmesi : " & cekme3.text & " N/mm^2"
+        Print #myFile, " Emniyetli Basma Gerilmesi : " & basma3.text & " N/mm^2"
+        Print #myFile, " Çalışma Emniyet Katsayısı : " & cal3.text
+        Print #myFile, " Dinamik Yük Katsayısı : " & din3.text
+    End If
+    If cark4.Text <> ""
+        Print #myFile, "      "
+        Print #myFile, " 4. KADEME "
+        Print #myFile, " Modül : " & m4.text
+        Print #myFile, " Çark Diş Sayısı : " & cark4.text
+        Print #myFile, " Pinyon Diş Sayısı : " & p4.text
+        Print #myFile, " Pinyon Genişliği : " & gen4.text & " mm."
+        Print #myFile, " Eğiklik Açısı : " & aci4.text & " derece"
+        Print #myFile, " Profil Kavrama Oranı : " & pko4.text & " derece"
+        Print #myFile, " Emniyetli Çekme Gerilmesi : " & cekme4.text & " N/mm^2"
+        Print #myFile, " Emniyetli Basma Gerilmesi : " & basma4.text & " N/mm^2"
+        Print #myFile, " Çalışma Emniyet Katsayısı : " & cal4.text
+        Print #myFile, " Dinamik Yük Katsayısı : " & din4.text
+    End If
+    Print #myFile, "   "
+    Print #myFile, "   "
+    Print #myFile, " ---- SONUÇLAR  --------- "
+    Print #myFile, "      "
+    Print #myFile, " 1. KADEME "
+    Print #myFile, " Hız : " & hiz1.text & " d/d"
+    Print #myFile, " Döndürme Momenti : " & tork1.text & " N."
+    Print #myFile, " Çevresel Kuvvet : " & cev1.text & " N."
+    Print #myFile, " Radyal Kuvvet : " & rad1.text & " N."
+    Print #myFile, " Eksenel Kuvvet : " & eks1.text & " N."
+    Print #myFile, " Dişdibine göre Emniyet Katsayısı " & dip1.text
+    Print #myFile, " Ezilmeye göre Emniyet Katsayısı " & ez1.text
+    Print #myFile, " Dişdibine göre En Az Modül " & ddmo1.text
+    Print #myFile, " Ezilmeye göre En Az Modül " & amo1.text
+    Print #myFile, " Profil Kaydırmasız Eksenler Arası Mesafe " & ea1.text & " mm."
+    Print #myFile, " Profil Kaydırmalı Eksenler Arası Mesafe " & ppk1.text & " mm."
+    Print #myFile, " Toplam Profil Kaydırma " & cpk1.text & " mm."
+    Print #myFile, " Pinyon Bölüm Dairesi Çapı " & pbd1.text & " mm."
+    Print #myFile, " Çark Bölüm Dairesi Çapı " & cbd1.text & " mm."
+    Print #myFile, " Alın Kesiti Modülü " & akm1.text
+    Print #myFile, " Pinyon Diş Dibi Çapı " & pddc1.text & " mm."
+    Print #myFile, " Çark Diş Dibi Çapı " & cddc1.text & " mm."
+    Print #myFile, " Pinyon Profil Kaydırması " & pk1.text & " mm."
+    Print #myFile, " Çark Profil Kaydırması " & ck1.text & " mm."
+    Print #myFile, " Pinyon Diş Üstü Çapı " & pdu1.text & " mm."
+    Print #myFile, " Çark Diş Üstü Çapı " & cdu1.text & " mm."
+    Print #myFile, "      "
+    Print #myFile, " 2. KADEME "
+    Print #myFile, " Hız : " & hiz2.text & " d/d"
+    Print #myFile, " Döndürme Momenti : " & tork2.text & " N."
+    Print #myFile, " Çevresel Kuvvet : " & cev2.text & " N."
+    Print #myFile, " Radyal Kuvvet : " & rad2.text & " N."
+    Print #myFile, " Eksenel Kuvvet : " & eks2.text & " N."
+    Print #myFile, " Dişdibine göre Emniyet Katsayısı " & dip2.text
+    Print #myFile, " Ezilmeye göre Emniyet Katsayısı " & ez2.text
+    Print #myFile, " Dişdibine göre En Az Modül " & ddmo2.text
+    Print #myFile, " Ezilmeye göre En Az Modül " & amo2.text
+    Print #myFile, " Profil Kaydırmasız Eksenler Arası Mesafe " & ea2.text & " mm."
+    Print #myFile, " Profil Kaydırmalı Eksenler Arası Mesafe " & ppk2.text & " mm."
+    Print #myFile, " Toplam Profil Kaydırma " & cpk2.text & " mm."
+    Print #myFile, " Pinyon Bölüm Dairesi Çapı " & pbd2.text & " mm."
+    Print #myFile, " Çark Bölüm Dairesi Çapı " & cbd2.text & " mm."
+    Print #myFile, " Alın Kesiti Modülü " & akm2.text
+    Print #myFile, " Pinyon Diş Dibi Çapı " & pddc2.text & " mm."
+    Print #myFile, " Çark Diş Dibi Çapı " & cddc2.text & " mm."
+    Print #myFile, " Pinyon Profil Kaydırması " & pk2.text & " mm."
+    Print #myFile, " Çark Profil Kaydırması " & ck2.text & " mm."
+    Print #myFile, " Pinyon Diş Üstü Çapı " & pdu2.text & " mm."
+    Print #myFile, " Çark Diş Üstü Çapı " & cdu2.text & " mm."
+    If cark3.Text <> ""
+        Print #myFile, "      "
+        Print #myFile, " 3. KADEME "
+        Print #myFile, " Hız : " & hiz3.text & " d/d"
+        Print #myFile, " Döndürme Momenti : " & tork3.text & " N."
+        Print #myFile, " Çevresel Kuvvet : " & cev3.text & " N."
+        Print #myFile, " Radyal Kuvvet : " & rad3.text & " N."
+        Print #myFile, " Eksenel Kuvvet : " & eks3.text & " N."
+        Print #myFile, " Dişdibine göre Emniyet Katsayısı " & dip3.text
+        Print #myFile, " Ezilmeye göre Emniyet Katsayısı " & ez3.text
+        Print #myFile, " Dişdibine göre En Az Modül " & ddmo3.text
+        Print #myFile, " Ezilmeye göre En Az Modül " & amo3.text
+        Print #myFile, " Profil Kaydırmasız Eksenler Arası Mesafe " & ea3.text & " mm."
+        Print #myFile, " Profil Kaydırmalı Eksenler Arası Mesafe " & ppk3.text & " mm."
+        Print #myFile, " Toplam Profil Kaydırma " & cpk3.text & " mm."
+        Print #myFile, " Pinyon Bölüm Dairesi Çapı " & pbd3.text & " mm."
+        Print #myFile, " Çark Bölüm Dairesi Çapı " & cbd3.text & " mm."
+        Print #myFile, " Alın Kesiti Modülü " & akm3.text
+        Print #myFile, " Pinyon Diş Dibi Çapı " & pddc3.text & " mm."
+        Print #myFile, " Çark Diş Dibi Çapı " & cddc3.text & " mm."
+        Print #myFile, " Pinyon Profil Kaydırması " & pk3.text & " mm."
+        Print #myFile, " Çark Profil Kaydırması " & ck3.text & " mm."
+        Print #myFile, " Pinyon Diş Üstü Çapı " & pdu3.text & " mm."
+        Print #myFile, " Çark Diş Üstü Çapı " & cdu3.text & " mm."
+    End If
+    If cark4.Text <> ""
+        Print #myFile, "      "
+        Print #myFile, " 4. KADEME "
+        Print #myFile, " Hız : " & hiz4.text & " d/d"
+        Print #myFile, " Döndürme Momenti : " & tork4.text & " N."
+        Print #myFile, " Çevresel Kuvvet : " & cev4.text & " N."
+        Print #myFile, " Radyal Kuvvet : " & rad4.text & " N."
+        Print #myFile, " Eksenel Kuvvet : " & eks4.text & " N."
+        Print #myFile, " Dişdibine göre Emniyet Katsayısı " & dip4.text
+        Print #myFile, " Ezilmeye göre Emniyet Katsayısı " & ez4.text
+        Print #myFile, " Dişdibine göre En Az Modül " & ddmo4.text
+        Print #myFile, " Ezilmeye göre En Az Modül " & amo4.text
+        Print #myFile, " Profil Kaydırmasız Eksenler Arası Mesafe " & ea4.text & " mm."
+        Print #myFile, " Profil Kaydırmalı Eksenler Arası Mesafe " & ppk4.text & " mm."
+        Print #myFile, " Toplam Profil Kaydırma " & cpk4.text & " mm."
+        Print #myFile, " Pinyon Bölüm Dairesi Çapı " & pbd4.text & " mm."
+        Print #myFile, " Çark Bölüm Dairesi Çapı " & cbd4.text & " mm."
+        Print #myFile, " Alın Kesiti Modülü " & akm4.text
+        Print #myFile, " Pinyon Diş Dibi Çapı " & pddc4.text & " mm."
+        Print #myFile, " Çark Diş Dibi Çapı " & cddc4.text & " mm."
+        Print #myFile, " Pinyon Profil Kaydırması " & pk4.text & " mm."
+        Print #myFile, " Çark Profil Kaydırması " & ck4.text & " mm."
+        Print #myFile, " Pinyon Diş Üstü Çapı " & pdu4.text & " mm."
+        Print #myFile, " Çark Diş Üstü Çapı " & cdu4.text & " mm."
+    End If
+    Close myfile
+Catch
+    ilk.hatayaz("btn8clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Frame2_MouseDown()
+
+End

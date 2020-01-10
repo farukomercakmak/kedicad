@@ -1,0 +1,43 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,357,371)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  { liste ListBox
+    Move(0,182,350,147)
+  }
+  { iccap TextBox
+    Move(266,154,56,28)
+  }
+  { kod ComboBox
+    Move(105,154,70,28)
+  }
+  { Label6 Label
+    Move(0,154,98,28)
+    Text = ("Seal code. :")
+  }
+  { kececiz Button
+    Move(7,329,112,35)
+    Text = ("Draw Seal")
+    Picture = Picture["standart/draw-path.png"]
+  }
+  { cikar Button
+    Move(231,329,98,35)
+    Text = ("Close")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+  { Label3 Label
+    Move(175,154,98,28)
+    Text = ("Shaft diameter :")
+  }
+  { Label1 Label
+    Move(322,154,28,28)
+    Text = ("mm.")
+  }
+  { resim PictureBox
+    Move(0,0,350,154)
+    Stretch = True
+  }
+}

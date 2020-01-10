@@ -1,0 +1,152 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(791,10003,360,510)
+  #Scaled = False
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  { ab Label
+    Move(6,208,136,24)
+    Text = ("Label6")
+  }
+  { yazi Label
+    Move(6,232,128,32)
+    Text = ("Label1")
+  }
+  { etiket Label
+    Move(6,256,120,24)
+    Text = ("Label1")
+  }
+  { resim PictureBox
+    Move(156,6,192,192)
+    Expand = True
+    Stretch = True
+  }
+  { Frame1 Frame
+    Move(0,0,162,204)
+    Text = ("Section Type")
+    { daire RadioButton
+      Move(6,18,132,24)
+      Text = ("Round Solid")
+    }
+    { boru RadioButton
+      Move(6,42,138,24)
+      Text = ("Round Hallow")
+    }
+    { npi RadioButton
+      Move(6,138,72,24)
+      Text = ("I")
+    }
+    { npu RadioButton
+      Move(6,114,66,24)
+      Text = ("U")
+    }
+    { dikdort RadioButton
+      Move(6,66,138,24)
+      Text = ("Rectangle Solid")
+    }
+    { bosdort RadioButton
+      Move(6,90,126,24)
+      Text = ("Rectangle Hallow")
+    }
+    { Button5 Button
+      Move(6,162,138,42)
+      Text = ("From drawing\n(Closed Polygon)")
+    }
+  }
+  { profil ComboBox
+    Move(150,264,112,32)
+    Text = (" ")
+  }
+  { nip ComboBox
+    Move(150,232,112,32)
+    Text = (" ")
+  }
+  { atalet TextBox
+    Move(150,296,192,32)
+  }
+  { mukavemet TextBox
+    Move(150,368,192,32)
+  }
+  { alan TextBox
+    Move(150,408,192,32)
+  }
+  { Label1 Label
+    Move(7,294,136,32)
+    Text = ("Moment of Inertia\nIxx (mm^4)")
+  }
+  { Label2 Label
+    Move(6,376,136,32)
+    Text = ("Section Modulüs\n(mm^3)")
+  }
+  { Label3 Label
+    Move(6,416,128,24)
+    Text = ("Area (mm^2)")
+  }
+  { agir TextBox
+    Move(150,440,192,32)
+  }
+  { Label5 Label
+    Move(6,440,136,32)
+    Text = ("Mass (Kg/m.)")
+  }
+  { Button1 Button
+    Move(14,472,104,32)
+    Text = ("Calculate")
+    Picture = Picture["standart/accessories-calculator.png"]
+  }
+  { Button2 Button
+    Move(262,472,80,32)
+    Text = ("Close")
+    Picture = Picture["icon:/medium/quit"]
+  }
+  { Button3 Button
+    Move(262,248,78,48)
+    Text = ("Clear")
+    Picture = Picture["standart/gtk-clear.png"]
+  }
+  { iyy TextBox
+    Move(150,328,192,32)
+  }
+  { Label6 Label
+    Move(6,336,144,32)
+    Text = ("Moment of Inertia\nIyy (mm^4)")
+  }
+  { Button4 Button
+    Move(126,472,120,32)
+    Text = ("Save to File")
+    Picture = Picture["standart/save.png"]
+  }
+  { a TextBox
+    Move(150,200,78,30)
+  }
+  { bb Label
+    Move(473,276,114,24)
+    Text = ("Label7")
+  }
+  { cb Label
+    Move(473,306,102,30)
+    Text = ("Label8")
+  }
+  { eb Label
+    Move(7,273,119,21)
+    Text = ("Label9")
+  }
+  { b TextBox
+    Move(594,299,78,30)
+  }
+  { c TextBox
+    Move(624,270,78,30)
+  }
+  { e TextBox
+    Move(475,203,96,32)
+  }
+  { ListBox1 ListBox
+    Move(366,0,84,504)
+    Visible = False
+  }
+  { DrawingArea1 DrawingArea
+    Move(156,6,192,192)
+  }
+}

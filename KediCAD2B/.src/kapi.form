@@ -1,0 +1,327 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  MoveScaled(0,0,98,58)
+  Text = ("DOOR MODULE")
+  { ComboBox2 ComboBox
+    MoveScaled(16,24,8,4)
+  }
+  { PictureBox1 PictureBox
+    MoveScaled(41,0,28,48)
+    Picture = Picture["kapi/duzkapi.jpeg"]
+    Stretch = True
+    Border = Border.Etched
+  }
+  { Label1 Label
+    MoveScaled(1,0,15,4)
+    Text = ("Height :")
+  }
+  { Label2 Label
+    MoveScaled(1,6,15,4)
+    Text = ("Width :")
+  }
+  { Label3 Label
+    MoveScaled(1,12,15,4)
+    Text = ("Thickness :")
+  }
+  { Button1 Button
+    MoveScaled(26,0,15,6)
+    Text = ("Pattern")
+  }
+  { Label4 Label
+    MoveScaled(1,18,15,4)
+    Text = ("Keyhole  :")
+  }
+  { Label5 Label
+    MoveScaled(1,24,15,4)
+    Text = ("Hinge Count :")
+  }
+  { Label6 Label
+    MoveScaled(1,30,15,4)
+    Text = ("Window :")
+  }
+  { TextBox1 TextBox
+    MoveScaled(16,0,8,4)
+    Text = ("2000")
+    Alignment = Align.Left
+  }
+  { TextBox2 TextBox
+    MoveScaled(16,6,8,4)
+    Text = ("900")
+    Alignment = Align.Left
+  }
+  { TextBox3 TextBox
+    MoveScaled(16,12,8,4)
+    Text = ("30")
+    Alignment = Align.Left
+  }
+  { Button2 Button
+    MoveScaled(16,18,8,4)
+    Text = ("Nope")
+  }
+  { Button4 Button
+    MoveScaled(16,30,8,4)
+    Text = ("Nope")
+  }
+  { Button5 Button
+    MoveScaled(26,10,15,6)
+    Text = ("Draw")
+  }
+  { Panel1 Panel
+    MoveScaled(70,4,71,48)
+    Visible = False
+    Background = Color.Background
+    Border = Border.Etched
+    { PictureBox2 PictureBox
+      MoveScaled(22,3,24,45)
+      Stretch = True
+      Border = Border.Etched
+    }
+    { ComboBox1 ComboBox
+      MoveScaled(7,2,14,4)
+    }
+    { Label7 Label
+      MoveScaled(1,2,7,4)
+      Text = ("Type :")
+    }
+    { TextBox4 TextBox
+      MoveScaled(7,7,14,4)
+      Visible = False
+      Text = ("15")
+    }
+    { TextBox5 TextBox
+      MoveScaled(7,13,14,4)
+      Visible = False
+      Text = ("30")
+    }
+    { TextBox6 TextBox
+      MoveScaled(7,19,14,4)
+      Visible = False
+      Text = ("10")
+    }
+    { Button6 Button
+      MoveScaled(6,39,13,6)
+      Text = ("OK")
+    }
+    { Label8 Label
+      MoveScaled(1,7,6,4)
+      Visible = False
+      Text = ("A  :")
+    }
+    { Label9 Label
+      MoveScaled(1,13,6,4)
+      Visible = False
+      Text = ("B :")
+    }
+    { Label10 Label
+      MoveScaled(1,19,6,4)
+      Visible = False
+      Text = ("C :")
+    }
+    { PictureBox3 PictureBox
+      MoveScaled(47,0,24,48)
+      Visible = False
+      Picture = Picture["kapi/kilityeri.png"]
+      Stretch = True
+      Border = Border.Etched
+    }
+    { Label11 Label
+      MoveScaled(1,30,6,4)
+      Visible = False
+      Text = ("E :")
+    }
+    { Label12 Label
+      MoveScaled(1,24,5,4)
+      Visible = False
+      Text = ("D :")
+    }
+    { TextBox7 TextBox
+      MoveScaled(7,30,14,4)
+      Visible = False
+      Text = ("1100")
+    }
+    { TextBox8 TextBox
+      MoveScaled(7,24,14,4)
+      Visible = False
+      Text = ("15")
+    }
+    { Label28 Label
+      MoveScaled(0,0,47,3)
+      Font = Font["Bold,+3"]
+      Background = Color.Blue
+      Foreground = Color.White
+      Text = ("KEYHOLE")
+      Alignment = Align.Center
+    }
+  }
+  { Panel2 Panel
+    MoveScaled(1,15,71,48)
+    Visible = False
+    Background = Color.Background
+    { PictureBox4 PictureBox
+      MoveScaled(47,-1,27,46)
+      Picture = Picture["kapi/desen.png"]
+      Stretch = True
+      Border = Border.Etched
+    }
+    { TextBox9 TextBox
+      MoveScaled(5,5,7,4)
+      Text = ("500")
+    }
+    { Label13 Label
+      MoveScaled(1,5,4,4)
+      Text = ("A  :")
+    }
+    { TextBox10 TextBox
+      MoveScaled(5,10,7,4)
+      Text = ("150")
+    }
+    { Label14 Label
+      MoveScaled(1,10,3,4)
+      Text = ("B  :")
+    }
+    { TextBox11 TextBox
+      MoveScaled(18,5,7,4)
+      Text = ("150")
+    }
+    { Label15 Label
+      MoveScaled(14,5,3,4)
+      Text = ("C  :")
+    }
+    { TextBox12 TextBox
+      MoveScaled(18,10,7,4)
+      Text = ("200")
+    }
+    { Label16 Label
+      MoveScaled(14,10,3,4)
+      Text = ("D  :")
+    }
+    { PictureBox5 PictureBox
+      MoveScaled(16,15,30,29)
+      Stretch = True
+      Border = Border.Sunken
+    }
+    { listed ListBox
+      MoveScaled(0,15,16,34)
+    }
+    { Label17 Label
+      MoveScaled(25,3,22,3)
+      Alignment = Align.Center
+    }
+    { Label18 Label
+      MoveScaled(25,6,22,3)
+      Alignment = Align.Center
+    }
+    { Label19 Label
+      MoveScaled(25,9,22,3)
+      Alignment = Align.Center
+    }
+    { Button3 Button
+      MoveScaled(16,44,12,5)
+      Text = ("OK")
+    }
+    { Label20 Label
+      MoveScaled(28,46,37,2)
+    }
+    { Label27 Label
+      MoveScaled(0,0,47,3)
+      Font = Font["Bold,+3"]
+      Background = Color.Blue
+      Foreground = Color.White
+      Text = ("PATTERN")
+      Alignment = Align.Center
+    }
+    { CheckBox1 CheckBox
+      MoveScaled(25,12,22,3)
+      Text = ("Desen çerçeve ekle")
+    }
+  }
+  { Panel3 Panel
+    MoveScaled(71,13,59,47)
+    Visible = False
+    Background = Color.Background
+    Border = Border.Sunken
+    { PictureBox6 PictureBox
+      MoveScaled(32,0,27,47)
+      Picture = Picture["kapi/kapipencere0.png"]
+      Stretch = True
+      Border = Border.Etched
+    }
+    { ComboBox3 ComboBox
+      MoveScaled(9,4,17,4)
+    }
+    { Label21 Label
+      MoveScaled(2,4,7,4)
+      Text = ("Type :")
+    }
+    { Button7 Button
+      MoveScaled(7,33,13,4)
+      Text = ("OK")
+    }
+    { Label22 Label
+      MoveScaled(1,9,6,4)
+      Text = ("A  :")
+    }
+    { Label23 Label
+      MoveScaled(1,14,6,4)
+      Text = ("B  :")
+    }
+    { TextBox13 TextBox
+      MoveScaled(7,14,7,4)
+      Text = ("1400")
+    }
+    { TextBox14 TextBox
+      MoveScaled(7,9,7,4)
+      Text = ("500")
+    }
+    { Label24 Label
+      MoveScaled(17,9,6,4)
+      Text = ("C  :")
+    }
+    { TextBox15 TextBox
+      MoveScaled(23,9,7,4)
+      Text = ("750")
+    }
+    { Label25 Label
+      MoveScaled(17,14,6,4)
+      Text = ("D  :")
+    }
+    { TextBox16 TextBox
+      MoveScaled(23,14,7,4)
+      Text = ("100")
+    }
+    { Label26 Label
+      MoveScaled(0,0,32,3)
+      Font = Font["Bold,+3"]
+      Background = Color.Blue
+      Foreground = Color.White
+      Text = ("WINDOW")
+      Alignment = Align.Center
+    }
+  }
+  { Panel4 Panel
+    MoveScaled(70,49,26,13)
+    Visible = False
+    Background = Color.Background
+    { Label29 Label
+      MoveScaled(0,3,26,6)
+      Text = ("Pattern and window length\ngreater than door length.!!")
+    }
+    { Button8 Button
+      MoveScaled(0,10,15,3)
+      Text = ("Return to design")
+    }
+    { Button9 Button
+      MoveScaled(18,10,8,3)
+      Text = ("Draw")
+    }
+    { Label30 Label
+      MoveScaled(0,0,26,3)
+      Font = Font["Bold,+3"]
+      Background = Color.Blue
+      Foreground = Color.White
+      Text = ("WARNING")
+      Alignment = Align.Center
+    }
+  }
+}

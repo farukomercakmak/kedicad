@@ -1,0 +1,60 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(301,30002,496,408)
+  #Scaled = False
+  Background = Color.ButtonBackground
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Border = False
+  { yazi Label
+    Move(0,21,490,28)
+    Font = Font["14,Bold,Underline"]
+    Background = Color.Background
+    Text = ("License   ")
+    Alignment = Align.Right
+  }
+  { kayar ScrollView
+    Move(6,60,483,238)
+    Background = Color.Background
+    { yazi1 TextLabel
+      Move(224,35,224,63)
+      Font = Font["14,Bold,Underline"]
+      Foreground = &H983232&
+    }
+    { yaziver TextLabel
+      Move(-7,98)
+      Alignment = Align.Center
+    }
+    { TextLabel TextLabel
+      Move(7,0,176,96)
+      Text = ("Abdurrahman ULUSOY<br>\nDeveloper<br>\n <href='mailto:ulusoyab@yahoo.com'>ulusoyab@yahoo.com</u><br>\nGraphics<br>\nGülendam ULUSOY<br>")
+    }
+    { TextLabel1 TextLabel
+      Move(7,98,462,126)
+      Text = ("<h2 align=center>License</h1><br>\n\nThis software is a free<br>\nclosed source software.<br>\nContact Address : <br>\nulusoyab@yahoo.com")
+    }
+    { zaman #Timer
+      #Move(329,14)
+      Enabled = True
+      Delay = 30
+    }
+  }
+  { Panel1 Panel
+    Move(0,0,490,21)
+    Background = Color.Background
+    { Button6 Button
+      Move(469,0,21,21)
+      Picture = Picture["standart/dialog-close.png"]
+    }
+  }
+  { ListBox1 ListBox
+    Move(8,304,480,104)
+  }
+  { PictureBox33 PictureBox
+    Move(7,21,133,28)
+    ToolTip = ("www.cncroutersanayi.com")
+    Picture = Picture["logo.png"]
+    Stretch = True
+  }
+}

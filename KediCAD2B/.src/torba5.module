@@ -1,0 +1,204 @@
+' Gambas module file
+
+Public cazgi As Czm
+
+
+Public Sub pasam(yenisi As String)
+
+    Dim myFile As File
+    Dim myLine As String
+    Dim i As Integer
+
+    With ilk
+        .sondosya.Children.Clear
+        .listbox5.clear
+        myFile = Open System.User.Home &/ ".KediCAD/Acilis/dxfdosya.ulu" For Read  ' Dosyada yazılı olanlar yedekleniyor
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                If .listbox5.Find(myLine) = -1 Then
+                    If myLine <> yenisi Then .listbox5.Add(myLine)
+                Endif
+            Wend
+        End If
+        Close myFile
+        While .listbox5.Count > 9
+            .listbox5.Remove(0)
+        Wend
+        .listbox5.Add(yenisi)
+        myFile = Open System.User.Home &/ ".KediCAD/Acilis/dxfdosya.ulu" For Create
+        For i = .listbox5.Count - 1 To 0 Step -1
+            .listbox5.Index = i
+            Print #myFile, .listbox5.Text
+             ilk.bmenuekle(.listbox5.Text)
+        Next
+        Close myFile
+    End With
+    Return
+       Catch
+	ilk.hatayaz("pasam " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub asam()
+
+    Dim myFile As File
+    Dim myLine As String
+
+    With ilk
+        If Exist(System.User.Home &/ ".KediCAD/Acilis/dxfdosya.ulu") Then
+            myFile = Open System.User.Home &/ ".KediCAD/Acilis/dxfdosya.ulu" For Read
+            If Lof(myFile) > 0 Then
+                While Not Eof(myFile)
+                    Line Input #myFile, myLine
+                    .listbox5.Add(myLine)
+                Wend
+            End If
+            Close myFile
+        End If
+    End With
+    Return
+       Catch
+	ilk.hatayaz("asam " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub basim()
+
+    ilk.gecen = ilk.gecen + 1
+    If ilk.gecen = 1 Then
+        ilk.cezmi = ilk.cezmi1
+        ilk.bezmi = ilk.bezmi1
+        ilk.vfr = 1
+    Else If ilk.gecen = 2 Then
+        ilk.cezmi = ilk.cezmi2
+        ilk.bezmi = ilk.bezmi2
+        ilk.vfr = 2
+    Else If ilk.gecen = 3 Then
+        ilk.cezmi = ilk.cezmi3
+        ilk.bezmi = ilk.bezmi3
+        ilk.vfr = 3
+    Else If ilk.gecen = 4 Then
+        ilk.cezmi = ilk.cezmi4
+        ilk.bezmi = ilk.bezmi4
+        ilk.vfr = 4
+    Else If ilk.gecen = 5 Then
+        ilk.cezmi = ilk.cezmi5
+        ilk.bezmi = ilk.bezmi5
+        ilk.vfr = 5
+    Else If ilk.gecen = 6 Then
+        ilk.cezmi = ilk.cezmi6
+        ilk.bezmi = ilk.bezmi6
+        ilk.vfr = 6
+    Else If ilk.gecen = 7 Then
+        ilk.cezmi = ilk.cezmi7
+        ilk.bezmi = ilk.bezmi7
+        ilk.vfr = 7
+    Else If ilk.gecen = 8 Then
+        ilk.cezmi = ilk.cezmi8
+        ilk.bezmi = ilk.bezmi8
+        ilk.vfr = 8
+    Else If ilk.gecen = 9 Then
+        ilk.cezmi = ilk.cezmi9
+        ilk.bezmi = ilk.bezmi9
+        ilk.vfr = 9
+    Else If ilk.gecen = 10 Then
+        ilk.cezmi = ilk.cezmi10
+        ilk.bezmi = ilk.bezmi10
+        ilk.vfr = 10
+        Message("yeni bir dosya daha açamazsınız", "Tmm")
+    End If
+    Return
+       Catch
+	ilk.hatayaz("basim " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub pencere()
+
+    If ilk.gecen = 1 Then
+        ilk.menu76.Text = ilk.kaci
+    Else If ilk.gecen = 2 Then
+        ilk.menu77.Text = ilk.kaci
+    Else If ilk.gecen = 3 Then
+        ilk.menu78.Text = ilk.kaci
+    Else If ilk.gecen = 4 Then
+        ilk.menu79.Text = ilk.kaci
+    Else If ilk.gecen = 5 Then
+        ilk.menu80.Text = ilk.kaci
+    Else If ilk.gecen = 6 Then
+        ilk.menu81.Text = ilk.kaci
+    Else If ilk.gecen = 7 Then
+        ilk.menu82.Text = ilk.kaci
+    Else If ilk.gecen = 8 Then
+        ilk.menu83.Text = ilk.kaci
+    Else If ilk.gecen = 9 Then
+        ilk.menu84.Text = ilk.kaci
+    Else If ilk.gecen = 10 Then
+        ilk.menu85.Text = ilk.kaci
+    End If
+    ilk.ListBox11.Clear
+    If ilk.menu76.Text <> "" Then ilk.ListBox11.Add(ilk.menu76.Text)
+    If ilk.menu77.Text <> "" Then ilk.ListBox11.Add(ilk.menu77.Text)
+    If ilk.menu78.Text <> "" Then ilk.ListBox11.Add(ilk.menu78.Text)
+    If ilk.menu79.Text <> "" Then ilk.ListBox11.Add(ilk.menu79.Text)
+    If ilk.menu80.Text <> "" Then ilk.ListBox11.Add(ilk.menu80.Text)
+    If ilk.menu81.Text <> "" Then ilk.ListBox11.Add(ilk.menu81.Text)
+    If ilk.menu82.Text <> "" Then ilk.ListBox11.Add(ilk.menu82.Text)
+    If ilk.menu83.Text <> "" Then ilk.ListBox11.Add(ilk.menu83.Text)
+    If ilk.menu84.Text <> "" Then ilk.ListBox11.Add(ilk.menu84.Text)
+    If ilk.menu85.Text <> "" Then ilk.ListBox11.Add(ilk.menu85.Text)
+    Return
+       Catch
+	ilk.hatayaz("pencere " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub mng(ad As String)
+
+    Dim suzan As String
+
+    ilk.yenidosya_Click
+    ilk.kaci = ad
+    suzan = Right$(ad, 3)
+    If ilk.ListBox11.Find(ad) = -1
+        If suzan = "dxf" Or suzan = "DXF" Then dacy.dxf
+        If suzan = "ulu" Or suzan = "ULU" Then ilk.yerlesik
+        torba5.pencere
+        ilk.kacino = 1
+    Else
+        ilk.ListBox11.Index = ilk.ListBox11.Find(ad)
+        ilk.Text = ad
+        ilk.kaci = ad
+        If ilk.ListBox11.Index = 1 Then ilk.cezmi = ilk.cezmi1
+        If ilk.ListBox11.Index = 2 Then ilk.cezmi = ilk.cezmi2
+        If ilk.ListBox11.Index = 3 Then ilk.cezmi = ilk.cezmi3
+        If ilk.ListBox11.Index = 4 Then ilk.cezmi = ilk.cezmi4
+        If ilk.ListBox11.Index = 5 Then ilk.cezmi = ilk.cezmi5
+        If ilk.ListBox11.Index = 6 Then ilk.cezmi = ilk.cezmi6
+        If ilk.ListBox11.Index = 7 Then ilk.cezmi = ilk.cezmi7
+        If ilk.ListBox11.Index = 8 Then ilk.cezmi = ilk.cezmi8
+        If ilk.ListBox11.Index = 9 Then ilk.cezmi = ilk.cezmi9
+        If ilk.ListBox11.Index = 10 Then ilk.cezmi = ilk.cezmi10
+        ilk.tamekran_Click
+    End If
+    Return
+       Catch
+	ilk.hatayaz("mng " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub yanpa()
+
+    With torba2
+        .c1 = 2
+        .c2 = 2
+        .c3 = 2
+        .c4 = 2
+        .c5 = 2
+        .c6 = 2
+        .c7 = 2
+    End With
+    Return
+
+End

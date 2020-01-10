@@ -1,0 +1,403 @@
+' Gambas class file
+
+Public birinci As Float
+Public ikinci As Float
+Public hes As Integer
+
+Static Public Sub Main()
+
+    Dim hForm As Form
+
+    hForm = New Hesapmak
+    hForm.Show
+
+End
+
+Sub yz(df As Integer)
+
+    If hes = 1
+        aze.Clear
+        aze.Text = df
+        hes = 0
+    Else
+        aze.Text = aze.text & df
+    End If
+    Catch
+ilk.hatayaz("yz " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub bir_Click()
+
+    yz(1)
+
+End
+
+Public Sub iki_Click()
+
+    yz(2)
+
+End
+
+Public Sub uc_Click()
+
+    yz(3)
+
+End
+
+Public Sub dort_Click()
+
+    yz(4)
+
+End
+
+Public Sub bes_Click()
+
+    yz(5)
+
+End
+
+Public Sub alti_Click()
+
+    yz(6)
+
+End
+
+Public Sub yedi_Click()
+
+    yz(7)
+
+End
+
+Public Sub sekiz_Click()
+
+    yz(8)
+
+End
+
+Public Sub dokuz_Click()
+
+    yz(9)
+
+End
+
+Public Sub sifir_Click()
+
+    yz(0)
+
+End
+
+Public Sub arti_Click()
+
+    Dim sb As String[]
+    Dim sy, t1, t2 As String
+    Dim i As Integer
+
+    sb = Split(aze.text, "=")
+    i = 0
+    For Each sy In sb
+        i = i + 1
+        If i = 1 Then t1 = sy
+        If i = 2 Then t2 = sy
+    Next
+    If Trim$(t2) = "" Then
+        aze.text = aze.Text & " + "
+    Else
+        aze.Clear
+        aze.text = t2 & " + "
+    End If
+    aze.SetFocus
+    Catch
+ilk.hatayaz("arti " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub eksi_Click()
+
+    Dim sb As String[]
+    Dim sy, t1, t2 As String
+    Dim i As Integer
+
+    sb = Split(aze.text, "=")
+    i = 0
+    For Each sy In sb
+        i = i + 1
+        If i = 1 Then t1 = sy
+        If i = 2 Then t2 = sy
+    Next
+    If Trim$(t2) = "" Then
+        aze.text = aze.Text & " - "
+    Else
+        aze.Clear
+        aze.text = t2 & " - "
+    End If
+    aze.SetFocus
+    Catch
+ilk.hatayaz("eksi " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub carp_Click()
+
+    Dim sb As String[]
+    Dim sy, t1, t2 As String
+    Dim i As Integer
+
+    sb = Split(aze.text, "=")
+    i = 0
+    For Each sy In sb
+        i = i + 1
+        If i = 1 Then t1 = sy
+        If i = 2 Then t2 = sy
+    Next
+    If Trim$(t2) = "" Then
+        aze.text = aze.Text & " * "
+    Else
+        aze.Clear
+        aze.text = t2 & " * "
+    End If
+    aze.SetFocus
+    Catch
+ilk.hatayaz("carp " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub bol_Click()
+
+    Dim sb As String[]
+    Dim sy, t1, t2 As String
+    Dim i As Integer
+
+    sb = Split(aze.text, " = ")
+    i = 0
+    For Each sy In sb
+        i = i + 1
+        If i = 1 Then t1 = sy
+        If i = 2 Then t2 = sy
+    Next
+    If Trim$(t2) = "" Then
+        aze.text = aze.Text & " / "
+    Else
+        aze.Clear
+        aze.text = t2 & " / "
+    End If
+    aze.SetFocus
+    Catch
+ilk.hatayaz("bol " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public z1 As String
+Public z2 As String
+
+Sub duzel(km As String)
+
+    Dim sb As String[]
+    Dim sy As String
+    Dim i As Integer
+
+    sb = Split(km, ",")
+    i = 0
+    For Each sy In sb
+        i = i + 1
+        If i = 1 Then z1 = sy
+        If i = 2 Then z2 = sy
+    Next
+    z1 = Trim$(z1)
+    z2 = Trim$(z2)
+    Return
+    Catch
+ilk.hatayaz("duzel " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub esit_Click()
+
+    Dim sb As String[]
+    Dim sy, t1, t2 As String
+    Dim i As Integer
+    Dim nb As Float
+
+    sb = Split(aze.text, "=")
+    i = 0
+    For Each sy In sb
+        i = i + 1
+        If i = 1 Then t1 = sy
+        If i = 2 Then t2 = sy
+    Next
+    If t2 <> "" Then Goto cik
+    sb = Split(aze.text, "+")
+    i = 0
+    For Each sy In sb
+        i = i + 1
+        If i = 1 Then t1 = sy
+        If i = 2 Then t2 = sy
+    Next
+
+    If t2 <> "" Then
+        duzel(t1)
+        t1 = z1 & "." & z2
+        duzel(t2)
+        t2 = z1 & "." & z2
+        nb = CFloat(t1) + CFloat(t2)
+        aze.text = aze.text & " = " & nb
+        Goto cik
+    End If
+    i = 0
+    sb = Split(aze.text, "-")
+    For Each sy In sb
+        i = i + 1
+        If i = 1 Then t1 = sy
+        If i = 2 Then t2 = sy
+    Next
+    If t2 <> "" Then
+        duzel(t1)
+        t1 = z1 & "." & z2
+        duzel(t2)
+        t2 = z1 & "." & z2
+        nb = CFloat(t1) - CFloat(t2)
+        aze.text = aze.text & " = " & nb
+        Goto cik
+    End If
+    i = 0
+    sb = Split(aze.text, "*")
+    For Each sy In sb
+        i = i + 1
+        If i = 1 Then t1 = sy
+        If i = 2 Then t2 = sy
+    Next
+    If t2 <> "" Then
+        duzel(t1)
+        t1 = z1 & "." & z2
+        duzel(t2)
+        t2 = z1 & "." & z2
+        nb = CFloat(t1) * CFloat(t2)
+        aze.text = aze.text & " = " & nb
+        Goto cik
+    End If
+    i = 0
+    sb = Split(aze.text, "/")
+    For Each sy In sb
+        i = i + 1
+        If i = 1 Then t1 = sy
+        If i = 2 Then t2 = sy
+    Next
+    If t2 <> "" Then
+        duzel(t1)
+        t1 = z1 & "." & z2
+        duzel(t2)
+        t2 = z1 & "." & z2
+        nb = CFloat(t1) / CFloat(t2)
+        aze.text = aze.text & " = " & nb
+        Goto cik
+    End If
+cik:
+    aze.SetFocus
+    Catch
+ilk.hatayaz("esit " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ce_Click()
+
+    aze.Text = ""
+    aze.SetFocus
+
+End
+
+Public Sub Button2_Click()
+
+    aze.Text = aze.text & "."
+
+End
+
+Public Sub Form_Open()
+
+    Me.text = "KediCAD 2B HESAP MAKİNESİ"
+    aze.SetFocus
+
+End
+
+Public Sub aze_KeyPress()
+
+    If Key.Code = 43 Then
+        arti_Click
+        Stop Event
+    End If
+    If Key.Code = 45 Then
+        eksi_Click
+        Stop Event
+    End If
+    If Key.Code = 42 Then
+        carp_Click
+        Stop Event
+    End If
+    If Key.Code = 47 Then
+        bol_Click
+        Stop Event
+    End If
+
+End
+
+Public Sub aze_KeyRelease()
+
+    Dim sb As String[]
+    Dim sy As String
+
+    sb = Split(aze.text, "=")
+    For Each sy In sb
+    Next
+
+    If hes = 1
+        aze.Clear
+        hes = 0
+    End If
+    If Key.Code = Key.Enter Then
+        If sy <> ""
+            esit_Click
+        Else
+            ce_Click
+        End If
+    End If
+cik:
+
+End
+
+Public Sub aze_GotFocus()
+
+    aze.SetFocus
+
+End
+
+Public Sub PictureBox1_MouseDown()
+
+    Dim nb As Float
+    Dim sb As String[]
+    Dim sy As String
+
+    sb = Split(aze.text, "=")
+    For Each sy In sb
+    Next
+    nb = CFloat(sy) ^ (1 / 2)
+    aze.text = sy & "^(½) = " & nb
+
+End
+
+Public Sub PictureBox2_MouseDown()
+
+    Dim sb As String[]
+    Dim sy As String
+    Dim nb As Float
+
+    sb = Split(aze.text, "=")
+    For Each sy In sb
+    Next
+    nb = CFloat(sy) ^ (2)
+    aze.text = sy & "^2 = " & nb
+
+End
+
+Public Sub Frame5_MouseDown()
+
+End
+
+Public Sub Button1_Click()
+
+    textbox3.Text = Hyp(CFloat(textbox1.Text), CFloat(textbox2.Text))
+
+End

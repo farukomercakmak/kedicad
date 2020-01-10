@@ -1,0 +1,309 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(476,21,294,392)
+  #Scaled = False
+  Text = ("Conveyor")
+  Icon = Picture["logo.png"]
+  Resizable = False
+  Stacking = Window.Above
+  { TabStrip1 TabStrip
+    Move(0,0,294,357)
+    Count = 2
+    Index = 0
+    Text = ("Conveyor")
+    { mlz ComboBox
+      Move(154,7,119,28)
+      Text = (" ")
+    }
+    { Label1 Label
+      Move(0,7,133,28)
+      Text = ("Material")
+    }
+    { Label2 Label
+      Move(0,70,154,28)
+      Text = ("Material Section Area:")
+    }
+    { kesit TextBox
+      Move(154,70,84,28)
+    }
+    { Label3 Label
+      Move(245,77,35,21)
+      Text = ("m^2")
+    }
+    { Label4 Label
+      Move(0,98,140,28)
+      Text = ("Velocity")
+    }
+    { hiz TextBox
+      Move(154,98,84,28)
+    }
+    { Label5 Label
+      Move(245,105,35,21)
+      Text = ("m/sn.")
+    }
+    { Button1 Button
+      Move(154,266,112,35)
+      Text = ("Calculate")
+      Picture = Picture["standart/accessories-calculator.png"]
+      Default = True
+    }
+    { Frame1 Frame
+      Move(0,161,287,91)
+      Text = ("oblique moving")
+      { Label18 Label
+        Move(238,56,28,21)
+        Text = ("m.")
+      }
+      { dikey TextBox
+        Move(168,56,70,28)
+      }
+      { Label7 Label
+        Move(238,35,28,21)
+        Text = ("m.")
+      }
+      { yatay TextBox
+        Move(168,28,70,28)
+      }
+      { Label6 Label
+        Move(7,28,154,21)
+        Text = ("horizontal")
+      }
+      { Label8 Label
+        Move(7,56,154,21)
+        Text = ("vertical")
+      }
+    }
+    { Label9 Label
+      Move(245,133,28,21)
+      Text = ("m.")
+    }
+    { egik TextBox
+      Move(154,126,84,28)
+    }
+    { Label16 Label
+      Move(0,126,147,21)
+      Text = ("horizontal moving")
+    }
+    { ortam ComboBox
+      Move(154,35,119,28)
+      Text = (" ")
+    }
+    { Label17 Label
+      Move(0,35,126,21)
+      Text = ("environment")
+    }
+    Index = 1
+    Text = ("Results")
+    { Q TextBox
+      Move(182,84,63,28)
+    }
+    { qq TextBox
+      Move(182,112,63,28)
+    }
+    { Label19 Label
+      Move(0,91,182,21)
+      Text = ("Material per hour")
+    }
+    { Label20 Label
+      Move(0,112,147,28)
+      Text = ("Mass per meter")
+    }
+    { Label21 Label
+      Move(7,224,42,21)
+      Visible = False
+      Text = ("angle")
+    }
+    { aci TextBox
+      Move(98,224,98,28)
+      Visible = False
+      Text = ("TextBox3")
+    }
+    { Label22 Label
+      Move(245,119,35,21)
+      Text = ("kg/m.")
+    }
+    { Label23 Label
+      Move(252,91,35,21)
+      Text = ("t/h")
+    }
+    { dgucu TextBox
+      Move(210,168,49,28)
+    }
+    { ygucu TextBox
+      Move(-133,294,98,28)
+      Text = ("TextBox1")
+    }
+    { Label24 Label
+      Move(0,168,203,28)
+      Text = ("Power for vertical moving:")
+    }
+    { Label25 Label
+      Move(0,140,203,28)
+      Text = ("Power without material:")
+    }
+    { Label26 Label
+      Move(0,196,196,28)
+      Text = ("Power for horizontal moving")
+    }
+    { yegucu TextBox
+      Move(210,196,49,28)
+    }
+    { igucu TextBox
+      Move(210,224,49,28)
+    }
+    { Label27 Label
+      Move(0,210,210,28)
+      Text = ("Power for acceleration")
+    }
+    { Label28 Label
+      Move(259,140,28,28)
+      Text = ("BG.")
+    }
+    { Label29 Label
+      Move(259,168,28,28)
+      Text = ("BG.")
+    }
+    { Label30 Label
+      Move(259,196,28,28)
+      Text = ("BG.")
+    }
+    { Label31 Label
+      Move(259,224,28,21)
+      Text = ("BG.")
+    }
+    { yol TextBox
+      Move(84,245,91,28)
+      Visible = False
+    }
+    { Label32 Label
+      Move(0,245,77,21)
+      Visible = False
+      Text = ("total length")
+    }
+    { Label33 Label
+      Move(175,252,28,14)
+      Visible = False
+      Text = ("m.")
+    }
+    { Label34 Label
+      Move(0,273,28,14)
+      Visible = False
+      Text = ("gt")
+    }
+    { Label35 Label
+      Move(77,273,28,21)
+      Visible = False
+      Text = ("gd")
+    }
+    { gtk TextBox
+      Move(28,266,42,28)
+      Visible = False
+    }
+    { gdk TextBox
+      Move(105,273,35,21)
+      Visible = False
+    }
+    { Label36 Label
+      Move(147,280,21,21)
+      Visible = False
+      Text = ("q1")
+    }
+    { q1k TextBox
+      Move(168,273,35,28)
+      Visible = False
+    }
+    { Label37 Label
+      Move(217,273,21,21)
+      Visible = False
+      Text = ("qk")
+    }
+    { qkk TextBox
+      Move(238,273,42,28)
+      Visible = False
+    }
+    { rek TextBox
+      Move(28,294,42,28)
+      Visible = False
+    }
+    { Label38 Label
+      Move(0,294,21,21)
+      Visible = False
+      Text = ("re")
+    }
+    { ltk TextBox
+      Move(91,294,42,28)
+      Visible = False
+    }
+    { Label39 Label
+      Move(70,301,21,21)
+      Visible = False
+      Text = ("lt")
+    }
+    { rotk TextBox
+      Move(161,301,42,28)
+      Visible = False
+    }
+    { Label40 Label
+      Move(133,301,28,21)
+      Visible = False
+      Text = ("rot")
+    }
+    { rodk TextBox
+      Move(238,301,42,28)
+      Visible = False
+    }
+    { Label41 Label
+      Move(203,308,35,14)
+      Visible = False
+      Text = ("rodk")
+    }
+    { n1gucu TextBox
+      Move(210,140,49,28)
+    }
+    { Label11 Label
+      Move(252,0,35,28)
+      Text = ("cm.")
+    }
+    { bant TextBox
+      Move(140,0,98,28)
+    }
+    { Label10 Label
+      Move(0,7,112,21)
+      Text = ("Bandwidth")
+    }
+    { Label12 Label
+      Move(0,35,119,21)
+      Text = ("Radius (min.)")
+    }
+    { Label14 Label
+      Move(0,56,119,21)
+      Text = ("Power.")
+    }
+    { egri TextBox
+      Move(140,28,98,28)
+    }
+    { kguc TextBox
+      Move(140,56,98,28)
+    }
+    { Label13 Label
+      Move(252,35,28,21)
+      Text = ("m.")
+    }
+    { Label15 Label
+      Move(252,63,28,21)
+      Text = ("HP.")
+    }
+    Index = 0
+  }
+  { Button2 Button
+    Move(203,357,91,35)
+    Text = ("Close")
+    Picture = Picture["standart/dialog-close.png"]
+  }
+  { Button3 Button
+    Move(0,357,147,35)
+    Text = ("Save to File")
+    Picture = Picture["standart/save.png"]
+  }
+}

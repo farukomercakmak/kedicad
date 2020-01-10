@@ -1,0 +1,430 @@
+' Gambas module file
+
+
+
+Public Sub derc()
+
+    Dim komutsayi As Integer
+    If ilk.komutsayi = 0 Then Return
+    With ilk
+        komutsayi = .komutsayi
+        If komutsayi = 1 Then
+            konum.cizgi 'Çizgi çizim seçildi.
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 6 Then
+            konum.spline 'spline çizim seçildi.
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 8 Then
+            konum.cizgi 'xline çizim seçildi.
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 3 Then
+            konum.cizgi 'poliline çizim seçildi.
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 5 Then
+            konum.dortgen
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 15 Then
+            konum.sil
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 20 Then
+            konum.yay
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 22 Then
+            konum.yay3
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 25 Then
+            konum.cember
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 26 Then
+            konum.cember3
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 29 Then ' tarama
+            konum.tara
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 28 Then
+            konum.eksen
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 30 Then
+            konum.buda
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 32 Then
+            konum.tuda
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 33 Then
+            konum.uzat
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 35 Then
+            konum.kes
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 37 Then
+            konum.pah
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 40 Then
+            konum.fil
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 51 Then
+            konum.tasima
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 55 Then
+            konum.tasima
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 60 Then
+            konum.yaz
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 100 Then
+            konum.dikolcu
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 120 Then
+            konum.dikolcu
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 110 Then
+            konum.acolcu
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 325 Then
+            konum.acolcu
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 129 Then
+            konum.don
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 130 Then
+            konum.done
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 135 Then
+            konum.detay
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 136 Then
+            konum.detay2
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 140 Then
+            konum.pan
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 144 Then
+            konum.yapis
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 145 Then
+            konum.blkal
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 150 Then
+            konum.ayna2
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 160 Then
+            konum.ote2
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 170 Then
+            konum.cember2
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 200 Then
+            konum.capolcu
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 190 Then
+            konum.capolcu
+            .taga = 1
+            Return
+            Endif
+        If komutsayi = 220 Then
+            konum.dizi
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 221 Then
+            konum.dizim
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 230 Then
+            konum.birles
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 235 Then
+            konum.olcek2
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 240 Then
+            konum.benze
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 252 Then
+            konum.gergi
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 251 Then
+            konum.gergi2
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 280 Then
+            konum.cokgen
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 290 Then
+            konum.patla
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 295 Then
+            konum.blokyap
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 320 Then
+            konum.aralik
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 321 Then
+            konum.atalet
+            .taga = 3
+            Return
+        Endif
+        If komutsayi = 340 Then
+            konum.nokta
+            .taga = 1
+            Return
+        Endif
+        If komutsayi = 330 Then
+            konum.canta
+            .taga = 1
+            Return
+        Endif
+    End With
+    Return
+       Catch
+	ilk.hatayaz("derc " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub herc()
+ Dim komutsayi As Integer
+If ilk.komutsayi = 0 Then Return
+    komutsayi = ilk.komutsayi
+    If komutsayi = 55 Then
+        konum.tasima
+        Return
+    Endif
+    If komutsayi = 51 Then
+        konum.tasima
+        Return
+    Endif
+    If komutsayi = 56 Then
+        konum.tasima
+        Return
+    Endif
+    If komutsayi = 52 Then
+        konum.tasima
+        Return
+    Endif
+    If komutsayi = 128 Then
+        konum.done
+        Return
+    Endif
+    If komutsayi = 129 Then
+        konum.don
+        Return
+    Endif
+    If komutsayi = 130 Then
+        konum.done
+        Return
+    Endif
+    If komutsayi = 152 Then
+        konum.ayna2
+        Return
+    Endif
+    If komutsayi = 150 Then
+        konum.ayna2
+        Return
+    Endif
+    If komutsayi = 220 Then
+        dizim.show
+        Return
+    Endif
+    If komutsayi = 221 Then
+        konum.dizim
+        ilk.taga = 3
+        Return
+    Endif
+    If komutsayi = 235 Then
+        konum.olcek2
+        Return
+    Endif
+    If komutsayi = 237 Then
+        konum.olcek2
+        Return
+    Endif
+    If komutsayi = 251 Then
+        konum.gergi2
+        Return
+    Endif
+    If komutsayi = 160 Then
+        konum.ote2
+        Return
+    Endif
+    If komutsayi = 162 Then
+        konum.ote2
+        Return
+    Endif
+    If komutsayi = 240 Then
+        konum.benze
+        Return
+    Endif
+    Return
+       Catch
+	ilk.hatayaz("herc " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Sub limenu()  ' Pencere aç seçili değil.
+
+    If ilk.depo1.Count > 0 Then
+        If ilk.ppp = 0 Then
+            ilk.islemlik.Popup
+        Else If ilk.ppp = 2 Then
+            ilk.menudon.Popup
+        Endif
+    Else
+        If ilk.ppp = 0 Then
+            ilk.sagliste.Popup
+        Else If ilk.ppp = 1 Then
+            ilk.polisag.Popup
+        Endif
+    Endif
+    Return
+       Catch
+	ilk.hatayaz("limenu " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public menux As Integer
+Public menuy As Integer
+Sub penmenu(Optional dege As Integer)
+    '////////////   Pencere aç seçili  ////////////
+
+    With ilk
+        .menu24.text = .sonkom
+        If .depo1.count > 0 Then
+            If dege
+                If menux = 0
+                    .Panel10.Move(400, 150)
+                    .Panel10.Visible = True
+                Else
+                    .Panel10.Move(menux, menuy)
+                    .Panel10.Visible = True
+                Endif
+            Else
+                If .ppp = 0 Then
+                    .Panel10.Move(.mousex - (.Panel10.Width / 2), .mousey - (.Panel10.Height / 2))
+                    .Panel10.Visible = True
+                Else If .ppp = 1 Then
+                    .Panel25.Move(.mousex - (.Panel25.Width / 2), .mousey - (.Panel25.Height / 2))
+                    .Panel25.Visible = True
+                Else If .ppp = 2 Then
+                    .Panel27.Move(.mousex - (.Panel27.Width / 2), .mousey - (.Panel27.Height / 2))
+                    .Panel27.Visible = True
+                Endif
+                menux = .mousex
+            menuy = .mousey
+            Endif
+        Else
+            If dege
+                 If menux = 0
+                    .Panel15.Move(400, 150)
+                    .Panel15.Visible = True
+                Else
+                    .Panel15.Move(menux, menuy)
+                    .Panel15.Visible = True
+                Endif
+            Else
+                If .ppp = 0 Then
+                    .Panel15.Move(.mousex - (.Panel15.Width / 2), .mousey - (.Panel15.Height / 2))
+                    .Panel15.Visible = True
+                Else If .ppp = 1 Then
+                    .Panel25.Move(.mousex - (.Panel25.Width / 2), .mousey - (.Panel25.Height / 2))
+                    .Panel25.Visible = True
+                Else If .ppp = 2 Then
+                    .Panel27.Move(.mousex - (.Panel27.Width / 2), .mousey - (.Panel27.Height / 2))
+                    .Panel27.Visible = True
+                Endif
+                menux = .mousex
+                menuy = .mousey
+            Endif
+        Endif
+    End With
+    Return
+       Catch
+	ilk.hatayaz("penmenu " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

@@ -1,0 +1,125 @@
+' Gambas class file
+
+Public cazgi As Czm
+Public ov As Integer
+Public oc As Integer
+
+
+Public Sub Form_Open()
+
+    Dim i, j As Integer
+
+    tb3.Clear
+    tb3.Rows.Count = ilk.cezmi.Count + 5
+    tb3.Columns.Count = 17
+    tb3.Columns[0].Width = 40
+    tb3.Columns[1].Width = 30
+    tb3.Columns[2].Width = 40
+    tb3.Columns[3].Width = 40
+    tb3.Columns[4].Width = 40
+    tb3.Columns[5].Width = 40
+    tb3.Columns[6].Width = 40
+    tb3.Columns[7].Width = 40
+    tb3.Columns[8].Width = 50
+    tb3.Columns[9].Width = 50
+    tb3.Columns[10].Width = 50
+    tb3.Columns[11].Width = 50
+    tb3.Columns[12].Width = 50
+    tb3.Columns[13].Width = 50
+    tb3.Columns[14].Width = 50
+    tb3.Columns[15].Width = 50
+    tb3[0, 0].Text = "id"
+    tb3[0, 1].Text = "command"
+    tb3[0, 2].Text = "x1"
+    tb3[0, 3].Text = "y1"
+    tb3[0, 4].Text = "x2"
+    tb3[0, 5].Text = "y2"
+    tb3[0, 6].Text = "radius"
+    tb3[0, 7].Text = "yazı"
+    tb3[0, 8].Text = "r"
+    tb3[0, 9].Text = "eğim"
+    tb3[0, 10].Text = "teta"
+    tb3[0, 11].Text = "color"
+    tb3[0, 12].Text = "linetypr"
+    tb3[0, 13].Text = "thickness"
+    tb3[0, 14].Text = "block"
+    tb3[0, 15].Text = "layer"
+    tb3[0, 16].Text = "area"
+    For Each cazgi In ilk.cezmi
+        If cazgi.id > 0
+            i = i + 1
+            tb3[i, 0].Text = cazgi.id
+            tb3[i, 1].Text = cazgi.komut
+            tb3[i, 2].Text = Format$(cazgi.x1, "#.#")
+            tb3[i, 3].Text = Format$(cazgi.y1, "#.#")
+            tb3[i, 4].Text = Format$(cazgi.x2, "#.#")
+            tb3[i, 5].Text = Format$(cazgi.y2, "#.#")
+            tb3[i, 6].Text = cazgi.yaricap
+            tb3[i, 7].Text = cazgi.yazi
+            tb3[i, 8].Text = cazgi.r
+            tb3[i, 9].Text = Format$(cazgi.egim, "#.#")
+            tb3[i, 10].Text = Format$(cazgi.teta, "#.#")
+            tb3[i, 11].Text = cazgi.renk
+            tb3[i, 12].Text = cazgi.sekil
+            tb3[i, 13].Text = cazgi.kalinlik
+            tb3[i, 14].Text = cazgi.blok
+            tb3[i, 15].Text = cazgi.katman
+            tb3[i, 16].Text = cazgi.x4
+            If ilk.idoku <> 0 Then
+                If tb3[i, 0].Text = ilk.idoku Then
+                    For j = 0 To 16
+                        tb3[i, j].Background = Color.red
+                    Next
+                Endif
+            Endif
+        Endif
+    Next
+       Catch
+	ilk.hatayaz("formopen " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub tb3_Click()
+
+    Dim i As Integer
+
+    label1.Text = tb3[tb3.Row, tb3.Column].Text & " row = " & tb3.Row & " col = " & tb3.Column
+    ilk.x1ucu = 0
+    ilk.y1ucu = 0
+    ilk.depo1.Clear
+    torba2.b11 = 1
+    For i = 0 To 16
+        tb3[ov, i].Background = Color.white
+    Next
+    For i = 0 To 16
+        tb3[tb3.Row, i].Background = Color.Cyan
+    Next
+    tb3[tb3.Row, tb3.Column].Background = Color.red
+    If tb3.Column = 2 Or tb3.Column = 3 Then
+        ilk.isaretx = 1
+        ilk.x1ucu = tb3[tb3.Row, 2].Text * ilk.olcum
+        ilk.y1ucu = tb3[tb3.Row, 3].Text * ilk.olcum
+    Endif
+    If tb3.Column = 4 Or tb3.Column = 5 Then
+        ilk.isaretx = 1
+        ilk.x1ucu = tb3[tb3.Row, 4].Text * ilk.olcum
+        ilk.y1ucu = tb3[tb3.Row, 5].Text * ilk.olcum
+    Else
+        ilk.x1ucu = 0
+        ilk.y1ucu = 0
+        torba2.b11 = 0
+    Endif
+    ilk.depo1.Add(tb3[tb3.Row, 0].Text, tb3[tb3.Row, 0].Text)
+    If tb3.Column = 14 Then
+        For Each cazgi In ilk.cezmi
+            If cazgi.id < 0 Then Goto gec
+            If cazgi.blok = tb3[tb3.Row, tb3.Column].Text Then ilk.depo1.Add(cazgi.id, cazgi.id)
+        gec:
+        Next
+    Endif
+    oc = tb3.Column
+    ov = tb3.Row
+    ilk.calanilk.Refresh
+       Catch
+	ilk.hatayaz("tb3 " & Error.Text, Error.Where & "--" & Error.code)
+End
+

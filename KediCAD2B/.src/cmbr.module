@@ -1,0 +1,374 @@
+' Gambas module file
+
+Public cazgi As Czm
+Public cmx As Float
+Public cmy As Float
+Public dikeg1 As Float
+Public dikeg2 As Float
+Public cx5 As Float
+Public cy5 As Float
+Public cx6 As Float
+Public cy6 As Float
+Public b1 As Float
+Public b2 As Float
+Public egim As Float
+Public egim2 As Float
+Public cx1 As Float
+Public cy1 As Float
+Public aci1 As Float
+Public aci2 As Float
+Public cap As Float
+Public yaricap As Float
+
+Public Sub cemberci()
+
+    With ilk
+        If .komutcuk.Text <> "" Then   'konum.texde yazı yok
+            yaricap = (CFloat(.komutcuk.Text) * .olcum) / 2
+        Else
+            yaricap = Hyp((.ikix - .birx), (.ikiy - .biry))
+            If yaricap = 0 Then yaricap = Abs(.ikiy) - Abs(.biry)
+        End If
+        yaricap = yaricap / .olcum
+        cizem.cember(.birx, .biry, yaricap)
+        gerde.zkayit("cember", (dacy.kyno - 1))
+    End With
+    ilk.dolas
+    Return
+Catch
+	ilk.hatayaz("cemberci " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Public Sub cemberiki()
+
+    With ilk
+        cx5 = Abs(.ikix + .birx) / 2
+        cy5 = Abs(.ikiy + .biry) / 2
+        yaricap = Hyp((.ikix - .birx), (.ikiy - .biry))
+        If yaricap = 0 Then yaricap = Abs(.ikiy) - Abs(.biry)
+        yaricap = yaricap / .olcum
+        cizem.cember(cx5, cy5, yaricap / 2)
+        gerde.zkayit("cember", (dacy.kyno - 1))
+    End With
+    ilk.dolas
+    Return
+Catch
+ilk.hatayaz("cemberiki " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Public Sub cemberuc()
+
+    With ilk
+        cx5 = (.ikix + .birx) / 2
+        cy5 = (.ikiy + .biry) / 2
+        cx6 = (.ikix + .ucx) / 2
+        cy6 = (.ucy + .ikiy) / 2
+        '------------------------------------------------------
+        If .ikiy - .biry <> 0 Then
+            dikeg1 = -1 * ((.ikix - .birx) / (.ikiy - .biry))
+            b1 = cy5 - (dikeg1 * cx5)
+        End If
+        If .ucx - .ucy <> 0 Then
+            dikeg2 = -1 * ((.ucx - .ikix) / (.ucy - .ikiy))
+            b2 = cy6 - (dikeg2 * cx6)
+        End If
+        cmx = Abs(b2 - b1) / Abs(dikeg1 - dikeg2)
+        cmy = Abs((dikeg2 * b1) - (dikeg1 * b2)) / Abs(dikeg1 - dikeg2)
+        yaricap = Hyp((cmx - .ikix), (cmy - .ikiy)) / .olcum
+        cizem.cember(cmx, cmy, yaricap)
+        gerde.zkayit("cember", (dacy.kyno - 1))
+        tem.temizlik
+    End With
+    ilk.dolas
+    Return
+Catch
+ilk.hatayaz("cemberuc " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Public stan As Float
+Public fian As Float
+Public ysira As Integer
+
+
+
+Public Sub yayciii(rnk As Integer, kal As Integer, sek As Integer, blk As String)
+
+    With ilk
+        cizem.renk = rnk
+        cizem.kalin = kal
+        cizem.sekil = sek
+        cizem.bloku = blk
+        acimi.aci(.birx, .biry, .ikix, .ikiy)
+        aci1 = acimi.raci
+        acimi.aci(.birx, .biry, .ucx, .ucy)
+        aci2 = acimi.raci
+        cizem.yay(.birx, .biry, .yaricap, aci1, aci2)
+    End With
+    Return
+Catch
+ilk.hatayaz("yayciii " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub yayci()
+
+    With ilk
+        acimi.aci(.birx, .biry, .ikix, .ikiy)
+        yaricap = acimi.boy
+        yuru.yyari = 0
+        .hadi = 0
+        aci1 = acimi.raci
+        acimi.aci(.birx, .biry, .ucx, .ucy)
+        aci2 = acimi.raci
+        cizem.yay(.birx, .biry, yaricap / ilk.olcum, aci1, aci2)
+        gerde.zkayit("yay", (dacy.kyno - 1))
+    End With
+    ilk.dolas
+    Return
+Catch
+ilk.hatayaz("yayci " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub yayciuc()
+
+    With ilk
+        cx5 = (.ikix + .birx) / 2
+        cy5 = (.ikiy + .biry) / 2
+        cx6 = (.ikix + .ucx) / 2
+        cy6 = (.ikiy + .ucy) / 2
+        If (.ikiy - .biry) <> 0 Then
+            egim = ((.ikix - .birx) / (.ikiy - .biry))
+            dikeg1 = -1 * egim
+            b1 = cy5 + (egim * cx5)
+        End If
+        If .ucy - .ikiy <> 0 Then
+            egim2 = ((.ucx - .ikix) / (.ucy - .ikiy))
+            dikeg2 = -1 * egim2
+            b2 = cy6 + (egim2 * cx6)
+        End If
+        If dikeg2 <> dikeg1 Then
+            cmx = Abs(b2 - b1) / Abs(dikeg1 - dikeg2)
+            cmy = Abs((dikeg2 * b1) - (dikeg1 * b2)) / Abs(dikeg1 - dikeg2)
+        End If
+        acimi.aci(cmx, cmy, .birx, .biry)
+        yaricap = acimi.boy
+        aci1 = acimi.raci
+        acimi.aci(cmx, cmy, .ucx, .ucy)
+        aci2 = acimi.raci
+        If ilk.ppp = 0
+            cizem.yay(cmx, cmy, yaricap / ilk.olcum, aci1, aci2)
+            gerde.zkayit("yay", (dacy.kyno - 1))
+            ilk.dolas
+            tem.temizlik
+        Else
+            cizem.bloku = ilk.bolok
+            cizem.yay(cmx, cmy, yaricap / ilk.olcum, aci1, aci2)
+            .birx = .ucx
+            .biry = .ucy
+            konum.sira = 1
+            .komutsayi = 22
+        Endif
+    End With
+    Return
+Catch
+ilk.hatayaz("yayciuc " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub yaycib()
+
+    With ilk
+        acimi.aci(.cx1, .cy1, .cx2, .cy2)
+        yaricap = acimi.boy
+        aci1 = acimi.raci
+        acimi.aci(.cx1, .cy1, .cx3, .cy3)
+        aci2 = acimi.raci
+        cizem.yay(.cx1, .cy1, yaricap / ilk.olcum, Min(aci1, aci2), Max(aci1, aci2))
+        gerde.zkayit("yay", (dacy.kyno - 1))
+    End With
+    ilk.dolas
+    Return
+Catch
+ilk.hatayaz("yaycib " & Error.Text, Error.Where & "--" & Error.code)
+    Return
+
+End
+
+Public amrkx As Float
+Public amrky As Float
+Public aycap As Float
+Public bmrkx As Float
+Public bmrky As Float
+
+Public Sub cemberciy()
+
+    With ilk
+        If .komutcuk.Text <> "" Then   'konum.texde yazı yok
+            yaricap = (CFloat(.komutcuk.Text) * .olcum) / 2
+        Else
+            yaricap = Hyp((.ikix - .birx), (.ikiy - .biry))
+            If yaricap = 0 Then yaricap = Abs(.ikiy) - Abs(.biry)
+        End If
+        yaricap = yaricap / .olcum
+        cizem.cember(.birx, .biry, yaricap)
+    End With
+    Return
+Catch
+ilk.hatayaz("cemberciy " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End
+
+Public Sub dember()  'dıddırıdıddıd dıd dıd
+
+    amrkx = ilk.birx
+    amrky = ilk.biry
+    aycap = Hyp((ilk.ikix - ilk.birx), (ilk.ikiy - ilk.biry))
+    cemberciy()
+    ilk.komutsayi = 136
+    konum.sira = 3
+    Return
+
+End
+
+Public Sub dember2()
+
+    Dim ax, ay, az As Float
+    Dim i As Integer
+    Dim ax1, ay1, az1, ao1 As New Float[]
+
+    bmrkx = ilk.birx
+    bmrky = ilk.biry
+    ilk.depo1.Clear
+    ax1.Clear
+    ay1.Clear
+    az1.Clear
+    With ilk
+        For Each cazgi In ilk.cezmi
+            If cazgi.id > 0
+                ax = Hyp((cazgi.x1 * ilk.olcum - amrkx), (cazgi.y1 * ilk.olcum - amrky))
+                ay = Hyp((cazgi.x2 * ilk.olcum - amrkx), (cazgi.y2 * ilk.olcum - amrky))
+                az = Hyp((cazgi.x3 * ilk.olcum - amrkx), (cazgi.y3 * ilk.olcum - amrky))
+                If ax < aycap And ay < aycap Then  ' dairenin içinde
+                    ilk.depo1.Add(cazgi.id, cazgi.id)
+                Else If ax < aycap And ay > aycap Then ' x1 dairenin içinde x2 dışında
+                    ilk.depo1.Add(cazgi.id, cazgi.id)
+                Else If ax > aycap And ay < aycap Then ' x2 dairenin içinde x1 dışında
+                    ilk.depo1.Add(cazgi.id, cazgi.id)
+                Else If ax > aycap And ay > aycap Then ' x1 ve x2 de dışında
+                    If az < aycap Then ' x3 dairenin içinde x1 ve x2 dışında
+                        ilk.depo1.Add(cazgi.id, cazgi.id)
+                    Else   ' x1,x2,x3 dairenin dışında.
+
+                    Endif
+                Endif
+            Endif
+        Next
+        ilk.ikix = bmrkx
+        ilk.ikiy = bmrky
+        ilk.birx = amrkx
+        ilk.biry = amrky
+        ilk.komutsayi = 56
+        tasima.tasir
+        ilk.depo1.Clear
+        For Each cazgi In ilk.cezmi
+            If cazgi.id > 0
+                ax = Hyp((cazgi.x1 * ilk.olcum - bmrkx), (cazgi.y1 * ilk.olcum - bmrky))
+                ay = Hyp((cazgi.x2 * ilk.olcum - bmrkx), (cazgi.y2 * ilk.olcum - bmrky))
+                az = Hyp((cazgi.x3 * ilk.olcum - bmrkx), (cazgi.y3 * ilk.olcum - bmrky))
+                If ax < aycap And ay < aycap Then  ' dairenin içinde
+                    ilk.depo1.Add(cazgi.id, cazgi.id)
+                Else If ax < aycap And ay > aycap Then ' x1 dairenin içinde x2 dışında
+                    ilk.depo1.Add(cazgi.id, cazgi.id)
+                Else If ax > aycap And ay < aycap Then ' x2 dairenin içinde x1 dışında
+                    ilk.depo1.Add(cazgi.id, cazgi.id)
+                Else If ax > aycap And ay > aycap Then ' x1 ve x2 de dışında
+                    If az < aycap Then ' x3 dairenin içinde x1 ve x2 dışında
+                        ilk.depo1.Add(cazgi.id, cazgi.id)
+                    Else   ' x1,x2,x3 dairenin dışında.
+
+                    Endif
+                Endif
+            Endif
+        Next
+        ilk.birx = bmrkx
+        ilk.biry = bmrky
+        cizge.olecek(konum.sycek)
+        aycap = aycap * konum.sycek
+        ilk.depo1.Clear
+        For Each cazgi In ilk.cezmi
+            If cazgi.id > 0
+                ax = Hyp((cazgi.x1 * ilk.olcum - bmrkx), (cazgi.y1 * ilk.olcum - bmrky))
+                ay = Hyp((cazgi.x2 * ilk.olcum - bmrkx), (cazgi.y2 * ilk.olcum - bmrky))
+                az = Hyp((cazgi.x3 * ilk.olcum - bmrkx), (cazgi.y3 * ilk.olcum - bmrky))
+                If ax < aycap And ay < aycap Then  ' dairenin içinde
+                    ao1.Add(cazgi.id)
+                Else If ax < aycap And ay > aycap Then ' x1 dairenin içinde x2 dışında
+                    ax1.Add(cazgi.id)
+                Else If ax > aycap And ay < aycap Then ' x2 dairenin içinde x1 dışında
+                    ay1.Add(cazgi.id)
+                Else If ax > aycap And ay > aycap Then ' x1 ve x2 de dışında
+                    If az < aycap Then ' x3 dairenin içinde x1 ve x2 dışında
+                        az1.Add(cazgi.id)
+                    Else   ' x1,x2,x3 dairenin dışında.
+
+                    Endif
+                Endif
+            Endif
+        Next
+        For Each cazgi In ilk.cezmi
+            If cazgi.id < 0 Then Goto gec
+            For i = 0 To ax1.Count - 1
+                If cazgi.komut = 1
+                    If cazgi.id = ax1[i] Then
+                        ilk.yuvx1 = bmrkx
+                        ilk.yuvy1 = bmrky
+                        ilk.yuvyar = aycap
+                        torba2.yuvarla3(cazgi.x1 * .olcum, cazgi.y1 * .olcum, cazgi.x2 * .olcum, cazgi.y2 * .olcum, cazgi.x2 * .olcum, cazgi.y2 * .olcum, cazgi.id)
+                    Endif
+                Endif
+            Next
+        gec:
+        Next
+        For Each cazgi In ilk.cezmi
+            If cazgi.id < 0 Then Goto gec2
+            For i = 0 To ay1.Count - 1
+                If cazgi.komut = 1
+                    If cazgi.id = ay1[i] Then
+                        ilk.yuvx1 = bmrkx
+                        ilk.yuvy1 = bmrky
+                        ilk.yuvyar = aycap
+                        torba2.yuvarla3(cazgi.x1 * .olcum, cazgi.y1 * .olcum, cazgi.x2 * .olcum, cazgi.y2 * .olcum, cazgi.x1 * .olcum, cazgi.y1 * .olcum, cazgi.id)
+                    Endif
+                Endif
+            Next
+        gec2:
+        Next
+        For Each cazgi In ilk.cezmi
+            If cazgi.id < 0 Then Goto gec3
+            For i = 0 To az1.Count - 1
+                If cazgi.komut = 1
+                    If cazgi.id = az1[i] Then
+                        ilk.yuvx1 = bmrkx
+                        ilk.yuvy1 = bmrky
+                        ilk.yuvyar = aycap
+                        torba2.yuvarla3(cazgi.x1 * .olcum, cazgi.y1 * .olcum, cazgi.x2 * .olcum, cazgi.y2 * .olcum, cazgi.x3 * .olcum, cazgi.y3 * .olcum, cazgi.id)
+                        torba2.yuvarla3(cazgi.x1 * .olcum, cazgi.y1 * .olcum, cazgi.x2 * .olcum, cazgi.y2 * .olcum, cazgi.x3 * .olcum, cazgi.y3 * .olcum, dacy.kyno - 1)
+                    Endif
+                Endif
+            Next
+        gec3:
+        Next
+    End With
+    ilk.dolas
+    Return
+Catch
+ilk.hatayaz("dember2 " & Error.Text, Error.Where & "--" & Error.code)
+Return
+End

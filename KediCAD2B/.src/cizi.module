@@ -1,0 +1,462 @@
+' Gambas module file
+
+Public elips As New Object[] 
+Public grup As String
+Public xf As Float
+Public yf As Float
+Public aci As Float
+Public kfx As Float
+
+Public bloku As String
+Public katmani As String
+Public sekli As Integer
+Public rengi As Integer
+Public kalini As Integer
+Public gor As Integer
+Public kilit As Integer
+Public asid As Integer
+Public altyazi As Integer
+Public font As String
+Public bold As Integer
+Public italik As Integer
+
+Public fes As Integer
+Public cazgi As Czm
+Public bazgi As Cvb
+
+Public Sub temiz()
+
+    sekli = 0
+    katmani = 0
+    rengi = 0
+    bloku = ""
+    kalini = 0
+    Return
+
+End
+
+Public Sub aktar(id As Integer)
+
+    For Each cazgi In ilk.cezmi
+        If cazgi.id = id
+            katmani = cazgi.katman
+            rengi = cazgi.renk
+            kalini = cazgi.kalinlik
+            bloku = cazgi.blok
+            sekli = cazgi.sekil
+        Endif
+    Next
+    Return
+
+End
+
+Public Sub ozel(Optional renk As Integer, Optional blok As String, Optional kalin As String, Optional sekil As String)
+    '1  gelen değer varsa onu kullan
+    '2 katmana göreyse onu kullan
+    '3 herhangi bir değer yoksa ilk formundaki değeri kullan..
+
+    katmanli
+    If sekli = 0
+        If sekil Then
+            sekli = sekil
+        Else
+            If katmani <> 0
+                For Each bazgi In ilk.bezmi
+                    If bazgi.ad = katmani Then sekli = bazgi.tip
+                Next
+            Else
+                If ilk.sekil.Text = "ByLayer"
+                    For Each bazgi In ilk.bezmi
+                        If bazgi.ad = ilk.katmer.Text Then sekli = bazgi.tip
+                    Next
+                Else
+                    sekli = ilk.sekil.Index
+                Endif
+            End If
+        Endif
+    Endif
+    If rengi = 0 Then
+        If renk Then
+            rengi = renk
+        Else
+            If katmani <> 0
+                For Each bazgi In ilk.bezmi
+                    If bazgi.ad = katmani Then rengi = bazgi.renk
+                Next
+            Else
+                If ilk.Button41.Text = "ByLayer"
+                    For Each bazgi In ilk.bezmi
+                        If bazgi.ad = ilk.Button41.Text Then rengi = bazgi.renk
+                    Next
+                Else
+                    rengi = ilk.orenk
+                End If
+            End If
+        Endif
+    Endif
+    If kalini = 0
+        If kalin Then
+            kalini = kalin
+        Else
+            If katmani <> 0
+                For Each bazgi In ilk.bezmi
+                    If bazgi.ad = katmani Then kalini = bazgi.kal
+                Next
+            Else
+                If ilk.kalin.Text = "ByLayer"
+                    For Each bazgi In ilk.bezmi
+                        If bazgi.ad = ilk.kalin.Text Then kalini = bazgi.kal
+                    Next
+                Else
+                    kalini = ilk.kalin.Text
+                Endif
+            End If
+        Endif
+    Endif
+    
+        If blok Then
+            bloku = blok
+        Else
+            bloku = 0
+        Endif
+    Return
+        Catch
+	ilk.hatayaz("ozel " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Sub katmanli()
+
+    If katmani = 0 Then
+        If ilk.katmer.Index = 0 Then
+            katmani = 0
+        Else
+            katmani = ilk.katmer.Text
+        Endif
+    Endif
+    Return
+
+End
+Public Sub cizgi(cx1 As Float, cy1 As Float, cx2 As Float, cy2 As Float, Optional km As Integer)
+
+    Dim egim, r, b, tteta As Float
+    If bloku = "" Then bloku = 0
+    acimi.aci(cx1, cy1, cx2, cy2)
+    tteta = acimi.daci
+    r = acimi.boy
+    egim = acimi.ege
+    b = acimi.bb
+    If egim
+    Else
+        egim = 0.001
+    Endif
+    If tteta
+    Else
+        tteta = 0.001
+    Endif
+    cx1 = Round(cx1, -2)
+    cy1 = Round(cy1, -2)
+    cx2 = Round(cx2, -2)
+    cy2 = Round(cy2, -2)
+    cazgi = New Czm
+    If km = 8
+        cazgi.komut = 8
+    Else If km = 6
+        cazgi.komut = 6
+    Else
+        cazgi.komut = 1
+    Endif
+    cazgi.id = dacy.kyno
+    cazgi.x1 = cx1 / ilk.olcum
+    cazgi.y1 = cy1 / ilk.olcum
+    cazgi.x2 = cx2 / ilk.olcum
+    cazgi.y2 = cy2 / ilk.olcum
+    cazgi.x3 = (cazgi.x2 + cazgi.x1) / 2
+    cazgi.y3 = (cazgi.y2 + cazgi.y1) / 2
+    cazgi.egim = egim
+    cazgi.b = b / ilk.olcum
+    cazgi.uzun = r / ilk.olcum
+    cazgi.teta = tteta
+    cazgi.sekil = sekli
+    cazgi.renk = rengi
+    cazgi.kalinlik = kalini
+    cazgi.katman = katmani
+    cazgi.blok = bloku
+    cazgi.gor = gor
+    cazgi.kilit = kilit
+    cazgi.grup = grup
+    cazgi.aci = aci
+    cazgi.xf = xf
+    cazgi.yf = yf
+    cazgi.xf = kfx
+    If rengi < 0 Then cazgi.gor = 2
+    If fea.komut = 241 Then cazgi.x4 = fes
+    If asid = 0 Then
+        ilk.cezmi.Add(cazgi, dacy.kyno)
+        dacy.kyno = dacy.kyno + 1
+    Else
+        cazgi.id = asid
+        ilk.cezmi.Add(cazgi, asid)
+        asid = 0
+    Endif
+    Return
+        Catch
+	ilk.hatayaz("cizgi " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub spline()
+
+
+    If bloku = "" Then 
+        ilk.bolok = ilk.bolok + 2
+        bloku = ilk.bolok
+    Endif
+    cazgi = New Czm
+    cazgi.komut = 6
+    cazgi.id = dacy.kyno
+    cazgi.czx = cizge.czdpx
+    cazgi.czy = cizge.czdpy
+    cazgi.x1 = cizge.czdpx[0] / ilk.olcum
+    cazgi.y1 = cizge.czdpy[0] / ilk.olcum
+    cazgi.x2 = (cizge.czdpx[cizge.czdpx.Count - 1]) / ilk.olcum
+    cazgi.y2 = (cizge.czdpy[cizge.czdpy.Count - 1]) / ilk.olcum
+    cazgi.x3 = (cazgi.x2 + cazgi.x1) / 2
+    cazgi.y3 = (cazgi.y2 + cazgi.y1) / 2
+    cazgi.sekil = sekli
+    cazgi.renk = rengi
+    cazgi.kalinlik = kalini
+    cazgi.katman = katmani
+    cazgi.blok = bloku
+    cazgi.gor = 0
+    ilk.cezmi.Add(cazgi, dacy.kyno)
+    dacy.kyno = dacy.kyno + 1
+     cizge.czdpx.Clear
+     cizge.czdpy.Clear
+    Return
+        Catch
+	ilk.hatayaz("spline " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+Public Sub cember(cx1 As Float, cy1 As Float, yaricap As Float, Optional iotuz As Integer)
+    If bloku = "" Then bloku = 0
+    cx1 = Round(cx1, -2)
+    cy1 = Round(cy1, -2)
+    If iotuz <> 0 Then cx1 = - cx1
+    yaricap = Round(yaricap, -2)
+    cazgi = New Czm
+    cazgi.id = dacy.kyno
+    cazgi.komut = 25
+    cazgi.x1 = cx1 / ilk.olcum
+    cazgi.y1 = cy1 / ilk.olcum
+    cazgi.x2 = cx1 / ilk.olcum - yaricap
+    cazgi.y2 = cy1 / ilk.olcum
+    cazgi.x3 = cx1 / ilk.olcum + yaricap
+    cazgi.y3 = cy1 / ilk.olcum
+    cazgi.x4 = cx1 / ilk.olcum
+    cazgi.y4 = cy1 / ilk.olcum - yaricap
+    cazgi.x5 = cx1 / ilk.olcum
+    cazgi.y5 = cy1 / ilk.olcum + yaricap
+    cazgi.x6 = cx1 / ilk.olcum
+    cazgi.y6 = cy1 / ilk.olcum + yaricap
+    cazgi.y7 = iotuz
+    cazgi.r = 2 * yaricap
+    cazgi.teta = 2 * yaricap
+    cazgi.yaricap = yaricap
+    cazgi.katman = katmani
+    cazgi.sekil = sekli
+    cazgi.renk = rengi
+    cazgi.kalinlik = kalini
+    cazgi.gor = gor
+    cazgi.kilit = kilit
+    cazgi.blok = bloku
+    cazgi.grup = grup
+    cazgi.aci = aci
+    cazgi.xf = xf
+    cazgi.yf = yf
+    cazgi.xf = kfx
+    If rengi < 0 Then cazgi.gor = 2
+    If asid = 0 Then
+        ilk.cezmi.Add(cazgi, dacy.kyno)
+        dacy.kyno = dacy.kyno + 1
+    Else
+        cazgi.id = asid
+        ilk.cezmi.Add(cazgi, asid)
+        asid = 0
+    Endif
+    Return
+        Catch
+	ilk.hatayaz("cember " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub yay(cx1 As Float, cy1 As Float, yaricap As Float, teta As Float, r As Float, Optional iotuz As Integer)
+
+    Dim ilknx, ilkny, ikinx, ikiny, ucnx, ucny, aci1, aci2, aci3 As Float
+    If bloku = "" Then bloku = 0
+    cx1 = Round(cx1, -2)
+    cy1 = Round(cy1, -2)
+    yaricap = Round(yaricap, -2)
+    If iotuz <> 0 Then cx1 = - cx1
+    aci2 = r
+    aci1 = teta
+    aci3 = (aci1 + aci2) / 2
+    ilknx = (cx1 / ilk.olcum) + yaricap * Cos(aci1)
+    ilkny = (cy1 / ilk.olcum) - yaricap * Sin(aci1)
+    ikinx = (cx1 / ilk.olcum) + yaricap * Cos(aci2)
+    ikiny = (cy1 / ilk.olcum) - yaricap * Sin(aci2)
+    ucnx = (cx1 / ilk.olcum) + yaricap * Cos(aci3)
+    ucny = (cy1 / ilk.olcum) - yaricap * Sin(aci3)
+
+    ilknx = Round(ilknx, -2)
+    ilkny = Round(ilkny, -2)
+    ikinx = Round(ikinx, -2)
+    ikiny = Round(ikiny, -2)
+    ucnx = Round(ucnx, -2)
+    ucny = Round(ucny, -2)
+
+    cazgi = New Czm
+    cazgi.id = dacy.kyno
+    cazgi.komut = 20
+    cazgi.x1 = cx1 / ilk.olcum
+    cazgi.y1 = cy1 / ilk.olcum
+    cazgi.x2 = ilknx
+    cazgi.y2 = ilkny
+    cazgi.x3 = ikinx
+    cazgi.y3 = ikiny
+    cazgi.x4 = ucnx
+    cazgi.y4 = ucny
+    cazgi.y7 = iotuz
+    cazgi.r = aci2
+    cazgi.teta = aci1
+    cazgi.yaricap = yaricap
+    cazgi.katman = katmani
+    cazgi.sekil = sekli
+    cazgi.renk = rengi
+    cazgi.kalinlik = kalini
+    cazgi.blok = bloku
+    cazgi.gor = gor
+    cazgi.kilit = kilit
+    cazgi.grup = grup
+    cazgi.aci = aci
+    cazgi.xf = xf
+    cazgi.yf = yf
+    cazgi.xf = kfx
+    If rengi < 0 Then cazgi.gor = 2
+    If asid = 0 Then
+        ilk.cezmi.Add(cazgi, dacy.kyno)
+        dacy.kyno = dacy.kyno + 1
+    Else
+        cazgi.id = asid
+        ilk.cezmi.Add(cazgi, asid)
+        asid = 0
+    Endif
+    
+    Return
+        Catch
+	ilk.hatayaz("yay " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub yaz(cx1 As Float, cy1 As Float, yazi As String, yuk As Float, Optional acil As Float)
+    If aci Then
+    Else
+        aci = 0
+    Endif
+     If yuk = 0 Then yuk = 10
+    If bloku = "" Then bloku = 0
+    yuk = Abs(yuk)
+    ilk.olcum = ilk.olcum
+    cazgi = New Czm
+    cazgi.id = dacy.kyno
+    cazgi.komut = 60
+    cazgi.blok = bloku
+    cazgi.x1 = cx1 / ilk.olcum
+    cazgi.y1 = cy1 / ilk.olcum
+    cazgi.x2 = Len(yazi) * yuk / ilk.olcum
+    cazgi.y2 = 1.5 * yuk / ilk.olcum
+    cazgi.x3 = (cazgi.x1 + Abs(cazgi.x2 + cazgi.x1)) / 2
+    cazgi.y3 = (cazgi.y1 + Abs(cazgi.y2 + cazgi.y1)) / 2
+    cazgi.egim = italik
+    cazgi.x4 = altyazi
+    If acil Then 
+        cazgi.y4 = acil
+    Else
+        cazgi.y4 = 0
+    Endif
+    cazgi.y6 = bold
+    cazgi.sekil = sekli
+    cazgi.renk = rengi
+    cazgi.kalinlik = kalini
+    cazgi.katman = katmani
+    cazgi.blok = bloku
+    cazgi.fnt = Font
+    cazgi.x7 = yuk
+    cazgi.x6 = yuk
+    cazgi.yazi = yazi
+    cazgi.gor = gor
+    cazgi.kilit = kilit
+    cazgi.grup = grup
+    cazgi.aci = aci
+    cazgi.xf = xf
+    cazgi.yf = yf
+    cazgi.xf = kfx
+    If rengi < 0 Then cazgi.gor = 2
+    If asid = 0 Then
+        ilk.cezmi.Add(cazgi, dacy.kyno)
+        dacy.kyno = dacy.kyno + 1
+    Else
+        cazgi.id = asid
+        ilk.cezmi.Add(cazgi, asid)
+        asid = 0
+    Endif
+    Return
+        Catch
+	ilk.hatayaz("yaz " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub nokta(cx As Float, cy As Float, Optional nod As Float, Optional bvc As Float, Optional node As String)
+    If bloku = "" Then bloku = 0
+    ilk.olcum = ilk.olcum
+    cazgi = New Czm
+    cazgi.id = dacy.kyno
+    cazgi.komut = 242
+    cazgi.x1 = cx / ilk.olcum
+    cazgi.y1 = cy / ilk.olcum
+    cazgi.x2 = cx / ilk.olcum
+    cazgi.y2 = cy / ilk.olcum
+    If nod <> 0 Then cazgi.x4 = nod
+    If bvc <> 0
+        cazgi.x6 = bvc
+        cazgi.y6 = bvc
+    End If
+    cazgi.fnt = node
+    cazgi.yazi = nod
+    cazgi.r = 3
+    cazgi.teta = 3
+    cazgi.yaricap = 3
+    cazgi.katman = katmani
+    cazgi.sekil = 1
+    cazgi.renk = rengi
+    cazgi.kalinlik = 1
+    cazgi.gor = gor
+    cazgi.kilit = kilit
+    cazgi.grup = grup
+    cazgi.aci = aci
+    cazgi.xf = xf
+    cazgi.yf = yf
+    cazgi.xf = kfx
+    If rengi < 0 Then cazgi.gor = 2
+    If asid = 0 Then
+        ilk.cezmi.Add(cazgi, dacy.kyno)
+        dacy.kyno = dacy.kyno + 1
+    Else
+        cazgi.id = asid
+        ilk.cezmi.Add(cazgi, asid)
+        asid = 0
+    Endif
+    Return
+        Catch
+	ilk.hatayaz("nokta " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

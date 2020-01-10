@@ -1,0 +1,159 @@
+' Gambas class file
+
+Public cazgi As Czm
+Public oze As Integer
+Public Sub Form_Open()
+    oze = 1
+    Me.move(85, 75, 270, 550)
+    TableView1.move(5, 0, 260, 535)
+    TableView1.Rows.Count = 21
+    TableView1.Columns.Count = 2
+    TableView1.Columns.Width = 90
+    TableView1[0, 0].Foreground = Color.Red
+    TableView1[0, 0].Background = Color.Blue
+    TableView1[0, 0].Text = "PROPERTIES"
+    TableView1[0, 1].Foreground = Color.Black
+    TableView1[0, 1].Background = Color.Cyan
+    TableView1[0, 1].Text = "VALUES"
+    ColorButton1.Visible = True
+    Combobox1.Visible = True
+    Combobox2.Visible = True
+    Button43.Visible = True
+    TableView1.Visible = True
+    ColorButton1.Visible = True
+    Combobox1.Visible = True
+    Combobox2.Visible = True
+    Combobox7.Visible = True
+    Combobox8.Visible = True
+    Button43.Visible = True
+    TextBox2.Visible = False
+End
+Public Sub TextBox2_KeyRelease()
+ Dim rty As Integer
+If Key.Code = Key.Enter Then
+    rty = TableView1.Row
+    torba.isle(rty, TextBox2.Text, TableView1[1, 1].Text)
+    ilk.calanilk.Refresh
+    TextBox2.Visible = False
+Endif
+End
+Public Sub TextBox2_Click(Optional mcs As Integer)
+    Dim rty As Integer
+    rty = TableView1.Row
+    If mcs <> 0 Then rty = mcs
+    torba.isle(rty, TextBox2.Text, TableView1[1, 1].Text)
+    TextBox2.Move(0, 0)
+    TableView1.Row = 20
+    TextBox2.Visible = False
+    ilk.calanilk.Refresh
+End
+Public Sub ColorButton1_Change()
+
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then cazgi.renk = ColorButton1.Value
+    Next
+    ilk.calanilk.Refresh
+End
+
+Public Sub ComboBox1_Change()
+
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then cazgi.sekil = ComboBox1.Index + 1
+    Next
+    ilk.calanilk.Refresh
+End
+Public Sub ComboBox8_Change()
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then cazgi.katman = ComboBox8.text
+    Next
+    ilk.calanilk.Refresh
+End
+Public Sub ComboBox2_Change()
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then cazgi.kalinlik = ComboBox2.Index
+    Next
+    ilk.calanilk.Refresh
+End
+Public Sub ComboBox4_Change()
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then cazgi.fnt = ComboBox4.text
+    Next
+    ilk.calanilk.Refresh
+End
+Public Sub ComboBox3_Change()  ' İTALİK
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then
+            If ComboBox3.index = 1 Then
+                cazgi.egim = 1
+            Else
+                cazgi.egim = 0
+            End If
+        Endif
+    Next
+    ilk.calanilk.Refresh
+End
+Public Sub ComboBox5_Change() ' Alt çizgi
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then
+            If ComboBox5.index = 1 Then
+                cazgi.x4 = 1
+            Else
+                cazgi.x4 = 0
+            End If
+        Endif
+    Next
+    ilk.calanilk.Refresh
+End
+Public Sub ComboBox6_Change()
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then
+            If ComboBox6.index = 1 Then
+                cazgi.y6 = 1
+            Else
+                cazgi.y6 = 0
+            End If
+        Endif
+    Next
+    ilk.calanilk.Refresh
+End
+Public Sub ComboBox7_Activate()
+    torba.isle(8, ComboBox7.Text)
+End
+
+Public Sub TableView1_DblClick()
+    TextBox2.Clear
+    TextBox2.Visible = True
+    TextBox2.Height = 25
+    If TableView1.Row > 2
+        If TableView1.Column <> 0
+            If Trim$(TableView1[TableView1.Row, TableView1.Column].Text) <> ""
+                TableView1.EditWith(TextBox2)
+                TextBox2.Text = ""
+            End If
+        End If
+    End If
+End
+Public Sub TableView1_MouseMove()
+    TextBox2.SetFocus
+End
+
+Public Sub Button410_Click()
+    ilk.TableView2.Visible = False
+    ilk.Button410.Visible = False
+End
+
+Public Sub Button43_Click()
+    oze = 0
+    ilk.dolas
+    Me.close
+End
+
+Public Sub Form_Close()
+    oze = 0
+    ilk.dolas
+End
+
+
+
+
+

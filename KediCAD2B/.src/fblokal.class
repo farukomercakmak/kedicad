@@ -1,0 +1,459 @@
+' Gambas class file
+
+Private $sPath As String
+Private $bHidden As Boolean
+Private $bCtrl As Boolean
+Public yollum As String
+Public res As String
+Public uzan As String
+Public suzan As String
+Public kuzan As String
+Public fgh As String
+
+Static Public Sub Main()
+
+    Dim myLine As String
+    Dim hForm As Form
+
+    myLine = System.User.Home &/ ".KediCAD/Genel"
+    hForm = New Fblokal(myLine)
+    hForm.Show
+
+End
+
+
+Public Sub _new(sPath As String)
+
+    $sPath = sPath
+    RefreshExplorer
+
+End
+
+Private Sub RefreshExplorer()
+
+    Dim sFile As String
+    Dim hPictDir As Picture
+    Dim hPictFile As Picture
+
+    Dim cDir As New String[]
+    Dim sName As String
+
+    Inc Application.Busy
+
+    ivwExplorer.Clear
+    hPictDir = Picture["simgeler/folder.png"]
+    hPictFile = Picture["simgeler/blokal.png"]
+    If $sPath <> "/" Then ivwExplorer.Add("D..", "..", hPictDir)
+
+    For Each sFile In Dir($sPath)
+        uzan = Right$(sFile, 3)
+        If Not $bHidden Then
+            If Stat($sPath &/ sFile).Hidden Then
+                Continue
+            Endif
+        Endif
+
+        If IsDir($sPath &/ sFile) Then
+            cDir.Add("D" & sFile)
+        Else
+            If uzan = "blk" Then cDir.Add("F" & sFile)
+        Endif
+    Next
+
+    cDir.Sort
+
+    For Each sFile In cDir
+
+        sName = Mid$(sFile, 2)
+        If Left$(sFile) = "D" Then
+            ivwExplorer.Add(sFile, sName, hPictDir)
+        Else If Left$(sFile) = "F" Then
+            ivwExplorer.Add(sFile, sName, hPictFile)
+        End If
+        ivwExplorer.Item.Editable = True
+
+    Next
+
+    'ivwExplorer.Sorted = FALSE
+    'ivwExplorer.Ascending = TRUE
+    'ivwExplorer.Sorted = TRUE
+
+Finally
+    Dec Application.busy
+        Catch
+	ilk.hatayaz("refreshexpl " & Error.Text, Error.Where & "--" & Error.code)
+	
+End
+
+Public Sub Form_Resize()
+
+    ivwExplorer.Move(0, 30, Me.ClientW - 180, Me.ClientH - 85)
+
+End
+
+Public Sub mnuQuit_Click()
+
+    Me.Close
+
+End
+
+Public Sub mnuViewRefresh_Click()
+
+    RefreshExplorer
+
+End
+
+Public Sub ivwExplorer_Activate()
+
+    Dim sNewPath As String
+    Dim hForm As Form
+
+    If Last.Current.Key = "D.." Then
+        If $sPath = "/" Then Return
+        sNewPath = File.Dir($sPath)
+    Else
+        sNewPath = $sPath &/ Mid$(Last.Current.Key, 2)
+    Endif
+
+    If IsDir(sNewPath) Then
+
+        If $bCtrl Then
+            $bCtrl = False
+            hForm = New FExplorer(sNewPath)
+            hForm.Move(Me.X + 16, Me.Y + 16, Me.W, Me.H)
+            hForm.Show
+        Else
+            $sPath = sNewPath
+            RefreshExplorer
+        Endif
+
+    Endif
+        Catch
+	ilk.hatayaz("ivwactiv " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub mnuAbout_Click()
+
+    Message("IconView example written by\nBenoît Minisini")
+
+End
+
+Public Sub ivwExplorer_Rename()
+
+    Message("'" & Mid$(Last.Item.Key, 2) & "' has been renamed to '" & Last.Item.Text & "'")
+
+End
+
+Public Sub ivwExplorer_KeyPress()
+
+    If Key.Control Then $bCtrl = True
+
+End
+
+Public Sub ivwExplorer_KeyRelease()
+
+    If Key.Control Then $bCtrl = False
+    If key.Code = key.Enter
+        Button1_Click
+    End If
+
+End
+
+Public Sub Form_Open()
+
+    Me.text = "KediCAD 2B GET BLOCK"
+    RefreshExplorer
+
+End
+
+Public Sub ivwExplorer_Click()
+
+    Dim yol As String
+
+    suzan = Right$(Last.Item.Text, 3)
+    kuzan = Left$(Last.Item.Text, -3)
+    yol = System.User.Home &/ ".KediCAD/Genel"
+    PictureBox1.Picture = picture[yol &/ kuzan & "png"]
+    If Not PictureBox1.Picture Then
+        PictureBox1.Picture = picture["standart/hidrolik/" & kuzan & "png"]
+    Endif
+    If Not PictureBox1.Picture Then
+        PictureBox1.Picture = picture["res/bos.png"]
+    End If
+    fgh = $sPath & "/" & Last.Item.Text
+    With Stat($sPath & "/" & Last.Item.Text)
+        TextArea1.Text = textarea1.Text & "Kullanıcı= " & .user & Chr(10)
+        TextArea1.Text = textarea1.Text & "Dosya Boyutu = " & Round(.Size / 1024) & " KB." & Chr(10)
+        TextArea1.Text = textarea1.Text & "Blok Adı = " & Last.Item.Text & Chr(10)
+        TextArea1.Text = textarea1.Text & "Son Değiştirilme Tarihi" & Chr(10)
+        TextArea1.Text = textarea1.Text & Format$(.LastChange, "dd mmm yyyy ddd hh-nn") & Chr(10)
+        TextArea1.Text = textarea1.Text & "Bloğun Oluşturulma Tarihi" & Chr(10)
+        TextArea1.Text = textarea1.Text & Format$(.LastModified, "dd mmm yyyy ddd hh-nn") & Chr(10)
+    End With
+    TextBox1.Text = $sPath & "/" & Last.Item.Text
+    ilk.tkaci = $sPath & "/" & Last.Item.Text
+    label1.Text = ilk.tkaci
+        Catch
+	ilk.hatayaz("ivwexplclk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button1_Click()
+
+    ilk.lir = 1
+    ilk.ylc = ilk.tkaci
+    ilk.komutsayi = 144
+    ilk.komyaz.Text = "Specify First point"
+    If trm = 1
+        yankayit
+        Wait 0.5
+    Endif
+    ilk.show
+    Me.hide
+        Catch
+	ilk.hatayaz("btn1clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub Button2_Click()
+
+    Me.hide
+
+End
+
+Public Sub Button3_Click()
+
+    Select Message.Question("File will delete", "Cancel", "OK")
+        Case 1
+            Goto cik
+        Case 2
+            Try Kill TextBox1.Text
+            RefreshExplorer
+    End Select
+
+cik:
+        Catch
+	ilk.hatayaz("btn3clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub TextBox1_KeyRelease()
+
+End
+
+Public Sub ivwExplorer_DblClick()
+
+    If $sPath = "/" Or IsDir(fgh) Then
+    Else
+        Button1_Click
+    Endif
+
+End
+
+Public Sub Button4_Click()
+
+    trm = 0
+    listbox1.Visible = False
+    DrawingArea1.Visible = False
+    $sPath = "standart/antet"
+    RefreshExplorer
+
+End
+
+Public Sub Button5_Click()
+
+    trm = 0
+    listbox1.Visible = False
+    DrawingArea1.Visible = False
+    $sPath = "standart/hidrolik"
+    RefreshExplorer
+
+End
+
+Public nazgi As New Tzm
+Public trm As Integer
+
+Public Sub Button6_Click()
+
+    If trm = 0
+        DrawingArea1.Visible = True
+        DrawingArea1.Move(0, 30, 360, 370)
+        listbox1.Move(357, 0, 160, 400)
+        listbox1.Visible = True
+        listbox1.Clear
+        For Each nazgi In ilk.tezmi
+            If listbox1.find(nazgi.blok) = -1 Then
+                If nazgi.blok Like "*D*" Then
+                Else
+                    listbox1.Add(nazgi.blok)
+                Endif
+            Endif
+        Next
+        trm = 1
+    Else
+        listbox1.Visible = False
+        DrawingArea1.Visible = False
+        trm = 0
+        $sPath = System.User.Home &/ ".KediCAD/Genel"
+        RefreshExplorer
+    Endif
+        Catch
+	ilk.hatayaz("btn6clk " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub ListBox1_Click()
+
+    DrawingArea1.Refresh
+
+End
+
+Public Sub DrawingArea1_Draw()
+
+    Dim penge, penye, it, iy, ix, mnm, hgc, onx, ony As Float
+
+    ten
+    penge = (sonx - basx) * 1.2
+    penye = (sony - basy) * 1.2
+    If penye = 0 Or penge = 0 Then Return
+    mnm = Min(DrawingArea1.Width / penge, DrawingArea1.height / penye)
+    draw.scale(mnm, mnm)
+    draw.translate(- 1 * (basx), -1 * (basy))
+    For Each nazgi In ilk.tezmi
+        If nazgi.blok = ListBox1.Text
+            Draw.LineStyle = 1
+            Draw.LineWidth = 2
+            draw.Foreground = Color.White
+            If nazgi.komut = 1 Then
+                Draw.Line(nazgi.x1, nazgi.y1, nazgi.x2, nazgi.y2)
+            Else If nazgi.komut = 25 Then
+                Draw.Circle(nazgi.x1, nazgi.y1, nazgi.yaricap)
+            Else If nazgi.komut = 20 Then
+                hgc = nazgi.yaricap
+                If hgc = 0 Then Goto gec
+                onx = 0
+                ony = 0
+                If (nazgi.teta < nazgi.r)
+                    For it = nazgi.teta To nazgi.r Step (1 / hgc)
+                        ix = nazgi.x1 + hgc * Cos(it)
+                        iy = nazgi.y1 - hgc * Sin(it)
+                        If onx Then Draw.Line(onx, ony, ix, iy)
+                        onx = ix
+                        ony = iy
+                    Next
+                Else
+                    For it = nazgi.teta To (2 * Pi) Step (1 / hgc)
+                        ix = nazgi.x1 + hgc * Cos(it)
+                        iy = nazgi.y1 - hgc * Sin(it)
+                        If onx Then Draw.Line(onx, ony, ix, iy)
+                        onx = ix
+                        ony = iy
+                    Next
+                    For it = 0 To nazgi.r Step (1 / hgc)
+                        ix = nazgi.x1 + hgc * Cos(it)
+                        iy = nazgi.y1 - hgc * Sin(it)
+                        If onx Then Draw.Line(onx, ony, ix, iy)
+                        onx = ix
+                        ony = iy
+                    Next
+                Endif
+            Else If nazgi.komut = 60 Then
+                draw.Font.Size = Abs(nazgi.x6) * mnm
+                draw.Text(nazgi.yazi, nazgi.x1, nazgi.y1)
+            End If
+        gec:
+        Endif
+    Next
+        Catch
+	ilk.hatayaz("dvgarea1draw " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public basx As Float
+Public basy As Float
+Public sonx As Float
+Public sony As Float
+
+Sub ten()
+
+    basx = 10000000
+    basy = 10000000
+    sonx = -10000000
+    sony = -10000000
+    For Each nazgi In ilk.tezmi
+        If nazgi.blok = ListBox1.Text
+            If nazgi.komut = 20 Then Goto gecgit2
+            basx = Min(basx, nazgi.x1)
+            basy = Min(basy, nazgi.y1)
+            sonx = Max(sonx, nazgi.x1)
+            sony = Max(sony, nazgi.y1)
+        gecgit2:
+            basx = Min(basx, nazgi.x2)
+            basy = (Min(basy, nazgi.y2))
+            sonx = Max(sonx, nazgi.x2)
+            sony = (Max(sony, nazgi.y2))
+        Endif
+    gecgit:
+    Next
+    Return
+        Catch
+	ilk.hatayaz("ten " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public vn As Integer
+
+Public Sub yankayit()
+
+    Dim myFile As File
+
+    vn = vn + 1
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/cankaya.ulu" For Create
+    For Each nazgi In ilk.tezmi
+        If nazgi.blok = listbox1.Text
+            Print #myFile, nazgi.id ' 1
+            Print #myFile, nazgi.komut ' 2
+            Print #myFile, Round(nazgi.x1, -2) ' 3
+            Print #myFile, Round(nazgi.y1, -2) ' 4
+            Print #myFile, Round(nazgi.x2, -2) ' 5
+            Print #myFile, Round(nazgi.y2, -2) ' 6
+            Print #myFile, Round(nazgi.yazix, -2) ' 7
+            Print #myFile, Round(nazgi.yaziy, -2) ' 8
+            Print #myFile, Round(nazgi.r, -2) ' 9
+            Print #myFile, Round(nazgi.b, -2) ' 10
+            Print #myFile, Round(nazgi.egim, -2) ' 11
+            Print #myFile, Round(nazgi.x4, -2) ' 12
+            Print #myFile, Round(nazgi.teta, -2) ' 13
+            Print #myFile, ""  ' 14
+            Print #myFile, "" ' 15
+            Print #myFile, "" ' 16
+            Print #myFile, "" ' 17
+            Print #myFile, "" ' 18
+            Print #myFile, Round(nazgi.yaricap, -2) ' 19
+            Print #myFile, nazgi.sekil '20
+            Print #myFile, nazgi.renk ' 21
+            Print #myFile, nazgi.kalinlik ' 22
+            Print #myFile, nazgi.blok & vn ' 23
+            Print #myFile, nazgi.katman ' 24
+            Print #myFile, "" ' 1
+            Print #myFile, nazgi.yazi ' 25
+            Print #myFile, "" ' 26
+            Print #myFile, "" ' 27
+            Print #myFile, "" ' 28
+            Print #myFile, "" ' 29
+            Print #myFile, Round(nazgi.x1, -2) ' 30
+            Print #myFile, Round(nazgi.y1, -2) ' 31
+            Print #myFile, Round(nazgi.x2, -2) ' 32
+            Print #myFile, Round(nazgi.y2, -2) ' 33
+            Print #myFile, Round(nazgi.x3, -2) ' 34
+            Print #myFile, Round(nazgi.y3, -2) ' 35
+            Print #myFile, Round(nazgi.x4, -2) ' 36
+            Print #myFile, Round(nazgi.y4, -2) ' 37
+            Print #myFile, Round(nazgi.x5, -2) ' 38
+            Print #myFile, Round(nazgi.y5, -2) ' 39
+            Print #myFile, Round(nazgi.x6, -2) ' 40
+            Print #myFile, Round(nazgi.y6, -2) ' 41
+        End If
+    Next
+    Close myFile
+cik:
+    Return
+        Catch
+	ilk.hatayaz("yankayit " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

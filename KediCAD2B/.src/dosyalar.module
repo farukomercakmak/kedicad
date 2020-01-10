@@ -1,0 +1,389 @@
+' Gambas module file
+
+
+Public Sub dss()
+
+    Dim myFile As File
+
+    ayar.CheckBox1.Value = True
+    ayar.CheckBox2.Value = True
+    ayar.CheckBox3.Value = True
+    ayar.CheckBox8.Value = True
+    If Not IsDir(System.User.Home &/ ".KediCAD") Then Mkdir System.User.Home &/ ".KediCAD"
+    If Not IsDir(System.User.Home &/ ".KediCAD/Genel") Then Mkdir System.User.Home &/ ".KediCAD/Genel"
+    If Not IsDir(System.User.Home &/ ".KediCAD/Kayit") Then Mkdir System.User.Home &/ ".KediCAD/Kayit"
+    If Not IsDir(System.User.Home &/ ".KediCAD/Acilis") Then Mkdir System.User.Home &/ ".KediCAD/Acilis"
+    If Not IsDir(System.User.Home &/ ".KediCAD/Katman") Then Mkdir System.User.Home &/ ".KediCAD/Katman"
+    If Not IsDir(System.User.Home &/ ".KediCAD/desen") Then Mkdir System.User.Home &/ ".KediCAD/desen"
+    If Not IsDir(System.User.Home &/ ".KediCAD/macroy") Then Mkdir System.User.Home &/ ".KediCAD/macroy"
+    If Not IsDir(System.User.Home &/ ".KediCAD/hidro") Then Mkdir System.User.Home &/ ".KediCAD/hidro"
+    If Not IsDir(System.User.Home &/ ".KediCAD/CNC") Then Mkdir System.User.Home &/ ".KediCAD/CNC"
+    If Not Exist(System.User.Home &/ ".KediCAD/Kayit/on")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/on" For Create
+        Close myFile
+    End If
+    If Not Exist(System.User.Home &/ ".KediCAD/Kayit/islem")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/islem" For Create
+        Close myFile
+    End If
+    If Not Exist(System.User.Home &/ ".KediCAD/Kayit/sagmen")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/sagmen" For Create
+        Print #myFile, "Resimli Menu"
+        Close myFile
+    End If
+    If Not Exist(System.User.Home &/ ".KediCAD/Acilis/sondosya.ulu")
+        myFile = Open System.User.Home &/ ".KediCAD/Acilis/sondosya.ulu" For Create
+        Close #myFile
+    End If
+    If Not Exist(System.User.Home &/ ".KediCAD/Katman/.pcad.ulu")
+        myFile = Open System.User.Home &/ ".KediCAD/Katman/.pcad.ulu" For Create
+        Close #myFile
+    End If
+    If Not Exist(System.User.Home &/ ".KediCAD/Acilis/.pcad.ulu")
+        myFile = Open System.User.Home &/ ".KediCAD/Acilis/.pcad.ulu" For Create
+        Close #myFile
+    End If
+    If Not Exist(System.User.Home &/ ".KediCAD/Acilis/dosya.ulu")
+        myFile = Open System.User.Home &/ ".KediCAD/Acilis/dosya.ulu" For Create
+        Close #myFile
+    End If
+    If Not Exist(System.User.Home &/ ".KediCAD/Acilis/dxfdosya.ulu")
+        myFile = Open System.User.Home &/ ".KediCAD/Acilis/dxfdosya.ulu" For Create
+        Close #myFile
+    End If
+    If Not Exist(System.User.Home &/ ".KediCAD/Kayit/cizimrenk")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/cizimrenk" For Create
+        Print #myFile, Color.white
+        Close #myFile
+    End If
+    If Not Exist(System.User.Home &/ ".KediCAD/Kayit/izge") Then
+        ilk.izgara_Click()
+        ilk.izgara_Click()
+    Endif
+    If Not Exist(System.User.Home &/ ".KediCAD/Kayit/ucy") Then ilk.ucyakala_Click()
+    If Not Exist(System.User.Home &/ ".KediCAD/Acilis/dxfdosya.ulu") Then
+        myFile = Open System.User.Home &/ ".KediCAD/Acilis/dxfdosya.ulu" For Create
+    End If
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/uccu" For Create
+    Print #myFile, "1"  'baş nokta
+    Print #myFile, "1"  '  orta nokta
+    Print #myFile, "1"  '  merkez nokta 
+    Print #myFile, "1"  ' teğet 
+    Print #myFile, "2"  ' dik nokta 
+    Print #myFile, "2"  ' enyakın nokta
+    Print #myFile, "1"  ' quadrant
+    Print #myFile, "1"  ' kesişim
+    Print #myFile, "10" ' ızgara mesafesi 
+    Close #myFile
+    If Not Exist(System.User.Home &/ ".KediCAD/Kayit/track")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/track" For Create
+        Print #myFile, "1" ' 45 derece izleme
+        Print #myFile, "2" ' 30 derece izleme
+        Print #myFile, "2" ' 60 derece izleme
+        Print #myFile, "2" ' kullanıcını belirlediği açı  izleme
+        Close #myFile
+    End If
+    If Not Exist(System.User.Home &/ ".KediCAD/Kayit/.pcad.ulu")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/.pcad.ulu" For Create
+        Print #myFile, "A4" 'boyutlu.Text
+        Print #myFile, color.black ' arkaplan.Value
+        Print #myFile, "-1" 'kayitara.Value
+        Print #myFile, "5" 'kayitdak.Text
+        Print #myFile, "mm." ' birimli.Text
+        Print #myFile, "10" 'ucyakdeger.Text
+        Print #myFile, color.cyan 'ucyakrenk.Value
+        Print #myFile, "Pencere Aç." 'sagmenu.Text
+        Print #myFile, "10" 'yazibuyuk.Text
+        Print #myFile, "11141375" 'yazirenk.Value
+        Print #myFile, "43520" 'cizgirenk.Value
+        Print #myFile, "5" ' cizgiuzama.Text
+        Print #myFile, "5" ' cizgiyazi.Text
+        Print #myFile, "1" 'ondalik.Index
+        Print #myFile, "0" 'hiz.Index
+        Print #myFile, "0" 'secciz.Text
+        Print #myFile, "10" 'yakin.Text
+        Print #myFile, "0" ' ilk.imlec
+        Print #myFile, "" 'secis.Text
+        Print #myFile, "5" 'okbuyuk.Text
+        Print #myFile, color.Yellow 'ucyakrenk2.Value
+        Close myFile
+    End If
+    Return
+        Catch
+	ilk.hatayaz("dss " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub dsyok()
+
+    Dim myFile As File
+    Dim myLine As String
+    Dim doza As Integer
+    Dim koza As Integer
+     myFile = Open System.User.Home &/ ".KediCAD/Kayit/hatalar.txt" For Create
+    Close myFile
+    ilk.listbox8.clear
+    doza = 0
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/track")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/track" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                doza = doza + 1
+                If doza = 1 Then ayar.t1 = CInt(myLine)
+                If doza = 2 Then ayar.t2 = CInt(myLine)
+                If doza = 3 Then ayar.t3 = CInt(myLine)
+                If doza = 4 Then ayar.t4 = CInt(myLine)
+            Wend
+        End If
+        Close myFile
+    End If
+    doza = 0
+
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/uccu" For Read
+    If Lof(myFile) > 0 Then
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            doza = doza + 1
+            If doza = 1 Then torba2.c1 = CInt(myLine)
+            If doza = 2 Then torba2.c2 = CInt(myLine)
+            If doza = 3 Then torba2.c3 = CInt(myLine)
+            If doza = 4 Then torba2.c4 = CInt(myLine)
+            If doza = 5 Then torba2.c5 = CInt(myLine)
+            If doza = 6 Then torba2.c6 = CInt(myLine)
+            If doza = 7 Then torba2.c7 = CInt(myLine)
+            If doza = 8 Then torba2.c8 = CInt(myLine)
+            If doza = 9 Then
+                If myline Then ayar.izgam = Val(myLine)
+            End If
+        Wend
+    End If
+    Close myFile
+    doza = 0
+    secenekler.boyut.add("A4", 0)
+    secenekler.boyut.Add("A3", 1)
+    secenekler.boyut.Add("A2", 2)
+    secenekler.boyut.Add("A1", 3)
+    secenekler.boyut.Add("A0", 4)
+    secenekler.boyut.Add("A5", 5)
+    secenekler.birim.add("mm.", 0)
+    secenekler.birim.Add("cm.", 1)
+    secenekler.birim.Add("dm.", 2)
+    secenekler.birim.Add("m.", 3)
+    secenekler.birim.Add("dem.", 4)
+    secenekler.birim.Add("hm.", 5)
+    secenekler.birim.Add("km.", 6)
+    secenekler.ondalik.Add("#.#", 0)
+    secenekler.ondalik.Add("#", 1)
+    secenekler.ondalik.Add("#.##", 2)
+    secenekler.ondalik.Add("#.###", 3)
+    secenekler.ondalik.Add("#.####", 4)
+    secenekler.ondalik.Add("#.#####", 5)
+    secenekler.hiz.Add("50", 0)
+    secenekler.hiz.Add("60", 1)
+    secenekler.hiz.Add("70", 2)
+    secenekler.hiz.Add("80", 3)
+    secenekler.hiz.Add("90", 4)
+    secenekler.sagtik.Add("Show Menu.", 0)
+    secenekler.sagtik.Add("Last Command.", 1)
+
+    myFile = Open System.User.Home &/ ".KediCAD/ger.txt" For Create ' her açılışta oluştur.
+    Close #myFile
+
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/isalan")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/isalan" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                If doza = 0 Then ilk.isalanx = Val(myLine)
+                If doza = 1 Then ilk.isalany = Val(myLine)
+                doza = doza + 1
+            Wend
+        End If
+        Close myFile
+    End If
+    doza = 0
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/.pcad.ulu" For Read
+    If Lof(myFile) > 0 Then
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            If doza = 0 Then secenekler.boyutlu.Text = myLine
+            If doza = 1 Then secenekler.arkaplan.Value = Val(myLine)
+            If doza = 2 Then secenekler.kayitara.Value = Val(myLine)
+            If doza = 3 Then secenekler.kayitdak.Text = Val(myLine)
+            If doza = 4 Then secenekler.birimli.text = myLine
+            If doza = 5 Then secenekler.ucyakdeger.Text = Val(myLine)
+            If doza = 6 Then secenekler.ucyakrenk.Value = Val(myLine)
+            If doza = 7 Then
+                secenekler.sagmenu.Text = myLine
+                If myLine = "İsim Listesi"
+                    ilk.sagmenu = 1
+                Else
+                    ilk.sagmenu = 2
+                End If
+            End If
+            If doza = 8 Then
+                secenekler.yazibuyuk.Text = 5 * CFloat(myLine)
+                ilk.oyabu = 5 * CFloat(myLine)
+            End If
+            If doza = 9 Then
+                secenekler.yazirenk.Value = Val(myLine)
+                If Val(myLine) <> Null
+                    ilk.oyare = Val(myLine)
+                Else
+                    ilk.oyare = 10
+                End If
+            End If
+            If doza = 10 Then
+               
+            End If
+            If doza = 11 Then secenekler.cizgiuzama.Text = Val(myLine)
+            If doza = 12 Then secenekler.cizgiyazi.Text = Val(myLine)
+            If doza = 13 Then
+                ' If Val(myLine)
+                '     secenekler.ondalik.Index = Val(myLine)
+                '     ilk.hess = secenekler.ondalik.Text
+                ' End If
+            End If
+            If doza = 14 Then
+                secenekler.hiz.Index = Val(myLine)
+                ilk.hiz = secenekler.hiz.Text
+            End If
+            If doza = 15 Then
+                secenekler.secciz.Text = Val(myLine)
+            End If
+            If doza = 16 Then secenekler.yakin.Text = Val(myLine)
+            If doza = 17 Then
+                If Val(myLine) <> Null
+                    ilk.imlec = Val(myLine)
+                Endif
+            Endif
+            If doza = 18 Then
+                secenekler.secis.Text = Val(myLine)
+                If Val(myLine) <> Null
+                    ilk.secis = Val(myLine)
+                Else
+                    ilk.secis = 4
+                End If
+            End If
+            If ilk.secis = 0 Then ilk.secis = 4
+            If doza = 19 Then
+                secenekler.okbuyuk.Text = Val(myLine)
+                If Val(myLine) <> Null
+                    ilk.okbuyuk = Val(myLine)
+                Else
+                    ilk.okbuyuk = 10
+                End If
+            End If
+            If doza = 20 Then
+                secenekler.ucyakrenk2.Value = Val(myLine)
+                If Val(myLine) <> 0
+                    ilk.grd = Val(myLine)
+                Else
+                    ilk.grd = color.Green
+                End If
+            End If
+            doza = doza + 1
+        Wend
+        ilk.calanilk.Background = secenekler.arkaplan.Value
+        ilk.hiv = 60
+    End If
+    Close myFile
+    doza = 0
+
+    myFile = Open System.User.Home &/ ".KediCAD/Kayit/sagmen" For Read
+    If Lof(myFile) > 0 Then
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            If doza = 0 Then
+                secenekler.sagmenu.Text = myLine
+            End If
+            doza = doza + 1
+        Wend
+    End If
+    Close myFile
+    doza = 0
+    koza = 0
+    doza = 0
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/onsec") Then
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/onsec" For Read
+        Line Input #myFile, myLine
+        If myLine = "aktif"
+            ilk.onsec = 1
+        Else
+            ilk.onsec = 0
+        End If
+        Close myFile
+    Else
+        ilk.onsec = 1
+    End If
+
+    myFile = Open System.User.Home &/ ".KediCAD/Acilis/dxfdosya.ulu" For Read
+    If Lof(myFile) > 0 Then
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            If Exist(myLine)
+            If doza < 9 Then ilk.bmenuekle(myLine)
+            doza = doza + 1
+            Endif
+        Wend
+    End If
+    Close myFile
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/oniz")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/oniz" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                If myline = "1" Then
+                    ilk.yilk.Visible = True
+                    ilk.oniz = 1
+                Else
+                    ilk.yilk.Visible = False
+                    ilk.oniz = 0
+                Endif
+            Wend
+        End If
+        Close myFile
+    Else
+        ilk.yilk.Visible = False
+        ilk.oniz = 0
+    End If
+    If (secenekler.ucyakrenk.Value) <> "" Then
+        ilk.ucrenk = secenekler.ucyakrenk.Value
+    Else
+        ilk.ucrenk = 16711935
+    End If
+
+    If (secenekler.yakin.Text) <> "" Then
+        ilk.tasec = CInt(secenekler.yakin.Text)
+    Else
+        ilk.tasec = 20
+    End If
+    If secenekler.ucyakdeger.Text <> "" Then
+        ilk.ucum = Val(secenekler.ucyakdeger.Text)
+    Else
+        ilk.ucum = 15
+    End If
+doza = 0
+    ilk.orenk = color.White
+    ilk.Button41.Background = color.White
+    If Exist(System.User.Home &/ ".KediCAD/Kayit/.olcad.ulu")
+        myFile = Open System.User.Home &/ ".KediCAD/Kayit/.olcad.ulu" For Read
+        If Lof(myFile) > 0 Then
+            While Not Eof(myFile)
+                Line Input #myFile, myLine
+                If doza = 0 Then ilk.oyabu = myLine
+                If doza = 1 Then ilk.olre = myLine
+                If doza = 2 Then ilk.hess = myline
+                doza = doza + 1
+            Wend
+        End If
+        Close myFile
+    End If
+    ilk.oyabu = ilk.oyabu * 5
+    Return
+        Catch
+	ilk.hatayaz("dssyok " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+

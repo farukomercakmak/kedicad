@@ -1,0 +1,205 @@
+' Gambas class file
+
+Public iotuz As Integer
+Public asid As Integer
+Public grup As String
+Public xf As Float
+Public yf As Float
+Public aci As Float
+Public kfx As Float
+Public rank As Integer
+Public nazgi As New Tzm
+Public katman As String
+Public kalin As Integer
+Public goz As Integer
+Public sekil As Integer
+Public ical As String
+
+Public Sub cizgis(cizx1 As Float, cizy1 As Float, cizx2 As Float, cizy2 As Float)
+
+    Dim r, b, egim, teta As Float
+    If katman = "" Then katman = 0
+    cizx1 = Round(cizx1, -2)
+    cizy1 = Round(cizy1, -2)
+    cizx2 = Round(cizx2, -2)
+    cizy2 = Round(cizy2, -2)
+    
+    acimi.aci(cizx1, cizy1, cizx2, cizy2)
+    r = acimi.boy
+    egim = acimi.ege
+    teta = acimi.daci
+    b = acimi.bb
+    nazgi = New Tzm
+    nazgi.id = - ilk.kayno
+    nazgi.komut = 1
+    nazgi.x1 = cizx1
+    nazgi.y1 = cizy1
+    nazgi.x2 = cizx2
+    nazgi.y2 = cizy2
+    nazgi.x3 = cizx1 + (cizx2 - cizx1) / 2
+    nazgi.y3 = cizy1 + (cizy2 - cizy1) / 2
+    nazgi.sekil = sekil
+    nazgi.renk = rank
+    nazgi.blok = ical
+    nazgi.egim = egim
+    nazgi.kalinlik = kalin
+    nazgi.b = b
+    nazgi.uzun = r
+    nazgi.teta = teta
+    nazgi.katman = katman
+    nazgi.grup = grup
+    nazgi.aci = aci
+    nazgi.xf = xf
+    nazgi.yf = yf
+    nazgi.kfx = kfx
+    nazgi.gor = goz
+    nazgi.x8 = asid
+    ilk.kayno = ilk.kayno + 1
+    ilk.tezmi.Add(nazgi, ilk.kayno)
+    Return
+       Catch
+	ilk.hatayaz("cizgis " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub cemkay(cx1 As Float, cy1 As Float, yaricap As Float, teta As Float, r As Float)
+
+    Dim ilknx, ilkny, ikinx, ikiny, ucnx, ucny, aci1, aci2, aci3 As Float
+
+    If katman = "" Then katman = 0
+    aci2 = r
+    aci1 = teta
+    aci3 = (aci1 + aci2) / 2
+    ilknx = (cx1) + yaricap * Cos(aci1)
+    ilkny = (cy1) - yaricap * Sin(aci1)
+    ikinx = (cx1) + yaricap * Cos(aci2)
+    ikiny = (cy1) - yaricap * Sin(aci2)
+
+    ucnx = (cx1) + yaricap * Cos(aci3)
+    ucny = (cy1) - yaricap * Sin(aci3)
+    cx1 = Round(cx1, -2)
+    cy1 = Round(cy1, -2)
+    yaricap = Round(yaricap, -2)
+    ilknx = Round(ilknx, -2)
+    ilkny = Round(ilkny, -2)
+    ikinx = Round(ikinx, -2)
+    ikiny = Round(ikiny, -2)
+    ucnx = Round(ucnx, -2)
+    ucny = Round(ucny, -2)
+    nazgi = New Tzm
+    nazgi.id = - ilk.kayno
+    nazgi.komut = 20
+    nazgi.x1 = cx1
+    nazgi.y1 = cy1
+    nazgi.x2 = ilknx
+    nazgi.y2 = ilkny
+    nazgi.x3 = ikinx
+    nazgi.y3 = ikiny
+    nazgi.x4 = ucnx
+    nazgi.y4 = ucny
+    nazgi.y7 = iotuz
+    nazgi.r = r
+    nazgi.teta = teta
+    nazgi.yaricap = yaricap
+    nazgi.katman = katman
+    nazgi.sekil = sekil
+    If rank = Color.black Then rank = Color.white
+    nazgi.renk = rank
+    nazgi.kalinlik = kalin
+    nazgi.blok = ical
+    nazgi.grup = grup
+    nazgi.aci = aci
+    nazgi.gor = goz
+    nazgi.xf = xf
+    nazgi.yf = yf
+    nazgi.kfx = kfx
+    nazgi.x8 = asid
+    ilk.kayno = ilk.kayno + 1
+    ilk.tezmi.Add(nazgi, ilk.kayno)
+    Return
+       Catch
+	ilk.hatayaz("cemkay " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub ckay(cx1 As Float, cy1 As Float, yaricap As Float)
+
+    If katman = "" Then katman = 0
+    cx1 = Round(cx1, -2)
+    cy1 = Round(cy1, -2)
+    yaricap = Round(yaricap, -2)
+    nazgi = New Tzm
+
+    nazgi.id = - ilk.kayno
+    nazgi.komut = 25
+    nazgi.x1 = cx1
+    nazgi.y1 = cy1
+    nazgi.x2 = cx1 - yaricap
+    nazgi.y2 = cy1
+    nazgi.x3 = cx1 + yaricap
+    nazgi.y3 = cy1
+    nazgi.x4 = cx1
+    nazgi.y4 = cy1 - yaricap
+    nazgi.x5 = cx1
+    nazgi.y5 = cy1 + yaricap
+    nazgi.y7 = iotuz
+    nazgi.r = 2 * yaricap
+    nazgi.teta = 2 * yaricap
+    nazgi.yaricap = yaricap
+    nazgi.katman = katman
+    nazgi.sekil = sekil
+    nazgi.renk = rank
+    nazgi.kalinlik = kalin
+    nazgi.blok = ical
+    nazgi.grup = grup
+    nazgi.gor = goz
+    nazgi.aci = aci
+    nazgi.xf = xf
+    nazgi.yf = yf
+    nazgi.kfx = kfx
+    nazgi.x8 = asid
+    ilk.kayno = ilk.kayno + 1
+    ilk.tezmi.Add(nazgi, ilk.kayno)
+    Return
+       Catch
+	ilk.hatayaz("ckay " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End
+
+Public Sub yaz(cx1 As Float, cy1 As Float, yazi As String, yuk As Float, Optional fnt As String, acil As Float)
+
+    If katman = "" Then katman = 0
+    nazgi = New Tzm
+    nazgi.komut = 60
+    nazgi.id = - ilk.kayno
+    nazgi.x1 = Round(cx1)
+    nazgi.y1 = Round(cy1)
+    nazgi.x2 = (Len(yazi) * yuk)
+    nazgi.y2 = 1.2 * yuk
+     nazgi.x3 = (nazgi.x1 + Abs(nazgi.x2 + nazgi.x1)) / 2
+    nazgi.y3 = (nazgi.y1 + Abs(nazgi.y2 + nazgi.y1)) / 2
+
+    nazgi.y7 = Len(yazi) * yuk
+    nazgi.x7 = yuk
+    nazgi.sekil = 1
+    nazgi.renk = rank
+    nazgi.kalinlik = 1
+    nazgi.katman = katman
+    nazgi.blok = ical
+    nazgi.fnt = fnt
+    nazgi.x6 = yuk
+    nazgi.yazi = yazi
+    nazgi.grup = grup
+    nazgi.aci = acil
+    nazgi.gor = goz
+    nazgi.xf = xf
+    nazgi.yf = yf
+    nazgi.kfx = kfx
+    nazgi.x8 = asid
+    ilk.kayno = ilk.kayno + 1
+    ilk.tezmi.Add(nazgi, ilk.kayno)
+    Return
+       Catch
+	ilk.hatayaz("yaz " & Error.Text, Error.Where & "--" & Error.code)
+	Return
+End

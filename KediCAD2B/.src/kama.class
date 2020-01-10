@@ -1,0 +1,198 @@
+' Gambas class file
+
+Private $sPath As String
+
+Public Sub Form_Open()
+
+    Me.text = "KediCAD 2B KAMA HESABI"
+    Me.Center
+
+End
+
+Public Sub Button6_Click()
+
+    Dim myFile As File
+    Dim myLine As String
+    Dim elt As String[]
+    Dim sb, tx As String
+    Dim hk, hl, hm, hn, ho, hp As Float
+    Dim mx As Integer
+    Dim sr, kuvve, le1, le2, le3, le4, micp As Float
+
+    micp = CFloat(mcp.Text)
+    myFile = Open "genel/kamaci" For Read
+    While Not Eof(myFile)
+        Line Input #myFile, myLine
+        elt = Split(myLine, "<")
+        mx = 0
+        For Each sb In elt
+            mx = mx + 1
+            sb = Trim$(sb)
+            If mx = 1 Then
+                hk = CFloat(sb)
+            Else If mx = 2 Then
+                hl = CFloat(sb)
+            Else If mx = 3 Then
+                hm = CFloat(sb)
+            Else If mx = 4 Then
+                hn = CFloat(sb)
+            Else If mx = 5 Then
+                ho = CFloat(sb)
+            Else If mx = 6 Then
+                hp = CFloat(sb)
+            Else If mx = 7 Then
+                tx = sb
+                If (micp >= hk) And (micp < hl)
+                    sr = CFloat(ho) + CFloat(hp)
+                    bee.Text = Round(hm, -2)
+                    has.Text = Round(hn, -2)
+                    t1.Text = Round(ho, -2)
+                    t2.Text = Round(hp, -2)
+                    b.Text = Round(tx, -2)
+                    hee.Text = Round(sr, -2)
+                    Goto cik
+                End If
+            End If
+        Next
+    Wend
+    Close myfile
+cik:
+    kuvve = 20 * CFloat(mdo.Text) / CFloat(mcp.Text)
+    le1 = kuvve / (CFloat(tx) * CFloat(ezemn.Text) / 10)
+    le2 = kuvve / (CFloat(ho) * CFloat(ezemn.Text) / 10)
+    le3 = kuvve / (CFloat(hl) * CFloat(kesemn.Text) / 10)
+
+    If le1 > le2
+        le4 = le1
+    Else
+        le4 = le2
+    End If
+    If le4 > le3
+        l.Text = Format(le4 * 10, "#.##")
+        ll = le4 * 10
+    Else
+        l.Text = Format(le3 * 10, "#.##")
+        ll = le3 * 10
+    End If
+    label43.Text = "Load= " & Format(kuvve, "#.#") & "kgf"
+        Catch
+	ilk.hatayaz("btn6 " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public Sub Button1_Click()
+
+    Me.Close
+    ilk.Show
+
+End
+
+Public Sub Button2_Click()
+
+    Dim dosya As String
+
+    Dim myFile As File
+
+    If Dialog.SaveFile() Then Return
+    dosya = File.Name(Dialog.Path)
+    $sPath = File.Dir(Dialog.Path)
+    myFile = Open $sPath &/ dosya & ".txt" For Create
+    Print #myFile, "   KAMA HESABI SONUÇLARI" & ilk.kaci
+    Print #myFile, "DIN 6885 e göre "
+    Print #myFile, "   "
+    Print #myFile, "   VERİLER "
+    Print #myFile, "Mil Çapı :  " & mcp.Text & " mm."
+    Print #myFile, "Döndürme Momenti :  " & mdo.Text & " kgf.cm."
+    Print #myFile, "Mlz. Emn. Ezilme Gerilmesi :  " & ezemn.Text & " kgf/cm^2."
+    Print #myFile, "Mlz. Emn. Kesme Gerilmesi :  " & kesemn.Text & " kgf/cm^2."
+    Print #myFile, "   "
+    Print #myFile, "   SONUÇLAR"
+    Print #myFile, "En Az Kama Uzunluğu :  " & l.Text & " mm.."
+    Print #myFile, "Kama yüksekliği: " & has.Text & " mm."
+    Print #myFile, "Yuva Yükseklği: " & hee.Text & " mm."
+    Print #myFile, "Kama genişliği:  " & b.Text & " mm."
+    Print #myFile, "Yuva genişliği: " & bee.Text & " mm."
+    Print #myFile, "t1 : " & t1.Text & " mm."
+    Print #myFile, "t2 : " & t2.Text & " mm."
+    Close myFile
+        Catch
+	ilk.hatayaz("btn2 " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub mcp_Activate()
+
+    Button6_Click()
+
+End
+
+Public Sub mdo_Activate()
+
+    Button6_Click()
+
+End
+
+Public Sub ezemn_Activate()
+
+    Button6_Click()
+
+End
+
+Public Sub kesemn_Activate()
+
+    Button6_Click()
+
+End
+
+Public ll As Float
+
+Public Sub Button3_Click()
+
+    Dim ox, oy, d, BB, kb, HH, kh, cv, cu As Float
+
+    ox = ilk.orix + 100
+    oy = ilk.oriy - 100
+    cv = oy
+    cu = ox
+    BB = CFloat(bee.Text)
+    kb = BB
+    HH = CFloat(t1.Text)
+    kh = CFloat(has.Text)
+    d = CFloat(mcp.Text)
+    cizem.cember(ox, oy, d / 2)
+    oy = oy - d / 2 + HH
+    ox = ox - BB / 2
+    cizem.cizgi(ox, oy, ox + BB, oy)
+    cizem.cizgi(ox, oy, ox, oy - HH)
+    cizem.cizgi(ox + BB, oy, ox + BB, oy - HH)
+
+    ox = ox + d
+    oy = cv - d / 2
+
+    cizem.cizgi(ox, oy, ox + d + (2 * ll), oy)
+    cizem.cizgi(ox, oy + d, ox + d + (2 * ll), oy + d)
+    cizem.cizgi(ox + d + (2 * ll), oy, ox + d + (2 * ll), oy + d)
+    cizem.cizgi(ox + d, oy + HH, ox + d + ll, oy + HH)
+    cizem.cizgi(ox + d, oy + HH, ox + d, oy)
+    cizem.cizgi(ox + d + ll, oy + HH, ox + d + ll, oy)
+
+    oy = cv - d + kh
+    cizem.cizgi(ox, oy, ox + kb, oy)
+    cizem.cizgi(ox, oy, ox, oy - kh)
+    cizem.cizgi(ox + kb, oy, ox + kb, oy - kh)
+    cizem.cizgi(ox, oy - kh, ox + kb, oy - kh)
+
+        Catch
+	ilk.hatayaz("btn3 " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public Sub Button4_Click()
+
+    mukavemetli.Show
+    mukavemetli.TabStrip1.Index = 3
+
+End
+
+Public Sub Frame4_MouseDown()
+
+End

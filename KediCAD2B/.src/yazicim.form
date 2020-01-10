@@ -1,0 +1,158 @@
+# Gambas Form File 3.0
+
+{ Form Form
+  Move(0,0,840,511)
+  #Scaled = False
+  Expand = True
+  Icon = Picture["logo.png"]
+  Persistent = True
+  Maximized = True
+  Margin = True
+  { ScrollView1 ScrollView
+    Move(294,119,392,245)
+    Background = Color.Foreground
+    { DrawingArea1 DrawingArea
+      Move(21,35,378,231)
+      Background = &HFFFFFF&
+      Foreground = Color.Foreground
+      Tracking = True
+      Margin = True
+      Indent = True
+      NoBackground = True
+      { Label14 Label
+        Move(21,182,70,14)
+        Font = Font["-2"]
+        Expand = True
+        Text = ("Not:")
+        Border = Border.Plain
+      }
+      { Label9 Label
+        Move(182,42,56,14)
+        Font = Font["-2"]
+        Expand = True
+        Border = Border.Plain
+      }
+      { Label8 Label
+        Move(168,126,56,14)
+        Font = Font["-2"]
+        Expand = True
+        Border = Border.Plain
+      }
+      { Label7 Label
+        Move(210,154,56,14)
+        Font = Font["-2"]
+        Expand = True
+        Border = Border.Plain
+      }
+      { Label6 Label
+        Move(56,119,77,14)
+        Font = Font["-2"]
+        Expand = True
+        Border = Border.Plain
+      }
+      { Label3 Label
+        Move(98,63,98,28)
+        Font = Font["Abyssinica SIL,Bold,-2"]
+        Expand = True
+        Text = ("Project")
+        Border = Border.Plain
+      }
+      { Label13 Label
+        Move(280,98,35,14)
+        Font = Font["-2"]
+        Expand = True
+        Text = ("Scale")
+        Border = Border.Plain
+      }
+    }
+  }
+  { Button3 Button
+    Move(133,455,112,49)
+    Text = ("Cancel")
+  }
+  { CheckBox1 CheckBox
+    Move(7,329,161,28)
+    Text = ("color / white-black")
+  }
+  { CheckBox2 CheckBox
+    Move(196,0,175,28)
+    Text = ("Portrait/Landscape")
+  }
+  { Button8 Button
+    Move(112,175,42,35)
+    Font = Font["Abyssinica SIL,+8"]
+    Text = ("-")
+  }
+  { Button9 Button
+    Move(112,126,42,35)
+    Font = Font["Abyssinica SIL,+8"]
+    Text = ("+")
+  }
+  { Label1 Label
+    Move(14,378,175,21)
+    Text = ("Label1")
+  }
+  { Button2 Button
+    Move(14,455,112,49)
+    Font = Font["Bold,Underline,+5"]
+    Text = ("Print")
+    Picture = Picture["standart/print.png"]
+  }
+  { Button4 Button
+    Move(175,56,42,30)
+    Text = ("left >")
+  }
+  { Button7 Button
+    Move(119,91,48,30)
+    Text = ("^ upper")
+  }
+  { ComboBox1 ComboBox
+    Move(84,0,105,35)
+    Text = ("ComboBox1")
+  }
+  { !Printer1 #Printer
+    #Move(294,154)
+    #Public = True
+    Orientation = Printer.Landscape
+    Paper = Printer.A3
+    Duplex = Printer.Horizontal
+    GrayScale = True
+    FullPage = True
+  }
+  { Button6 Button
+    Move(175,91,48,30)
+    Text = ("v down")
+  }
+  { Button5 Button
+    Move(119,56,48,30)
+    Text = (" < right")
+  }
+  { CheckBox3 CheckBox
+    Move(7,294,203,28)
+    Text = ("Hide letterhead")
+  }
+  { Label2 Label
+    Move(0,7,84,21)
+    Text = ("Paper Size  : ")
+  }
+  { Label4 Label
+    Move(7,105,105,42)
+    Text = ("Drawing Position :")
+  }
+  { CheckBox4 CheckBox
+    Move(7,259,203,35)
+    Text = ("Remember letterhead.")
+  }
+  { CheckBox5 CheckBox
+    Move(7,231,203,35)
+    Text = ("Load saved letterhead.")
+  }
+  { DateBox1 DateBox
+    Move(378,0,105,28)
+    Visible = False
+  }
+  { Label5 Label
+    Move(7,154,84,35)
+    Text = ("Scale  :")
+  }
+}

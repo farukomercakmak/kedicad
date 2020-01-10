@@ -1,0 +1,115 @@
+' Gambas class file
+
+Public olcek As Float
+Public tazgi As Ckm
+Public cazgi As Czm
+Public orixa As Float
+Public oriy As Float
+Public basx As Float
+Public basy As Float
+Public sonx As Float
+Public sony As Float
+Public genis As Float
+Public yksk As Float
+Public drawingWidth As Integer
+Public drawingHeight As Integer
+Public kezmi As New Collection
+
+Public Sub Button2_Click()
+
+    Me.Hide
+    ilk.dolas
+
+End
+
+Public Sub Button1_Click()
+
+    Dim reskayit As Picture
+    Dim dosyami As String
+
+    If blokad.Text = "" Then
+        Message("Please write a name", "OK")
+        Goto cik
+    Else
+        dosyami = blokad.Text
+        reskayit = Desktop.Screenshot(Me.x + 10, Me.y + 20, ala.Width, ala.Height - 20)
+        reskayit.resize(300, 200)
+        reskayit.Save(System.User.Home &/ ".KediCAD/Genel" &/ dosyami & ".png")
+        yerle.mbv = blokad.Text
+        yerle.cankayit
+        ilk.Show
+        ilk.dolas
+        Me.close
+    End If
+cik:
+    Catch
+ilk.hatayaz("btn1clck " & Error.Text, Error.Where & "--" & Error.code)
+End
+
+Public Sub blokad_KeyRelease()
+
+    If key.Code = key.Enter
+        Button1_Click
+    End If
+
+End
+
+Public Sub ala_Draw()
+
+    Dim hgc, ix, iy, it As Float
+    Dim penge, penye As Float
+
+    draw.Foreground = Color.Black
+    torba6.tef
+    penge = (torba6.sonx - torba6.basx) * 1.2
+    penye = (torba6.sony - torba6.basy) * 1.2
+    ' If penye = 0 Then Goto cik
+    olcek = Min(ala.Width / penge, ala.height / penye)
+    draw.scale(olcek, olcek)
+    draw.translate(-1 * (torba6.basx - 10), - 1 * (torba6.basy - 10))
+    For Each cazgi In ilk.cezmi
+        If ilk.depo1.Exist(cazgi.id) Then
+            Draw.LineStyle = 1
+            Draw.LineWidth = 1
+            If cazgi.komut = 1 Then
+                Draw.Line(cazgi.x1, cazgi.y1, cazgi.x2, cazgi.y2)
+                ' Else If cazgi.komut = 6 Then
+                '     Draw.Line(cazgi.dortx, cazgi.dorty, cazgi.besx, cazgi.besy)
+            Else If cazgi.komut = 25 Then
+                hgc = cazgi.yaricap
+                Draw.Circle(cazgi.x1, cazgi.y1, hgc)
+            Else If cazgi.komut = 20 Then
+                hgc = cazgi.yaricap
+                For it = Min(cazgi.teta, cazgi.r) To Max(cazgi.teta, cazgi.r) Step (1 / hgc)
+                    ix = cazgi.x1 + hgc * Cos(it)
+                    iy = cazgi.y1 - hgc * Sin(it)
+                    Draw.Point(ix, iy)
+                Next
+            Else If cazgi.komut = 60 Then
+                draw.Font.Size = cazgi.x6
+                draw.Text(cazgi.yazi, cazgi.x1, cazgi.y1)
+            End If
+        End If
+    Next
+    Catch
+ilk.hatayaz("aladrw " & Error.Text, Error.Where & "--" & Error.code)
+
+End
+
+Public Sub Form_Open()
+
+    Me.text = "KediCAD 2B Block"
+    ala.Refresh
+
+End
+
+Public Sub Form_Close()
+
+    ilk.dolas
+    Me.Close
+
+End
+
+Public Sub Label2_MouseDown()
+
+End

@@ -1,0 +1,432 @@
+' Gambas class file
+
+Private $sPath As String
+Public onay1 As String
+Public onay2 As String
+Public onay3 As String
+Public eg As Float
+
+Static Public Sub Main()
+
+    Dim hForm As Form
+
+    hForm = New Pase
+    hForm.Show
+
+End
+
+Public Sub Button1_Click()
+
+    Dim a, b, h, c, e, f, g1, g2, g3, l1, l2, l3, l4, l5, l6, l7, l8, m, n, t1, t2, t3, m1, m2, m3, w1, w2, w3, fh, x1, at1, at2, at3, tyuk, sap As Float
+
+    If ComboBox1.Text = "316 / 304" Then eg = 1500
+    If ComboBox1.Text = "431" Then eg = 1800
+    If ComboBox1.Text = "Alüminyum" Then eg = 900
+    If ComboBox1.Text = "St 42" Then eg = 1400
+    If csira.Value = True Then
+        sap = 2
+    Else
+        sap = 1
+    End If
+    a = CFloat(TextBox21.Text)
+    f = CFloat(TextBox1.Text) * 1.25
+    g1 = CFloat(TextBox2.Text)
+    g2 = CFloat(TextBox3.Text)
+    g3 = CFloat(TextBox4.Text)
+    l4 = CFloat(TextBox5.Text)
+    l3 = CFloat(TextBox6.Text)
+    l6 = CFloat(TextBox7.Text)
+    l2 = CFloat(TextBox8.Text)
+    l5 = CFloat(TextBox9.Text)
+    l1 = CFloat(TextBox10.Text)
+    t1 = CFloat(TextBox13.Text)
+    t2 = CFloat(TextBox16.Text)
+    t3 = CFloat(TextBox19.Text)
+    x1 = CFloat(TextBox25.Text)
+    l7 = l4 - l6
+    m1 = l7 * f + (l3 - l6) * g1
+    w1 = m1 / (eg * 10)
+    l8 = l4 - l5
+    m2 = l8 * f + (l3 - l5) * g1 + (l2 - l5) * g2
+    w2 = m2 / (eg * 10)
+    m3 = l4 * f + l3 * g1 + l2 * g2 + l1 * g3
+    w3 = m3 / (eg * 10)
+    fh = (m3 / x1) / CFloat(TextBox21.Text)
+    TextBox26.Text = Format$(m1 / 10, "#.##")
+    TextBox27.Text = Format$(m2 / 10, "#.##")
+    TextBox28.Text = Format$(m3 / 10, "#.##")
+    TextBox29.Text = Format$(w1, "#.##")
+    TextBox30.Text = Format$(w2, "#.##")
+    TextBox31.Text = Format$(w3, "#.##")
+    b = CFloat(TextBox11.Text) / 10
+    h = CFloat(TextBox12.Text) / 10
+    e = b - (2 * (t1 / 10))
+    c = h - (2 * (t1 / 10))
+    at1 = sap * ((b * h ^ 3 / 12) - (e * c ^ 3 / 12))
+    TextBox32.Text = Format$(at1 * sap / h, "#.##")
+
+    If CFloat(TextBox32.Text) < CFloat(TextBox29.Text) Then
+        Label22.Visible = True
+        onay1 = "UYGUN DEĞİL"
+    Else
+        Label22.Visible = False
+        onay1 = "UYGUN"
+    Endif
+
+    b = CFloat(TextBox14.Text) / 10
+    h = CFloat(TextBox15.Text) / 10
+    e = b - (2 * (t2 / 10))
+    c = h - (2 * (t2 / 10))
+    at2 = sap * ((b * h ^ 3 / 12) - (e * c ^ 3 / 12))
+    TextBox33.Text = Format$(at2 * sap / h, "#.##")
+
+    If CFloat(TextBox33.Text) < CFloat(TextBox30.Text) Then
+        Label23.Visible = True
+        onay2 = "UYGUN DEĞİL"
+    Else
+        Label23.Visible = False
+        onay2 = "UYGUN"
+    Endif
+
+    b = CFloat(TextBox18.Text) / 10
+    h = CFloat(TextBox17.Text) / 10
+    e = b - (2 * (t3 / 10))
+    c = h - (2 * (t3 / 10))
+    at3 = sap * ((b * h ^ 3 / 12) - (e * c ^ 3 / 12))
+    TextBox34.Text = Format$(at3 * sap / h, "#.##")
+    If (at3 * 2 / h) < w3
+        label24.Visible = True
+        onay3 = "UYGUN DEĞİL"
+    Else
+        label24.Visible = False
+        onay3 = "UYGUN"
+    End If
+    If CheckBox1.Value = False Then m3 = l3 * g1 + l2 * g2 + l1 * g3
+    fh = (m3 / x1) / CFloat(TextBox21.Text)
+    TextBox35.Text = Format$(Abs(fh), "#.##")
+    hidrof.yuk.Text = Abs(fh)
+    hidrof.strok.Text = CFloat(TextBox22.Text) / 10
+    hidrof.sure.Text = CFloat(TextBox23.Text)
+    hidrof.basinc.Text = CFloat(TextBox24.Text)
+    hidrof.Button3_Click
+    TextBox36.Text = hidrof.scap.Text
+    TextBox37.Text = hidrof.scap2.Text
+    m = Val(hidrof.debi.Text)
+    n = Val(hidrof.mgucu.Text)
+    TextBox38.Text = Format$(Abs(m * a), "#.##")
+    TextBox39.Text = Format$(Abs(n * a), "#.##")
+
+    tyuk = (CFloat(gyuk.Text) - CFloat(yyuk.Text)) / 2
+    tyuk = Abs(fh / 2) * tyuk + (Abs(fh) * CFloat(yyuk.Text) / 4)
+    tyuk = (32 * tyuk / (Pi * 1400 * 10)) ^ (1 / 3) * 10
+    TextBox20.Text = Format$(Abs(tyuk), "#.##")
+Catch
+    Message(Error.Text, "Tamam")
+
+End
+
+Public Sub Button3_Click()
+
+    Dim dosya As String
+
+    Dim myFile As File
+
+    If Dialog.SaveFile() Then Return
+    dosya = File.Name(Dialog.Path)
+    $sPath = File.Dir(Dialog.Path)
+    myFile = Open $sPath &/ dosya & ".txt" For Create
+    Print #myFile, "   PASERELLA HESAPLARI/ SONUÇLARI"
+    Print #myFile, "PROJE : " & TextBox40.Text
+    Print #myFile, "          GİRDİLER "
+    Print #myFile, "     YÜKLER "
+    Print #myFile, "Taşınan Yük (kgf.) :  " & TextBox1.Text
+    Print #myFile, "1.Kademe Ağırlığı (kgf.) :  " & TextBox2.Text
+    Print #myFile, "2.Kademe Ağırlığı (kgf.) :  " & TextBox3.Text
+    Print #myFile, "3.Kademe Ağırlığı (kgf.) :  " & TextBox4.Text
+    Print #myFile, "     UZAKLIKLAR "
+    Print #myFile, "Taşınan Yük Uzaklığı (mm.) :  " & TextBox5.Text
+    Print #myFile, "1.Kademe Ağırlığı Uzaklığı (mm.) :  " & TextBox6.Text
+    Print #myFile, "2.Kademe Ağırlığı Uzaklığı (mm.) :  " & TextBox8.Text
+    Print #myFile, "3.Kademe Ağırlığı Uzaklığı (mm.) :  " & TextBox10.Text
+    Print #myFile, "2.Kademe Uzaklığı (mm.) :  " & TextBox7.Text
+    Print #myFile, "3.Kademe Uzaklığı (mm.) :  " & TextBox9.Text
+    Print #myFile, "     KESİTLER "
+    Print #myFile, "1.Kademe Kesiti (mm.) :  " & TextBox12.Text & "  X " & TextBox11.Text & " X " & TextBox13.Text
+    Print #myFile, "2.Kademe Kesiti (mm.) :  " & TextBox15.Text & " X " & TextBox14.Text & " X " & TextBox16.Text
+    Print #myFile, "3.Kademe Kesiti (mm.) :  " & TextBox17.Text & " X " & TextBox18.Text & " X " & TextBox19.Text
+    Print #myFile, "     SİLİNDİR "
+    Print #myFile, "Silindir Eksen Mesafesi (mm.) :  " & TextBox25.Text
+    Print #myFile, "Silindir Sayısı (adet) :  " & TextBox21.Text
+    Print #myFile, "Strok (mm.) : " & TextBox22.Text
+    Print #myFile, "Çıkış Süresi (sn.) :  " & TextBox23.Text
+    Print #myFile, "Çalışma Basıncı (bar) :  " & TextBox24.Text
+    Print #myFile, "      "
+    Print #myFile, "      "
+    Print #myFile, "          SONUÇLAR "
+    Print #myFile, "1.KADEME "
+    Print #myFile, "MOMENT-1 (kgf.cm.) :  " & TextBox26.Text
+    Print #myFile, "Mukavemet Momenti-1 gereken (cm^3.) :  " & TextBox29.Text
+    Print #myFile, "Mukavemet Momenti-1 olan (cm^3.) :  " & TextBox32.Text
+    Print #myFile, "1.Kademe Kesiti :  " & onay1
+    Print #myFile, "2.KADEME "
+    Print #myFile, "MOMENT-2 (kgf.cm.) :  " & TextBox27.Text
+    Print #myFile, "Mukavemet Momenti-2 gereken (cm^3.):  " & TextBox30.Text
+    Print #myFile, "Mukavemet Momenti-2 olan (cm^3.):  " & TextBox33.Text
+    Print #myFile, "2.Kademe Kesiti :  " & onay2
+    Print #myFile, "3.KADEME "
+    Print #myFile, "MOMENT3 (kgf.cm.) :  " & TextBox28.Text
+    Print #myFile, "Mukavemet Momenti-3 gereken (cm^3.):  " & TextBox31.Text
+    Print #myFile, "Mukavemet Momenti-3 olan (cm^3.):  " & TextBox34.Text
+    Print #myFile, "3.Kademe Kesiti :  " & onay3
+    Print #myFile, "      "
+    Print #myFile, "Bir Silindire Gelen Yük (kgf.):  " & TextBox35.Text
+    Print #myFile, "Silindire İç Çapı (mm.) :  " & TextBox36.Text
+    Print #myFile, "Silindire Dış Çapı (mm.) :  " & TextBox37.Text
+    Print #myFile, "Güç (kW.) :  " & TextBox39.Text
+    Print #myFile, "Pompa (lt/dk.):  " & TextBox38.Text
+    Print #myFile, ComboBox1.index
+    Print #myFile, csira.Value
+    Print #myFile, tsira.Value
+    Print #myFile, yyuk.Text
+    Print #myFile, gyuk.Text
+    Print #myFile, TextBox25.Text
+    Print #myFile, TextBox21.Text
+    Close myFile
+
+End
+
+Public Sub Button2_Click()
+
+    Me.Close
+
+End
+
+Public shq As String
+Public shw As String
+Public she As String
+Public shi As String
+
+Sub bol(yasi As String)
+
+    Dim sb As String
+    Dim iran As Integer
+    Dim satir As String[]
+
+    satir = Split(yasi, ":")
+    For Each sb In satir
+        iran = iran + 1
+        If iran = 2 Then shi = sb
+    Next
+    Return
+
+End
+
+Sub yol(yasi As String)
+
+    Dim sb As String
+    Dim iran As Integer
+    Dim satir As String[]
+
+    satir = Split(yasi, "X")
+    For Each sb In satir
+        iran = iran + 1
+        If iran = 1 Then shq = sb
+        If iran = 2 Then shw = sb
+        If iran = 3 Then she = sb
+    Next
+    Return
+
+End
+
+Public Sub Button4_Click()
+
+    Dim dosya As String
+
+    Dim myFile As File
+    Dim myLine As String
+    Dim doza As Integer
+
+    If Dialog.OpenFile() Then Return
+    dosya = File.Name(Dialog.Path)
+    $sPath = File.Dir(Dialog.Path)
+    myFile = Open $sPath &/ dosya For Read
+    If Lof(myFile) > 0 Then
+        While Not Eof(myFile)
+            Line Input #myFile, myLine
+            bol(myLine)
+            If doza = 1 Then TextBox40.Text = Trim$(shi)
+            If doza = 4 Then TextBox1.Text = Trim$(shi)
+            If doza = 5 Then TextBox2.Text = Trim$(shi)
+            If doza = 6 Then TextBox3.Text = Trim$(shi)
+            If doza = 7 Then TextBox4.Text = Trim$(shi)
+            If doza = 9 Then TextBox5.Text = Trim$(shi)
+            If doza = 10 Then TextBox6.Text = Trim$(shi)
+            If doza = 11 Then TextBox8.Text = Trim$(shi)
+            If doza = 12 Then TextBox10.Text = Trim$(shi)
+            If doza = 13 Then TextBox7.Text = Trim$(shi)
+            If doza = 14 Then TextBox9.Text = Trim$(shi)
+            If doza = 16 Then
+                yol(shi)
+                TextBox12.Text = Trim$(shq)
+                TextBox11.Text = Trim$(shw)
+                TextBox13.Text = Trim$(she)
+            End If
+            If doza = 17 Then
+                yol(shi)
+                TextBox15.Text = Trim$(shq)
+                TextBox14.Text = Trim$(shw)
+                TextBox16.Text = Trim$(she)
+            End If
+            If doza = 18 Then
+                yol(shi)
+                TextBox17.Text = Trim$(shq)
+                TextBox18.Text = Trim$(shw)
+                TextBox19.Text = Trim$(she)
+            End If
+            '     Print #myFile, ComboBox1.Text
+            '     Print #myFile, csira.Value
+            ' Print #myFile, tsira.Value
+            ' Print #myFile, tyuk.Text
+            ' Print #myFile, gyuk.Text
+            ' Print #myFile, TextBox25.Text
+            ' Print #myFile, TextBox21.Text
+            If doza = 49 Then ComboBox1.index = Trim$(myLine)
+            If doza = 50 Then csira.Value = Val(Trim$(myLine))
+            If doza = 51 Then tsira.Value = Val(Trim$(myLine))
+            If doza = 52 Then yyuk.Text = Trim$(myLine)
+            If doza = 53 Then gyuk.Text = Trim$(myLine)
+            If doza = 54 Then TextBox25.Text = Trim$(myLine)
+            If doza = 55 Then TextBox21.Text = Trim$(myLine)
+            doza = doza + 1
+        Wend
+    End If
+    Close myFile
+    Button1_Click
+
+End
+
+Public Sub Form_Open()
+
+    Me.Center
+    Me.Text = "KediCAD"
+    ComboBox1.Add("316 / 304")
+    ComboBox1.Add("431")
+    ComboBox1.Add("Alüminyum")
+    ComboBox1.Add("St 42")
+
+End
+
+Public Sub Button5_Click()
+
+    TextBox20.Clear
+    TextBox26.Clear
+    TextBox27.Clear
+    TextBox28.Clear
+    TextBox29.Clear
+    TextBox30.Clear
+    TextBox31.Clear
+    TextBox32.Clear
+    TextBox33.Clear
+    TextBox34.Clear
+    TextBox35.Clear
+    TextBox36.Clear
+    TextBox37.Clear
+    TextBox38.Clear
+    TextBox39.Clear
+    label22.Visible = False
+    label23.Visible = False
+    label24.Visible = False
+
+End
+
+Public Sub Button6_Click()
+
+    Button5_Click
+    TextBox21.Clear
+    TextBox22.Clear
+    TextBox23.Clear
+    TextBox24.Clear
+    TextBox25.Clear
+    TextBox1.Clear
+    TextBox2.Clear
+    TextBox3.Clear
+    TextBox4.Clear
+    TextBox5.Clear
+    TextBox6.Clear
+    TextBox7.Clear
+    TextBox8.Clear
+    TextBox9.Clear
+    TextBox10.Clear
+    TextBox11.Clear
+    TextBox12.Clear
+    TextBox13.Clear
+    TextBox14.Clear
+    TextBox15.Clear
+    TextBox16.Clear
+    TextBox17.Clear
+    TextBox18.Clear
+    TextBox19.Clear
+    yyuk.Clear
+    gyuk.Clear
+
+End
+
+Public Sub TextBox11_Change()
+
+    label22.Visible = False
+
+End
+
+Public Sub TextBox12_Change()
+
+    label22.Visible = False
+
+End
+
+Public Sub TextBox13_Change()
+
+    label22.Visible = False
+
+End
+
+Public Sub TextBox14_Change()
+
+    label23.Visible = False
+
+End
+
+Public Sub TextBox15_Change()
+
+    label23.Visible = False
+
+End
+
+Public Sub TextBox16_Change()
+
+    label23.Visible = False
+
+End
+
+Public Sub TextBox18_Change()
+
+    label24.Visible = False
+
+End
+
+Public Sub TextBox17_Change()
+
+    label24.Visible = False
+
+End
+
+Public Sub TextBox19_Change()
+
+    label24.Visible = False
+
+End
+
+Public Sub PictureBox1_MouseDown()
+
+    
+
+End
